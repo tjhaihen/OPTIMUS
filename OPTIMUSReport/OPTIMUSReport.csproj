@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9A8AAF70-A2D3-4423-BFBE-A8C63B4526BA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OPTIMUSReport</RootNamespace>
+    <AssemblyName>OPTIMUSReport</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v11.1">
+      <HintPath>..\..\..\_dll\DevExpress.Data.v11.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Design.v11.1">
+      <HintPath>..\..\..\_dll\DevExpress.Design.v11.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v11.1.Core">
+      <HintPath>..\..\..\_dll\DevExpress.Printing.v11.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v11.1">
+      <HintPath>..\..\..\_dll\DevExpress.Utils.v11.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxEditors.v11.1">
+      <HintPath>..\..\..\_dll\DevExpress.Web.ASPxEditors.v11.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.v11.1">
+      <HintPath>..\..\..\_dll\DevExpress.Web.v11.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v11.1">
+      <HintPath>..\..\..\_dll\DevExpress.XtraReports.v11.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v11.1.Web">
+      <HintPath>..\..\..\_dll\DevExpress.XtraReports.v11.1.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BasePortraitReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BasePortraitReport.Designer.cs">
+      <DependentUpon>BasePortraitReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseLandscapeReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BaseLandscapeReport.Designer.cs">
+      <DependentUpon>BaseLandscapeReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasePotraitPlainReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BasePotraitPlainReport.Designer.cs">
+      <DependentUpon>BasePotraitPlainReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseRpt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemSetup\LPengguna.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemSetup\LPengguna.Designer.cs">
+      <DependentUpon>LPengguna.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BasePortraitReport.resx">
+      <DependentUpon>BasePortraitReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseLandscapeReport.resx">
+      <DependentUpon>BaseLandscapeReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="SystemSetup\LPengguna.resx">
+      <DependentUpon>LPengguna.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Raven.Data.Core\Raven.Data.Core.csproj">
+      <Project>{CAC7A3D3-E6BB-4C97-B728-B87D395EB688}</Project>
+      <Name>Raven.Data.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raven.OPTIMUS.Common\Raven.OPTIMUS.Common.csproj">
+      <Project>{59F1938C-C13A-4A5D-939E-CA5A88FD77F9}</Project>
+      <Name>Raven.OPTIMUS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raven.OPTIMUS.Data.Service\Raven.OPTIMUS.Data.Service.csproj">
+      <Project>{EDA56689-73E4-41E0-A4EA-12BD7C56A81A}</Project>
+      <Name>Raven.OPTIMUS.Data.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.spPharmacyItemBalanceByWarehouseByLocation.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.spPharmacyStockCard.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.spSensusRIPerBulanPerKelas.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.spSensusRIPerBulanPerRuang.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.spSensusRIPerTahunPerKelas.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.spSensusRIPerTahunPerRuang.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vAppoinmentMCU.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vAppoinmentMD.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vAppointmentRJ.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vBadItem.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vBedInformationRI.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vBusinessPartner.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vBuyRequest.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vClass.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vClinic.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vEmergencyCarePatientExamination.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vEmergencyCareRevenue.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vEmergencyCareTransaction.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vFormulaProd.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vFormularium.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vHealthcareProfessional.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vInpatientDetailRegistration.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vInpatientTransaction.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vLaboratoryTariff.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vMedicalCheckUpTariff.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vMedicalDiagnosticUnit.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vNeoNatalRI.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vOutpatientRevenue.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vOutpatientTransaction.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPatient.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyConsignmentOrder.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyConsignmentReceive.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyConsignmentReturn.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyCreditNote.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyDirectPurchase.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyDirectPurchaseReturn.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyGoodsRequest.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyItem.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyItemAdjustment.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyItemConsumption.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyItemDistribution.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyItemPriceAdjustment.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyItemProduction.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyItemReorderPoint.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyPrescriptionReturn.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyPrescriptionSales.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyPurchaseOrder.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyPurchaseOrderReceived.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyPurchaseReceive.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyPurchaseRequest.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyPurchaseReturn.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyRevenue.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyStockInitialization.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPharmacyStockOpnameResult.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vPhysicianSchedule.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vReferral.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vRegistrationIGD.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vRegistrationMCU.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vRegistrationMD.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vRegistrationPatientAll.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vRegistrationRI.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vRegistrationRJ.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vRekapAnestesiIGD.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vRekapKunjunganIGD.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vSupplier.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vSupplierItemMatrix.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vTariff.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vTestAndResultMD.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vUser.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vWaitingListRI.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vWard.datasource" />
+    <None Include="Properties\DataSources\QIS.Medinfras.Data.Service.vWarehouseLocation.datasource" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

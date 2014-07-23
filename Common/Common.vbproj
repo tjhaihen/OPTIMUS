@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EE2E0956-7B93-4C4B-B90E-9DB36391C6E5}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Raven.Common</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>Off</OptionStrict>
+    <RootNamespace>
+    </RootNamespace>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>Windows</MyType>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Raven.Common.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Raven.Common.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BusinessRule\CertificateInspection.vb" />
+    <Compile Include="BusinessRule\CheckListOfCompletionReport.vb" />
+    <Compile Include="BusinessRule\CommonCode.vb" />
+    <Compile Include="BusinessRule\Company.vb" />
+    <Compile Include="BusinessRule\Customer.vb" />
+    <Compile Include="BusinessRule\DailyReportDt.vb" />
+    <Compile Include="BusinessRule\DailyReportHd.vb" />
+    <Compile Include="BusinessRule\DrillPipeReportDt.vb" />
+    <Compile Include="BusinessRule\DrillPipeReportHd.vb" />
+    <Compile Include="BusinessRule\HardnessTestDt.vb" />
+    <Compile Include="BusinessRule\HardnessTestHd.vb" />
+    <Compile Include="BusinessRule\ID.vb" />
+    <Compile Include="BusinessRule\InspectionReportDt.vb" />
+    <Compile Include="BusinessRule\InspectionReportHd.vb" />
+    <Compile Include="BusinessRule\InspectionSpec.vb" />
+    <Compile Include="BusinessRule\Menu.vb" />
+    <Compile Include="BusinessRule\MPIDt.vb" />
+    <Compile Include="BusinessRule\MPIHd.vb" />
+    <Compile Include="BusinessRule\Person.vb" />
+    <Compile Include="BusinessRule\Product.vb" />
+    <Compile Include="BusinessRule\ProductReportType.vb" />
+    <Compile Include="BusinessRule\ProjectDt.vb" />
+    <Compile Include="BusinessRule\ProjectHd.vb" />
+    <Compile Include="BusinessRule\ProjectReportType.vb" />
+    <Compile Include="BusinessRule\ProjectResource.vb" />
+    <Compile Include="BusinessRule\Report.vb" />
+    <Compile Include="BusinessRule\ReportType.vb" />
+    <Compile Include="BusinessRule\Resource.vb" />
+    <Compile Include="BusinessRule\SearchList.vb" />
+    <Compile Include="BusinessRule\ServiceReport.vb" />
+    <Compile Include="BusinessRule\SummaryOfInspection.vb" />
+    <Compile Include="BusinessRule\TimeSheet.vb" />
+    <Compile Include="BusinessRule\UserManagement\Profile.vb" />
+    <Compile Include="BusinessRule\UserManagement\ProfileMenu.vb" />
+    <Compile Include="BusinessRule\UserManagement\Site.vb" />
+    <Compile Include="BusinessRule\UserManagement\User.vb" />
+    <Compile Include="BusinessRule\UserManagement\UserCustomer.vb" />
+    <Compile Include="BusinessRule\UserManagement\UserProfile.vb" />
+    <Compile Include="BusinessRule\UserManagement\UserSite.vb" />
+    <Compile Include="BusinessRule\UTSpotCheckDt.vb" />
+    <Compile Include="BusinessRule\UTSpotCheckHd.vb" />
+    <Compile Include="bussinessRulesBase.vb" />
+    <Compile Include="BusinessRule\MyReport.vb" />
+    <Compile Include="Constants.vb" />
+    <Compile Include="DirectPrinting.vb" />
+    <Compile Include="ExceptionManager.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SysConfig.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Methods.vb" />
+    <Compile Include="ProcessNull.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SystemParameter.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BusinessRule\Custom\" />
+    <Folder Include="My Project\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Raven.OPTIMUS.Common\Raven.OPTIMUS.Common.csproj">
+      <Project>{59F1938C-C13A-4A5D-939E-CA5A88FD77F9}</Project>
+      <Name>Raven.OPTIMUS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SystemFrameWork\SystemFrameWork.vbproj">
+      <Project>{BA89C258-AFC5-41C7-88F5-638DF632B835}</Project>
+      <Name>SystemFrameWork</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

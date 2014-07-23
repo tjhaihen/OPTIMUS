@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <connectionString>server=.\SQLSVR2008;User ID=sa;Password=codenameraven;database=OPTIMUS;Application Name=OPTIMUS</connectionString>
+</config>

@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>Search Result: Kode COA By Kode Buku Treasury</title>
+		<script src="srchlocc.aspx" language="javascript"></script>
+	</head>
+	<script language=javascript>
+		function getParm(string,parm) {
+				// returns value of parm from string
+				var startPos = string.indexOf(parm + "=");
+				if (startPos > -1) {
+					startPos = startPos + parm.length + 1;
+					var endPos = string.indexOf("&",startPos);
+					if (endPos == -1)
+						endPos = string.length;
+					return unescape(string.substring(startPos,endPos));
+				}
+				return '';
+		}
+
+		function initUrl()
+		{
+				var passed = location.search.substring(1);
+				var url = applicationUrl()+'?bt=gl_cbk&fn=kdCOA&sv=%';
+				main.location = url+'&kdbuku='+getParm(passed,'kdbuku');
+		}
+		
+	/*function initUrl()
+		{
+			main.location = applicationUrl()+'?bt=gl_cbk&fn=kdbuku&sv=%';
+		}*/
+	</script>
+	
+	<frameset rows="0,*" onload="initUrl();">
+		<frame name="header" src="" scrolling="no" noresize>
+		<frame name="main" src="">
+	</frameset>
+</html>
