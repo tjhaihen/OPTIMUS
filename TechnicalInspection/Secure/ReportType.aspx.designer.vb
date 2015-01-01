@@ -78,6 +78,15 @@ Namespace Raven.Web.Secure
         Protected WithEvents rfvReportTypeCode As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
         '''<summary>
+        '''txtDocumentNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtDocumentNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''txtReportTypeName control.
         '''</summary>
         '''<remarks>
@@ -96,6 +105,15 @@ Namespace Raven.Web.Secure
         Protected WithEvents rfvReportTypeName As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
         '''<summary>
+        '''txtRevisionNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtRevisionNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''txtSequence control.
         '''</summary>
         '''<remarks>
@@ -105,6 +123,24 @@ Namespace Raven.Web.Secure
         Protected WithEvents txtSequence As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''calEffectiveDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents calEffectiveDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''chkIsNoEffectiveDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents chkIsNoEffectiveDate As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
         '''txtPanelID control.
         '''</summary>
         '''<remarks>
@@ -112,6 +148,15 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents txtPanelID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''chkIsMandatory control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents chkIsMandatory As Global.System.Web.UI.WebControls.CheckBox
 
         '''<summary>
         '''chkIsActive control.

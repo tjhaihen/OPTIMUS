@@ -7,14 +7,13 @@ Imports System.Data.SqlClient
 Imports Raven.Common
 
 Namespace Raven.Common.BussinessRules
-    Public Class MPIDt
+    Public Class Temp_InspectionReportHd
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _MPIDtID, _MPIHdID, _MPIpicDescription, _MPIpicType, _MPIpicGroupSCode As String
-        Private _MPIpicSize As Integer
-        Private _MPIpic As SqlBinary
-        Private _insertDate, _updateDate As DateTime
+        Private _inspectionReportHdID, _projectID, _inspectionReportNo, _materialDescription, _typeOfInspection, _result As String
+        Private _inspectionPic As Byte()
+        Private _inspectionDate, _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
 
@@ -29,29 +28,33 @@ Namespace Raven.Common.BussinessRules
 #Region " C,R,U,D "
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "INSERT INTO MPIDt " + _
-                                        "(MPIHdID, MPIDtID, MPIpic, " + _
-                                        "MPIpicDescription, MPIpicSize, MPIpicType, MPIpicGroupSCode, " + _
-                                        "userIDinsert, userIDupdate, insertDate, updateDate) " + _
+            cmdToExecute.CommandText = "INSERT INTO InspectionReportHd " + _
+                                        "(inspectionReportHdID, projectID, inspectionReportNo, " + _
+                                        "materialDescription, typeOfInspection, result, inspectionPic, " + _
+                                        "inspectionDate, insertDate, updateDate, " + _
+                                        "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
-                                        "(@MPIHdID, @MPIDtID, @MPIpic, " + _
-                                        "@MPIpicDescription, @MPIpicSize, @MPIpicType, @MPIpicGroupSCode, " + _
-                                        "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
+                                        "(@inspectionReportHdID, @projectID, @inspectionReportNo, " + _
+                                        "@materialDescription, @typeOfInspection, @result, @inspectionPic, " + _
+                                        "@inspectionDate, GETDATE(), GETDATE(), " + _
+                                        "@userIDInsert, @userIDUpdate)"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
-            Dim strID As String = ID.GenerateIDNumber("MPIDt", "MPIDtID")
+            Dim strID As String = ID.GenerateIDNumber("InspectionReportHd", "inspectionReportHdID")
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@MPIHdID", _MPIHdID)
-                cmdToExecute.Parameters.AddWithValue("@MPIDtID", strID)
-                cmdToExecute.Parameters.AddWithValue("@MPIpic", _MPIpic)
-                cmdToExecute.Parameters.AddWithValue("@MPIpicDescription", _MPIpicDescription)
-                cmdToExecute.Parameters.AddWithValue("@MPIpicSize", _MPIpicSize)
-                cmdToExecute.Parameters.AddWithValue("@MPIpicType", _MPIpicType)
-                cmdToExecute.Parameters.AddWithValue("@MPIpicGroupSCode", _MPIpicGroupSCode)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportHdID", strID)
+                cmdToExecute.Parameters.AddWithValue("@projectID", _projectID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportNo", _inspectionReportNo)
+                cmdToExecute.Parameters.AddWithValue("@inspectionDate", _inspectionDate)
+                cmdToExecute.Parameters.AddWithValue("@materialDescription", _materialDescription)
+                cmdToExecute.Parameters.AddWithValue("@typeOfInspection", _typeOfInspection)
+                cmdToExecute.Parameters.AddWithValue("@materialDescription", _materialDescription)
+                cmdToExecute.Parameters.AddWithValue("@result", _result)
+                cmdToExecute.Parameters.AddWithValue("@inspectionPic", _inspectionPic)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDInsert)
-                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
+                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -59,7 +62,7 @@ Namespace Raven.Common.BussinessRules
                 ' // Execute Query
                 cmdToExecute.ExecuteNonQuery()
 
-                _MPIDtID = strID
+                _inspectionReportHdID = strID
                 Return True
             Catch ex As Exception
                 ExceptionManager.Publish(ex)
@@ -71,19 +74,24 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Update() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "UPDATE MPIDt " + _
-                                        "SET MPIpicDescription=@MPIpicDescription, " + _
-                                        "MPIpicGroupSCode=@MPIpicGroupSCode, " + _
-                                        "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
-                                        "WHERE MPIDtID=@MPIDtID"
+            cmdToExecute.CommandText = "UPDATE InspectionReportHd " + _
+                                        "SET inspectionReportNo=@inspectionReportNo, inspectionDate=@inspectionDate, " + _
+                                        "materialDescription=@materialDescription, typeOfInspection=@typeOfInspection, result=@result, " + _
+                                        "inspectionPic=@inpsectionPic, userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
+                                        "WHERE inspectionReportHdID=@inspectionReportHdID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
-            Try                
-                cmdToExecute.Parameters.AddWithValue("@MPIDtID", _MPIDtID)                
-                cmdToExecute.Parameters.AddWithValue("@MPIpicDescription", _MPIpicDescription)
-                cmdToExecute.Parameters.AddWithValue("@MPIpicGroupSCode", _MPIpicGroupSCode)
+            Try
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportHdID", _inspectionReportHdID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportNo", _inspectionReportNo)
+                cmdToExecute.Parameters.AddWithValue("@inspectionDate", _inspectionDate)
+                cmdToExecute.Parameters.AddWithValue("@materialDescription", _materialDescription)
+                cmdToExecute.Parameters.AddWithValue("@typeOfInspection", _typeOfInspection)
+                cmdToExecute.Parameters.AddWithValue("@materialDescription", _materialDescription)
+                cmdToExecute.Parameters.AddWithValue("@result", _result)
+                cmdToExecute.Parameters.AddWithValue("@inspectionPic", _inspectionPic)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
@@ -103,10 +111,10 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectAll() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM MPIDt"
+            cmdToExecute.CommandText = "SELECT * FROM InspectionReportHd"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("MPIDt")
+            Dim toReturn As DataTable = New DataTable("InspectionReportHd")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
@@ -132,16 +140,16 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectOne(Optional ByVal recStatus As RavenRecStatus = RavenRecStatus.CurrentRecord) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM MPIDt WHERE MPIDtID=@MPIDtID"
+            cmdToExecute.CommandText = "SELECT * FROM InspectionReportHd WHERE inspectionReportHdID=@inspectionReportHdID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("MPIDt")
+            Dim toReturn As DataTable = New DataTable("InspectionReportHd")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@MPIDtID", _MPIDtID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportHdID", _inspectionReportHdID)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -150,15 +158,16 @@ Namespace Raven.Common.BussinessRules
                 adapter.Fill(toReturn)
 
                 If toReturn.Rows.Count > 0 Then
-                    _MPIHdID = CType(toReturn.Rows(0)("MPIHdID"), String)
-                    _MPIDtID = CType(toReturn.Rows(0)("MPIDtID"), String)
-                    _MPIpic = CType(toReturn.Rows(0)("MPIpic"), Byte())
-                    _MPIpicDescription = CType(toReturn.Rows(0)("MPIpicDescription"), String)
-                    _MPIpicSize = CType(toReturn.Rows(0)("MPIpicSize"), Integer)
-                    _MPIpicType = CType(toReturn.Rows(0)("MPIpicType"), String)
-                    _MPIpicGroupSCode = CType(toReturn.Rows(0)("MPIpicGroupSCode"), String)
+                    _inspectionReportHdID = CType(toReturn.Rows(0)("inspectionReportHdID"), String)
+                    _projectID = CType(toReturn.Rows(0)("projectID"), String)
+                    _inspectionReportNo = CType(toReturn.Rows(0)("inspectionReportNo"), String)
+                    _inspectionDate = CType(toReturn.Rows(0)("inspectionDate"), DateTime)
+                    _materialDescription = CType(toReturn.Rows(0)("materialDescription"), String)
+                    _typeOfInspection = CType(toReturn.Rows(0)("typeOfInspection"), String)
+                    _result = CType(toReturn.Rows(0)("result"), String)
+                    _inspectionPic = CType(toReturn.Rows(0)("inspectionPic"), Byte())
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
-                    _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
+                    _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
                     _updateDate = CType(toReturn.Rows(0)("updateDate"), DateTime)
                 End If
@@ -177,14 +186,14 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Delete() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "DELETE FROM MPIDt " + _
-                                        "WHERE MPIDtID=@MPIDtID"
+            cmdToExecute.CommandText = "DELETE FROM InspectionReportHd " + _
+                                        "WHERE inspectionReportHdID=@inspectionReportHdID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@MPIDtID", _MPIDtID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportHdID", _inspectionReportHdID)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -203,19 +212,19 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Custom Function "
-        Public Function SelectByMPIHdID() As DataTable
+        Public Function SelectByProjectID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "SELECT * " +
-                                        "FROM MPIDt WHERE MPIHdID=@MPIHdID"
+                                        "FROM InspectionReportHd WHERE projectID=@projectID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("MPIDt")
+            Dim toReturn As DataTable = New DataTable("InspectionReportHd")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@MPIHdID", _MPIHdID)
+                cmdToExecute.Parameters.AddWithValue("@projectID", _projectID)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -237,66 +246,75 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Class Property Declarations "
-        Public Property [MPIHdID]() As String
+        Public Property [inspectionReportHdID]() As String
             Get
-                Return _MPIHdID
+                Return _inspectionReportHdID
             End Get
             Set(ByVal Value As String)
-                _MPIHdID = Value
+                _inspectionReportHdID = Value
             End Set
         End Property
 
-        Public Property [MPIDtID]() As String
+        Public Property [projectID]() As String
             Get
-                Return _MPIDtID
+                Return _projectID
             End Get
             Set(ByVal Value As String)
-                _MPIDtID = Value
+                _projectID = Value
             End Set
         End Property
 
-        Public Property [MPIpic]() As SqlBinary
+        Public Property [inspectionReportNo]() As String
             Get
-                Return _MPIpic
-            End Get
-            Set(ByVal Value As SqlBinary)
-                _MPIpic = Value
-            End Set
-        End Property
-
-        Public Property [MPIpicDescription]() As String
-            Get
-                Return _MPIpicDescription
+                Return _inspectionReportNo
             End Get
             Set(ByVal Value As String)
-                _MPIpicDescription = Value
+                _inspectionReportNo = Value
             End Set
         End Property
 
-        Public Property [MPIpicSize]() As Integer
+        Public Property [inspectionDate]() As DateTime
             Get
-                Return _MPIpicSize
+                Return _inspectionDate
             End Get
-            Set(ByVal Value As Integer)
-                _MPIpicSize = Value
+            Set(ByVal Value As DateTime)
+                _inspectionDate = Value
             End Set
         End Property
 
-        Public Property [MPIpicType]() As String
+        Public Property [materialDescription]() As String
             Get
-                Return _MPIpicType
-            End Get
-            Set(ByVal Value As String)
-                _MPIpicType = Value
-            End Set
-        End Property
-
-        Public Property [MPIpicGroupSCode]() As String
-            Get
-                Return _MPIpicGroupSCode
+                Return _materialDescription
             End Get
             Set(ByVal Value As String)
-                _MPIpicGroupSCode = Value
+                _materialDescription = Value
+            End Set
+        End Property
+
+        Public Property [typeOfInspection]() As String
+            Get
+                Return _typeOfInspection
+            End Get
+            Set(ByVal Value As String)
+                _typeOfInspection = Value
+            End Set
+        End Property
+
+        Public Property [result]() As String
+            Get
+                Return _result
+            End Get
+            Set(ByVal Value As String)
+                _result = Value
+            End Set
+        End Property
+
+        Public Property [inpsectionPic]() As Byte()
+            Get
+                Return _inspectionPic
+            End Get
+            Set(ByVal Value As Byte())
+                _inspectionPic = Value
             End Set
         End Property
 

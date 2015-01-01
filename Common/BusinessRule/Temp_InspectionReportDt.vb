@@ -7,13 +7,13 @@ Imports System.Data.SqlClient
 Imports Raven.Common
 
 Namespace Raven.Common.BussinessRules
-    Public Class UTSpotCheckDt
+    Public Class Temp_InspectionReportDt
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _UTSpotCheckDtID, _UTSpotCheckHdID, _structureTallyNo, _location, _size, _length, _remark As String
-        Private _wallThickness1, _wallThickness2, _wallThickness3, _wallThickness4 As String
-        Private _hardnessTest1, _hardnessTest2, _hardnessTest3, _hardnessTest4 As String
+        Private _inspectionReportDtID, _inspectionReportHdID, _serialNo, _length, _remark As String
+        Private _Adesc, _Bdesc, _Cdesc, _Ddesc As String
+        Private _Edesc, _Fdesc, _Gdesc, _Hdesc, _Idesc As String
         Private _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
@@ -29,39 +29,38 @@ Namespace Raven.Common.BussinessRules
 #Region " C,R,U,D "
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "INSERT INTO UTSpotCheckDt " + _
-                                        "(UTSpotCheckHdID, UTSpotCheckDtID, structureTallyNo, location, size, length, remark, " + _
-                                        "wallThickness1, wallThickness2, wallThickness3, wallThickness4, " + _
-                                        "hardnessTest1, hardnessTest2, hardnessTest3, hardnessTest4, " + _
+            cmdToExecute.CommandText = "INSERT INTO InspectionReportDt " + _
+                                        "(inspectionReportHdID, inspectionReportDtID, serialNo, length, " + _
+                                        "remark, Adesc, Bdesc, Cdesc, Ddesc, " + _
+                                        "Edesc, Fdesc, Gdesc, Hdesc, Idesc, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
-                                        "(@UTSpotCheckHdID, @UTSpotCheckDtID, @structureTallyNo, @location, @size, @length, @remark, " + _
-                                        "@wallThickness1, @wallThickness2, @wallThickness3, @wallThickness4, " + _
-                                        "@hardnessTest1, @hardnessTest2, @hardnessTest3, @hardnessTest4, " + _
+                                        "(@inspectionReportHdID, @inspectionReportDtID, @serialNo, @length, " + _
+                                        "@remark, @Adesc, @Bdesc, @Cdesc, @Ddesc, " + _
+                                        "@Edesc, @Fdesc, @Gdesc, @Hdesc, @Idesc, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
-            Dim strID As String = ID.GenerateIDNumber("UTSpotCheckDt", "UTSpotCheckDtID")
+            Dim strID As String = ID.GenerateIDNumber("InspectionReportDt", "inspectionReportDtID")
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckHdID", _UTSpotCheckHdID)
-                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckDtID", strID)
-                cmdToExecute.Parameters.AddWithValue("@structureTallyNo", _structureTallyNo)
-                cmdToExecute.Parameters.AddWithValue("@location", _location)
-                cmdToExecute.Parameters.AddWithValue("@size", _size)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportHdID", _inspectionReportHdID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportDtID", strID)
+                cmdToExecute.Parameters.AddWithValue("@serialNo", _serialNo)
                 cmdToExecute.Parameters.AddWithValue("@length", _length)
                 cmdToExecute.Parameters.AddWithValue("@remark", _remark)
-                cmdToExecute.Parameters.AddWithValue("@wallThickness1", _wallThickness1)
-                cmdToExecute.Parameters.AddWithValue("@wallThickness2", _wallThickness2)
-                cmdToExecute.Parameters.AddWithValue("@wallThickness3", _wallThickness3)
-                cmdToExecute.Parameters.AddWithValue("@wallThickness4", _wallThickness4)
-                cmdToExecute.Parameters.AddWithValue("@hardnessTest1", _hardnessTest1)
-                cmdToExecute.Parameters.AddWithValue("@hardnessTest2", _hardnessTest2)
-                cmdToExecute.Parameters.AddWithValue("@hardnessTest3", _hardnessTest3)
-                cmdToExecute.Parameters.AddWithValue("@hardnessTest4", _hardnessTest4)
+                cmdToExecute.Parameters.AddWithValue("@Adesc", _Adesc)
+                cmdToExecute.Parameters.AddWithValue("@Bdesc", _Bdesc)
+                cmdToExecute.Parameters.AddWithValue("@Cdesc", _Cdesc)
+                cmdToExecute.Parameters.AddWithValue("@Ddesc", _Ddesc)
+                cmdToExecute.Parameters.AddWithValue("@Edesc", _Edesc)
+                cmdToExecute.Parameters.AddWithValue("@Fdesc", _Fdesc)
+                cmdToExecute.Parameters.AddWithValue("@Gdesc", _Gdesc)
+                cmdToExecute.Parameters.AddWithValue("@Hdesc", _Hdesc)
+                cmdToExecute.Parameters.AddWithValue("@Idesc", _Idesc)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDInsert)
-                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
+                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -69,7 +68,7 @@ Namespace Raven.Common.BussinessRules
                 ' // Execute Query
                 cmdToExecute.ExecuteNonQuery()
 
-                _UTSpotCheckDtID = strID
+                _inspectionReportDtID = strID
                 Return True
             Catch ex As Exception
                 ExceptionManager.Publish(ex)
@@ -81,31 +80,30 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Update() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "UPDATE UTSpotCheckDt " + _
-                                        "SET structureTallyNo=@structureTallyNo, location=@location, size=@size, length=@length, remark=@remark, " + _
-                                        "wallThickness1=@wallThickness1, wallThickness2=@wallThickness2, wallThickness3=@wallThickness3, wallThickness4=@wallThickness4, " + _
-                                        "hardnessTest1=@hardnessTest1, hardnessTest2=@hardnessTest2, hardnessTest3=@hardnessTest3, hardnessTest4=@hardnessTest4, " + _
+            cmdToExecute.CommandText = "UPDATE InspectionReportDt " + _
+                                        "SET serialNo=@serialNo, length=@length, " + _
+                                        "remark=@remark, Adesc=@Adesc, Bdesc=@Bdesc, Cdesc=@Cdesc, Ddesc=@Ddesc, " + _
+                                        "Edesc=@Edesc, Fdesc=@Fdesc, Gdesc=@Gdesc, Hdesc=@Hdesc, Idesc=@Idesc, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
-                                        "WHERE UTSpotCheckDtID=@UTSpotCheckDtID"
+                                        "WHERE inspectionReportDtID=@inspectionReportDtID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckDtID", _UTSpotCheckDtID)
-                cmdToExecute.Parameters.AddWithValue("@structureTallyNo", _structureTallyNo)
-                cmdToExecute.Parameters.AddWithValue("@location", _location)
-                cmdToExecute.Parameters.AddWithValue("@size", _size)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportDtID", _inspectionReportDtID)
+                cmdToExecute.Parameters.AddWithValue("@serialNo", _serialNo)
                 cmdToExecute.Parameters.AddWithValue("@length", _length)
                 cmdToExecute.Parameters.AddWithValue("@remark", _remark)
-                cmdToExecute.Parameters.AddWithValue("@wallThickness1", _wallThickness1)
-                cmdToExecute.Parameters.AddWithValue("@wallThickness2", _wallThickness2)
-                cmdToExecute.Parameters.AddWithValue("@wallThickness3", _wallThickness3)
-                cmdToExecute.Parameters.AddWithValue("@wallThickness4", _wallThickness4)
-                cmdToExecute.Parameters.AddWithValue("@hardnessTest1", _hardnessTest1)
-                cmdToExecute.Parameters.AddWithValue("@hardnessTest2", _hardnessTest2)
-                cmdToExecute.Parameters.AddWithValue("@hardnessTest3", _hardnessTest3)
-                cmdToExecute.Parameters.AddWithValue("@hardnessTest4", _hardnessTest4)
+                cmdToExecute.Parameters.AddWithValue("@Adesc", _Adesc)
+                cmdToExecute.Parameters.AddWithValue("@Bdesc", _Bdesc)
+                cmdToExecute.Parameters.AddWithValue("@Cdesc", _Cdesc)
+                cmdToExecute.Parameters.AddWithValue("@Ddesc", _Ddesc)
+                cmdToExecute.Parameters.AddWithValue("@Edesc", _Edesc)
+                cmdToExecute.Parameters.AddWithValue("@Fdesc", _Fdesc)
+                cmdToExecute.Parameters.AddWithValue("@Gdesc", _Gdesc)
+                cmdToExecute.Parameters.AddWithValue("@Hdesc", _Hdesc)
+                cmdToExecute.Parameters.AddWithValue("@Idesc", _Idesc)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
@@ -125,10 +123,10 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectAll() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM UTSpotCheckDt"
+            cmdToExecute.CommandText = "SELECT * FROM InspectionReportDt"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("UTSpotCheckDt")
+            Dim toReturn As DataTable = New DataTable("InspectionReportDt")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
@@ -154,16 +152,16 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectOne(Optional ByVal recStatus As RavenRecStatus = RavenRecStatus.CurrentRecord) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM UTSpotCheckDt WHERE UTSpotCheckDtID=@UTSpotCheckDtID"
+            cmdToExecute.CommandText = "SELECT * FROM InspectionReportDt WHERE inspectionReportDtID=@inspectionReportDtID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("UTSpotCheckDt")
+            Dim toReturn As DataTable = New DataTable("InspectionReportDt")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckDtID", _UTSpotCheckDtID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportDtID", _inspectionReportDtID)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -172,23 +170,22 @@ Namespace Raven.Common.BussinessRules
                 adapter.Fill(toReturn)
 
                 If toReturn.Rows.Count > 0 Then
-                    _UTSpotCheckHdID = CType(toReturn.Rows(0)("UTSpotCheckHdID"), String)
-                    _UTSpotCheckDtID = CType(toReturn.Rows(0)("UTSpotCheckDtID"), String)
-                    _structureTallyNo = CType(toReturn.Rows(0)("structureTallyNo"), String)
-                    _location = CType(toReturn.Rows(0)("location"), String)
-                    _size = CType(toReturn.Rows(0)("size"), String)
+                    _inspectionReportHdID = CType(toReturn.Rows(0)("inspectionReportHdID"), String)
+                    _inspectionReportDtID = CType(toReturn.Rows(0)("inspectionReportDtID"), String)
+                    _serialNo = CType(toReturn.Rows(0)("serialNo"), String)
                     _length = CType(toReturn.Rows(0)("length"), String)
                     _remark = CType(toReturn.Rows(0)("remark"), String)
-                    _wallThickness1 = CType(toReturn.Rows(0)("wallThickness1"), String)
-                    _wallThickness2 = CType(toReturn.Rows(0)("wallThickness2"), String)
-                    _wallThickness3 = CType(toReturn.Rows(0)("wallThickness3"), String)
-                    _wallThickness4 = CType(toReturn.Rows(0)("wallThickness4"), String)
-                    _hardnessTest1 = CType(toReturn.Rows(0)("hardnessTest1"), String)
-                    _hardnessTest2 = CType(toReturn.Rows(0)("hardnessTest2"), String)
-                    _hardnessTest3 = CType(toReturn.Rows(0)("hardnessTest3"), String)
-                    _hardnessTest4 = CType(toReturn.Rows(0)("hardnessTest4"), String)
+                    _Adesc = CType(toReturn.Rows(0)("Adesc"), String)
+                    _Bdesc = CType(toReturn.Rows(0)("Bdesc"), String)
+                    _Cdesc = CType(toReturn.Rows(0)("Cdesc"), String)
+                    _Ddesc = CType(toReturn.Rows(0)("Ddesc"), String)
+                    _Edesc = CType(toReturn.Rows(0)("Edesc"), String)
+                    _Fdesc = CType(toReturn.Rows(0)("Fdesc"), String)
+                    _Gdesc = CType(toReturn.Rows(0)("Gdesc"), String)
+                    _Hdesc = CType(toReturn.Rows(0)("Hdesc"), String)
+                    _Idesc = CType(toReturn.Rows(0)("Idesc"), String)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
-                    _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
+                    _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
                     _updateDate = CType(toReturn.Rows(0)("updateDate"), DateTime)
                 End If
@@ -207,14 +204,14 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Delete() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "DELETE FROM UTSpotCheckDt " + _
-                                        "WHERE UTSpotCheckDtID=@UTSpotCheckDtID"
+            cmdToExecute.CommandText = "DELETE FROM InspectionReportDt " + _
+                                        "WHERE inspectionReportDtID=@inspectionReportDtID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckDtID", _UTSpotCheckDtID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportDtID", _inspectionReportDtID)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -233,19 +230,19 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Custom Function "
-        Public Function SelectByUTSpotCheckHdID() As DataTable
+        Public Function SelectByInspectionReportHdID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "SELECT drd.* " +
-                                        "FROM UTSpotCheckDt drd WHERE drd.UTSpotCheckHdID=@UTSpotCheckHdID"
+                                        "FROM InspectionReportDt drd WHERE drd.inspectionReportHdID=@inspectionReportHdID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("UTSpotCheckDt")
+            Dim toReturn As DataTable = New DataTable("InspectionReportDt")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckHdID", _UTSpotCheckHdID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportHdID", _inspectionReportHdID)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -267,48 +264,30 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Class Property Declarations "
-        Public Property [UTSpotCheckHdID]() As String
+        Public Property [inspectionReportHdID]() As String
             Get
-                Return _UTSpotCheckHdID
+                Return _inspectionReportHdID
             End Get
             Set(ByVal Value As String)
-                _UTSpotCheckHdID = Value
+                _inspectionReportHdID = Value
             End Set
         End Property
 
-        Public Property [UTSpotCheckDtID]() As String
+        Public Property [inspectionReportDtID]() As String
             Get
-                Return _UTSpotCheckDtID
+                Return _inspectionReportDtID
             End Get
             Set(ByVal Value As String)
-                _UTSpotCheckDtID = Value
+                _inspectionReportDtID = Value
             End Set
         End Property
 
-        Public Property [structureTallyNo]() As String
+        Public Property [serialNo]() As String
             Get
-                Return _structureTallyNo
+                Return _serialNo
             End Get
             Set(ByVal Value As String)
-                _structureTallyNo = Value
-            End Set
-        End Property
-
-        Public Property [location]() As String
-            Get
-                Return _location
-            End Get
-            Set(ByVal Value As String)
-                _location = Value
-            End Set
-        End Property
-
-        Public Property [size]() As String
-            Get
-                Return _size
-            End Get
-            Set(ByVal Value As String)
-                _size = Value
+                _serialNo = Value
             End Set
         End Property
 
@@ -330,75 +309,84 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
-        Public Property [wallThickness1]() As String
+        Public Property [Adesc]() As String
             Get
-                Return _wallThickness1
+                Return _Adesc
             End Get
             Set(ByVal Value As String)
-                _wallThickness1 = Value
+                _Adesc = Value
             End Set
         End Property
 
-        Public Property [wallThickness2]() As String
+        Public Property [Bdesc]() As String
             Get
-                Return _wallThickness2
+                Return _Bdesc
             End Get
             Set(ByVal Value As String)
-                _wallThickness2 = Value
+                _Bdesc = Value
             End Set
         End Property
 
-        Public Property [wallThickness3]() As String
+        Public Property [Cdesc]() As String
             Get
-                Return _wallThickness3
+                Return _Cdesc
             End Get
             Set(ByVal Value As String)
-                _wallThickness3 = Value
+                _Cdesc = Value
             End Set
         End Property
 
-        Public Property [wallThickness4]() As String
+        Public Property [Ddesc]() As String
             Get
-                Return _wallThickness4
+                Return _Ddesc
             End Get
             Set(ByVal Value As String)
-                _wallThickness4 = Value
+                _Ddesc = Value
             End Set
         End Property
 
-        Public Property [hardnessTest1]() As String
+        Public Property [Edesc]() As String
             Get
-                Return _hardnessTest1
+                Return _Edesc
             End Get
             Set(ByVal Value As String)
-                _hardnessTest1 = Value
+                _Edesc = Value
             End Set
         End Property
 
-        Public Property [hardnessTest2]() As String
+        Public Property [Fdesc]() As String
             Get
-                Return _hardnessTest2
+                Return _Fdesc
             End Get
             Set(ByVal Value As String)
-                _hardnessTest2 = Value
+                _Fdesc = Value
             End Set
         End Property
 
-        Public Property [hardnessTest3]() As String
+        Public Property [Gdesc]() As String
             Get
-                Return _hardnessTest3
+                Return _Gdesc
             End Get
             Set(ByVal Value As String)
-                _hardnessTest3 = Value
+                _Gdesc = Value
             End Set
         End Property
 
-        Public Property [hardnessTest4]() As String
+        Public Property [Hdesc]() As String
             Get
-                Return _hardnessTest4
+                Return _Hdesc
             End Get
             Set(ByVal Value As String)
-                _hardnessTest4 = Value
+                _Hdesc = Value
+            End Set
+        End Property
+
+        Public Property [Idesc]() As String
+            Get
+                Return _Idesc
+            End Get
+            Set(ByVal Value As String)
+                _Idesc = Value
             End Set
         End Property
 

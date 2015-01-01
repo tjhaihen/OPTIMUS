@@ -113,7 +113,7 @@ Namespace Raven.Web
             Select Case e.Item.ItemType
                 Case ListItemType.Item, ListItemType.AlternatingItem
                     e.Item.Attributes.Add("onmouseover", "javascript:this.style.backgroundColor='#00bcf2';this.style.color='#ffffff';this.focus;this.style.cursor='pointer';")
-                    e.Item.Attributes.Add("onmouseout", "javascript:this.style.backgroundColor='#ffffff';this.style.color='#000000'")                    
+                    e.Item.Attributes.Add("onmouseout", "javascript:this.style.backgroundColor='#ffffff';this.style.color='#000000'")
             End Select
         End Sub
 
@@ -222,8 +222,8 @@ Namespace Raven.Web
 
 #Region " Daily Inspection Report "
         Private Sub DIR_txtDailyReportHdID_TextChanged(sender As Object, e As System.EventArgs) Handles DIR_txtDailyReportHdID.TextChanged
-            _open(Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID)
-            SetDataGrid(Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID)
+            _open(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID)
+            SetDataGrid(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID)
         End Sub
 
         Private Sub DIR_grdDailyReportDt_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles DIR_grdDailyReportDt.ItemCommand
@@ -231,7 +231,7 @@ Namespace Raven.Web
                 Case "Edit"
                     Dim _DIR_lblDailyReportDtID As Label = CType(e.Item.FindControl("DIR_lblDailyReportDtID"), Label)
                     DIR_txtDailyReportDtID.Text = _DIR_lblDailyReportDtID.Text.Trim
-                    _open(Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID)
+                    _open(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID)
             End Select
         End Sub
 #End Region
@@ -307,17 +307,29 @@ Namespace Raven.Web
             SetDataGrid(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID)
         End Sub
 
+        Private Sub DP_ddlCaptionTemplate_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles DP_ddlCaptionTemplate.SelectedIndexChanged
+            _openCaptionTemplateDrillPipe()
+        End Sub
+
         Private Sub DP_grdDrillPipeReportDt_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles DP_grdDrillPipeReportDt.ItemCommand
             Select Case e.CommandName
                 Case "Edit"
                     Dim _DP_lblDrillPipeReportDtID As Label = CType(e.Item.FindControl("DP_lblDrillPipeReportDtID"), Label)
                     DP_txtDrillPipeReportDtID.Text = _DP_lblDrillPipeReportDtID.Text.Trim
                     _open(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID)
+                Case "Delete"
+                    Dim _DP_lblDrillPipeReportDtID As Label = CType(e.Item.FindControl("DP_lblDrillPipeReportDtID"), Label)                    
+                    _delete(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID, _DP_lblDrillPipeReportDtID.Text.Trim)
+                    SetDataGrid(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID)
             End Select
         End Sub
 #End Region
 
 #Region " Service Report "
+        Private Sub SR_ddlServiceReportFor_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles SR_ddlServiceReportFor.SelectedIndexChanged
+            SetDataGrid(Common.Constants.ReportTypePanelID.ServiceReport_PanelID)
+        End Sub
+
         Private Sub SR_grdServiceReport_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles SR_grdServiceReport.ItemCommand
             Select Case e.CommandName
                 Case "Edit"
@@ -356,6 +368,97 @@ Namespace Raven.Web
             MPI_btnReportNo.Attributes.Remove("onclick")
             MPI_btnReportNo.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("MPIHd", MPI_txtReportNo.ClientID, txtProjectCode.Text.Trim + "|" + MPI_ddlMPIType.SelectedValue.Trim))
             PrepareScreen(Common.Constants.ReportTypePanelID.MPIReport_PanelID, False, True)
+        End Sub
+
+        Private Sub MPI_btnUploadImage_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles MPI_btnUploadImage.Click
+            Dim strFileName As String
+            Dim strFileExtension As String
+            Dim strFilePath As String
+            Dim strFolder As String
+
+            strFolder = Server.MapPath("ImgTmp") + "\"
+
+            strFileName = MPI_ImageFile.PostedFile.FileName
+            strFileName = Path.GetFileName(strFileName)
+            strFileExtension = Path.GetExtension(strFileName)
+
+            If (Not Directory.Exists(strFolder)) Then
+                Directory.CreateDirectory(strFolder)
+            End If
+
+            'Save the uploaded file to the server.
+            strFilePath = strFolder & MPI_txtMPIDtID.Text.Trim & strFileName
+            If File.Exists(strFilePath) Then
+                File.Delete(strFilePath)
+            Else
+                MPI_ImageFile.PostedFile.SaveAs(strFilePath)
+            End If
+
+            Dim fs As New FileStream(strFilePath, FileMode.OpenOrCreate, FileAccess.Read)
+            Dim b(CInt(fs.Length)) As Byte
+            fs.Read(b, 0, CInt(fs.Length))
+            fs.Close()
+
+            Dim br As New Common.BussinessRules.MPIDt
+            Dim fnotnew As Boolean = False
+
+            With br
+                .MPIDtID = MPI_txtMPIDtID.Text.Trim
+                fnotnew = (.SelectOne.Rows.Count > 0)
+                .MPIHdID = MPI_txtMPIHdID.Text.Trim
+                .MPIpic = New SqlBinary(b)
+                .MPIpicDescription = MPI_txtPicDescription.Text.Trim
+                .MPIpicSize = MPI_ImageFile.PostedFile.ContentLength
+                .MPIpicType = strFileExtension.Trim
+                .MPIpicGroupSCode = MPI_ddlPicGroup.SelectedValue.Trim
+                .userIDinsert = MyBase.LoggedOnUserID.Trim
+                .userIDupdate = MyBase.LoggedOnUserID.Trim
+
+                If fnotnew Then
+                    .Update()
+                Else
+                    .Insert()                    
+                End If
+                MPI_txtMPIDtID.Text = String.Empty
+                SetDataGrid(Common.Constants.ReportTypePanelID.MPIReport_PanelID)
+            End With
+            br.Dispose()
+            br = Nothing
+
+            File.Delete(strFilePath)
+        End Sub
+
+        Private Sub MPI_repMPIimages_ItemCommand(source As Object, e As System.Web.UI.WebControls.RepeaterCommandEventArgs) Handles MPI_repMPIimages.ItemCommand
+            Dim MPI_lblMPIDtIDonRep As Label = CType(e.Item.FindControl("MPI_lblMPIDtIDonRep"), Label)
+            Dim oBr As New Common.BussinessRules.MPIDt
+            oBr.MPIDtID = MPI_lblMPIDtIDonRep.Text.Trim
+
+            Select Case e.CommandName
+                Case "Edit"                    
+                    If oBr.SelectOne.Rows.Count > 0 Then
+                        MPI_txtMPIDtID.Text = MPI_lblMPIDtIDonRep.Text.Trim
+                        MPI_txtPicDescription.Text = oBr.MPIpicDescription.Trim
+                        MPI_ddlPicGroup.SelectedValue = oBr.MPIpicGroupSCode.Trim
+                    End If
+
+                Case "Delete"                    
+                    If oBr.Delete() Then
+                        SetDataGrid(Common.Constants.ReportTypePanelID.MPIReport_PanelID)
+                    End If
+            End Select
+
+            oBr.Dispose()
+            oBr = Nothing
+        End Sub
+
+        Private Sub MPI_repMPIimages_ItemDataBound(sender As Object, e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles MPI_repMPIimages.ItemDataBound
+            Select Case e.Item.ItemType
+                Case ListItemType.Item, ListItemType.AlternatingItem
+                    Dim MPI_img As Image = CType(e.Item.FindControl("MPI_img"), Image)                    
+                    Dim MPI_lblMPIDtIDonRep As Label = CType(e.Item.FindControl("MPI_lblMPIDtIDonRep"), Label)
+
+                    MPI_img.ImageUrl = UrlBase + "/secure/GetImage.aspx?imgType=MPI&cn=" + MPI_lblMPIDtIDonRep.Text.Trim                    
+            End Select
         End Sub
 #End Region
 
@@ -400,7 +503,32 @@ Namespace Raven.Web
 
         Private Sub HT_txtReportNo_TextChanged(sender As Object, e As System.EventArgs) Handles HT_txtReportNo.TextChanged
             _open(Common.Constants.ReportTypePanelID.HardnessTest_PanelID)
-        End Sub        
+        End Sub
+#End Region
+
+#Region " Service Acceptance "
+        Private Sub SetDataGridProjectDetail()
+            Dim oProjectDt As New Common.BussinessRules.ProjectDt
+            oProjectDt.projectID = txtProjectID.Text.Trim
+            SA_grdProjectDt.DataSource = oProjectDt.SelectByProjectID
+            SA_grdProjectDt.DataBind()
+            oProjectDt.Dispose()
+            oProjectDt = Nothing
+        End Sub
+
+        Private Sub SA_grdProjectDt_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles SA_grdProjectDt.ItemCommand
+            Select Case e.CommandName
+                Case "Print"
+                    Dim br As New Common.BussinessRules.MyReport
+                    Dim strUserID As String = MyBase.LoggedOnUserID.Trim
+                    Dim SA_lblProjectDtID As Label = CType(e.Item.FindControl("SA_lblProjectDtID"), Label)
+
+                    br.ReportCode = "1000000099"
+                    br.AddParameters(SA_lblProjectDtID.Text.Trim)
+                    br.AddParameters(strUserID)
+                    Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
+            End Select
+        End Sub
 #End Region
 
 #End Region
@@ -411,7 +539,7 @@ Namespace Raven.Web
                 .VisibleButton(CSSToolbarItem.tidNew) = True
                 .VisibleButton(CSSToolbarItem.tidDelete) = False
                 .VisibleButton(CSSToolbarItem.tidVoid) = False
-                .VisibleButton(CSSToolbarItem.tidPrint) = False
+                .VisibleButton(CSSToolbarItem.tidPrint) = True
                 .VisibleButton(CSSToolbarItem.tidPrevious) = False
                 .VisibleButton(CSSToolbarItem.tidNext) = False
             End With
@@ -432,8 +560,8 @@ Namespace Raven.Web
                     If pnlDailyProgressReport.Visible Then
                         _update(Common.Constants.ReportTypePanelID.DailyProgressReport_PanelID)
                     End If
-                    If pnlDailyInspectionReport.Visible Then
-                        _update(Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID)
+                    If pnlDailyProgressReportMPI.Visible Then
+                        _update(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID)
                     End If
                     If pnlDrillPipeInspectionReport.Visible Then
                         _update(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID)
@@ -471,9 +599,9 @@ Namespace Raven.Web
                         PrepareScreen(Common.Constants.ReportTypePanelID.DailyProgressReport_PanelID, False, True)
                         SetDataGrid(Common.Constants.ReportTypePanelID.DailyProgressReport_PanelID)
                     End If
-                    If pnlDailyInspectionReport.Visible Then
-                        PrepareScreen(Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID, False, True)
-                        SetDataGrid(Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID)
+                    If pnlDailyProgressReportMPI.Visible Then
+                        PrepareScreen(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID, False, True)
+                        SetDataGrid(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID)
                     End If
                     If pnlDrillPipeInspectionReport.Visible Then
                         PrepareScreen(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID, False, True)
@@ -488,8 +616,7 @@ Namespace Raven.Web
                         SetDataGrid(Common.Constants.ReportTypePanelID.CertificateOfInspection_PanelID)
                     End If
                     If pnlMPIReport.Visible Then
-                        PrepareScreen(Common.Constants.ReportTypePanelID.MPIReport_PanelID, False, True)
-                        'SetDataGrid(Common.Constants.ReportTypePanelID.CertificateOfInspection_PanelID)
+                        PrepareScreen(Common.Constants.ReportTypePanelID.MPIReport_PanelID, False, True)                        
                     End If
                     If pnlUTSpotCheck.Visible Then
                         PrepareScreen(Common.Constants.ReportTypePanelID.UTSpotCheck_PanelID, False, True)
@@ -520,6 +647,7 @@ Namespace Raven.Web
 
                     If pnlTimeSheet.Visible Then
                         br.ReportCode = "1000000002"
+                        br.AddParameters(txtProjectID.Text.Trim)
                         br.AddParameters(TS_ddlMonth.SelectedValue.Trim)
                         br.AddParameters(TS_ddlYear.SelectedValue.Trim)
                         br.AddParameters(strUserID)
@@ -533,7 +661,7 @@ Namespace Raven.Web
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
-                    If pnlDailyInspectionReport.Visible Then
+                    If pnlDailyProgressReportMPI.Visible Then
                         br.ReportCode = "1000000004"
                         br.AddParameters(DIR_txtDailyReportHdID.Text.Trim)
                         br.AddParameters(strUserID)
@@ -549,7 +677,7 @@ Namespace Raven.Web
 
                     If pnlServiceReport.Visible Then
                         br.ReportCode = "1000000025"
-                        br.AddParameters(txtProjectID.Text.Trim)
+                        br.AddParameters(SR_txtServiceReportID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
@@ -575,13 +703,13 @@ Namespace Raven.Web
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
-                    If pnlUTSpotCheck.Visible Then
+                    If pnlHardnessTestReport.Visible Then
                         br.ReportCode = "1000000011"
                         br.AddParameters(HT_txtHardnessTestHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
-                    
+
                     br.Dispose()
                     br = Nothing
 
@@ -679,11 +807,18 @@ Namespace Raven.Web
                     DPR_grdDailyReportDt.DataBind()
                     oBR.Dispose()
                     oBR = Nothing
-                Case Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID
+                Case Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID
                     Dim oBR As New Common.BussinessRules.DailyReportDt
                     oBR.dailyReportHdID = DIR_txtDailyReportHdID.Text.Trim
                     DIR_grdDailyReportDt.DataSource = oBR.SelectByDailyReportHdID
                     DIR_grdDailyReportDt.DataBind()
+                    oBR.Dispose()
+                    oBR = Nothing
+                Case Common.Constants.ReportTypePanelID.MPIReport_PanelID
+                    Dim oBR As New Common.BussinessRules.MPIDt
+                    oBR.MPIHdID = MPI_txtMPIHdID.Text.Trim
+                    MPI_repMPIimages.DataSource = oBR.SelectByMPIHdID
+                    MPI_repMPIimages.DataBind()
                     oBR.Dispose()
                     oBR = Nothing
                 Case Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID
@@ -736,18 +871,18 @@ Namespace Raven.Web
 
             pnlTimeSheet.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlTimeSheet.ID, True, False))
             pnlDailyProgressReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlDailyProgressReport.ID, True, False))
-            pnlDailyInspectionReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlDailyInspectionReport.ID, True, False))
+            pnlDailyProgressReportMPI.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlDailyProgressReportMPI.ID, True, False))
 
             pnlServiceReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlServiceReport.ID, True, False))
             pnlMPIReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlMPIReport.ID, True, False))
             pnlDrillPipeInspectionReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlDrillPipeInspectionReport.ID, True, False))
 
-            pnlThroughVisualInspectionReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlThroughVisualInspectionReport.ID, True, False))
+            pnlThoroughVisualInspectionReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlThoroughVisualInspectionReport.ID, True, False))
             pnlInspectionTallyReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlInspectionTallyReport.ID, True, False))
             pnlUTSpotCheck.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlUTSpotCheck.ID, True, False))
 
             pnlRotaryShoulderConnectionReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlRotaryShoulderConnectionReport.ID, True, False))
-            pnlUTSpotEndArea.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlUTSpotEndArea.ID, True, False))
+            pnlUTSpotArea.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlUTSpotArea.ID, True, False))
             pnlCertificateInspection.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlCertificateInspection.ID, True, False))
 
             pnlHardnessTestReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlHardnessTestReport.ID, True, False))
@@ -755,11 +890,15 @@ Namespace Raven.Web
 
         Private Sub SetDropDownListItems()
             commonFunction.SetDDL_Table(CCR_ddlTypeOfReport, "CommonCode", Common.Constants.GroupCode.TypeOfReport_SCode)
+            commonFunction.SetDDL_Table(DP_ddlCaptionTemplate, "CaptionTemplate", String.Empty)
             commonFunction.SetDDL_Table(DPR_ddlWeatherCondition, "CommonCode", Common.Constants.GroupCode.Weather_SCode)
             commonFunction.SetDDL_Table(DIR_ddlWeatherCondition, "CommonCode", Common.Constants.GroupCode.Weather_SCode)
             commonFunction.SetDDL_Table(SR_ddlServiceReportFor, "CommonCode", Common.Constants.GroupCode.ServiceReportFor_SCode)
+            commonFunction.SetDDL_Table(DP_ddlRemarks, "CommonCode", Common.Constants.GroupCode.DrillPipeRemarks_SCode)
             commonFunction.SetDDL_Table(MPI_ddlMPIType, "CommonCode", Common.Constants.GroupCode.MPIType_SCode)
+            commonFunction.SetDDL_Table(MPI_ddlPicGroup, "CommonCode", Common.Constants.GroupCode.MPIPicGroup_SCode)
             commonFunction.SetDDL_Table(HT_ddlLocation, "CommonCode", Common.Constants.GroupCode.HardnessTestLocation_SCode)
+            commonFunction.SetDDL_Table(UTSC_ddlUTSpotType, "CommonCode", Common.Constants.GroupCode.UTSpotType_SCode)
         End Sub
 
         Private Sub SetRadioButtonListItems()
@@ -795,7 +934,7 @@ Namespace Raven.Web
                             commonFunction.Focus(Me, SOI_txtSequenceNo.ClientID)
                         End If
                     End If
-                    SOI_txtSummaryOfInspectionID.Text = String.Empty                    
+                    SOI_txtSummaryOfInspectionID.Text = String.Empty
                     SOI_pnlEntry.Visible = (SOI_rbtnlInputMethod.SelectedValue.Trim = "Entry")
                     SOI_pnlUpload.Visible = (SOI_rbtnlInputMethod.SelectedValue.Trim = "Upload")
                     SOI_txtSheetName.Text = "Sheet1"
@@ -878,7 +1017,7 @@ Namespace Raven.Web
                     DPR_txtQtyPrevious.Text = "0"
                     DPR_txtQtyCumulative.Text = "0"
 
-                Case Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID
+                Case Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID
                     DIR_btnSearchDailyReportHd.Attributes.Remove("onclick")
                     DIR_btnSearchDailyReportHd.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("DailyReportHd", DIR_txtDailyReportHdID.ClientID, txtProjectCode.Text.Trim))
 
@@ -915,7 +1054,7 @@ Namespace Raven.Web
                     DIR_txtDescription.Text = String.Empty
                     DIR_ddlWeatherCondition.SelectedIndex = 0
                     DIR_txtQty.Text = "0"
-                    DIR_txtResult.Text = String.Empty                    
+                    DIR_txtResult.Text = String.Empty
 
                 Case Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID
                     DP_btnSearchDrillPipeReport.Attributes.Remove("onclick")
@@ -979,37 +1118,43 @@ Namespace Raven.Web
                     DP_txtDrillPipeReportDtID.Text = String.Empty
                     DP_txtSerialNo.Text = String.Empty
 
+                    _openCaptionTemplateDrillPipe()
+
                     If _isNew = True Then
-                        DP_txtbdBodyWear.Text = String.Empty
-                        DP_txtbdBent.Text = String.Empty
-                        DP_txtbdBodyDamage.Text = String.Empty
-                        DP_txtbdEMI.Text = String.Empty
-                        DP_txtbdUTEndArea.Text = String.Empty
-                        DP_txtbdPlasticCoating.Text = String.Empty
-                        DP_txtbdWall.Text = String.Empty
-                        DP_txtbdWallRemanent.Text = String.Empty
-                        DP_txtbdTubeClass.Text = String.Empty
-                        DP_txtpcToolJointYear.Text = String.Empty
-                        DP_txtpcOutsideDia.Text = String.Empty
-                        DP_txtpcInsideDia.Text = String.Empty
-                        DP_txtpcTongSpace.Text = String.Empty
-                        DP_txtpcThreadLength.Text = String.Empty
-                        DP_txtpcBevelDia.Text = String.Empty
-                        DP_txtpcLead.Text = String.Empty
-                        DP_txtpcShoulderWidth.Text = String.Empty
-                        DP_txtpcNeckLength.Text = String.Empty
-                        DP_txtpcReface.Text = String.Empty
-                        DP_txtpcFinalCondition.Text = String.Empty
-                        DP_txtbcOutsideDia.Text = String.Empty
-                        DP_txtbcTongSpace.Text = String.Empty
-                        DP_txtbcQCDia.Text = String.Empty
-                        DP_txtbcQCDepth.Text = String.Empty
-                        DP_txtbcShoulderWidth.Text = String.Empty
-                        DP_txtbcBevelDia.Text = String.Empty
-                        DP_txtbcSealWidth.Text = String.Empty
-                        DP_txtbcReface.Text = String.Empty
-                        DP_txtbcFinalCondition.Text = String.Empty
+                        DP_txtBod001Value.Text = String.Empty
+                        DP_txtBod002Value.Text = String.Empty
+                        DP_txtBod003Value.Text = String.Empty
+                        DP_txtBod004Value.Text = String.Empty
+                        DP_txtBod005Value.Text = String.Empty
+                        DP_txtBod006Value.Text = String.Empty
+                        DP_txtBod007Value.Text = String.Empty
+                        DP_txtBod008Value.Text = String.Empty
+                        DP_txtBod009Value.Text = String.Empty
+                        DP_txtPin001Value.Text = String.Empty
+                        DP_txtPin002Value.Text = String.Empty
+                        DP_txtPin003Value.Text = String.Empty
+                        DP_txtPin004Value.Text = String.Empty
+                        DP_txtPin005Value.Text = String.Empty
+                        DP_txtPin006Value.Text = String.Empty
+                        DP_txtPin007Value.Text = String.Empty
+                        DP_txtPin008Value.Text = String.Empty
+                        DP_txtPin009Value.Text = String.Empty
+                        DP_txtPin010Value.Text = String.Empty
+                        DP_txtPin011Value.Text = String.Empty
+                        DP_txtBox001Value.Text = String.Empty
+                        DP_txtBox002Value.Text = String.Empty
+                        DP_txtBox003Value.Text = String.Empty
+                        DP_txtBox004Value.Text = String.Empty
+                        DP_txtBox005Value.Text = String.Empty
+                        DP_txtBox006Value.Text = String.Empty
+                        DP_txtBox007Value.Text = String.Empty
+                        DP_txtBox008Value.Text = String.Empty
+                        DP_txtBox009Value.Text = String.Empty
+                        DP_txtBox010Value.Text = String.Empty
+                        DP_txtBox011Value.Text = String.Empty
                         DP_txtRemarks.Text = String.Empty
+                        DP_chkIsPinHB.Checked = False
+                        DP_chkIsBoxHB.Checked = False
                         commonFunction.Focus(Me, DP_txtReportNo.ClientID)
                     End If
 
@@ -1034,25 +1179,35 @@ Namespace Raven.Web
 
                     Select Case lblReportTypeCode.Text.Trim
                         Case Common.Constants.ReportTypeCode.ServiceReportMPIDPI
-                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPILoadTest).Enabled = False
-                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIPullTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterLoadTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforePullTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterPullTest).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Tubular).Enabled = False
+                            SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI
                             SR_pnlTubular.Visible = False
                             SR_pnlNotTubular.Visible = True
                         Case Common.Constants.ReportTypeCode.ServiceReportMPILoadPullTest
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Tubular).Enabled = False
+                            SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest
                             SR_pnlTubular.Visible = False
                             SR_pnlNotTubular.Visible = True
                         Case Common.Constants.ReportTypeCode.ServiceReportTubular
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
-                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPILoadTest).Enabled = False
-                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIPullTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterLoadTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforePullTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterPullTest).Enabled = False
+                            SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.Tubular
                             SR_pnlTubular.Visible = True
                             SR_pnlNotTubular.Visible = False
                     End Select
 
                     commonFunction.Focus(Me, SR_ddlServiceReportFor.ClientID)
+
+                Case Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID
+                    SetDataGridProjectDetail()
 
                 Case Common.Constants.ReportTypePanelID.CertificateOfInspection_PanelID
                     COI_txtCertificateInspectionID.Text = String.Empty
@@ -1073,7 +1228,7 @@ Namespace Raven.Web
                     COI_txtResult.Text = String.Empty
                     COI_txtNotes.Text = String.Empty
 
-                Case Common.Constants.ReportTypePanelID.MPIReport_PanelID
+                Case Common.Constants.ReportTypePanelID.MPIReport_PanelID                    
                     If _isAfterInsert = False Then
                         MPI_btnReportNo.Attributes.Remove("onclick")
                         MPI_btnReportNo.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("MPIHd", MPI_txtReportNo.ClientID, txtProjectCode.Text.Trim + "|" + MPI_ddlMPIType.SelectedValue.Trim))
@@ -1083,13 +1238,21 @@ Namespace Raven.Web
                             MPI_calReportDate.selectedDate = Date.Today
                             MPI_txtSerialNo.Text = String.Empty
                             MPI_calExpiredDate.selectedDate = Date.Today
+
+                            MPI_txtMPIDtID.Text = String.Empty
+                            MPI_ddlPicGroup.SelectedIndex = 0                            
+                            MPI_txtPicDescription.Text = String.Empty
+                            MPI_btnUploadImage.Enabled = False
                         End If
                         MPI_txtDescription.Text = String.Empty
                         MPI_chkACIsASME.Checked = False
                         MPI_chkACIsAPISpec.Checked = False
                         MPI_chkIsACDS1.Checked = False
                         MPI_chkIsACOther.Checked = False
-                        MPI_txtACOtherDescription.Text = String.Empty
+                        MPI_txtACASMEDescription.Text = "ASME"
+                        MPI_txtACAPISpecDescription.Text = "API Spec."
+                        MPI_txtACDS1Description.Text = "DS-1"
+                        MPI_txtACOtherDescription.Text = "Other"
                         MPI_txtQty.Text = String.Empty
                         MPI_txtDimension.Text = String.Empty
                         MPI_txtAreaInspection.Text = String.Empty
@@ -1107,20 +1270,25 @@ Namespace Raven.Web
                         MPI_txtDeveloper.Text = String.Empty
                         MPI_rbtnlYoke.SelectedIndex = 0
                         MPI_rbtnlCoil.SelectedIndex = 0
-                        MPI_chkIsBlacklight.Checked = False
-                        MPI_chkIsRods.Checked = False
+                        MPI_rbtnlRods.SelectedValue = "No"
+                        MPI_rbtnlBlacklight.SelectedValue = "No"
                         MPI_rbtnlFluorescent.SelectedIndex = 0
                         MPI_rbtnlContrastBW.SelectedIndex = 0
-                        MPI_chkIsDyePenetrant.Checked = False
-                        MPI_chkIsWireBrush.Checked = False
-                        MPI_chkIsBlastCleaning.Checked = False
-                        MPI_chkIsGrinding.Checked = False
-                        MPI_chkIsMachining.Checked = False
+                        MPI_rbtnlDyePenetrant.SelectedValue = "No"
+                        MPI_rbtnlWireBrush.SelectedValue = "No"
+                        MPI_rbtnlBlastCleaning.SelectedValue = "No"
+                        MPI_rbtnlGrinding.SelectedValue = "No"
+                        MPI_rbtnlMachining.SelectedValue = "No"
                         MPI_txtInspectionResult.Text = String.Empty
                         MPI_txtNotes.Text = String.Empty
+                        MPI_txtYokeSerialNo.Text = String.Empty
+                        MPI_txtCoilSerialNo.Text = String.Empty
+                        MPI_txtRodsSerialNo.Text = String.Empty
+                        MPI_txtBlacklightSerialNo.Text = String.Empty
 
                         commonFunction.Focus(Me, MPI_ddlMPIType.ClientID)
                     Else
+                        MPI_btnUploadImage.Enabled = False
                         commonFunction.Focus(Me, MPI_txtReportNo.ClientID)
                     End If
 
@@ -1135,22 +1303,35 @@ Namespace Raven.Web
 
                     If _isAfterInsert Then
                         UTSC_txtUTSpotCheckDtID.Text = String.Empty
-                        commonFunction.Focus(Me, UTSC_txtTallyNo.ClientID)
+                        commonFunction.Focus(Me, UTSC_txtStructureTallyNo.ClientID)
                     Else
                         If _isNew Then
-                            If Len(UTSC_txtTallyNo.Text.Trim) > 0 Then
-                                commonFunction.Focus(Me, UTSC_txtLocation.ClientID)
+                            If Len(UTSC_txtStructureTallyNo.Text.Trim) > 0 Then
+                                commonFunction.Focus(Me, UTSC_txtSize.ClientID)
                             Else
-                                commonFunction.Focus(Me, UTSC_txtTallyNo.ClientID)
+                                commonFunction.Focus(Me, UTSC_txtStructureTallyNo.ClientID)
                             End If
 
-                            UTSC_txtNominalWT.Text = String.Empty
-                            UTSC_txtMinimalWT.Text = String.Empty
-                            UTSC_txtWallThicknessInch1.Text = "0"
-                            UTSC_txtWallThicknessInch2.Text = "0"
-                            UTSC_txtWallThicknessInch3.Text = "0"
+                            UTSC_txtDescription.Text = String.Empty
+                            UTSC_txtSerialNo.Text = String.Empty
+                            UTSC_txtMaterial.Text = String.Empty
+                            UTSC_txtEquipment.Text = String.Empty
+                            UTSC_txtCouplant.Text = String.Empty
+                            UTSC_txtProbeType.Text = String.Empty
+                            UTSC_txtImpactDevice.Text = String.Empty
+                            UTSC_txtReferenceLevel.Text = String.Empty
+                            UTSC_txtFrequency.Text = String.Empty
+                            UTSC_txtCalReference.Text = String.Empty
+                            UTSC_txtWallThickness1.Text = "0"
+                            UTSC_txtWallThickness2.Text = "0"
+                            UTSC_txtWallThickness3.Text = "0"
+                            UTSC_txtWallThickness4.Text = "0"
+                            UTSC_txtHardnessTest1.Text = "0"
+                            UTSC_txtHardnessTest2.Text = "0"
+                            UTSC_txtHardnessTest3.Text = "0"
+                            UTSC_txtHardnessTest4.Text = "0"
                             UTSC_txtRemark.Text = String.Empty
-                        End If                        
+                        End If
                     End If
 
                 Case Common.Constants.ReportTypePanelID.HardnessTest_PanelID
@@ -1256,6 +1437,9 @@ Namespace Raven.Web
                     End With
                     oBr.Dispose()
                     oBr = Nothing
+                Case Else
+                    CSSToolbar.VisibleButton(CSSToolbarItem.tidApprove) = False
+                    CSSToolbar.VisibleButton(CSSToolbarItem.tidPrint) = True
             End Select
         End Sub
 
@@ -1277,7 +1461,7 @@ Namespace Raven.Web
             '    Response.Write("Save Successfully!");
             '}
         End Sub
-    
+
 #End Region
 
 #Region " C,R,U,D "
@@ -1365,7 +1549,7 @@ Namespace Raven.Web
                     oDt = Nothing
                     SetDataGrid(Common.Constants.ReportTypePanelID.DailyProgressReport_PanelID)
 
-                Case Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID
+                Case Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID
                     Dim oHd As New Common.BussinessRules.DailyReportHd
                     With oHd
                         .dailyReportHdID = DIR_txtDailyReportHdID.Text.Trim
@@ -1395,7 +1579,7 @@ Namespace Raven.Web
                     End With
                     oDt.Dispose()
                     oDt = Nothing
-                    SetDataGrid(Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID)
+                    SetDataGrid(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID)
 
                 Case Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID
                     Dim oHd As New Common.BussinessRules.DrillPipeReportHd
@@ -1411,6 +1595,8 @@ Namespace Raven.Web
                             DP_txtConnection.Text = .connection.Trim
                             DP_txtRange.Text = .range.Trim
                             DP_txtNominalWT.Text = .nominalWT.Trim
+                            DP_ddlCaptionTemplate.SelectedValue = .captionTemplateHdID.Trim
+                            _openCaptionTemplateDrillPipe()
                             DP_txtSpecificationID.Text = .inspectionSpecID.Trim
                             _openInspectionSpec()
                             isNew = False
@@ -1426,38 +1612,48 @@ Namespace Raven.Web
                     With oDt
                         .drillPipeReportDtID = DP_txtDrillPipeReportDtID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
+                            Dim remarksArr As String() = .remarks.Split(New [Char]() {CChar("^")})
+                            Dim remarksSCode As String = String.Empty
+                            Dim remarksText As String = String.Empty
+                            remarksSCode = remarksArr(0)
+                            remarksText = remarksArr(1)
                             DP_txtSequenceNo.Text = .sequenceNo.Trim
                             DP_txtSerialNo.Text = .serialNo.Trim
-                            DP_txtRemarks.Text = .remarks.Trim
-                            DP_txtbdBodyWear.Text = .bdBodyWear.Trim
-                            DP_txtbdBent.Text = .bdBent.Trim
-                            DP_txtbdBodyDamage.Text = .bdBodyDamage.Trim
-                            DP_txtbdEMI.Text = .bdEMI.Trim
-                            DP_txtbdUTEndArea.Text = .bdUTEndArea.Trim
-                            DP_txtbdPlasticCoating.Text = .bdPlasticCoating.Trim
-                            DP_txtbdWall.Text = .bdWall.Trim
-                            DP_txtbdWallRemanent.Text = .bdWallRemanent.Trim
-                            DP_txtbdTubeClass.Text = .bdTubeClass.Trim
-                            DP_txtpcToolJointYear.Text = .pcToolJointYear.Trim
-                            DP_txtpcOutsideDia.Text = .pcOutsideDia.Trim
-                            DP_txtpcInsideDia.Text = .pcInsideDia.Trim
-                            DP_txtpcTongSpace.Text = .pcTongSpace.Trim
-                            DP_txtpcThreadLength.Text = .pcThreadLength.Trim
-                            DP_txtpcBevelDia.Text = .pcBevelDia.Trim
-                            DP_txtpcLead.Text = .pcLead.Trim
-                            DP_txtpcShoulderWidth.Text = .pcShoulderWidth.Trim
-                            DP_txtpcNeckLength.Text = .pcNeckLength.Trim
-                            DP_txtpcReface.Text = .pcReface.Trim
-                            DP_txtpcFinalCondition.Text = .pcFinalCondition.Trim
-                            DP_txtbcOutsideDia.Text = .bcOutsideDia.Trim
-                            DP_txtbcTongSpace.Text = .bcTongSpace.Trim
-                            DP_txtbcQCDia.Text = .bcQCDia.Trim
-                            DP_txtbcQCDepth.Text = .bcQCDepth.Trim
-                            DP_txtbcShoulderWidth.Text = .bcShoulderWidth.Trim
-                            DP_txtbcBevelDia.Text = .bcBevelDia.Trim
-                            DP_txtbcSealWidth.Text = .bcSealWidth.Trim
-                            DP_txtbcReface.Text = .bcReface.Trim
-                            DP_txtbcFinalCondition.Text = .bcFinalCondition.Trim
+                            DP_ddlRemarks.SelectedValue = remarksSCode.Trim
+                            DP_txtRemarks.Text = remarksText.Trim
+                            DP_txtBod001Value.Text = .bod001Value.Trim
+                            DP_txtBod002Value.Text = .bod002Value.Trim
+                            DP_txtBod003Value.Text = .bod003Value.Trim
+                            DP_txtBod004Value.Text = .bod004Value.Trim
+                            DP_txtBod005Value.Text = .bod005Value.Trim
+                            DP_txtBod006Value.Text = .bod006Value.Trim
+                            DP_txtBod007Value.Text = .bod007Value.Trim
+                            DP_txtBod008Value.Text = .bod008Value.Trim
+                            DP_txtBod009Value.Text = .bod009Value.Trim
+                            DP_txtPin001Value.Text = .pin001Value.Trim
+                            DP_txtPin002Value.Text = .pin002Value.Trim
+                            DP_txtPin003Value.Text = .pin003Value.Trim
+                            DP_txtPin004Value.Text = .pin004Value.Trim
+                            DP_txtPin005Value.Text = .pin005Value.Trim
+                            DP_txtPin006Value.Text = .pin006Value.Trim
+                            DP_txtPin007Value.Text = .pin007Value.Trim
+                            DP_txtPin008Value.Text = .pin008Value.Trim
+                            DP_txtPin009Value.Text = .pin009Value.Trim
+                            DP_txtPin010Value.Text = .pin010Value.Trim
+                            DP_txtPin011Value.Text = .pin011Value.Trim
+                            DP_txtBox001Value.Text = .box001Value.Trim
+                            DP_txtBox002Value.Text = .box002Value.Trim
+                            DP_txtBox003Value.Text = .box003Value.Trim
+                            DP_txtBox004Value.Text = .box004Value.Trim
+                            DP_txtBox005Value.Text = .box005Value.Trim
+                            DP_txtBox006Value.Text = .box006Value.Trim
+                            DP_txtBox007Value.Text = .box007Value.Trim
+                            DP_txtBox008Value.Text = .box008Value.Trim
+                            DP_txtBox009Value.Text = .box009Value.Trim
+                            DP_txtBox010Value.Text = .box010Value.Trim
+                            DP_txtBox011Value.Text = .box011Value.Trim
+                            DP_chkIsPinHB.Checked = .isPinHB
+                            DP_chkIsBoxHB.Checked = .isBoxHB
                         Else
                             PrepareScreen(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID, False, isNew)
                         End If
@@ -1538,6 +1734,9 @@ Namespace Raven.Web
                             MPI_chkACIsAPISpec.Checked = .ACIsAPISpec
                             MPI_chkIsACDS1.Checked = .ACIsDS1
                             MPI_chkIsACOther.Checked = .ACIsOther
+                            MPI_txtACASMEDescription.Text = .ACASMEDescription.Trim
+                            MPI_txtACAPISpecDescription.Text = .ACAPISpecDescription.Trim
+                            MPI_txtACDS1Description.Text = .ACDS1Description.Trim
                             MPI_txtACOtherDescription.Text = .ACOtherDescription.Trim
                             MPI_txtQty.Text = .qty.Trim
                             MPI_txtDimension.Text = .dimension.Trim
@@ -1556,23 +1755,57 @@ Namespace Raven.Web
                             MPI_txtDeveloper.Text = .developer.Trim
                             MPI_rbtnlYoke.SelectedValue = .yokeSCode.Trim
                             MPI_rbtnlCoil.SelectedValue = .coilSCode.Trim
-                            MPI_chkIsBlacklight.Checked = .isBlacklight
-                            MPI_chkIsRods.Checked = .isRods
+                            If .isRods Then
+                                MPI_rbtnlRods.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlRods.SelectedValue = "No"
+                            End If
+                            If .isBlacklight Then
+                                MPI_rbtnlBlacklight.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlBlacklight.SelectedValue = "No"
+                            End If                                                        
                             MPI_rbtnlFluorescent.SelectedValue = .fluorescentSCode.Trim
                             MPI_rbtnlContrastBW.SelectedValue = .contrastBWSCode.Trim
-                            MPI_chkIsDyePenetrant.Checked = .isDyePenetrant
-                            MPI_chkIsWireBrush.Checked = .isWireBrush
-                            MPI_chkIsBlastCleaning.Checked = .isBlastCleaning
-                            MPI_chkIsGrinding.Checked = .isGrinding
-                            MPI_chkIsMachining.Checked = .isMachining
+                            If .isDyePenetrant Then
+                                MPI_rbtnlDyePenetrant.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlDyePenetrant.SelectedValue = "No"
+                            End If
+                            If .isWireBrush Then
+                                MPI_rbtnlWireBrush.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlWireBrush.SelectedValue = "No"
+                            End If
+                            If .isBlastCleaning Then
+                                MPI_rbtnlBlastCleaning.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlBlastCleaning.SelectedValue = "No"
+                            End If
+                            If .isGrinding Then
+                                MPI_rbtnlGrinding.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlGrinding.SelectedValue = "No"
+                            End If
+                            If .isMachining Then
+                                MPI_rbtnlMachining.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlMachining.SelectedValue = "No"
+                            End If
+                            MPI_txtYokeSerialNo.Text = .yokeSerialNo.Trim
+                            MPI_txtCoilSerialNo.Text = .coilSerialNo.Trim
+                            MPI_txtRodsSerialNo.Text = .rodsSerialNo.Trim
+                            MPI_txtBlacklightSerialNo.Text = .blacklightSerialNo.Trim
                             MPI_txtInspectionResult.Text = .inspectionResult.Trim
                             MPI_txtNotes.Text = .notes.Trim
+                            MPI_btnUploadImage.Enabled = True
                         Else
                             PrepareScreen(_VisiblePanelID, False, False)
                         End If
                     End With
                     oBR.Dispose()
                     oBR = Nothing
+                    SetDataGrid(_VisiblePanelID)
 
                 Case Common.Constants.ReportTypePanelID.UTSpotCheck_PanelID
                     UTSC_txtUTSpotCheckHdID.Text = Common.BussinessRules.ID.GetFieldValue("UTSpotCheckHd", "reportNo", UTSC_txtReportNo.Text.Trim, "UTSpotCheckHdID")
@@ -1581,8 +1814,16 @@ Namespace Raven.Web
                         .UTSpotCheckHdID = UTSC_txtUTSpotCheckHdID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
                             UTSC_calReportDate.selectedDate = .reportDate
-                            UTSC_txtNominalWT.Text = .nominalWT.Trim
-                            UTSC_txtMinimalWT.Text = .minimalWT.Trim
+                            UTSC_txtSerialNo.Text = .SerialNo.Trim
+                            UTSC_txtDescription.Text = .Description.Trim
+                            UTSC_txtMaterial.Text = .Material.Trim
+                            UTSC_txtEquipment.Text = .Equipment.Trim
+                            UTSC_txtCouplant.Text = .Couplant.Trim
+                            UTSC_txtProbeType.Text = .ProbeType.Trim
+                            UTSC_txtImpactDevice.Text = .ImpactDevice.Trim
+                            UTSC_txtReferenceLevel.Text = .ReferenceLevel.Trim
+                            UTSC_txtFrequency.Text = .Frequency.Trim
+                            UTSC_txtCalReference.Text = .CalReference.Trim
                             isNew = False
                         Else
                             PrepareScreen(_VisiblePanelID.Trim, False)
@@ -1596,11 +1837,17 @@ Namespace Raven.Web
                     With oDt
                         .UTSpotCheckDtID = UTSC_txtUTSpotCheckDtID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
-                            UTSC_txtTallyNo.Text = .tallyNo.Trim
-                            UTSC_txtLocation.Text = .location.Trim
-                            UTSC_txtWallThicknessInch1.Text = .wallThicknessInch1.ToString.Trim
-                            UTSC_txtWallThicknessInch2.Text = .wallThicknessInch2.ToString.Trim
-                            UTSC_txtWallThicknessInch3.Text = .wallThicknessInch3.ToString.Trim
+                            UTSC_txtStructureTallyNo.Text = .structureTallyNo.Trim
+                            UTSC_txtSize.Text = .size.Trim
+                            UTSC_txtLength.Text = .length.Trim
+                            UTSC_txtWallThickness1.Text = .wallThickness1.ToString.Trim
+                            UTSC_txtWallThickness2.Text = .wallThickness2.ToString.Trim
+                            UTSC_txtWallThickness3.Text = .wallThickness3.ToString.Trim
+                            UTSC_txtWallThickness4.Text = .wallThickness4.ToString.Trim
+                            UTSC_txtHardnessTest1.Text = .hardnessTest1.ToString.Trim
+                            UTSC_txtHardnessTest2.Text = .hardnessTest2.ToString.Trim
+                            UTSC_txtHardnessTest3.Text = .hardnessTest3.ToString.Trim
+                            UTSC_txtHardnessTest4.Text = .hardnessTest4.ToString.Trim
                             UTSC_txtRemark.Text = .remark.Trim
                         Else
                             PrepareScreen(_VisiblePanelID.Trim, False, isNew)
@@ -1650,60 +1897,6 @@ Namespace Raven.Web
                     oDt = Nothing
                     SetDataGrid(Common.Constants.ReportTypePanelID.HardnessTest_PanelID)
             End Select
-        End Sub
-
-        Private Sub _openInspectionSpec()
-            Dim oIS As New Common.BussinessRules.InspectionSpec
-            With oIS
-                .inspectionSpecID = DP_txtSpecificationID.Text.Trim
-                If .SelectOne.Rows.Count > 0 Then
-                    DP_txtSpecificationName.Text = .inspectionSpecName.Trim
-                    DP_Premium_txtMinOD.Text = .minODpremium.Trim
-                    DP_Premium_txtMaxID.Text = .maxIDpremium.Trim
-                    DP_Premium_txtMinWall.Text = .minWallpremium.Trim
-                    DP_Premium_txtMinShoulder.Text = .minShldrpremium.Trim
-                    DP_Premium_txtMinSeal.Text = .minSealpremium.Trim
-                    DP_Class2_txtMinOD.Text = .minODclass2.Trim
-                    DP_Class2_txtMaxID.Text = .maxIDclass2.Trim
-                    DP_Class2_txtMinWall.Text = .minWallclass2.Trim
-                    DP_Class2_txtMinShoulder.Text = .minShldrclass2.Trim
-                    DP_Class2_txtMinSeal.Text = .minSealclass2.Trim
-                    DP_Class2_txtMinTongSpacePB.Text = .minTongSpacePinclass2.Trim
-                    DP_Class2_txtMaxQC.Text = .maxQCclass2.Trim
-                    DP_Class2_txtBevelDia.Text = .minBevelDiaclass2.Trim
-                    DP_Class2_txtMinQCDepth.Text = .minQCDepthclass2.Trim
-                    DP_Class2_txtMaxLengthPin.Text = .maxLengthPinclass2.Trim
-                    DP_Class2_txtMaxPinNeck.Text = .maxPinNeckclass2.Trim
-                Else
-                    DP_txtSpecificationID.Text = String.Empty
-                    DP_txtSpecificationCode.Text = String.Empty
-                    DP_txtSpecificationName.Text = String.Empty
-                    DP_txtSize.Text = String.Empty
-                    DP_txtWeight.Text = String.Empty
-                    DP_txtGrade.Text = String.Empty
-                    DP_txtConnection.Text = String.Empty
-                    DP_txtRange.Text = String.Empty
-                    DP_txtNominalWT.Text = String.Empty
-                    DP_Premium_txtMinOD.Text = String.Empty
-                    DP_Premium_txtMaxID.Text = String.Empty
-                    DP_Premium_txtMinWall.Text = String.Empty
-                    DP_Premium_txtMinShoulder.Text = String.Empty
-                    DP_Premium_txtMinSeal.Text = String.Empty
-                    DP_Class2_txtMinOD.Text = String.Empty
-                    DP_Class2_txtMaxID.Text = String.Empty
-                    DP_Class2_txtMinWall.Text = String.Empty
-                    DP_Class2_txtMinShoulder.Text = String.Empty
-                    DP_Class2_txtMinSeal.Text = String.Empty
-                    DP_Class2_txtMinTongSpacePB.Text = String.Empty
-                    DP_Class2_txtMaxQC.Text = String.Empty
-                    DP_Class2_txtBevelDia.Text = String.Empty
-                    DP_Class2_txtMinQCDepth.Text = String.Empty
-                    DP_Class2_txtMaxLengthPin.Text = String.Empty
-                    DP_Class2_txtMaxPinNeck.Text = String.Empty
-                End If
-            End With
-            oIS.Dispose()
-            oIS = Nothing
         End Sub
 
         Private Function _openUser(ByVal strUserID As String) As String
@@ -2059,6 +2252,7 @@ Namespace Raven.Web
                     End With
                     oBR.Dispose()
                     oBR = Nothing
+                    SetDataGrid(_VisiblePanelID.Trim)
 
                 Case Common.Constants.ReportTypePanelID.TimeSheet_PanelID
                     Dim oBR As New Common.BussinessRules.TimeSheet
@@ -2089,13 +2283,13 @@ Namespace Raven.Web
                                             If TS_chkIsNew.Checked = False Then
                                                 If .workingTypeSCode <> "" Then
                                                     .Update()
-                                                End If                                                
+                                                End If
                                             Else
                                                 If .workingTypeSCode <> "" Then
                                                     .Insert()
                                                 End If
                                             End If
-                                        End If                                    
+                                        End If
                                     Next
                                 Next
                             Next
@@ -2127,7 +2321,7 @@ Namespace Raven.Web
                                     End If
                                 Next
                             Next
-                        End If                        
+                        End If
                     End With
                     oBR.Dispose()
                     oBR = Nothing
@@ -2187,7 +2381,7 @@ Namespace Raven.Web
                     oDt = Nothing
                     SetDataGrid(_VisiblePanelID.Trim)
 
-                Case Common.Constants.ReportTypePanelID.DailyInspectionReport_PanelID
+                Case Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID
                     Dim oHd As New Common.BussinessRules.DailyReportHd
                     With oHd
                         .dailyReportHdID = DIR_txtDailyReportHdID.Text.Trim
@@ -2261,6 +2455,7 @@ Namespace Raven.Web
                         .connection = DP_txtConnection.Text.Trim
                         .range = DP_txtRange.Text.Trim
                         .nominalWT = DP_txtNominalWT.Text.Trim
+                        .captionTemplateHdID = DP_ddlCaptionTemplate.SelectedValue.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
                         If isNew Then
@@ -2283,36 +2478,71 @@ Namespace Raven.Web
                         .drillPipeReportHdID = DP_txtDrillPipeReportHdID.Text.Trim
                         .sequenceNo = DP_txtSequenceNo.Text.Trim
                         .serialNo = DP_txtSerialNo.Text.Trim
-                        .remarks = DP_txtRemarks.Text.Trim
-                        .bdBodyWear = DP_txtbdBodyWear.Text.Trim
-                        .bdBent = DP_txtbdBent.Text.Trim
-                        .bdBodyDamage = DP_txtbdBodyDamage.Text.Trim
-                        .bdEMI = DP_txtbdEMI.Text.Trim
-                        .bdUTEndArea = DP_txtbdUTEndArea.Text.Trim
-                        .bdPlasticCoating = DP_txtbdPlasticCoating.Text.Trim
-                        .bdWall = DP_txtbdWall.Text.Trim
-                        .bdWallRemanent = DP_txtbdWallRemanent.Text.Trim
-                        .bdTubeClass = DP_txtbdTubeClass.Text.Trim
-                        .pcToolJointYear = DP_txtpcToolJointYear.Text.Trim
-                        .pcOutsideDia = DP_txtpcOutsideDia.Text.Trim
-                        .pcInsideDia = DP_txtpcInsideDia.Text.Trim
-                        .pcTongSpace = DP_txtpcTongSpace.Text.Trim
-                        .pcThreadLength = DP_txtpcThreadLength.Text.Trim
-                        .pcBevelDia = DP_txtpcBevelDia.Text.Trim
-                        .pcLead = DP_txtpcLead.Text.Trim
-                        .pcShoulderWidth = DP_txtpcShoulderWidth.Text.Trim
-                        .pcNeckLength = DP_txtpcNeckLength.Text.Trim
-                        .pcReface = DP_txtpcReface.Text.Trim
-                        .pcFinalCondition = DP_txtpcFinalCondition.Text.Trim
-                        .bcOutsideDia = DP_txtbcOutsideDia.Text.Trim
-                        .bcTongSpace = DP_txtbcTongSpace.Text.Trim
-                        .bcQCDia = DP_txtbcQCDia.Text.Trim
-                        .bcQCDepth = DP_txtbcQCDepth.Text.Trim
-                        .bcShoulderWidth = DP_txtbcShoulderWidth.Text.Trim
-                        .bcBevelDia = DP_txtbcBevelDia.Text.Trim
-                        .bcSealWidth = DP_txtbcSealWidth.Text.Trim
-                        .bcReface = DP_txtbcReface.Text.Trim
-                        .bcFinalCondition = DP_txtbcFinalCondition.Text.Trim
+                        .remarks = DP_ddlRemarks.SelectedValue.Trim + "^" + DP_txtRemarks.Text.Trim
+                        .bod001CaptionID = DP_lblBod001Caption.ToolTip.Trim
+                        .bod002CaptionID = DP_lblBod002Caption.ToolTip.Trim
+                        .bod003CaptionID = DP_lblBod003Caption.ToolTip.Trim
+                        .bod004CaptionID = DP_lblBod004Caption.ToolTip.Trim
+                        .bod005CaptionID = DP_lblBod005Caption.ToolTip.Trim
+                        .bod006CaptionID = DP_lblBod006Caption.ToolTip.Trim
+                        .bod007CaptionID = DP_lblBod007Caption.ToolTip.Trim
+                        .bod008CaptionID = DP_lblBod008Caption.ToolTip.Trim
+                        .bod009CaptionID = DP_lblBod009Caption.ToolTip.Trim
+                        .bod001Value = DP_txtBod001Value.Text.Trim
+                        .bod002Value = DP_txtBod002Value.Text.Trim
+                        .bod003Value = DP_txtBod003Value.Text.Trim
+                        .bod004Value = DP_txtBod004Value.Text.Trim
+                        .bod005Value = DP_txtBod005Value.Text.Trim
+                        .bod006Value = DP_txtBod006Value.Text.Trim
+                        .bod007Value = DP_txtBod007Value.Text.Trim
+                        .bod008Value = DP_txtBod008Value.Text.Trim
+                        .bod009Value = DP_txtBod009Value.Text.Trim
+                        .pin001CaptionID = DP_lblPin001Caption.ToolTip.Trim
+                        .pin002CaptionID = DP_lblPin002Caption.ToolTip.Trim
+                        .pin003CaptionID = DP_lblPin003Caption.ToolTip.Trim
+                        .pin004CaptionID = DP_lblPin004Caption.ToolTip.Trim
+                        .pin005CaptionID = DP_lblPin005Caption.ToolTip.Trim
+                        .pin006CaptionID = DP_lblPin006Caption.ToolTip.Trim
+                        .pin007CaptionID = DP_lblPin007Caption.ToolTip.Trim
+                        .pin008CaptionID = DP_lblPin008Caption.ToolTip.Trim
+                        .pin009CaptionID = DP_lblPin009Caption.ToolTip.Trim
+                        .pin010CaptionID = DP_lblPin010Caption.ToolTip.Trim
+                        .pin011CaptionID = DP_lblPin011Caption.ToolTip.Trim
+                        .pin001Value = DP_txtPin001Value.Text.Trim
+                        .pin002Value = DP_txtPin002Value.Text.Trim
+                        .pin003Value = DP_txtPin003Value.Text.Trim
+                        .pin004Value = DP_txtPin004Value.Text.Trim
+                        .pin005Value = DP_txtPin005Value.Text.Trim
+                        .pin006Value = DP_txtPin006Value.Text.Trim
+                        .pin007Value = DP_txtPin007Value.Text.Trim
+                        .pin008Value = DP_txtPin008Value.Text.Trim
+                        .pin009Value = DP_txtPin009Value.Text.Trim
+                        .pin010Value = DP_txtPin010Value.Text.Trim
+                        .pin011Value = DP_txtPin011Value.Text.Trim
+                        .box001CaptionID = DP_lblBox001Caption.ToolTip.Trim
+                        .box002CaptionID = DP_lblBox002Caption.ToolTip.Trim
+                        .box003CaptionID = DP_lblBox003Caption.ToolTip.Trim
+                        .box004CaptionID = DP_lblBox004Caption.ToolTip.Trim
+                        .box005CaptionID = DP_lblBox005Caption.ToolTip.Trim
+                        .box006CaptionID = DP_lblBox006Caption.ToolTip.Trim
+                        .box007CaptionID = DP_lblBox007Caption.ToolTip.Trim
+                        .box008CaptionID = DP_lblBox008Caption.ToolTip.Trim
+                        .box009CaptionID = DP_lblBox009Caption.ToolTip.Trim
+                        .box010CaptionID = DP_lblBox010Caption.ToolTip.Trim
+                        .box011CaptionID = DP_lblBox011Caption.ToolTip.Trim
+                        .box001Value = DP_txtBox001Value.Text.Trim
+                        .box002Value = DP_txtBox002Value.Text.Trim
+                        .box003Value = DP_txtBox003Value.Text.Trim
+                        .box004Value = DP_txtBox004Value.Text.Trim
+                        .box005Value = DP_txtBox005Value.Text.Trim
+                        .box006Value = DP_txtBox006Value.Text.Trim
+                        .box007Value = DP_txtBox007Value.Text.Trim
+                        .box008Value = DP_txtBox008Value.Text.Trim
+                        .box009Value = DP_txtBox009Value.Text.Trim
+                        .box010Value = DP_txtBox010Value.Text.Trim
+                        .box011Value = DP_txtBox011Value.Text.Trim
+                        .isPinHB = DP_chkIsPinHB.Checked
+                        .isBoxHB = DP_chkIsBoxHB.Checked
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
                         If isNew Then
@@ -2429,6 +2659,9 @@ Namespace Raven.Web
                         .ACIsAPISpec = MPI_chkACIsAPISpec.Checked
                         .ACIsDS1 = MPI_chkIsACDS1.Checked
                         .ACIsOther = MPI_chkIsACOther.Checked
+                        .ACASMEDescription = MPI_txtACASMEDescription.Text.Trim
+                        .ACAPISpecDescription = MPI_txtACAPISpecDescription.Text.Trim
+                        .ACDS1Description = MPI_txtACDS1Description.Text.Trim
                         .ACOtherDescription = MPI_txtACOtherDescription.Text.Trim
                         .qty = MPI_txtQty.Text.Trim
                         .dimension = MPI_txtDimension.Text.Trim
@@ -2447,17 +2680,21 @@ Namespace Raven.Web
                         .developer = MPI_txtDeveloper.Text.Trim
                         .yokeSCode = MPI_rbtnlYoke.SelectedValue.Trim
                         .coilSCode = MPI_rbtnlCoil.SelectedValue.Trim
-                        .isBlacklight = MPI_chkIsBlacklight.Checked
-                        .isRods = MPI_chkIsRods.Checked
+                        .isBlacklight = (MPI_rbtnlBlacklight.SelectedValue = "Yes")
+                        .isRods = (MPI_rbtnlRods.SelectedValue = "Yes")
                         .fluorescentSCode = MPI_rbtnlFluorescent.SelectedValue.Trim
                         .contrastBWSCode = MPI_rbtnlContrastBW.SelectedValue.Trim
-                        .isDyePenetrant = MPI_chkIsDyePenetrant.Checked
-                        .isWireBrush = MPI_chkIsWireBrush.Checked
-                        .isBlastCleaning = MPI_chkIsBlastCleaning.Checked
-                        .isGrinding = MPI_chkIsGrinding.Checked
-                        .isMachining = MPI_chkIsMachining.Checked
+                        .isDyePenetrant = (MPI_rbtnlDyePenetrant.SelectedValue = "Yes")
+                        .isWireBrush = (MPI_rbtnlWireBrush.SelectedValue = "Yes")
+                        .isBlastCleaning = (MPI_rbtnlBlastCleaning.SelectedValue = "Yes")
+                        .isGrinding = (MPI_rbtnlGrinding.SelectedValue = "Yes")
+                        .isMachining = (MPI_rbtnlMachining.SelectedValue = "Yes")
                         .inspectionResult = MPI_txtInspectionResult.Text.Trim
                         .notes = MPI_txtNotes.Text.Trim
+                        .yokeSerialNo = MPI_txtYokeSerialNo.Text.Trim
+                        .coilSerialNo = MPI_txtCoilSerialNo.Text.Trim
+                        .rodsSerialNo = MPI_txtRodsSerialNo.Text.Trim
+                        .blacklightSerialNo = MPI_txtBlacklightSerialNo.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
                         If isNew Then
@@ -2483,8 +2720,19 @@ Namespace Raven.Web
                         .projectID = txtProjectID.Text.Trim
                         .reportNo = UTSC_txtReportNo.Text.Trim
                         .reportDate = UTSC_calReportDate.selectedDate
-                        .nominalWT = UTSC_txtNominalWT.Text.Trim
-                        .minimalWT = UTSC_txtMinimalWT.Text.Trim
+                        .nominalWT = String.Empty
+                        .minimalWT = String.Empty
+                        .UTSpotTypeSCode = UTSC_ddlUTSpotType.SelectedValue.Trim
+                        .Description = UTSC_txtDescription.Text.Trim
+                        .SerialNo = UTSC_txtSerialNo.Text.Trim
+                        .Material = UTSC_txtMaterial.Text.Trim
+                        .Equipment = UTSC_txtEquipment.Text.Trim
+                        .Couplant = UTSC_txtCouplant.Text.Trim
+                        .ProbeType = UTSC_txtProbeType.Text.Trim
+                        .ImpactDevice = UTSC_txtImpactDevice.Text.Trim
+                        .ReferenceLevel = UTSC_txtReferenceLevel.Text.Trim
+                        .Frequency = UTSC_txtFrequency.Text.Trim
+                        .CalReference = UTSC_txtCalReference.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
                         If isNew Then
@@ -2505,11 +2753,18 @@ Namespace Raven.Web
                             isNew = True
                         End If
                         .UTSpotCheckHdID = UTSC_txtUTSpotCheckHdID.Text.Trim
-                        .tallyNo = UTSC_txtTallyNo.Text.Trim
-                        .location = UTSC_txtLocation.Text.Trim
-                        .wallThicknessInch1 = CDec(IIf(IsNumeric(UTSC_txtWallThicknessInch1.Text.Trim), UTSC_txtWallThicknessInch1.Text.Trim, 0))
-                        .wallThicknessInch2 = CDec(IIf(IsNumeric(UTSC_txtWallThicknessInch2.Text.Trim), UTSC_txtWallThicknessInch2.Text.Trim, 0))
-                        .wallThicknessInch3 = CDec(IIf(IsNumeric(UTSC_txtWallThicknessInch3.Text.Trim), UTSC_txtWallThicknessInch3.Text.Trim, 0))
+                        .structureTallyNo = UTSC_txtStructureTallyNo.Text.Trim
+                        .location = String.Empty
+                        .size = UTSC_txtSize.Text.Trim
+                        .length = UTSC_txtLength.Text.Trim
+                        .wallThickness1 = UTSC_txtWallThickness1.Text.Trim
+                        .wallThickness2 = UTSC_txtWallThickness2.Text.Trim
+                        .wallThickness3 = UTSC_txtWallThickness3.Text.Trim
+                        .wallThickness4 = UTSC_txtWallThickness4.Text.Trim
+                        .hardnessTest1 = UTSC_txtHardnessTest1.Text.Trim
+                        .hardnessTest2 = UTSC_txtHardnessTest2.Text.Trim
+                        .hardnessTest3 = UTSC_txtHardnessTest3.Text.Trim
+                        .hardnessTest4 = UTSC_txtHardnessTest4.Text.Trim
                         .remark = UTSC_txtRemark.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
@@ -2518,7 +2773,7 @@ Namespace Raven.Web
                             PrepareScreen(_VisiblePanelID.Trim, True, False)
                         Else
                             .Update()
-                            PrepareScreen(_VisiblePanelID.Trim, False, False)
+                            PrepareScreen(_VisiblePanelID.Trim, True, False)
                         End If
                     End With
                     oDt.Dispose()
@@ -2628,8 +2883,392 @@ Namespace Raven.Web
                     End With
                     oBr.Dispose()
                     oBr = Nothing
+
+                Case Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID
+                    Dim oBr As New Common.BussinessRules.DrillPipeReportDt
+                    With oBr
+                        .drillPipeReportDtID = _IDtoDelete.Trim
+                        .Delete()
+                    End With
+                    oBr.Dispose()
+                    oBr = Nothing
             End Select
         End Sub
+
+#Region " Drill Pipe Inspection Report "
+        Private Sub _openInspectionSpec()
+            Dim oIS As New Common.BussinessRules.InspectionSpec
+            With oIS
+                .inspectionSpecID = DP_txtSpecificationID.Text.Trim
+                If .SelectOne.Rows.Count > 0 Then
+                    DP_txtSpecificationCode.Text = .inspectionSpecCode.Trim
+                    DP_txtSpecificationName.Text = .inspectionSpecName.Trim
+                    DP_Premium_txtMinOD.Text = .minODpremium.Trim
+                    DP_Premium_txtMaxID.Text = .maxIDpremium.Trim
+                    DP_Premium_txtMinWall.Text = .minWallpremium.Trim
+                    DP_Premium_txtMinShoulder.Text = .minShldrpremium.Trim
+                    DP_Premium_txtMinSeal.Text = .minSealpremium.Trim
+                    DP_Class2_txtMinOD.Text = .minODclass2.Trim
+                    DP_Class2_txtMaxID.Text = .maxIDclass2.Trim
+                    DP_Class2_txtMinWall.Text = .minWallclass2.Trim
+                    DP_Class2_txtMinShoulder.Text = .minShldrclass2.Trim
+                    DP_Class2_txtMinSeal.Text = .minSealclass2.Trim
+                    DP_Class2_txtMinTongSpacePB.Text = .minTongSpacePinclass2.Trim
+                    DP_Class2_txtMaxQC.Text = .maxQCclass2.Trim
+                    DP_Class2_txtBevelDia.Text = .minBevelDiaclass2.Trim
+                    DP_Class2_txtMinQCDepth.Text = .minQCDepthclass2.Trim
+                    DP_Class2_txtMaxLengthPin.Text = .maxLengthPinclass2.Trim
+                    DP_Class2_txtMaxPinNeck.Text = .maxPinNeckclass2.Trim
+                Else
+                    DP_txtSpecificationID.Text = String.Empty
+                    DP_txtSpecificationCode.Text = String.Empty
+                    DP_txtSpecificationName.Text = String.Empty
+                    DP_txtSize.Text = String.Empty
+                    DP_txtWeight.Text = String.Empty
+                    DP_txtGrade.Text = String.Empty
+                    DP_txtConnection.Text = String.Empty
+                    DP_txtRange.Text = String.Empty
+                    DP_txtNominalWT.Text = String.Empty
+                    DP_Premium_txtMinOD.Text = String.Empty
+                    DP_Premium_txtMaxID.Text = String.Empty
+                    DP_Premium_txtMinWall.Text = String.Empty
+                    DP_Premium_txtMinShoulder.Text = String.Empty
+                    DP_Premium_txtMinSeal.Text = String.Empty
+                    DP_Class2_txtMinOD.Text = String.Empty
+                    DP_Class2_txtMaxID.Text = String.Empty
+                    DP_Class2_txtMinWall.Text = String.Empty
+                    DP_Class2_txtMinShoulder.Text = String.Empty
+                    DP_Class2_txtMinSeal.Text = String.Empty
+                    DP_Class2_txtMinTongSpacePB.Text = String.Empty
+                    DP_Class2_txtMaxQC.Text = String.Empty
+                    DP_Class2_txtBevelDia.Text = String.Empty
+                    DP_Class2_txtMinQCDepth.Text = String.Empty
+                    DP_Class2_txtMaxLengthPin.Text = String.Empty
+                    DP_Class2_txtMaxPinNeck.Text = String.Empty
+                End If
+            End With
+            oIS.Dispose()
+            oIS = Nothing
+        End Sub
+
+        Private Sub _openCaptionTemplateDrillPipe()
+            Dim oCap As New Common.BussinessRules.CaptionTemplateDt
+            With oCap
+                .captionTemplateHdID = DP_ddlCaptionTemplate.SelectedValue.Trim
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_Body
+                .sequenceNo = "001"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBod001Caption.Text = .captionName
+                    DP_lblBod001Caption.ToolTip = .captionID
+                Else
+                    DP_lblBod001Caption.Text = String.Empty
+                    DP_lblBod001Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_Body
+                .sequenceNo = "002"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBod002Caption.Text = .captionName
+                    DP_lblBod002Caption.ToolTip = .captionID
+                Else
+                    DP_lblBod002Caption.Text = String.Empty
+                    DP_lblBod002Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_Body
+                .sequenceNo = "003"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBod003Caption.Text = .captionName
+                    DP_lblBod003Caption.ToolTip = .captionID
+                Else
+                    DP_lblBod003Caption.Text = String.Empty
+                    DP_lblBod003Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_Body
+                .sequenceNo = "004"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBod004Caption.Text = .captionName
+                    DP_lblBod004Caption.ToolTip = .captionID
+                Else
+                    DP_lblBod004Caption.Text = String.Empty
+                    DP_lblBod004Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_Body
+                .sequenceNo = "005"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBod005Caption.Text = .captionName
+                    DP_lblBod005Caption.ToolTip = .captionID
+                Else
+                    DP_lblBod005Caption.Text = String.Empty
+                    DP_lblBod005Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_Body
+                .sequenceNo = "006"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBod006Caption.Text = .captionName
+                    DP_lblBod006Caption.ToolTip = .captionID
+                Else
+                    DP_lblBod006Caption.Text = String.Empty
+                    DP_lblBod006Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_Body
+                .sequenceNo = "007"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBod007Caption.Text = .captionName
+                    DP_lblBod007Caption.ToolTip = .captionID
+                Else
+                    DP_lblBod007Caption.Text = String.Empty
+                    DP_lblBod007Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_Body
+                .sequenceNo = "008"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBod008Caption.Text = .captionName
+                    DP_lblBod008Caption.ToolTip = .captionID
+                Else
+                    DP_lblBod008Caption.Text = String.Empty
+                    DP_lblBod008Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_Body
+                .sequenceNo = "009"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBod009Caption.Text = .captionName
+                    DP_lblBod009Caption.ToolTip = .captionID
+                Else
+                    DP_lblBod009Caption.Text = String.Empty
+                    DP_lblBod009Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "001"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin001Caption.Text = .captionName
+                    DP_lblPin001Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin001Caption.Text = String.Empty
+                    DP_lblPin001Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "002"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin002Caption.Text = .captionName
+                    DP_lblPin002Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin002Caption.Text = String.Empty
+                    DP_lblPin002Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "003"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin003Caption.Text = .captionName
+                    DP_lblPin003Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin003Caption.Text = String.Empty
+                    DP_lblPin003Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "004"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin004Caption.Text = .captionName
+                    DP_lblPin004Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin004Caption.Text = String.Empty
+                    DP_lblPin004Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "005"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin005Caption.Text = .captionName
+                    DP_lblPin005Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin005Caption.Text = String.Empty
+                    DP_lblPin005Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "006"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin006Caption.Text = .captionName
+                    DP_lblPin006Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin006Caption.Text = String.Empty
+                    DP_lblPin006Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "007"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin007Caption.Text = .captionName
+                    DP_lblPin007Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin007Caption.Text = String.Empty
+                    DP_lblPin007Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "008"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin008Caption.Text = .captionName
+                    DP_lblPin008Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin008Caption.Text = String.Empty
+                    DP_lblPin008Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "009"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin009Caption.Text = .captionName
+                    DP_lblPin009Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin009Caption.Text = String.Empty
+                    DP_lblPin009Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "010"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin010Caption.Text = .captionName
+                    DP_lblPin010Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin010Caption.Text = String.Empty
+                    DP_lblPin010Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "011"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin011Caption.Text = .captionName
+                    DP_lblPin011Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin011Caption.Text = String.Empty
+                    DP_lblPin011Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "001"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox001Caption.Text = .captionName
+                    DP_lblBox001Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox001Caption.Text = String.Empty
+                    DP_lblBox001Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "002"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox002Caption.Text = .captionName
+                    DP_lblBox002Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox002Caption.Text = String.Empty
+                    DP_lblBox002Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "003"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox003Caption.Text = .captionName
+                    DP_lblBox003Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox003Caption.Text = String.Empty
+                    DP_lblBox003Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "004"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox004Caption.Text = .captionName
+                    DP_lblBox004Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox004Caption.Text = String.Empty
+                    DP_lblBox004Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "005"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox005Caption.Text = .captionName
+                    DP_lblBox005Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox005Caption.Text = String.Empty
+                    DP_lblBox005Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "006"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox006Caption.Text = .captionName
+                    DP_lblBox006Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox006Caption.Text = String.Empty
+                    DP_lblBox006Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "007"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox007Caption.Text = .captionName
+                    DP_lblBox007Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox007Caption.Text = String.Empty
+                    DP_lblBox007Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "008"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox008Caption.Text = .captionName
+                    DP_lblBox008Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox008Caption.Text = String.Empty
+                    DP_lblBox008Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "009"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox009Caption.Text = .captionName
+                    DP_lblBox009Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox009Caption.Text = String.Empty
+                    DP_lblBox009Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "010"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox010Caption.Text = .captionName
+                    DP_lblBox010Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox010Caption.Text = String.Empty
+                    DP_lblBox010Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
+                .sequenceNo = "011"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblBox011Caption.Text = .captionName
+                    DP_lblBox011Caption.ToolTip = .captionID
+                Else
+                    DP_lblBox011Caption.Text = String.Empty
+                    DP_lblBox011Caption.ToolTip = String.Empty
+                End If
+            End With
+            oCap.Dispose()
+            oCap = Nothing
+        End Sub
+#End Region
 #End Region
 
     End Class

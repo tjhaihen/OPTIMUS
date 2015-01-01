@@ -285,6 +285,13 @@
       <DependentUpon>CustomerInspectionInformation.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Secure\GetImage.aspx.designer.vb">
+      <DependentUpon>GetImage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\GetImage.aspx.vb">
+      <DependentUpon>GetImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Secure\InspectionSpec.aspx.designer.vb">
       <DependentUpon>InspectionSpec.aspx</DependentUpon>
     </Compile>
@@ -527,6 +534,7 @@
     <Content Include="Secure\CommonCode.aspx" />
     <Content Include="Secure\Customer.aspx" />
     <Content Include="Secure\CustomerInspectionInformation.aspx" />
+    <Content Include="Secure\GetImage.aspx" />
     <Content Include="Secure\InspectionSpec.aspx" />
     <Content Include="Secure\Main.aspx" />
     <Content Include="Secure\Product.aspx" />
@@ -629,7 +637,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

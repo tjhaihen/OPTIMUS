@@ -125,6 +125,9 @@
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BusinessRule\Caption.vb" />
+    <Compile Include="BusinessRule\CaptionTemplateDt.vb" />
+    <Compile Include="BusinessRule\CaptionTemplateHd.vb" />
     <Compile Include="BusinessRule\CertificateInspection.vb" />
     <Compile Include="BusinessRule\CheckListOfCompletionReport.vb" />
     <Compile Include="BusinessRule\CommonCode.vb" />
@@ -139,7 +142,11 @@
     <Compile Include="BusinessRule\ID.vb" />
     <Compile Include="BusinessRule\InspectionReportDt.vb" />
     <Compile Include="BusinessRule\InspectionReportHd.vb" />
+    <Compile Include="BusinessRule\Temp_InspectionReportDt.vb" />
+    <Compile Include="BusinessRule\Temp_InspectionReportHd.vb" />
     <Compile Include="BusinessRule\InspectionSpec.vb" />
+    <Compile Include="BusinessRule\InspectionTallyReportDt.vb" />
+    <Compile Include="BusinessRule\InspectionTallyReportHd.vb" />
     <Compile Include="BusinessRule\Menu.vb" />
     <Compile Include="BusinessRule\MPIDt.vb" />
     <Compile Include="BusinessRule\MPIHd.vb" />
@@ -156,6 +163,8 @@
     <Compile Include="BusinessRule\SearchList.vb" />
     <Compile Include="BusinessRule\ServiceReport.vb" />
     <Compile Include="BusinessRule\SummaryOfInspection.vb" />
+    <Compile Include="BusinessRule\ThoroughVisualReportDt.vb" />
+    <Compile Include="BusinessRule\ThoroughVisualReportHd.vb" />
     <Compile Include="BusinessRule\TimeSheet.vb" />
     <Compile Include="BusinessRule\UserManagement\Profile.vb" />
     <Compile Include="BusinessRule\UserManagement\ProfileMenu.vb" />
@@ -164,6 +173,7 @@
     <Compile Include="BusinessRule\UserManagement\UserCustomer.vb" />
     <Compile Include="BusinessRule\UserManagement\UserProfile.vb" />
     <Compile Include="BusinessRule\UserManagement\UserSite.vb" />
+    <Compile Include="BusinessRule\UTSpotAreaDt.vb" />
     <Compile Include="BusinessRule\UTSpotCheckDt.vb" />
     <Compile Include="BusinessRule\UTSpotCheckHd.vb" />
     <Compile Include="bussinessRulesBase.vb" />

@@ -12,10 +12,19 @@ Namespace Raven.Common.BussinessRules
 
 #Region " Class Member Declarations "
         Private _drillPipeReportHdID, _drillPipeReportDtID, _sequenceNo, _serialNo, _remarks As String
-        Private _bdBodyWear, _bdBent, _bdBodyDamage, _bdEMI, _bdUTEndArea, _bdPlasticCoating, _bdWall, _bdWallRemanent, _bdTubeClass As String
-        Private _pcToolJointYear, _pcOutsideDia, _pcInsideDia, _pcTongSpace, _pcThreadLength, _pcBevelDia, _pcLead, _pcShoulderWidth, _
-                    _pcNeckLength, _pcReface, _pcFinalCondition As String
-        Private _bcOutsideDia, _bcTongSpace, _bcQCDia, _bcQCDepth, _bcShoulderWidth, _bcBevelDia, _bcSealWidth, _bcReface, _bcFinalCondition As String
+        Private _bod001CaptionID, _bod002CaptionID, _bod003CaptionID, _bod004CaptionID, _bod005CaptionID, _bod006CaptionID, _bod007CaptionID, _
+                    _bod008CaptionID, _bod009CaptionID As String
+        Private _bod001Value, _bod002Value, _bod003Value, _bod004Value, _bod005Value, _bod006Value, _bod007Value, _bod008Value, _
+                    _bod009Value As String
+        Private _pin001CaptionID, _pin002CaptionID, _pin003CaptionID, _pin004CaptionID, _pin005CaptionID, _pin006CaptionID, _
+                    _pin007CaptionID, _pin008CaptionID, _pin009CaptionID, _pin010CaptionID, _pin011CaptionID As String
+        Private _pin001Value, _pin002Value, _pin003Value, _pin004Value, _pin005Value, _pin006Value, _pin007Value, _pin008Value, _
+                    _pin009Value, _pin010Value, _pin011Value As String        
+        Private _box001CaptionID, _box002CaptionID, _box003CaptionID, _box004CaptionID, _box005CaptionID, _box006CaptionID, _
+                    _box007CaptionID, _box008CaptionID, _box009CaptionID, _box010CaptionID, _box011CaptionID As String
+        Private _box001Value, _box002Value, _box003Value, _box004Value, _box005Value, _box006Value, _box007Value, _box008Value, _
+                    _box009Value, _box010Value, _box011Value As String
+        Private _isPinHB, _isBoxHB As Boolean
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate As DateTime
 #End Region
@@ -33,17 +42,35 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO DrillPipeReportDt " + _
                                         "(drillPipeReportHdID, drillPipeReportDtID, sequenceNo, serialNo, remarks, " + _
-                                        "bdBodyWear, bdBent, bdBodyDamage, bdEMI, bdUTEndArea, bdPlasticCoating, bdWall, bdWallRemanent, bdTubeClass, " + _
-                                        "pcToolJointYear, pcOutsideDia, pcInsideDia, pcTongSpace, pcThreadLength, pcBevelDia, pcLead, pcShoulderWidth, " + _
-                                        "pcNeckLength, pcReface, pcFinalCondition, bcOutsideDia, bcTongSpace, bcQCDia, bcQCDepth, bcShoulderWidth, " + _
-                                        "bcBevelDia, bcSealWidth, bcReface, bcFinalCondition, " + _
+                                        "bod001CaptionID, bod002CaptionID, bod003CaptionID, bod004CaptionID, bod005CaptionID, bod006CaptionID, " + _
+                                        "bod007CaptionID, bod008CaptionID, bod009CaptionID, " + _
+                                        "bod001Value, bod002Value, bod003Value, bod004Value, bod005Value, bod006Value, " + _
+                                        "bod007Value, bod008Value, bod009Value, " + _
+                                        "pin001CaptionID, pin002CaptionID, pin003CaptionID, pin004CaptionID, pin005CaptionID, pin006CaptionID, " + _
+                                        "pin007CaptionID, pin008CaptionID, pin009CaptionID, pin010CaptionID, pin011CaptionID, " + _
+                                        "pin001Value, pin002Value, pin003Value, pin004Value, pin005Value, pin006Value, " + _
+                                        "pin007Value, pin008Value, pin009Value, pin010Value, pin011Value, " + _
+                                        "box001CaptionID, box002CaptionID, box003CaptionID, box004CaptionID, box005CaptionID, box006CaptionID, " + _
+                                        "box007CaptionID, box008CaptionID, box009CaptionID, box010CaptionID, box011CaptionID, " + _
+                                        "box001Value, box002Value, box003Value, box004Value, box005Value, box006Value, " + _
+                                        "box007Value, box008Value, box009Value, box010Value, box011Value, " + _
+                                        "isPinHB, isBoxHB, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@drillPipeReportHdID, @drillPipeReportDtID, @sequenceNo, @serialNo, @remarks, " + _
-                                        "@bdBodyWear, @bdBent, @bdBodyDamage, @bdEMI, @bdUTEndArea, @bdPlasticCoating, @bdWall, @bdWallRemanent, @bdTubeClass, " + _
-                                        "@pcToolJointYear, @pcOutsideDia, @pcInsideDia, @pcTongSpace, @pcThreadLength, @pcBevelDia, @pcLead, @pcShoulderWidth, " + _
-                                        "@pcNeckLength, @pcReface, @pcFinalCondition, @bcOutsideDia, @bcTongSpace, @bcQCDia, @bcQCDepth, @bcShoulderWidth, " + _
-                                        "@bcBevelDia, @bcSealWidth, @bcReface, @bcFinalCondition, " + _
+                                        "@bod001CaptionID, @bod002CaptionID, @bod003CaptionID, @bod004CaptionID, @bod005CaptionID, @bod006CaptionID, " + _
+                                        "@bod007CaptionID, @bod008CaptionID, @bod009CaptionID, " + _
+                                        "@bod001Value, @bod002Value, @bod003Value, @bod004Value, @bod005Value, @bod006Value, " + _
+                                        "@bod007Value, @bod008Value, @bod009Value, " + _
+                                        "@pin001CaptionID, @pin002CaptionID, @pin003CaptionID, @pin004CaptionID, @pin005CaptionID, @pin006CaptionID, " + _
+                                        "@pin007CaptionID, @pin008CaptionID, @pin009CaptionID, @pin010CaptionID, @pin011CaptionID, " + _
+                                        "@pin001Value, @pin002Value, @pin003Value, @pin004Value, @pin005Value, @pin006Value, " + _
+                                        "@pin007Value, @pin008Value, @pin009Value, @pin010Value, @pin011Value, " + _
+                                        "@box001CaptionID, @box002CaptionID, @box003CaptionID, @box004CaptionID, @box005CaptionID, @box006CaptionID, " + _
+                                        "@box007CaptionID, @box008CaptionID, @box009CaptionID, @box010CaptionID, @box011CaptionID, " + _
+                                        "@box001Value, @box002Value, @box003Value, @box004Value, @box005Value, @box006Value, " + _
+                                        "@box007Value, @box008Value, @box009Value, @box010Value, @box011Value, " + _
+                                        "@isPinHB, @isBoxHB, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -56,35 +83,70 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@sequenceNo", _sequenceNo)
                 cmdToExecute.Parameters.AddWithValue("@serialNo", _serialNo)
                 cmdToExecute.Parameters.AddWithValue("@remarks", _remarks)
-                cmdToExecute.Parameters.AddWithValue("@bdBodyWear", _bdBodyWear)
-                cmdToExecute.Parameters.AddWithValue("@bdBent", _bdBent)
-                cmdToExecute.Parameters.AddWithValue("@bdBodyDamage", _bdBodyDamage)
-                cmdToExecute.Parameters.AddWithValue("@bdEMI", _bdEMI)
-                cmdToExecute.Parameters.AddWithValue("@bdUTEndArea", _bdUTEndArea)
-                cmdToExecute.Parameters.AddWithValue("@bdPlasticCoating", _bdPlasticCoating)
-                cmdToExecute.Parameters.AddWithValue("@bdWall", _bdWall)
-                cmdToExecute.Parameters.AddWithValue("@bdWallRemanent", _bdWallRemanent)
-                cmdToExecute.Parameters.AddWithValue("@bdTubeClass", _bdTubeClass)
-                cmdToExecute.Parameters.AddWithValue("@pcToolJointYear", _pcToolJointYear)
-                cmdToExecute.Parameters.AddWithValue("@pcOutsideDia", _pcOutsideDia)
-                cmdToExecute.Parameters.AddWithValue("@pcInsideDia", _pcInsideDia)
-                cmdToExecute.Parameters.AddWithValue("@pcTongSpace", _pcTongSpace)
-                cmdToExecute.Parameters.AddWithValue("@pcThreadLength", _pcThreadLength)
-                cmdToExecute.Parameters.AddWithValue("@pcBevelDia", _pcBevelDia)
-                cmdToExecute.Parameters.AddWithValue("@pcLead", _pcLead)
-                cmdToExecute.Parameters.AddWithValue("@pcShoulderWidth", _pcShoulderWidth)
-                cmdToExecute.Parameters.AddWithValue("@pcNeckLength", _pcNeckLength)
-                cmdToExecute.Parameters.AddWithValue("@pcReface", _pcReface)
-                cmdToExecute.Parameters.AddWithValue("@pcFinalCondition", _pcFinalCondition)
-                cmdToExecute.Parameters.AddWithValue("@bcOutsideDia", _bcOutsideDia)
-                cmdToExecute.Parameters.AddWithValue("@bcTongSpace", _bcTongSpace)
-                cmdToExecute.Parameters.AddWithValue("@bcQCDia", _bcQCDia)
-                cmdToExecute.Parameters.AddWithValue("@bcQCDepth", _bcQCDepth)
-                cmdToExecute.Parameters.AddWithValue("@bcShoulderWidth", _bcShoulderWidth)
-                cmdToExecute.Parameters.AddWithValue("@bcBevelDia", _bcBevelDia)
-                cmdToExecute.Parameters.AddWithValue("@bcSealWidth", _bcSealWidth)
-                cmdToExecute.Parameters.AddWithValue("@bcReface", _bcReface)
-                cmdToExecute.Parameters.AddWithValue("@bcFinalCondition", _bcFinalCondition)
+                cmdToExecute.Parameters.AddWithValue("@bod001CaptionID", _bod001CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod002CaptionID", _bod002CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod003CaptionID", _bod003CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod004CaptionID", _bod004CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod005CaptionID", _bod005CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod006CaptionID", _bod006CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod007CaptionID", _bod007CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod008CaptionID", _bod008CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod009CaptionID", _bod009CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod001Value", _bod001Value)
+                cmdToExecute.Parameters.AddWithValue("@bod002Value", _bod002Value)
+                cmdToExecute.Parameters.AddWithValue("@bod003Value", _bod003Value)
+                cmdToExecute.Parameters.AddWithValue("@bod004Value", _bod004Value)
+                cmdToExecute.Parameters.AddWithValue("@bod005Value", _bod005Value)
+                cmdToExecute.Parameters.AddWithValue("@bod006Value", _bod006Value)
+                cmdToExecute.Parameters.AddWithValue("@bod007Value", _bod007Value)
+                cmdToExecute.Parameters.AddWithValue("@bod008Value", _bod008Value)
+                cmdToExecute.Parameters.AddWithValue("@bod009Value", _bod009Value)
+                cmdToExecute.Parameters.AddWithValue("@pin001CaptionID", _pin001CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin002CaptionID", _pin002CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin003CaptionID", _pin003CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin004CaptionID", _pin004CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin005CaptionID", _pin005CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin006CaptionID", _pin006CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin007CaptionID", _pin007CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin008CaptionID", _pin008CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin009CaptionID", _pin009CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin010CaptionID", _pin010CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin011CaptionID", _pin011CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin001Value", _pin001Value)
+                cmdToExecute.Parameters.AddWithValue("@pin002Value", _pin002Value)
+                cmdToExecute.Parameters.AddWithValue("@pin003Value", _pin003Value)
+                cmdToExecute.Parameters.AddWithValue("@pin004Value", _pin004Value)
+                cmdToExecute.Parameters.AddWithValue("@pin005Value", _pin005Value)
+                cmdToExecute.Parameters.AddWithValue("@pin006Value", _pin006Value)
+                cmdToExecute.Parameters.AddWithValue("@pin007Value", _pin007Value)
+                cmdToExecute.Parameters.AddWithValue("@pin008Value", _pin008Value)
+                cmdToExecute.Parameters.AddWithValue("@pin009Value", _pin009Value)
+                cmdToExecute.Parameters.AddWithValue("@pin010Value", _pin010Value)
+                cmdToExecute.Parameters.AddWithValue("@pin011Value", _pin011Value)
+                cmdToExecute.Parameters.AddWithValue("@box001CaptionID", _box001CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box002CaptionID", _box002CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box003CaptionID", _box003CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box004CaptionID", _box004CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box005CaptionID", _box005CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box006CaptionID", _box006CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box007CaptionID", _box007CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box008CaptionID", _box008CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box009CaptionID", _box009CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box010CaptionID", _box010CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box011CaptionID", _box011CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box001Value", _box001Value)
+                cmdToExecute.Parameters.AddWithValue("@box002Value", _box002Value)
+                cmdToExecute.Parameters.AddWithValue("@box003Value", _box003Value)
+                cmdToExecute.Parameters.AddWithValue("@box004Value", _box004Value)
+                cmdToExecute.Parameters.AddWithValue("@box005Value", _box005Value)
+                cmdToExecute.Parameters.AddWithValue("@box006Value", _box006Value)
+                cmdToExecute.Parameters.AddWithValue("@box007Value", _box007Value)
+                cmdToExecute.Parameters.AddWithValue("@box008Value", _box008Value)
+                cmdToExecute.Parameters.AddWithValue("@box009Value", _box009Value)
+                cmdToExecute.Parameters.AddWithValue("@box010Value", _box010Value)
+                cmdToExecute.Parameters.AddWithValue("@box011Value", _box011Value)
+                cmdToExecute.Parameters.AddWithValue("@isPinHB", _isPinHB)
+                cmdToExecute.Parameters.AddWithValue("@isBoxHB", _isBoxHB)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -108,13 +170,29 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "UPDATE DrillPipeReportDt " + _
                                         "SET sequenceNo=@sequenceNo, serialNo=@serialNo, remarks=@remarks, " + _
-                                        "bdBodyWear=@bdBodyWear, bdBent=@bdBent, bdBodyDamage=@bdBodyDamage, bdEMI=@bdEMI, " + _
-                                        "bdUTEndArea=@bdUTEndArea, bdPlasticCoating=@bdPlasticCoating, bdWall=@bdWall, bdWallRemanent=@bdWallRemanent, " + _
-                                        "bdTubeClass=@bdTubeClass, pcToolJointYear=@pcToolJointYear, pcOutsideDia=@pcOutsideDia, pcInsideDia=@pcInsideDia, " + _
-                                        "pcTongSpace=@pcTongSpace, pcThreadLength=@pcThreadLength, pcBevelDia=@pcBevelDia, pcLead=@pcLead, " + _
-                                        "pcShoulderWidth=@pcShoulderWidth, pcNeckLength=@pcNeckLength, pcReface=@pcReface, pcFinalCondition=@pcFinalCondition, " + _
-                                        "bcOutsideDia=@bcOutsideDia, bcTongSpace=@bcTongSpace, bcQCDia=@bcQCDia, bcQCDepth=@bcQCDepth, bcShoulderWidth=@bcShoulderWidth, " + _
-                                        "bcBevelDia=@bcBevelDia, bcSealWidth=@bcSealWidth, bcReface=@bcReface, bcFinalCondition=@bcFinalCondition, " + _
+                                        "bod001CaptionID=@bod001CaptionID, bod002CaptionID=@bod002CaptionID, bod003CaptionID=@bod003CaptionID, " + _
+                                        "bod004CaptionID=@bod004CaptionID, bod005CaptionID=@bod005CaptionID, bod006CaptionID=@bod006CaptionID, " + _
+                                        "bod007CaptionID=@bod007CaptionID, bod008CaptionID=@bod008CaptionID, bod009CaptionID=@bod009CaptionID, " + _
+                                        "bod001Value=@bod001Value, bod002Value=@bod002Value, bod003Value=@bod003Value, " + _
+                                        "bod004Value=@bod004Value, bod005Value=@bod005Value, bod006Value=@bod006Value, " + _
+                                        "bod007Value=@bod007Value, bod008Value=@bod008Value, bod009Value=@bod009Value, " + _
+                                        "pin001CaptionID=@pin001CaptionID, pin002CaptionID=@pin002CaptionID, pin003CaptionID=@pin003CaptionID, " + _
+                                        "pin004CaptionID=@pin004CaptionID, pin005CaptionID=@pin005CaptionID, pin006CaptionID=@pin006CaptionID, " + _
+                                        "pin007CaptionID=@pin007CaptionID, pin008CaptionID=@pin008CaptionID, pin009CaptionID=@pin009CaptionID, " + _
+                                        "pin010CaptionID=@pin010CaptionID, pin011CaptionID=@pin011CaptionID, " + _
+                                        "pin001Value=@pin001Value, pin002Value=@pin002Value, pin003Value=@pin003Value, " + _
+                                        "pin004Value=@pin004Value, pin005Value=@pin005Value, pin006Value=@pin006Value, " + _
+                                        "pin007Value=@pin007Value, pin008Value=@pin008Value, pin009Value=@pin009Value, " + _
+                                        "pin010Value=@pin010Value, pin011Value=@pin011Value, " + _
+                                        "box001CaptionID=@box001CaptionID, box002CaptionID=@box002CaptionID, box003CaptionID=@box003CaptionID, " + _
+                                        "box004CaptionID=@box004CaptionID, box005CaptionID=@box005CaptionID, box006CaptionID=@box006CaptionID, " + _
+                                        "box007CaptionID=@box007CaptionID, box008CaptionID=@box008CaptionID, box009CaptionID=@box009CaptionID, " + _
+                                        "box010CaptionID=@box010CaptionID, box011CaptionID=@box011CaptionID, " + _
+                                        "box001Value=@box001Value, box002Value=@box002Value, box003Value=@box003Value, " + _
+                                        "box004Value=@box004Value, box005Value=@box005Value, box006Value=@box006Value, " + _
+                                        "box007Value=@box007Value, box008Value=@box008Value, box009Value=@box009Value, " + _
+                                        "box010Value=@box010Value, box011Value=@box011Value, " + _
+                                        "isPinHB=@isPinHB, isBoxHB=@isBoxHB, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE drillPipeReportDtID=@drillPipeReportDtID"
             cmdToExecute.CommandType = CommandType.Text
@@ -126,35 +204,70 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@sequenceNo", _sequenceNo)
                 cmdToExecute.Parameters.AddWithValue("@serialNo", _serialNo)
                 cmdToExecute.Parameters.AddWithValue("@remarks", _remarks)
-                cmdToExecute.Parameters.AddWithValue("@bdBodyWear", _bdBodyWear)
-                cmdToExecute.Parameters.AddWithValue("@bdBent", _bdBent)
-                cmdToExecute.Parameters.AddWithValue("@bdBodyDamage", _bdBodyDamage)
-                cmdToExecute.Parameters.AddWithValue("@bdEMI", _bdEMI)
-                cmdToExecute.Parameters.AddWithValue("@bdUTEndArea", _bdUTEndArea)
-                cmdToExecute.Parameters.AddWithValue("@bdPlasticCoating", _bdPlasticCoating)
-                cmdToExecute.Parameters.AddWithValue("@bdWall", _bdWall)
-                cmdToExecute.Parameters.AddWithValue("@bdWallRemanent", _bdWallRemanent)
-                cmdToExecute.Parameters.AddWithValue("@bdTubeClass", _bdTubeClass)
-                cmdToExecute.Parameters.AddWithValue("@pcToolJointYear", _pcToolJointYear)
-                cmdToExecute.Parameters.AddWithValue("@pcOutsideDia", _pcOutsideDia)
-                cmdToExecute.Parameters.AddWithValue("@pcInsideDia", _pcInsideDia)
-                cmdToExecute.Parameters.AddWithValue("@pcTongSpace", _pcTongSpace)
-                cmdToExecute.Parameters.AddWithValue("@pcThreadLength", _pcThreadLength)
-                cmdToExecute.Parameters.AddWithValue("@pcBevelDia", _pcBevelDia)
-                cmdToExecute.Parameters.AddWithValue("@pcLead", _pcLead)
-                cmdToExecute.Parameters.AddWithValue("@pcShoulderWidth", _pcShoulderWidth)
-                cmdToExecute.Parameters.AddWithValue("@pcNeckLength", _pcNeckLength)
-                cmdToExecute.Parameters.AddWithValue("@pcReface", _pcReface)
-                cmdToExecute.Parameters.AddWithValue("@pcFinalCondition", _pcFinalCondition)
-                cmdToExecute.Parameters.AddWithValue("@bcOutsideDia", _bcOutsideDia)
-                cmdToExecute.Parameters.AddWithValue("@bcTongSpace", _bcTongSpace)
-                cmdToExecute.Parameters.AddWithValue("@bcQCDia", _bcQCDia)
-                cmdToExecute.Parameters.AddWithValue("@bcQCDepth", _bcQCDepth)
-                cmdToExecute.Parameters.AddWithValue("@bcShoulderWidth", _bcShoulderWidth)
-                cmdToExecute.Parameters.AddWithValue("@bcBevelDia", _bcBevelDia)
-                cmdToExecute.Parameters.AddWithValue("@bcSealWidth", _bcSealWidth)
-                cmdToExecute.Parameters.AddWithValue("@bcReface", _bcReface)
-                cmdToExecute.Parameters.AddWithValue("@bcFinalCondition", _bcFinalCondition)                
+                cmdToExecute.Parameters.AddWithValue("@bod001CaptionID", _bod001CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod002CaptionID", _bod002CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod003CaptionID", _bod003CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod004CaptionID", _bod004CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod005CaptionID", _bod005CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod006CaptionID", _bod006CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod007CaptionID", _bod007CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod008CaptionID", _bod008CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod009CaptionID", _bod009CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@bod001Value", _bod001Value)
+                cmdToExecute.Parameters.AddWithValue("@bod002Value", _bod002Value)
+                cmdToExecute.Parameters.AddWithValue("@bod003Value", _bod003Value)
+                cmdToExecute.Parameters.AddWithValue("@bod004Value", _bod004Value)
+                cmdToExecute.Parameters.AddWithValue("@bod005Value", _bod005Value)
+                cmdToExecute.Parameters.AddWithValue("@bod006Value", _bod006Value)
+                cmdToExecute.Parameters.AddWithValue("@bod007Value", _bod007Value)
+                cmdToExecute.Parameters.AddWithValue("@bod008Value", _bod008Value)
+                cmdToExecute.Parameters.AddWithValue("@bod009Value", _bod009Value)
+                cmdToExecute.Parameters.AddWithValue("@pin001CaptionID", _pin001CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin002CaptionID", _pin002CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin003CaptionID", _pin003CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin004CaptionID", _pin004CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin005CaptionID", _pin005CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin006CaptionID", _pin006CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin007CaptionID", _pin007CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin008CaptionID", _pin008CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin009CaptionID", _pin009CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin010CaptionID", _pin010CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin011CaptionID", _pin011CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin001Value", _pin001Value)
+                cmdToExecute.Parameters.AddWithValue("@pin002Value", _pin002Value)
+                cmdToExecute.Parameters.AddWithValue("@pin003Value", _pin003Value)
+                cmdToExecute.Parameters.AddWithValue("@pin004Value", _pin004Value)
+                cmdToExecute.Parameters.AddWithValue("@pin005Value", _pin005Value)
+                cmdToExecute.Parameters.AddWithValue("@pin006Value", _pin006Value)
+                cmdToExecute.Parameters.AddWithValue("@pin007Value", _pin007Value)
+                cmdToExecute.Parameters.AddWithValue("@pin008Value", _pin008Value)
+                cmdToExecute.Parameters.AddWithValue("@pin009Value", _pin009Value)
+                cmdToExecute.Parameters.AddWithValue("@pin010Value", _pin010Value)
+                cmdToExecute.Parameters.AddWithValue("@pin011Value", _pin011Value)
+                cmdToExecute.Parameters.AddWithValue("@box001CaptionID", _box001CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box002CaptionID", _box002CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box003CaptionID", _box003CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box004CaptionID", _box004CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box005CaptionID", _box005CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box006CaptionID", _box006CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box007CaptionID", _box007CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box008CaptionID", _box008CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box009CaptionID", _box009CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box010CaptionID", _box010CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box011CaptionID", _box011CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@box001Value", _box001Value)
+                cmdToExecute.Parameters.AddWithValue("@box002Value", _box002Value)
+                cmdToExecute.Parameters.AddWithValue("@box003Value", _box003Value)
+                cmdToExecute.Parameters.AddWithValue("@box004Value", _box004Value)
+                cmdToExecute.Parameters.AddWithValue("@box005Value", _box005Value)
+                cmdToExecute.Parameters.AddWithValue("@box006Value", _box006Value)
+                cmdToExecute.Parameters.AddWithValue("@box007Value", _box007Value)
+                cmdToExecute.Parameters.AddWithValue("@box008Value", _box008Value)
+                cmdToExecute.Parameters.AddWithValue("@box009Value", _box009Value)
+                cmdToExecute.Parameters.AddWithValue("@box010Value", _box010Value)
+                cmdToExecute.Parameters.AddWithValue("@box011Value", _box011Value)
+                cmdToExecute.Parameters.AddWithValue("@isPinHB", _isPinHB)
+                cmdToExecute.Parameters.AddWithValue("@isBoxHB", _isBoxHB)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -226,35 +339,70 @@ Namespace Raven.Common.BussinessRules
                     _sequenceNo = CType(toReturn.Rows(0)("sequenceNo"), String)
                     _serialNo = CType(toReturn.Rows(0)("serialNo"), String)
                     _remarks = CType(toReturn.Rows(0)("remarks"), String)
-                    _bdBodyWear = CType(toReturn.Rows(0)("bdBodyWear"), String)
-                    _bdBent = CType(toReturn.Rows(0)("bdBent"), String)
-                    _bdBodyDamage = CType(toReturn.Rows(0)("bdBodyDamage"), String)
-                    _bdEMI = CType(toReturn.Rows(0)("bdEMI"), String)
-                    _bdUTEndArea = CType(toReturn.Rows(0)("bdUTEndArea"), String)
-                    _bdPlasticCoating = CType(toReturn.Rows(0)("bdPlasticCoating"), String)
-                    _bdWall = CType(toReturn.Rows(0)("bdWall"), String)
-                    _bdWallRemanent = CType(toReturn.Rows(0)("bdWallRemanent"), String)
-                    _bdTubeClass = CType(toReturn.Rows(0)("bdTubeClass"), String)
-                    _pcToolJointYear = CType(toReturn.Rows(0)("pcToolJointYear"), String)
-                    _pcOutsideDia = CType(toReturn.Rows(0)("pcOutsideDia"), String)
-                    _pcInsideDia = CType(toReturn.Rows(0)("pcInsideDia"), String)
-                    _pcTongSpace = CType(toReturn.Rows(0)("pcTongSpace"), String)
-                    _pcThreadLength = CType(toReturn.Rows(0)("pcThreadLength"), String)
-                    _pcBevelDia = CType(toReturn.Rows(0)("pcBevelDia"), String)
-                    _pcLead = CType(toReturn.Rows(0)("pcLead"), String)
-                    _pcShoulderWidth = CType(toReturn.Rows(0)("pcShoulderWidth"), String)
-                    _pcNeckLength = CType(toReturn.Rows(0)("pcNeckLength"), String)
-                    _pcReface = CType(toReturn.Rows(0)("pcReface"), String)
-                    _pcFinalCondition = CType(toReturn.Rows(0)("pcFinalCondition"), String)
-                    _bcOutsideDia = CType(toReturn.Rows(0)("bcOutsideDia"), String)
-                    _bcTongSpace = CType(toReturn.Rows(0)("bcTongSpace"), String)
-                    _bcQCDia = CType(toReturn.Rows(0)("bcQCDia"), String)
-                    _bcQCDepth = CType(toReturn.Rows(0)("bcQCDepth"), String)
-                    _bcShoulderWidth = CType(toReturn.Rows(0)("bcShoulderWidth"), String)
-                    _bcBevelDia = CType(toReturn.Rows(0)("bcBevelDia"), String)
-                    _bcSealWidth = CType(toReturn.Rows(0)("bcSealWidth"), String)
-                    _bcReface = CType(toReturn.Rows(0)("bcReface"), String)
-                    _bcFinalCondition = CType(toReturn.Rows(0)("bcFinalCondition"), String)
+                    _bod001CaptionID = CType(toReturn.Rows(0)("bod001CaptionID"), String)
+                    _bod002CaptionID = CType(toReturn.Rows(0)("bod002CaptionID"), String)
+                    _bod003CaptionID = CType(toReturn.Rows(0)("bod003CaptionID"), String)
+                    _bod004CaptionID = CType(toReturn.Rows(0)("bod004CaptionID"), String)
+                    _bod005CaptionID = CType(toReturn.Rows(0)("bod005CaptionID"), String)
+                    _bod006CaptionID = CType(toReturn.Rows(0)("bod006CaptionID"), String)
+                    _bod007CaptionID = CType(toReturn.Rows(0)("bod007CaptionID"), String)
+                    _bod008CaptionID = CType(toReturn.Rows(0)("bod008CaptionID"), String)
+                    _bod009CaptionID = CType(toReturn.Rows(0)("bod009CaptionID"), String)
+                    _bod001Value = CType(toReturn.Rows(0)("bod001Value"), String)
+                    _bod002Value = CType(toReturn.Rows(0)("bod002Value"), String)
+                    _bod003Value = CType(toReturn.Rows(0)("bod003Value"), String)
+                    _bod004Value = CType(toReturn.Rows(0)("bod004Value"), String)
+                    _bod005Value = CType(toReturn.Rows(0)("bod005Value"), String)
+                    _bod006Value = CType(toReturn.Rows(0)("bod006Value"), String)
+                    _bod007Value = CType(toReturn.Rows(0)("bod007Value"), String)
+                    _bod008Value = CType(toReturn.Rows(0)("bod008Value"), String)
+                    _bod009Value = CType(toReturn.Rows(0)("bod009Value"), String)
+                    _pin001CaptionID = CType(toReturn.Rows(0)("pin001CaptionID"), String)
+                    _pin002CaptionID = CType(toReturn.Rows(0)("pin002CaptionID"), String)
+                    _pin003CaptionID = CType(toReturn.Rows(0)("pin003CaptionID"), String)
+                    _pin004CaptionID = CType(toReturn.Rows(0)("pin004CaptionID"), String)
+                    _pin005CaptionID = CType(toReturn.Rows(0)("pin005CaptionID"), String)
+                    _pin006CaptionID = CType(toReturn.Rows(0)("pin006CaptionID"), String)
+                    _pin007CaptionID = CType(toReturn.Rows(0)("pin007CaptionID"), String)
+                    _pin008CaptionID = CType(toReturn.Rows(0)("pin008CaptionID"), String)
+                    _pin009CaptionID = CType(toReturn.Rows(0)("pin009CaptionID"), String)
+                    _pin010CaptionID = CType(toReturn.Rows(0)("pin010CaptionID"), String)
+                    _pin011CaptionID = CType(toReturn.Rows(0)("pin011CaptionID"), String)
+                    _pin001Value = CType(toReturn.Rows(0)("pin001Value"), String)
+                    _pin002Value = CType(toReturn.Rows(0)("pin002Value"), String)
+                    _pin003Value = CType(toReturn.Rows(0)("pin003Value"), String)
+                    _pin004Value = CType(toReturn.Rows(0)("pin004Value"), String)
+                    _pin005Value = CType(toReturn.Rows(0)("pin005Value"), String)
+                    _pin006Value = CType(toReturn.Rows(0)("pin006Value"), String)
+                    _pin007Value = CType(toReturn.Rows(0)("pin007Value"), String)
+                    _pin008Value = CType(toReturn.Rows(0)("pin008Value"), String)
+                    _pin009Value = CType(toReturn.Rows(0)("pin009Value"), String)
+                    _pin010Value = CType(toReturn.Rows(0)("pin010Value"), String)
+                    _pin011Value = CType(toReturn.Rows(0)("pin011Value"), String)
+                    _box001CaptionID = CType(toReturn.Rows(0)("box001CaptionID"), String)
+                    _box002CaptionID = CType(toReturn.Rows(0)("box002CaptionID"), String)
+                    _box003CaptionID = CType(toReturn.Rows(0)("box003CaptionID"), String)
+                    _box004CaptionID = CType(toReturn.Rows(0)("box004CaptionID"), String)
+                    _box005CaptionID = CType(toReturn.Rows(0)("box005CaptionID"), String)
+                    _box006CaptionID = CType(toReturn.Rows(0)("box006CaptionID"), String)
+                    _box007CaptionID = CType(toReturn.Rows(0)("box007CaptionID"), String)
+                    _box008CaptionID = CType(toReturn.Rows(0)("box008CaptionID"), String)
+                    _box009CaptionID = CType(toReturn.Rows(0)("box009CaptionID"), String)
+                    _box010CaptionID = CType(toReturn.Rows(0)("box010CaptionID"), String)
+                    _box011CaptionID = CType(toReturn.Rows(0)("box011CaptionID"), String)
+                    _box001Value = CType(toReturn.Rows(0)("box001Value"), String)
+                    _box002Value = CType(toReturn.Rows(0)("box002Value"), String)
+                    _box003Value = CType(toReturn.Rows(0)("box003Value"), String)
+                    _box004Value = CType(toReturn.Rows(0)("box004Value"), String)
+                    _box005Value = CType(toReturn.Rows(0)("box005Value"), String)
+                    _box006Value = CType(toReturn.Rows(0)("box006Value"), String)
+                    _box007Value = CType(toReturn.Rows(0)("box007Value"), String)
+                    _box008Value = CType(toReturn.Rows(0)("box008Value"), String)
+                    _box009Value = CType(toReturn.Rows(0)("box009Value"), String)
+                    _box010Value = CType(toReturn.Rows(0)("box010Value"), String)
+                    _box011Value = CType(toReturn.Rows(0)("box011Value"), String)
+                    _isPinHB = CType(toReturn.Rows(0)("isPinHB"), Boolean)
+                    _isBoxHB = CType(toReturn.Rows(0)("isBoxHB"), Boolean)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -303,9 +451,8 @@ Namespace Raven.Common.BussinessRules
 #Region " Custom Function "
         Public Function SelectByDrillPipeReportHdID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT drd.* " +
-                                        "FROM DrillPipeReportDt drd WHERE drd.drillPipeReportHdID=@drillPipeReportHdID"
-            cmdToExecute.CommandType = CommandType.Text
+            cmdToExecute.CommandText = "sp_DrillPipeReportDtByDrillPipeReportHdID"
+            cmdToExecute.CommandType = CommandType.StoredProcedure
 
             Dim toReturn As DataTable = New DataTable("DrillPipeReportDt")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
@@ -380,264 +527,579 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
-        Public Property [bdBodyWear]() As String
+        Public Property [bod001CaptionID]() As String
             Get
-                Return _bdBodyWear
+                Return _bod001CaptionID
             End Get
             Set(ByVal Value As String)
-                _bdBodyWear = Value
+                _bod001CaptionID = Value
             End Set
         End Property
 
-        Public Property [bdBent]() As String
+        Public Property [bod002CaptionID]() As String
             Get
-                Return _bdBent
+                Return _bod002CaptionID
             End Get
             Set(ByVal Value As String)
-                _bdBent = Value
+                _bod002CaptionID = Value
             End Set
         End Property
 
-        Public Property [bdBodyDamage]() As String
+        Public Property [bod003CaptionID]() As String
             Get
-                Return _bdBodyDamage
+                Return _bod003CaptionID
             End Get
             Set(ByVal Value As String)
-                _bdBodyDamage = Value
+                _bod003CaptionID = Value
             End Set
         End Property
 
-        Public Property [bdEMI]() As String
+        Public Property [bod004CaptionID]() As String
             Get
-                Return _bdEMI
+                Return _bod004CaptionID
             End Get
             Set(ByVal Value As String)
-                _bdEMI = Value
+                _bod004CaptionID = Value
             End Set
         End Property
 
-        Public Property [bdUTEndArea]() As String
+        Public Property [bod005CaptionID]() As String
             Get
-                Return _bdUTEndArea
+                Return _bod005CaptionID
             End Get
             Set(ByVal Value As String)
-                _bdUTEndArea = Value
+                _bod005CaptionID = Value
             End Set
         End Property
 
-        Public Property [bdPlasticCoating]() As String
+        Public Property [bod006CaptionID]() As String
             Get
-                Return _bdPlasticCoating
+                Return _bod006CaptionID
             End Get
             Set(ByVal Value As String)
-                _bdPlasticCoating = Value
+                _bod006CaptionID = Value
             End Set
         End Property
 
-        Public Property [bdWall]() As String
+        Public Property [bod007CaptionID]() As String
             Get
-                Return _bdWall
+                Return _bod007CaptionID
             End Get
             Set(ByVal Value As String)
-                _bdWall = Value
+                _bod007CaptionID = Value
             End Set
         End Property
 
-        Public Property [bdWallRemanent]() As String
+        Public Property [bod008CaptionID]() As String
             Get
-                Return _bdWallRemanent
+                Return _bod008CaptionID
             End Get
             Set(ByVal Value As String)
-                _bdWallRemanent = Value
+                _bod008CaptionID = Value
             End Set
         End Property
 
-        Public Property [bdTubeClass]() As String
+        Public Property [bod009CaptionID]() As String
             Get
-                Return _bdTubeClass
+                Return _bod009CaptionID
             End Get
             Set(ByVal Value As String)
-                _bdTubeClass = Value
+                _bod009CaptionID = Value
             End Set
         End Property
 
-        Public Property [pcToolJointYear]() As String
+        Public Property [bod001Value]() As String
             Get
-                Return _pcToolJointYear
+                Return _bod001Value
             End Get
             Set(ByVal Value As String)
-                _pcToolJointYear = Value
+                _bod001Value = Value
             End Set
         End Property
 
-        Public Property [pcOutsideDia]() As String
+        Public Property [bod002Value]() As String
             Get
-                Return _pcOutsideDia
+                Return _bod002Value
             End Get
             Set(ByVal Value As String)
-                _pcOutsideDia = Value
+                _bod002Value = Value
             End Set
         End Property
 
-        Public Property [pcInsideDia]() As String
+        Public Property [bod003Value]() As String
             Get
-                Return _pcInsideDia
+                Return _bod003Value
             End Get
             Set(ByVal Value As String)
-                _pcInsideDia = Value
+                _bod003Value = Value
             End Set
         End Property
 
-        Public Property [pcTongSpace]() As String
+        Public Property [bod004Value]() As String
             Get
-                Return _pcTongSpace
+                Return _bod004Value
             End Get
             Set(ByVal Value As String)
-                _pcTongSpace = Value
+                _bod004Value = Value
             End Set
         End Property
 
-        Public Property [pcThreadLength]() As String
+        Public Property [bod005Value]() As String
             Get
-                Return _pcThreadLength
+                Return _bod005Value
             End Get
             Set(ByVal Value As String)
-                _pcThreadLength = Value
+                _bod005Value = Value
             End Set
         End Property
 
-        Public Property [pcBevelDia]() As String
+        Public Property [bod006Value]() As String
             Get
-                Return _pcBevelDia
+                Return _bod006Value
             End Get
             Set(ByVal Value As String)
-                _pcBevelDia = Value
+                _bod006Value = Value
             End Set
         End Property
 
-        Public Property [pcLead]() As String
+        Public Property [bod007Value]() As String
             Get
-                Return _pcLead
+                Return _bod007Value
             End Get
             Set(ByVal Value As String)
-                _pcLead = Value
+                _bod007Value = Value
             End Set
         End Property
 
-        Public Property [pcShoulderWidth]() As String
+        Public Property [bod008Value]() As String
             Get
-                Return _pcShoulderWidth
+                Return _bod008Value
             End Get
             Set(ByVal Value As String)
-                _pcShoulderWidth = Value
+                _bod008Value = Value
             End Set
         End Property
 
-        Public Property [pcNeckLength]() As String
+        Public Property [bod009Value]() As String
             Get
-                Return _pcNeckLength
+                Return _bod009Value
             End Get
             Set(ByVal Value As String)
-                _pcNeckLength = Value
+                _bod009Value = Value
             End Set
         End Property
 
-        Public Property [pcReface]() As String
+        Public Property [pin001CaptionID]() As String
             Get
-                Return _pcReface
+                Return _pin001CaptionID
             End Get
             Set(ByVal Value As String)
-                _pcReface = Value
+                _pin001CaptionID = Value
             End Set
         End Property
 
-        Public Property [pcFinalCondition]() As String
+        Public Property [pin002CaptionID]() As String
             Get
-                Return _pcFinalCondition
+                Return _pin002CaptionID
             End Get
             Set(ByVal Value As String)
-                _pcFinalCondition = Value
+                _pin002CaptionID = Value
             End Set
         End Property
 
-        Public Property [bcOutsideDia]() As String
+        Public Property [pin003CaptionID]() As String
             Get
-                Return _bcOutsideDia
+                Return _pin003CaptionID
             End Get
             Set(ByVal Value As String)
-                _bcOutsideDia = Value
+                _pin003CaptionID = Value
             End Set
         End Property
 
-        Public Property [bcTongSpace]() As String
+        Public Property [pin004CaptionID]() As String
             Get
-                Return _bcTongSpace
+                Return _pin004CaptionID
             End Get
             Set(ByVal Value As String)
-                _bcTongSpace = Value
+                _pin004CaptionID = Value
             End Set
         End Property
 
-        Public Property [bcQCDia]() As String
+        Public Property [pin005CaptionID]() As String
             Get
-                Return _bcQCDia
+                Return _pin005CaptionID
             End Get
             Set(ByVal Value As String)
-                _bcQCDia = Value
+                _pin005CaptionID = Value
             End Set
         End Property
 
-        Public Property [bcQCDepth]() As String
+        Public Property [pin006CaptionID]() As String
             Get
-                Return _bcQCDepth
+                Return _pin006CaptionID
             End Get
             Set(ByVal Value As String)
-                _bcQCDepth = Value
+                _pin006CaptionID = Value
             End Set
         End Property
 
-        Public Property [bcShoulderWidth]() As String
+        Public Property [pin007CaptionID]() As String
             Get
-                Return _bcShoulderWidth
+                Return _pin007CaptionID
             End Get
             Set(ByVal Value As String)
-                _bcShoulderWidth = Value
+                _pin007CaptionID = Value
             End Set
         End Property
 
-        Public Property [bcBevelDia]() As String
+        Public Property [pin008CaptionID]() As String
             Get
-                Return _bcBevelDia
+                Return _pin008CaptionID
             End Get
             Set(ByVal Value As String)
-                _bcBevelDia = Value
+                _pin008CaptionID = Value
             End Set
         End Property
 
-        Public Property [bcSealWidth]() As String
+        Public Property [pin009CaptionID]() As String
             Get
-                Return _bcSealWidth
+                Return _pin009CaptionID
             End Get
             Set(ByVal Value As String)
-                _bcSealWidth = Value
+                _pin009CaptionID = Value
             End Set
         End Property
 
-        Public Property [bcReface]() As String
+        Public Property [pin010CaptionID]() As String
             Get
-                Return _bcReface
+                Return _pin010CaptionID
             End Get
             Set(ByVal Value As String)
-                _bcReface = Value
+                _pin010CaptionID = Value
             End Set
         End Property
 
-        Public Property [bcFinalCondition]() As String
+        Public Property [pin011CaptionID]() As String
             Get
-                Return _bcFinalCondition
+                Return _pin011CaptionID
             End Get
             Set(ByVal Value As String)
-                _bcFinalCondition = Value
+                _pin011CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [pin001Value]() As String
+            Get
+                Return _pin001Value
+            End Get
+            Set(ByVal Value As String)
+                _pin001Value = Value
+            End Set
+        End Property
+
+        Public Property [pin002Value]() As String
+            Get
+                Return _pin002Value
+            End Get
+            Set(ByVal Value As String)
+                _pin002Value = Value
+            End Set
+        End Property
+
+        Public Property [pin003Value]() As String
+            Get
+                Return _pin003Value
+            End Get
+            Set(ByVal Value As String)
+                _pin003Value = Value
+            End Set
+        End Property
+
+        Public Property [pin004Value]() As String
+            Get
+                Return _pin004Value
+            End Get
+            Set(ByVal Value As String)
+                _pin004Value = Value
+            End Set
+        End Property
+
+        Public Property [pin005Value]() As String
+            Get
+                Return _pin005Value
+            End Get
+            Set(ByVal Value As String)
+                _pin005Value = Value
+            End Set
+        End Property
+
+        Public Property [pin006Value]() As String
+            Get
+                Return _pin006Value
+            End Get
+            Set(ByVal Value As String)
+                _pin006Value = Value
+            End Set
+        End Property
+
+        Public Property [pin007Value]() As String
+            Get
+                Return _pin007Value
+            End Get
+            Set(ByVal Value As String)
+                _pin007Value = Value
+            End Set
+        End Property
+
+        Public Property [pin008Value]() As String
+            Get
+                Return _pin008Value
+            End Get
+            Set(ByVal Value As String)
+                _pin008Value = Value
+            End Set
+        End Property
+
+        Public Property [pin009Value]() As String
+            Get
+                Return _pin009Value
+            End Get
+            Set(ByVal Value As String)
+                _pin009Value = Value
+            End Set
+        End Property
+
+        Public Property [pin010Value]() As String
+            Get
+                Return _pin010Value
+            End Get
+            Set(ByVal Value As String)
+                _pin010Value = Value
+            End Set
+        End Property
+
+        Public Property [pin011Value]() As String
+            Get
+                Return _pin011Value
+            End Get
+            Set(ByVal Value As String)
+                _pin011Value = Value
+            End Set
+        End Property
+
+        Public Property [box001CaptionID]() As String
+            Get
+                Return _box001CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box001CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box002CaptionID]() As String
+            Get
+                Return _box002CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box002CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box003CaptionID]() As String
+            Get
+                Return _box003CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box003CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box004CaptionID]() As String
+            Get
+                Return _box004CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box004CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box005CaptionID]() As String
+            Get
+                Return _box005CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box005CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box006CaptionID]() As String
+            Get
+                Return _box006CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box006CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box007CaptionID]() As String
+            Get
+                Return _box007CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box007CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box008CaptionID]() As String
+            Get
+                Return _box008CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box008CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box009CaptionID]() As String
+            Get
+                Return _box009CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box009CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box010CaptionID]() As String
+            Get
+                Return _box010CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box010CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box011CaptionID]() As String
+            Get
+                Return _box011CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _box011CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [box001Value]() As String
+            Get
+                Return _box001Value
+            End Get
+            Set(ByVal Value As String)
+                _box001Value = Value
+            End Set
+        End Property
+
+        Public Property [box002Value]() As String
+            Get
+                Return _box002Value
+            End Get
+            Set(ByVal Value As String)
+                _box002Value = Value
+            End Set
+        End Property
+
+        Public Property [box003Value]() As String
+            Get
+                Return _box003Value
+            End Get
+            Set(ByVal Value As String)
+                _box003Value = Value
+            End Set
+        End Property
+
+        Public Property [box004Value]() As String
+            Get
+                Return _box004Value
+            End Get
+            Set(ByVal Value As String)
+                _box004Value = Value
+            End Set
+        End Property
+
+        Public Property [box005Value]() As String
+            Get
+                Return _box005Value
+            End Get
+            Set(ByVal Value As String)
+                _box005Value = Value
+            End Set
+        End Property
+
+        Public Property [box006Value]() As String
+            Get
+                Return _box006Value
+            End Get
+            Set(ByVal Value As String)
+                _box006Value = Value
+            End Set
+        End Property
+
+        Public Property [box007Value]() As String
+            Get
+                Return _box007Value
+            End Get
+            Set(ByVal Value As String)
+                _box007Value = Value
+            End Set
+        End Property
+
+        Public Property [box008Value]() As String
+            Get
+                Return _box008Value
+            End Get
+            Set(ByVal Value As String)
+                _box008Value = Value
+            End Set
+        End Property
+
+        Public Property [box009Value]() As String
+            Get
+                Return _box009Value
+            End Get
+            Set(ByVal Value As String)
+                _box009Value = Value
+            End Set
+        End Property
+
+        Public Property [box010Value]() As String
+            Get
+                Return _box010Value
+            End Get
+            Set(ByVal Value As String)
+                _box010Value = Value
+            End Set
+        End Property
+
+        Public Property [box011Value]() As String
+            Get
+                Return _box011Value
+            End Get
+            Set(ByVal Value As String)
+                _box011Value = Value
+            End Set
+        End Property
+
+        Public Property [isPinHB]() As Boolean
+            Get
+                Return _isPinHB
+            End Get
+            Set(ByVal Value As Boolean)
+                _isPinHB = Value
+            End Set
+        End Property
+
+        Public Property [isBoxHB]() As Boolean
+            Get
+                Return _isBoxHB
+            End Get
+            Set(ByVal Value As Boolean)
+                _isBoxHB = Value
             End Set
         End Property
 

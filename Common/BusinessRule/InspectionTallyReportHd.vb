@@ -7,13 +7,14 @@ Imports System.Data.SqlClient
 Imports Raven.Common
 
 Namespace Raven.Common.BussinessRules
-    Public Class UTSpotCheckHd
+    Public Class InspectionTallyReportHd
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _UTSpotCheckHdID, _projectID, _reportNo, _nominalWT, _minimalWT As String
-        Private _UTSpotTypeSCode, _serialNo, _description, _material, _equipment, _couplant, _probeType, _impactDevice, _
-                    _referenceLevel, _frequency, _calReference As String
+        Private _InspectionTallyHdID, _projectID, _reportNo, _inspectionTallyTypeSCode, _driftSizeLength As String
+        Private _driftSizeOD, _size, _grade, _weight, _connection, _range, _nominalWT, _ACcaption1, _
+                    _ACcaption2, _ACcaption3, _ACcaption4 As String
+        Private _isAC1, _isAC2, _isAC3, _isAC4 As Boolean
         Private _reportDate, _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
@@ -29,43 +30,48 @@ Namespace Raven.Common.BussinessRules
 #Region " C,R,U,D "
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "INSERT INTO UTSpotCheckHd " + _
-                                        "(UTSpotCheckHdID, projectID, reportNo, nominalWT, minimalWT, " + _
-                                        "UTSpotTypeSCode, serialNo, description, material, equipment, couplant, probeType, impactDevice, " + _
-                                        "referenceLevel, frequency, calReference, " + _
+            cmdToExecute.CommandText = "INSERT INTO InspectionTallyReportHd " + _
+                                        "(InspectionTallyHdID, projectID, reportNo, inspectionTallyTypeSCode, driftSizeLength, " + _
+                                        "driftSizeOD, size, grade, weight, connection, range, nominalWT, " + _
+                                        "ACcaption1, ACcaption2, ACcaption3, ACcaption4, " + _
+                                        "isAC1, isAC2, isAC3, isAC4, " + _
                                         "reportDate, insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
-                                        "(@UTSpotCheckHdID, @projectID, @reportNo, @nominalWT, @minimalWT, " + _
-                                        "@UTSpotTypeSCode, @serialNo, @description, @material, @equipment, @couplant, @probeType, @impactDevice, " + _
-                                        "@referenceLevel, @frequency, @calReference, " + _
+                                        "(@InspectionTallyHdID, @projectID, @reportNo, @inspectionTallyTypeSCode, @driftSizeLength, " + _
+                                        "@driftSizeOD, @size, @grade, @weight, @connection, @range, @nominalWT, " + _
+                                        "@ACcaption1, @ACcaption2, @ACcaption3, @ACcaption4, " + _
+                                        "@isAC1, @isAC2, @isAC3, @isAC4, " + _
                                         "@reportDate, GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate)"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
-            Dim strID As String = ID.GenerateIDNumber("UTSpotCheckHd", "UTSpotCheckHdID")
+            Dim strID As String = ID.GenerateIDNumber("InspectionTallyReportHd", "InspectionTallyHdID")
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckHdID", strID)
+                cmdToExecute.Parameters.AddWithValue("@InspectionTallyHdID", strID)
                 cmdToExecute.Parameters.AddWithValue("@projectID", _projectID)
                 cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
+                cmdToExecute.Parameters.AddWithValue("@inspectionTallyTypeSCode", _inspectionTallyTypeSCode)
+                cmdToExecute.Parameters.AddWithValue("@driftSizeOD", _driftSizeOD)
+                cmdToExecute.Parameters.AddWithValue("@size", _size)
+                cmdToExecute.Parameters.AddWithValue("@grade", _grade)
+                cmdToExecute.Parameters.AddWithValue("@weight", _weight)
+                cmdToExecute.Parameters.AddWithValue("@connection", _connection)
+                cmdToExecute.Parameters.AddWithValue("@range", _range)
                 cmdToExecute.Parameters.AddWithValue("@nominalWT", _nominalWT)
-                cmdToExecute.Parameters.AddWithValue("@minimalWT", _minimalWT)
-                cmdToExecute.Parameters.AddWithValue("@UTSpotTypeSCode", _UTSpotTypeSCode)
-                cmdToExecute.Parameters.AddWithValue("@serialNo", _serialNo)
-                cmdToExecute.Parameters.AddWithValue("@description", _description)
-                cmdToExecute.Parameters.AddWithValue("@material", _material)
-                cmdToExecute.Parameters.AddWithValue("@equipment", _equipment)
-                cmdToExecute.Parameters.AddWithValue("@couplant", _couplant)
-                cmdToExecute.Parameters.AddWithValue("@probeType", _probeType)
-                cmdToExecute.Parameters.AddWithValue("@impactDevice", _impactDevice)
-                cmdToExecute.Parameters.AddWithValue("@referenceLevel", _referenceLevel)
-                cmdToExecute.Parameters.AddWithValue("@frequency", _frequency)
-                cmdToExecute.Parameters.AddWithValue("@calReference", _calReference)
+                cmdToExecute.Parameters.AddWithValue("@ACcaption1", _ACcaption1)
+                cmdToExecute.Parameters.AddWithValue("@ACcaption2", _ACcaption2)
+                cmdToExecute.Parameters.AddWithValue("@ACcaption3", _ACcaption3)
+                cmdToExecute.Parameters.AddWithValue("@ACcaption4", _ACcaption4)
+                cmdToExecute.Parameters.AddWithValue("@isAC1", _isAC1)
+                cmdToExecute.Parameters.AddWithValue("@isAC2", _isAC2)
+                cmdToExecute.Parameters.AddWithValue("@isAC3", _isAC3)
+                cmdToExecute.Parameters.AddWithValue("@isAC4", _isAC4)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
-                cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
-                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
+                cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDInsert)
+                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -73,7 +79,7 @@ Namespace Raven.Common.BussinessRules
                 ' // Execute Query
                 cmdToExecute.ExecuteNonQuery()
 
-                _UTSpotCheckHdID = strID
+                _InspectionTallyHdID = strID
                 Return True
             Catch ex As Exception
                 ExceptionManager.Publish(ex)
@@ -85,34 +91,38 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Update() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "UPDATE UTSpotCheckHd " + _
+            cmdToExecute.CommandText = "UPDATE InspectionTallyReportHd " + _
                                         "SET reportNo=@reportNo, reportDate=@reportDate, " + _
-                                        "nominalWT=@nominalWT, minimalWT=@minimalWT, " + _
-                                        "UTSpotTypeSCode=@UTSpotTypeSCode, serialNo=@serialNo, description=@description, " + _
-                                        "material=@material, equipment=@equipment, couplant=@couplant, probeType=@probeType, " + _
-                                        "impactDevice=@impactDevice, referenceLevel=@referenceLevel, frequency=@frequency, calReference=@calReference, " + _
+                                        "inspectionTallyTypeSCode=@inspectionTallyTypeSCode, driftSizeOD=@driftSizeOD, " + _
+                                        "size=@Usize, grade=@grade, weight=@weight, " + _
+                                        "connection=@connection, range=@range, nominalWT=@nominalWT, " + _
+                                        "ACcaption1=@ACcaption1, ACcaption2=@ACcaption2, ACcaption3=@ACcaption3, ACcaption4=@ACcaption4, " + _
+                                        "isAC1=@isAC1, isAC2=@isAC2, isAC3=@isAC3, isAC4=@isAC4, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
-                                        "WHERE UTSpotCheckHdID=@UTSpotCheckHdID"
+                                        "WHERE InspectionTallyHdID=@InspectionTallyHdID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckHdID", _UTSpotCheckHdID)
+                cmdToExecute.Parameters.AddWithValue("@InspectionTallyHdID", _InspectionTallyHdID)                
                 cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
+                cmdToExecute.Parameters.AddWithValue("@inspectionTallyTypeSCode", _inspectionTallyTypeSCode)
+                cmdToExecute.Parameters.AddWithValue("@driftSizeOD", _driftSizeOD)
+                cmdToExecute.Parameters.AddWithValue("@size", _size)
+                cmdToExecute.Parameters.AddWithValue("@grade", _grade)
+                cmdToExecute.Parameters.AddWithValue("@weight", _weight)
+                cmdToExecute.Parameters.AddWithValue("@connection", _connection)
+                cmdToExecute.Parameters.AddWithValue("@range", _range)
                 cmdToExecute.Parameters.AddWithValue("@nominalWT", _nominalWT)
-                cmdToExecute.Parameters.AddWithValue("@minimalWT", _minimalWT)
-                cmdToExecute.Parameters.AddWithValue("@UTSpotTypeSCode", _UTSpotTypeSCode)
-                cmdToExecute.Parameters.AddWithValue("@serialNo", _serialNo)
-                cmdToExecute.Parameters.AddWithValue("@description", _description)
-                cmdToExecute.Parameters.AddWithValue("@material", _material)
-                cmdToExecute.Parameters.AddWithValue("@equipment", _equipment)
-                cmdToExecute.Parameters.AddWithValue("@couplant", _couplant)
-                cmdToExecute.Parameters.AddWithValue("@probeType", _probeType)
-                cmdToExecute.Parameters.AddWithValue("@impactDevice", _impactDevice)
-                cmdToExecute.Parameters.AddWithValue("@referenceLevel", _referenceLevel)
-                cmdToExecute.Parameters.AddWithValue("@frequency", _frequency)
-                cmdToExecute.Parameters.AddWithValue("@calReference", _calReference)
+                cmdToExecute.Parameters.AddWithValue("@ACcaption1", _ACcaption1)
+                cmdToExecute.Parameters.AddWithValue("@ACcaption2", _ACcaption2)
+                cmdToExecute.Parameters.AddWithValue("@ACcaption3", _ACcaption3)
+                cmdToExecute.Parameters.AddWithValue("@ACcaption4", _ACcaption4)
+                cmdToExecute.Parameters.AddWithValue("@isAC1", _isAC1)
+                cmdToExecute.Parameters.AddWithValue("@isAC2", _isAC2)
+                cmdToExecute.Parameters.AddWithValue("@isAC3", _isAC3)
+                cmdToExecute.Parameters.AddWithValue("@isAC4", _isAC4)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
@@ -133,10 +143,10 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectAll() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM UTSpotCheckHd"
+            cmdToExecute.CommandText = "SELECT * FROM InspectionTallyReportHd"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("UTSpotCheckHd")
+            Dim toReturn As DataTable = New DataTable("InspectionTallyReportHd")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
@@ -162,16 +172,16 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectOne(Optional ByVal recStatus As RavenRecStatus = RavenRecStatus.CurrentRecord) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM UTSpotCheckHd WHERE UTSpotCheckHdID=@UTSpotCheckHdID"
+            cmdToExecute.CommandText = "SELECT * FROM InspectionTallyReportHd WHERE InspectionTallyHdID=@InspectionTallyHdID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("UTSpotCheckHd")
+            Dim toReturn As DataTable = New DataTable("InspectionTallyReportHd")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckHdID", _UTSpotCheckHdID)
+                cmdToExecute.Parameters.AddWithValue("@InspectionTallyHdID", _InspectionTallyHdID)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -180,22 +190,26 @@ Namespace Raven.Common.BussinessRules
                 adapter.Fill(toReturn)
 
                 If toReturn.Rows.Count > 0 Then
-                    _UTSpotCheckHdID = CType(toReturn.Rows(0)("UTSpotCheckHdID"), String)
+                    _InspectionTallyHdID = CType(toReturn.Rows(0)("InspectionTallyHdID"), String)
                     _projectID = CType(toReturn.Rows(0)("projectID"), String)
                     _reportNo = CType(toReturn.Rows(0)("reportNo"), String)
+                    _inspectionTallyTypeSCode = CType(toReturn.Rows(0)("inspectionTallyTypeSCode"), String)
+                    _driftSizeLength = CType(toReturn.Rows(0)("driftSizeLength"), String)
+                    _driftSizeOD = CType(toReturn.Rows(0)("driftSizeOD"), String)
+                    _size = CType(toReturn.Rows(0)("size"), String)
+                    _grade = CType(toReturn.Rows(0)("grade"), String)
+                    _weight = CType(toReturn.Rows(0)("weight"), String)
+                    _connection = CType(toReturn.Rows(0)("connection"), String)
+                    _range = CType(toReturn.Rows(0)("range"), String)
                     _nominalWT = CType(toReturn.Rows(0)("nominalWT"), String)
-                    _minimalWT = CType(toReturn.Rows(0)("minimalWT"), String)
-                    _UTSpotTypeSCode = CType(toReturn.Rows(0)("UTSpotTypeSCode"), String)
-                    _serialNo = CType(toReturn.Rows(0)("serialNo"), String)
-                    _description = CType(toReturn.Rows(0)("description"), String)
-                    _material = CType(toReturn.Rows(0)("material"), String)
-                    _equipment = CType(toReturn.Rows(0)("equipment"), String)
-                    _couplant = CType(toReturn.Rows(0)("couplant"), String)
-                    _probeType = CType(toReturn.Rows(0)("probeType"), String)
-                    _impactDevice = CType(toReturn.Rows(0)("impactDevice"), String)
-                    _referenceLevel = CType(toReturn.Rows(0)("referenceLevel"), String)
-                    _frequency = CType(toReturn.Rows(0)("frequency"), String)
-                    _calReference = CType(toReturn.Rows(0)("calReference"), String)
+                    _ACcaption1 = CType(toReturn.Rows(0)("ACcaption1"), String)
+                    _ACcaption2 = CType(toReturn.Rows(0)("ACcaption2"), String)
+                    _ACcaption3 = CType(toReturn.Rows(0)("ACcaption3"), String)
+                    _ACcaption4 = CType(toReturn.Rows(0)("ACcaption4"), String)
+                    _isAC1 = CType(toReturn.Rows(0)("isAC1"), Boolean)
+                    _isAC2 = CType(toReturn.Rows(0)("isAC2"), Boolean)
+                    _isAC3 = CType(toReturn.Rows(0)("isAC3"), Boolean)
+                    _isAC4 = CType(toReturn.Rows(0)("isAC4"), Boolean)
                     _reportDate = CType(toReturn.Rows(0)("reportDate"), DateTime)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
@@ -217,14 +231,14 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Delete() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "DELETE FROM UTSpotCheckHd " + _
-                                        "WHERE UTSpotCheckHdID=@UTSpotCheckHdID"
+            cmdToExecute.CommandText = "DELETE FROM InspectionTallyReportHd " + _
+                                        "WHERE InspectionTallyHdID=@InspectionTallyHdID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckHdID", _UTSpotCheckHdID)
+                cmdToExecute.Parameters.AddWithValue("@InspectionTallyHdID", _InspectionTallyHdID)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -246,10 +260,10 @@ Namespace Raven.Common.BussinessRules
         Public Function SelectByProjectID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "SELECT * " +
-                                        "FROM UTSpotCheckHd WHERE projectID=@projectID"
+                                        "FROM InspectionTallyReportHd WHERE projectID=@projectID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("UTSpotCheckHd")
+            Dim toReturn As DataTable = New DataTable("InspectionTallyReportHd")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
@@ -277,12 +291,12 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Class Property Declarations "
-        Public Property [UTSpotCheckHdID]() As String
+        Public Property [InspectionTallyHdID]() As String
             Get
-                Return _UTSpotCheckHdID
+                Return _InspectionTallyHdID
             End Get
             Set(ByVal Value As String)
-                _UTSpotCheckHdID = Value
+                _InspectionTallyHdID = Value
             End Set
         End Property
 
@@ -304,6 +318,78 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
+        Public Property [inspectionTallyTypeSCode]() As String
+            Get
+                Return _inspectionTallyTypeSCode
+            End Get
+            Set(ByVal Value As String)
+                _inspectionTallyTypeSCode = Value
+            End Set
+        End Property
+
+        Public Property [driftSizeLength]() As String
+            Get
+                Return _driftSizeLength
+            End Get
+            Set(ByVal Value As String)
+                _driftSizeLength = Value
+            End Set
+        End Property
+
+        Public Property [driftSizeOD]() As String
+            Get
+                Return _driftSizeOD
+            End Get
+            Set(ByVal Value As String)
+                _driftSizeOD = Value
+            End Set
+        End Property
+
+        Public Property [size]() As String
+            Get
+                Return _size
+            End Get
+            Set(ByVal Value As String)
+                _size = Value
+            End Set
+        End Property
+
+        Public Property [grade]() As String
+            Get
+                Return _grade
+            End Get
+            Set(ByVal Value As String)
+                _grade = Value
+            End Set
+        End Property
+
+        Public Property [weight]() As String
+            Get
+                Return _weight
+            End Get
+            Set(ByVal Value As String)
+                _weight = Value
+            End Set
+        End Property
+
+        Public Property [connection]() As String
+            Get
+                Return _connection
+            End Get
+            Set(ByVal Value As String)
+                _connection = Value
+            End Set
+        End Property
+
+        Public Property [range]() As String
+            Get
+                Return _range
+            End Get
+            Set(ByVal Value As String)
+                _range = Value
+            End Set
+        End Property
+
         Public Property [nominalWT]() As String
             Get
                 Return _nominalWT
@@ -313,111 +399,75 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
-        Public Property [minimalWT]() As String
+        Public Property [ACcaption1]() As String
             Get
-                Return _minimalWT
+                Return _ACcaption1
             End Get
             Set(ByVal Value As String)
-                _minimalWT = Value
+                _ACcaption1 = Value
             End Set
         End Property
 
-        Public Property [UTSpotTypeSCode]() As String
+        Public Property [ACcaption2]() As String
             Get
-                Return _UTSpotTypeSCode
+                Return _ACcaption2
             End Get
             Set(ByVal Value As String)
-                _UTSpotTypeSCode = Value
+                _ACcaption2 = Value
             End Set
         End Property
 
-        Public Property [SerialNo]() As String
+        Public Property [ACcaption3]() As String
             Get
-                Return _serialNo
+                Return _ACcaption3
             End Get
             Set(ByVal Value As String)
-                _serialNo = Value
+                _ACcaption3 = Value
             End Set
         End Property
 
-        Public Property [Description]() As String
+        Public Property [ACcaption4]() As String
             Get
-                Return _description
+                Return _ACcaption4
             End Get
             Set(ByVal Value As String)
-                _description = Value
+                _ACcaption4 = Value
             End Set
         End Property
 
-        Public Property [Material]() As String
+        Public Property [isAC1]() As Boolean
             Get
-                Return _material
+                Return _isAC1
             End Get
-            Set(ByVal Value As String)
-                _material = Value
+            Set(ByVal Value As Boolean)
+                _isAC1 = Value
             End Set
         End Property
 
-        Public Property [Equipment]() As String
+        Public Property [isAC2]() As Boolean
             Get
-                Return _equipment
+                Return _isAC2
             End Get
-            Set(ByVal Value As String)
-                _equipment = Value
+            Set(ByVal Value As Boolean)
+                _isAC2 = Value
             End Set
         End Property
 
-        Public Property [Couplant]() As String
+        Public Property [isAC3]() As Boolean
             Get
-                Return _couplant
+                Return _isAC3
             End Get
-            Set(ByVal Value As String)
-                _couplant = Value
+            Set(ByVal Value As Boolean)
+                _isAC3 = Value
             End Set
         End Property
 
-        Public Property [ProbeType]() As String
+        Public Property [isAC4]() As Boolean
             Get
-                Return _probeType
+                Return _isAC4
             End Get
-            Set(ByVal Value As String)
-                _probeType = Value
-            End Set
-        End Property
-
-        Public Property [ImpactDevice]() As String
-            Get
-                Return _impactDevice
-            End Get
-            Set(ByVal Value As String)
-                _impactDevice = Value
-            End Set
-        End Property
-
-        Public Property [ReferenceLevel]() As String
-            Get
-                Return _referenceLevel
-            End Get
-            Set(ByVal Value As String)
-                _referenceLevel = Value
-            End Set
-        End Property
-
-        Public Property [Frequency]() As String
-            Get
-                Return _frequency
-            End Get
-            Set(ByVal Value As String)
-                _frequency = Value
-            End Set
-        End Property
-
-        Public Property [CalReference]() As String
-            Get
-                Return _calReference
-            End Get
-            Set(ByVal Value As String)
-                _calReference = Value
+            Set(ByVal Value As Boolean)
+                _isAC4 = Value
             End Set
         End Property
 

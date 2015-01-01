@@ -11,11 +11,14 @@
             Public Const WorkingType_SCode As String = "WORKINGTYPE"
             Public Const ServiceReportFor_SCode As String = "SVCRPTFOR"
             Public Const MPIType_SCode As String = "MPITYPE"
+            Public Const MPIPicGroup_SCode As String = "MPIPICGROUP"
             Public Const MPIYoke_SCode As String = "MPIYOKE"
             Public Const MPICoil_SCode As String = "MPICOIL"
             Public Const MPIFluorescent_SCode As String = "MPIFLUOR"
             Public Const MPIContrastBW_SCode As String = "MPICONTBW"
             Public Const HardnessTestLocation_SCode As String = "HTLOCATION"
+            Public Const UTSpotType_SCode As String = "UTSTYPE"
+            Public Const DrillPipeRemarks_SCode As String = "DPREMARKS"
         End Class
 
         Public NotInheritable Class FormatString
@@ -47,6 +50,7 @@
 
         Public NotInheritable Class MessageBoxText
             Public Const Validate_IsSystem As String = "This record is used by system and cannot be modified or deleted."
+            Public Const Validate_EffeciveDateCannotEmpty As String = "Effective Date cannot empty. If the record use No Effective Date, please mark this option and try to save the record again."
         End Class
 
         Public NotInheritable Class Parameter
@@ -59,18 +63,24 @@
             Public Const SummaryOfInspection_PanelID As String = "pnlSummaryOfInspection"
             Public Const TimeSheet_PanelID As String = "pnlTimeSheet"
             Public Const DailyProgressReport_PanelID As String = "pnlDailyProgressReport"
-            Public Const DailyInspectionReport_PanelID As String = "pnlDailyInspectionReport"
+            Public Const DailyProgressReportMPI_PanelID As String = "pnlDailyProgressReportMPI"
             Public Const ServiceReport_PanelID As String = "pnlServiceReport"
             Public Const MPIReport_PanelID As String = "pnlMPIReport"
             Public Const DrillPipeInspectionReport_PanelID As String = "pnlDrillPipeInspectionReport"
-            Public Const ThroughVisualInspectionReport_PanelID As String = "pnlThroughVisualInspectionReport"
+            Public Const ThoroughVisualInspectionReport_PanelID As String = "pnlThoroughVisualInspectionReport"
             Public Const InspectionTallyReport_PanelID As String = "pnlInspectionTallyReport"
             Public Const UTSpotCheck_PanelID As String = "pnlUTSpotCheck"
             Public Const RotaryShoulderConnectionReport_PanelID As String = "pnlRotaryShoulderConnectionReport"
-            Public Const UTSpotEndArea_PanelID As String = "pnlUTSpotEndArea"
+            Public Const UTSpotArea_PanelID As String = "pnlUTSpotArea"
             Public Const CheckListCompletionReport_PanelID As String = "pnlCheckListCompletionReport"
             Public Const CertificateOfInspection_PanelID As String = "pnlCertificateInspection"
             Public Const HardnessTest_PanelID As String = "pnlHardnessTestReport"
+        End Class
+
+        Public NotInheritable Class CaptionTemplateGroup
+            Public Const DP_Body As String = "DPBOD"
+            Public Const DP_PinConn As String = "DPPIN"
+            Public Const DP_BoxConn As String = "DPBOX"
         End Class
 
         Public NotInheritable Class IDPrefix
@@ -105,8 +115,10 @@
 
         Public NotInheritable Class ReportTypeCodeServiceReportFor
             Public Const MPIDPI As String = "MPIDPI"
-            Public Const MPILoadTest As String = "MPILT"
-            Public Const MPIPullTest As String = "MPIPT"
+            Public Const MPIBeforeLoadTest As String = "MPIBLT"
+            Public Const MPIAfterLoadTest As String = "MPIALT"
+            Public Const MPIBeforePullTest As String = "MPIBPT"
+            Public Const MPIAfterPullTest As String = "MPIAPT"
             Public Const Tubular As String = "TUB"
         End Class
 

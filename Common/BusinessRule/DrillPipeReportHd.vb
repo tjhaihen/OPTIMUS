@@ -13,6 +13,7 @@ Namespace Raven.Common.BussinessRules
 #Region " Class Member Declarations "
         Private _drillPipeReportHdID, _projectID, _inspectionSpecID, _reportNo, _remarks As String
         Private _size, _weight, _grade, _connection, _range, _nominalWT As String
+        Private _captionTemplateHdID As String
         Private _userIDinsert, _userIDupdate As String
         Private _reportDate, _insertDate, _updateDate As DateTime
 #End Region
@@ -30,11 +31,11 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO DrillPipeReportHd " + _
                                         "(drillPipeReportHdID, projectID, inspectionSpecID, reportNo, reportDate, remarks, " + _
-                                        "size, weight, grade, connection, range, nominalWT, " + _
+                                        "size, weight, grade, connection, range, nominalWT, captionTemplateHdID, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@drillPipeReportHdID, @projectID, @inspectionSpecID, @reportNo, @reportDate, @remarks, " + _
-                                        "@size, @weight, @grade, @connection, @range, @nominalWT, " + _
+                                        "@size, @weight, @grade, @connection, @range, @nominalWT, @captionTemplateHdID, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -54,6 +55,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@connection", _connection)
                 cmdToExecute.Parameters.AddWithValue("@range", _range)
                 cmdToExecute.Parameters.AddWithValue("@nominalWT", _nominalWT)
+                cmdToExecute.Parameters.AddWithValue("@captionTemplateHdID", _captionTemplateHdID)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -78,6 +80,7 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "UPDATE DrillPipeReportHd " + _
                                         "SET inspectionSpecID=@inspectionSpecID, reportNo=@reportNo, reportDate=@reportDate, remarks=@remarks, " + _
                                         "size=@size, weight=@weight, grade=@grade, connection=@connection, range=@range, nominalWT=@nominalWT, " + _
+                                        "captionTemplateHdID=@captionTemplateHdID, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE drillPipeReportHdID=@drillPipeReportHdID"
             cmdToExecute.CommandType = CommandType.Text
@@ -97,6 +100,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@connection", _connection)
                 cmdToExecute.Parameters.AddWithValue("@range", _range)
                 cmdToExecute.Parameters.AddWithValue("@nominalWT", _nominalWT)
+                cmdToExecute.Parameters.AddWithValue("@captionTemplateHdID", _captionTemplateHdID)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -175,6 +179,7 @@ Namespace Raven.Common.BussinessRules
                     _connection = CType(toReturn.Rows(0)("connection"), String)
                     _range = CType(toReturn.Rows(0)("range"), String)
                     _nominalWT = CType(toReturn.Rows(0)("nominalWT"), String)
+                    _captionTemplateHdID = CType(toReturn.Rows(0)("captionTemplateHdID"), String)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -351,6 +356,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _nominalWT = Value
+            End Set
+        End Property
+
+        Public Property [captionTemplateHdID]() As String
+            Get
+                Return _captionTemplateHdID
+            End Get
+            Set(ByVal Value As String)
+                _captionTemplateHdID = Value
             End Set
         End Property
 

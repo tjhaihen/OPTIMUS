@@ -13,8 +13,9 @@ Namespace Raven.Common.BussinessRules
 #Region " Class Member Declarations "
         Private _reportTypeID, _reportTypeCode, _parentreportTypeCode, _reportTypeName, _panelID, _sequence As String
         Private _userIDinsert, _userIDupdate As String
-        Private _insertDate, _updateDate As DateTime
-        Private _isActive As Boolean
+        Private _insertDate, _updateDate, _effectiveDate As DateTime
+        Private _isActive, _isMandatory As Boolean
+        Private _documentNo, _revisionNo As String
 #End Region
 
         Public Sub New()
@@ -28,12 +29,18 @@ Namespace Raven.Common.BussinessRules
 #Region " C,R,U,D "
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
+            Dim cmdNull As String = String.Empty
+            cmdNull = "NULL, "
             cmdToExecute.CommandText = "INSERT INTO reportType " + _
                                         "(reportTypeID, reportTypeCode, parentreportTypeCode, reportTypeName, sequence, " + _
-                                        "isActive, userIDinsert, userIDupdate, insertDate, updateDate) " + _
+                                        "documentNo, revisionNo, " + _
+                                        "effectiveDate, " + _
+                                        "isMandatory, isActive, userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@reportTypeID, @reportTypeCode, @parentreportTypeCode, @reportTypeName, @sequence, " + _
-                                        "@isActive, @userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
+                                        "@documentNo, @revisionNo, " + _
+                                        IIf(_effectiveDate = Nothing, cmdNull, "@effectiveDate, ") + _
+                                        "@isMandatory, @isActive, @userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
@@ -45,6 +52,10 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@parentreportTypeCode", _parentreportTypeCode)
                 cmdToExecute.Parameters.AddWithValue("@reportTypeName", _reportTypeName)
                 cmdToExecute.Parameters.AddWithValue("@sequence", _sequence)
+                cmdToExecute.Parameters.AddWithValue("@documentNo", _documentNo)
+                cmdToExecute.Parameters.AddWithValue("@revisionNo", _revisionNo)
+                If _effectiveDate <> Nothing Then cmdToExecute.Parameters.AddWithValue("@effectiveDate", _effectiveDate)
+                cmdToExecute.Parameters.AddWithValue("@isMandatory", _isMandatory)
                 cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
@@ -67,8 +78,13 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Update() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
+            Dim cmdNull As String = String.Empty
+            cmdNull = "effectiveDate=NULL, "
             cmdToExecute.CommandText = "UPDATE reportType " + _
                                         "SET reportTypeCode=@reportTypeCode, parentreportTypeCode=@parentreportTypeCode, reportTypeName=@reportTypeName, " + _
+                                        "documentNo=@documentNo, revisionNo=@revisionNo, " + _
+                                        IIf(_effectiveDate = Nothing, cmdNull, "effectiveDate=@effectiveDate, ") + _
+                                        "isMandatory=@isMandatory, " + _
                                         "sequence=@sequence, isActive=@isActive, userIDupdate=@userIDupdate, " + _
                                         "updateDate=GETDATE() " + _
                                         "WHERE reportTypeID=@reportTypeID"
@@ -82,6 +98,10 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@parentreportTypeCode", _parentreportTypeCode)
                 cmdToExecute.Parameters.AddWithValue("@reportTypeName", _reportTypeName)
                 cmdToExecute.Parameters.AddWithValue("@sequence", _sequence)
+                cmdToExecute.Parameters.AddWithValue("@documentNo", _documentNo)
+                cmdToExecute.Parameters.AddWithValue("@revisionNo", _revisionNo)
+                If _effectiveDate <> Nothing Then cmdToExecute.Parameters.AddWithValue("@effectiveDate", _effectiveDate)
+                cmdToExecute.Parameters.AddWithValue("@isMandatory", _isMandatory)
                 cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -154,6 +174,14 @@ Namespace Raven.Common.BussinessRules
                     _parentreportTypeCode = CType(toReturn.Rows(0)("parentreportTypeCode"), String)
                     _reportTypeName = CType(toReturn.Rows(0)("reportTypeName"), String)
                     _sequence = CType(toReturn.Rows(0)("sequence"), String)
+                    _documentNo = CType(toReturn.Rows(0)("documentNo"), String)
+                    _revisionNo = CType(toReturn.Rows(0)("revisionNo"), String)
+                    If IsDBNull(toReturn.Rows(0)("effectiveDate")) = True Then
+                        _effectiveDate = Nothing
+                    Else
+                        _effectiveDate = CType(toReturn.Rows(0)("effectiveDate"), Date)
+                    End If
+                    _isMandatory = CType(toReturn.Rows(0)("isMandatory"), Boolean)
                     _panelID = CType(toReturn.Rows(0)("panelID"), String)
                     _isActive = CType(toReturn.Rows(0)("isActive"), Boolean)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
@@ -244,6 +272,42 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _sequence = Value
+            End Set
+        End Property
+
+        Public Property [documentNo]() As String
+            Get
+                Return _documentNo
+            End Get
+            Set(ByVal Value As String)
+                _documentNo = Value
+            End Set
+        End Property
+
+        Public Property [revisionNo]() As String
+            Get
+                Return _revisionNo
+            End Get
+            Set(ByVal Value As String)
+                _revisionNo = Value
+            End Set
+        End Property
+
+        Public Property [effectiveDate]() As Date
+            Get
+                Return _effectiveDate
+            End Get
+            Set(ByVal Value As Date)
+                _effectiveDate = Value
+            End Set
+        End Property
+
+        Public Property [isMandatory]() As Boolean
+            Get
+                Return _isMandatory
+            End Get
+            Set(ByVal Value As Boolean)
+                _isMandatory = Value
             End Set
         End Property
 

@@ -7,13 +7,12 @@ Imports System.Data.SqlClient
 Imports Raven.Common
 
 Namespace Raven.Common.BussinessRules
-    Public Class MPIDt
+    Public Class UTSpotAreaDt
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _MPIDtID, _MPIHdID, _MPIpicDescription, _MPIpicType, _MPIpicGroupSCode As String
-        Private _MPIpicSize As Integer
-        Private _MPIpic As SqlBinary
+        Private _UTSpotAreaDtID, _UTSpotCheckHdID, _pipeNo As String
+        Private _conditionResultPin, _conditionResultBox, _remarkPin, _remarkBox As String
         Private _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
@@ -29,29 +28,29 @@ Namespace Raven.Common.BussinessRules
 #Region " C,R,U,D "
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "INSERT INTO MPIDt " + _
-                                        "(MPIHdID, MPIDtID, MPIpic, " + _
-                                        "MPIpicDescription, MPIpicSize, MPIpicType, MPIpicGroupSCode, " + _
+            cmdToExecute.CommandText = "INSERT INTO UTSpotAreaDt " + _
+                                        "(UTSpotCheckHdID, UTSpotAreaDtID, pipeNo, " + _
+                                        "conditionResultPin, conditionResultBox, remarkPin, remarkBox, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
-                                        "(@MPIHdID, @MPIDtID, @MPIpic, " + _
-                                        "@MPIpicDescription, @MPIpicSize, @MPIpicType, @MPIpicGroupSCode, " + _
+                                        "(@UTSpotCheckHdID, @UTSpotAreaDtID, @pipeNo, " + _
+                                        "@conditionResultPin, @conditionResultBox, @remarkPin, @remarkBox, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
-            Dim strID As String = ID.GenerateIDNumber("MPIDt", "MPIDtID")
+            Dim strID As String = ID.GenerateIDNumber("UTSpotAreaDt", "UTSpotAreaDtID")
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@MPIHdID", _MPIHdID)
-                cmdToExecute.Parameters.AddWithValue("@MPIDtID", strID)
-                cmdToExecute.Parameters.AddWithValue("@MPIpic", _MPIpic)
-                cmdToExecute.Parameters.AddWithValue("@MPIpicDescription", _MPIpicDescription)
-                cmdToExecute.Parameters.AddWithValue("@MPIpicSize", _MPIpicSize)
-                cmdToExecute.Parameters.AddWithValue("@MPIpicType", _MPIpicType)
-                cmdToExecute.Parameters.AddWithValue("@MPIpicGroupSCode", _MPIpicGroupSCode)
+                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckHdID", _UTSpotCheckHdID)
+                cmdToExecute.Parameters.AddWithValue("@UTSpotAreaDtID", strID)
+                cmdToExecute.Parameters.AddWithValue("@pipeNo", _pipeNo)
+                cmdToExecute.Parameters.AddWithValue("@conditionResultPin", _conditionResultPin)
+                cmdToExecute.Parameters.AddWithValue("@conditionResultBox", _conditionResultBox)
+                cmdToExecute.Parameters.AddWithValue("@remarkPin", _remarkPin)
+                cmdToExecute.Parameters.AddWithValue("@remarkBox", _remarkBox)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDInsert)
-                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
+                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -59,7 +58,7 @@ Namespace Raven.Common.BussinessRules
                 ' // Execute Query
                 cmdToExecute.ExecuteNonQuery()
 
-                _MPIDtID = strID
+                _UTSpotAreaDtID = strID
                 Return True
             Catch ex As Exception
                 ExceptionManager.Publish(ex)
@@ -71,19 +70,22 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Update() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "UPDATE MPIDt " + _
-                                        "SET MPIpicDescription=@MPIpicDescription, " + _
-                                        "MPIpicGroupSCode=@MPIpicGroupSCode, " + _
+            cmdToExecute.CommandText = "UPDATE UTSpotCheckDt " + _
+                                        "SET pipeNo=@pipeNo, conditionResultPin=@conditionResultPin, conditionResultBox=@conditionResultBox, " + _
+                                        "remarkPin=@remarkPin, remarkBox=@remarkBox, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
-                                        "WHERE MPIDtID=@MPIDtID"
+                                        "WHERE UTSpotAreaDtID=@UTSpotAreaDtID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
             Try                
-                cmdToExecute.Parameters.AddWithValue("@MPIDtID", _MPIDtID)                
-                cmdToExecute.Parameters.AddWithValue("@MPIpicDescription", _MPIpicDescription)
-                cmdToExecute.Parameters.AddWithValue("@MPIpicGroupSCode", _MPIpicGroupSCode)
+                cmdToExecute.Parameters.AddWithValue("@UTSpotAreaDtID", _UTSpotAreaDtID)
+                cmdToExecute.Parameters.AddWithValue("@pipeNo", _pipeNo)
+                cmdToExecute.Parameters.AddWithValue("@conditionResultPin", _conditionResultPin)
+                cmdToExecute.Parameters.AddWithValue("@conditionResultBox", _conditionResultBox)
+                cmdToExecute.Parameters.AddWithValue("@remarkPin", _remarkPin)
+                cmdToExecute.Parameters.AddWithValue("@remarkBox", _remarkBox)                
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
@@ -103,10 +105,10 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectAll() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM MPIDt"
+            cmdToExecute.CommandText = "SELECT * FROM UTSpotAreaDt"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("MPIDt")
+            Dim toReturn As DataTable = New DataTable("UTSpotAreaDt")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
@@ -132,16 +134,16 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectOne(Optional ByVal recStatus As RavenRecStatus = RavenRecStatus.CurrentRecord) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM MPIDt WHERE MPIDtID=@MPIDtID"
+            cmdToExecute.CommandText = "SELECT * FROM UTSpotAreaDt WHERE UTSpotAreaDtID=@UTSpotAreaDtID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("MPIDt")
+            Dim toReturn As DataTable = New DataTable("UTSpotAreaDt")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@MPIDtID", _MPIDtID)
+                cmdToExecute.Parameters.AddWithValue("@UTSpotAreaDtID", _UTSpotAreaDtID)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -150,15 +152,15 @@ Namespace Raven.Common.BussinessRules
                 adapter.Fill(toReturn)
 
                 If toReturn.Rows.Count > 0 Then
-                    _MPIHdID = CType(toReturn.Rows(0)("MPIHdID"), String)
-                    _MPIDtID = CType(toReturn.Rows(0)("MPIDtID"), String)
-                    _MPIpic = CType(toReturn.Rows(0)("MPIpic"), Byte())
-                    _MPIpicDescription = CType(toReturn.Rows(0)("MPIpicDescription"), String)
-                    _MPIpicSize = CType(toReturn.Rows(0)("MPIpicSize"), Integer)
-                    _MPIpicType = CType(toReturn.Rows(0)("MPIpicType"), String)
-                    _MPIpicGroupSCode = CType(toReturn.Rows(0)("MPIpicGroupSCode"), String)
+                    _UTSpotCheckHdID = CType(toReturn.Rows(0)("UTSpotCheckHdID"), String)
+                    _UTSpotAreaDtID = CType(toReturn.Rows(0)("UTSpotAreaDtID"), String)
+                    _pipeNo = CType(toReturn.Rows(0)("pipeNo"), String)
+                    _conditionResultPin = CType(toReturn.Rows(0)("conditionResultPin"), String)
+                    _conditionResultBox = CType(toReturn.Rows(0)("conditionResultBox"), String)
+                    _remarkPin = CType(toReturn.Rows(0)("remarkPin"), String)
+                    _remarkBox = CType(toReturn.Rows(0)("remarkBox"), String)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
-                    _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
+                    _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
                     _updateDate = CType(toReturn.Rows(0)("updateDate"), DateTime)
                 End If
@@ -177,14 +179,14 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Delete() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "DELETE FROM MPIDt " + _
-                                        "WHERE MPIDtID=@MPIDtID"
+            cmdToExecute.CommandText = "DELETE FROM UTSpotAreaDt " + _
+                                        "WHERE UTSpotAreaDtID=@UTSpotAreaDtID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@MPIDtID", _MPIDtID)
+                cmdToExecute.Parameters.AddWithValue("@UTSpotAreaDtID", _UTSpotAreaDtID)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -203,19 +205,19 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Custom Function "
-        Public Function SelectByMPIHdID() As DataTable
+        Public Function SelectByHdID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * " +
-                                        "FROM MPIDt WHERE MPIHdID=@MPIHdID"
+            cmdToExecute.CommandText = "SELECT drd.* " +
+                                        "FROM UTSpotAreaDt drd WHERE drd.UTSpotCheckHdID=@UTSpotCheckHdID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("MPIDt")
+            Dim toReturn As DataTable = New DataTable("UTSpotAreaDt")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@MPIHdID", _MPIHdID)
+                cmdToExecute.Parameters.AddWithValue("@UTSpotCheckHdID", _UTSpotCheckHdID)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -237,66 +239,66 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Class Property Declarations "
-        Public Property [MPIHdID]() As String
+        Public Property [UTSpotCheckHdID]() As String
             Get
-                Return _MPIHdID
+                Return _UTSpotCheckHdID
             End Get
             Set(ByVal Value As String)
-                _MPIHdID = Value
+                _UTSpotCheckHdID = Value
             End Set
         End Property
 
-        Public Property [MPIDtID]() As String
+        Public Property [UTSpotAreaDtID]() As String
             Get
-                Return _MPIDtID
+                Return _UTSpotAreaDtID
             End Get
             Set(ByVal Value As String)
-                _MPIDtID = Value
+                _UTSpotAreaDtID = Value
             End Set
         End Property
 
-        Public Property [MPIpic]() As SqlBinary
+        Public Property [pipeNo]() As String
             Get
-                Return _MPIpic
-            End Get
-            Set(ByVal Value As SqlBinary)
-                _MPIpic = Value
-            End Set
-        End Property
-
-        Public Property [MPIpicDescription]() As String
-            Get
-                Return _MPIpicDescription
+                Return _pipeNo
             End Get
             Set(ByVal Value As String)
-                _MPIpicDescription = Value
+                _pipeNo = Value
             End Set
         End Property
 
-        Public Property [MPIpicSize]() As Integer
+        Public Property [conditionResultPin]() As String
             Get
-                Return _MPIpicSize
-            End Get
-            Set(ByVal Value As Integer)
-                _MPIpicSize = Value
-            End Set
-        End Property
-
-        Public Property [MPIpicType]() As String
-            Get
-                Return _MPIpicType
+                Return _conditionResultPin
             End Get
             Set(ByVal Value As String)
-                _MPIpicType = Value
+                _conditionResultPin = Value
             End Set
         End Property
 
-        Public Property [MPIpicGroupSCode]() As String
+        Public Property [conditionResultBox]() As String
             Get
-                Return _MPIpicGroupSCode
+                Return _conditionResultBox
             End Get
             Set(ByVal Value As String)
-                _MPIpicGroupSCode = Value
+                _conditionResultBox = Value
+            End Set
+        End Property
+
+        Public Property [remarkPin]() As String
+            Get
+                Return _remarkPin
+            End Get
+            Set(ByVal Value As String)
+                _remarkPin = Value
+            End Set
+        End Property
+
+        Public Property [remarkBox]() As String
+            Get
+                Return _remarkBox
+            End Get
+            Set(ByVal Value As String)
+                _remarkBox = Value
             End Set
         End Property
 

@@ -233,6 +233,9 @@ Namespace Raven.Web
                         tblMonth.Rows.Add(newRow)                        
                     Next
                     tblToApply = tblMonth
+                Case "CaptionTemplate"
+                    Dim oTbl As New Common.BussinessRules.CaptionTemplateHd
+                    tblToApply = oTbl.SelectAll()
                 Case Else
                     Dim oTbl As New Common.BussinessRules.CommonCode
                     oTbl.GroupCode = keyField.Trim
@@ -277,6 +280,9 @@ Namespace Raven.Web
                             Case "MonthInYear"
                                 _strText = Common.ProcessNull.GetString(rgRows(i - 1)("MonthName"))
                                 _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("MonthCode"))
+                            Case "CaptionTemplate"
+                                _strText = Common.ProcessNull.GetString(rgRows(i - 1)("CaptionTemplateName"))
+                                _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("CaptionTemplateHdID"))
                             Case Else
                                 _strText = Common.ProcessNull.GetString(rgRows(i - 1)("Caption"))
                                 _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("Value"))

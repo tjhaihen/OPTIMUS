@@ -1,0 +1,1 @@
+﻿<%@ Page Language="vb" AutoEventWireup="false" Codebehind="GetImage.aspx.vb" Inherits="Raven.Web.GetImage" %>

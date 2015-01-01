@@ -11,9 +11,9 @@ Namespace Raven.Common.BussinessRules
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _inspectionReportHdID, _projectID, _inspectionReportNo, _materialDescription, _typeOfInspection, _result As String
-        Private _inspectionPic As Byte()
-        Private _inspectionDate, _insertDate, _updateDate As DateTime
+        Private _inspectionReportHdID, _projectID, _reportNo, _inspectionReportTypeSCode As String
+        Private _isMPI, _isVisualThread, _isDimensional As Boolean
+        Private _reportDate, _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
 
@@ -29,14 +29,14 @@ Namespace Raven.Common.BussinessRules
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO InspectionReportHd " + _
-                                        "(inspectionReportHdID, projectID, inspectionReportNo, " + _
-                                        "materialDescription, typeOfInspection, result, inspectionPic, " + _
-                                        "inspectionDate, insertDate, updateDate, " + _
+                                        "(inspectionReportHdID, projectID, reportNo, reportDate, " + _
+                                        "inspectionReportTypeSCode, isMPI, isVisualThread, isDimensional, " + _
+                                        "insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
-                                        "(@inspectionReportHdID, @projectID, @inspectionReportNo, " + _
-                                        "@materialDescription, @typeOfInspection, @result, @inspectionPic, " + _
-                                        "@inspectionDate, GETDATE(), GETDATE(), " + _
+                                        "(@inspectionReportHdID, @projectID, @reportNo, @reportDate, " + _
+                                        "@inspectionReportTypeSCode, @isMPI, @isVisualThread, @isDimensional, " + _
+                                        "GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate)"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -46,15 +46,14 @@ Namespace Raven.Common.BussinessRules
             Try
                 cmdToExecute.Parameters.AddWithValue("@inspectionReportHdID", strID)
                 cmdToExecute.Parameters.AddWithValue("@projectID", _projectID)
-                cmdToExecute.Parameters.AddWithValue("@inspectionReportNo", _inspectionReportNo)
-                cmdToExecute.Parameters.AddWithValue("@inspectionDate", _inspectionDate)
-                cmdToExecute.Parameters.AddWithValue("@materialDescription", _materialDescription)
-                cmdToExecute.Parameters.AddWithValue("@typeOfInspection", _typeOfInspection)
-                cmdToExecute.Parameters.AddWithValue("@materialDescription", _materialDescription)
-                cmdToExecute.Parameters.AddWithValue("@result", _result)
-                cmdToExecute.Parameters.AddWithValue("@inspectionPic", _inspectionPic)
-                cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
-                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
+                cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
+                cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportTypeSCode", _inspectionReportTypeSCode)
+                cmdToExecute.Parameters.AddWithValue("@isMPI", _isMPI)
+                cmdToExecute.Parameters.AddWithValue("@isVisualThread", _isVisualThread)
+                cmdToExecute.Parameters.AddWithValue("@isDimensional", _isDimensional)
+                cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDInsert)
+                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -75,9 +74,9 @@ Namespace Raven.Common.BussinessRules
         Public Overrides Function Update() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "UPDATE InspectionReportHd " + _
-                                        "SET inspectionReportNo=@inspectionReportNo, inspectionDate=@inspectionDate, " + _
-                                        "materialDescription=@materialDescription, typeOfInspection=@typeOfInspection, result=@result, " + _
-                                        "inspectionPic=@inpsectionPic, userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
+                                        "SET reportNo=@reportNo, reportDate=@reportDate, " + _
+                                        "inspectionReportTypeSCode=@inspectionReportTypeSCode, isMPI=@isMPI, " + _
+                                        "isVisualThread=@isVisualThread, isDimensional=@isDimensional, userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE inspectionReportHdID=@inspectionReportHdID"
             cmdToExecute.CommandType = CommandType.Text
 
@@ -85,13 +84,13 @@ Namespace Raven.Common.BussinessRules
 
             Try
                 cmdToExecute.Parameters.AddWithValue("@inspectionReportHdID", _inspectionReportHdID)
-                cmdToExecute.Parameters.AddWithValue("@inspectionReportNo", _inspectionReportNo)
-                cmdToExecute.Parameters.AddWithValue("@inspectionDate", _inspectionDate)
-                cmdToExecute.Parameters.AddWithValue("@materialDescription", _materialDescription)
-                cmdToExecute.Parameters.AddWithValue("@typeOfInspection", _typeOfInspection)
-                cmdToExecute.Parameters.AddWithValue("@materialDescription", _materialDescription)
-                cmdToExecute.Parameters.AddWithValue("@result", _result)
-                cmdToExecute.Parameters.AddWithValue("@inspectionPic", _inspectionPic)                
+                cmdToExecute.Parameters.AddWithValue("@projectID", _projectID)
+                cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
+                cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportTypeSCode", _inspectionReportTypeSCode)
+                cmdToExecute.Parameters.AddWithValue("@isMPI", _isMPI)
+                cmdToExecute.Parameters.AddWithValue("@isVisualThread", _isVisualThread)
+                cmdToExecute.Parameters.AddWithValue("@isDimensional", _isDimensional)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
@@ -160,12 +159,12 @@ Namespace Raven.Common.BussinessRules
                 If toReturn.Rows.Count > 0 Then
                     _inspectionReportHdID = CType(toReturn.Rows(0)("inspectionReportHdID"), String)
                     _projectID = CType(toReturn.Rows(0)("projectID"), String)
-                    _inspectionReportNo = CType(toReturn.Rows(0)("inspectionReportNo"), String)
-                    _inspectionDate = CType(toReturn.Rows(0)("inspectionDate"), DateTime)
-                    _materialDescription = CType(toReturn.Rows(0)("materialDescription"), String)
-                    _typeOfInspection = CType(toReturn.Rows(0)("typeOfInspection"), String)
-                    _result = CType(toReturn.Rows(0)("result"), String)
-                    _inspectionPic = CType(toReturn.Rows(0)("inspectionPic"), Byte())
+                    _reportNo = CType(toReturn.Rows(0)("reportNo"), String)
+                    _reportDate = CType(toReturn.Rows(0)("reportDate"), DateTime)
+                    _inspectionReportTypeSCode = CType(toReturn.Rows(0)("inspectionReportTypeSCode"), String)
+                    _isMPI = CType(toReturn.Rows(0)("isMPI"), Boolean)
+                    _isVisualThread = CType(toReturn.Rows(0)("isVisualThread"), Boolean)
+                    _isDimensional = CType(toReturn.Rows(0)("isDimensional"), Boolean)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -264,57 +263,57 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
-        Public Property [inspectionReportNo]() As String
+        Public Property [reportNo]() As String
             Get
-                Return _inspectionReportNo
+                Return _reportNo
             End Get
             Set(ByVal Value As String)
-                _inspectionReportNo = Value
+                _reportNo = Value
             End Set
         End Property
 
-        Public Property [inspectionDate]() As DateTime
+        Public Property [reportDate]() As DateTime
             Get
-                Return _inspectionDate
+                Return _reportDate
             End Get
             Set(ByVal Value As DateTime)
-                _inspectionDate = Value
+                _reportDate = Value
             End Set
         End Property
 
-        Public Property [materialDescription]() As String
+        Public Property [inspectionReportTypeSCode]() As String
             Get
-                Return _materialDescription
+                Return _inspectionReportTypeSCode
             End Get
             Set(ByVal Value As String)
-                _materialDescription = Value
+                _inspectionReportTypeSCode = Value
             End Set
         End Property
 
-        Public Property [typeOfInspection]() As String
+        Public Property [isMPI]() As Boolean
             Get
-                Return _typeOfInspection
+                Return _isMPI
             End Get
-            Set(ByVal Value As String)
-                _typeOfInspection = Value
+            Set(ByVal Value As Boolean)
+                _isMPI = Value
             End Set
         End Property
 
-        Public Property [result]() As String
+        Public Property [isVisualThread]() As Boolean
             Get
-                Return _result
+                Return _isVisualThread
             End Get
-            Set(ByVal Value As String)
-                _result = Value
+            Set(ByVal Value As Boolean)
+                _isVisualThread = Value
             End Set
         End Property
 
-        Public Property [inpsectionPic]() As Byte()
+        Public Property [isDimensional]() As Boolean
             Get
-                Return _inspectionPic
+                Return _isDimensional
             End Get
-            Set(ByVal Value As Byte())
-                _inspectionPic = Value
+            Set(ByVal Value As Boolean)
+                _isDimensional = Value
             End Set
         End Property
 

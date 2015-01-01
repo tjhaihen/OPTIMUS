@@ -1,5 +1,6 @@
 ﻿<%@ Register TagPrefix="Module" TagName="RadMenu" Src="../incl/RadMenu.ascx" %>
 <%@ Register TagPrefix="Module" TagName="CSSToolbar" Src="../incl/CSSToolbar.ascx" %>
+<%@ Register TagPrefix="Module" TagName="Calendar" Src="../incl/calendar.ascx" %>
 <%@ Register TagPrefix="Module" TagName="Copyright" Src="../incl/copyright.ascx" %>
 
 <%@ Page Language="vb" AutoEventWireup="false" CodeBehind="ReportType.aspx.vb" Inherits="Raven.Web.Secure.ReportType" %>
@@ -47,7 +48,7 @@
                                             <table width="100%">
                                                 <!-- PAGE CONTENT BEGIN HERE -->
                                                 <tr>
-                                                    <td colspan="2">
+                                                    <td colspan="4">
                                                         <asp:ValidationSummary ID="ValidationSummary" runat="server" HeaderText="Please fill the following Field(s)." />
                                                     </td>
                                                 </tr>
@@ -62,6 +63,12 @@
                                                             ErrorMessage="Report Type Code" Display="dynamic" Text="*">																
                                                         </asp:RequiredFieldValidator>
                                                     </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Document No.
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtDocumentNo" Width="300" runat="server" />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="right">
@@ -73,6 +80,12 @@
                                                             ErrorMessage="Report Type Name" Display="dynamic" Text="*">																
                                                         </asp:RequiredFieldValidator>
                                                     </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Revision No.
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtRevisionNo" Width="300" runat="server" />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="right">
@@ -81,6 +94,13 @@
                                                     <td>
                                                         <asp:TextBox ID="txtSequence" Width="300" MaxLength="50" runat="server" />
                                                     </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Effective Date
+                                                    </td>
+                                                    <td>
+                                                        <Module:Calendar ID="calEffectiveDate" runat="server" />
+                                                        <asp:CheckBox ID="chkIsNoEffectiveDate" runat="server" Text="No Effective Date" Checked="True" />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="right">
@@ -88,6 +108,10 @@
                                                     </td>
                                                     <td>
                                                         <asp:TextBox ID="txtPanelID" Width="300" MaxLength="50" runat="server" />
+                                                    </td>
+                                                    <td></td>
+                                                    <td>
+                                                        <asp:CheckBox ID="chkIsMandatory" runat="server" Text="Is Mandatory?" Checked="False" />
                                                     </td>
                                                 </tr>
                                                 <tr>

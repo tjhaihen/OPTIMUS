@@ -17,6 +17,8 @@ Namespace Raven.Common.BussinessRules
         Private _developer, _yokeSCode, _coilSCode, _fluorescentSCode, _contrastBWSCode, _inspectionResult, _notes As String
         Private _ACIsASME, _ACIsAPISpec, _ACIsDS1, _ACIsOther, _isBlacklight, _isRods, _isDyePenetrant, _isWireBrush As Boolean
         Private _isBlastCleaning, _isGrinding, _isMachining As Boolean
+        Private _ACASMEDescription, _ACAPISpecDescription, _ACDS1Description As String
+        Private _yokeSerialNo, _coilSerialNo, _rodsSerialNo, _blacklightSerialNo As String
         Private _reportDate, _expiredDate As DateTime
         Private _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
@@ -35,18 +37,22 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO MPIHd " + _
                                         "(MPIHdID, projectID, reportNo, serialNo, MPITypeSCode, description, qty, dimension, " + _
-                                        "areaInspection, ACOtherDescription, material, surfaceCondition, metalSurfaceTemp, materialThickness, " + _
+                                        "areaInspection, material, surfaceCondition, metalSurfaceTemp, materialThickness, " + _
                                         "setCalibration, poleSpacing, application, contrast, magneticParticle, cleaner, penetrant, " + _
                                         "developer, yokeSCode, coilSCode, fluorescentSCode, contrastBWSCode, inspectionResult, notes, " + _
+                                        "yokeSerialNo, coilSerialNo, rodsSerialNo, blacklightSerialNo, " + _
+                                        "ACASMEDescription, ACAPISpecDescription, ACDS1Description, ACOtherDescription, " + _
                                         "ACIsASME, ACIsAPISpec, ACIsDS1, ACIsOther, isBlacklight, isRods, isDyePenetrant, isWireBrush, " + _
                                         "isBlastCleaning, isGrinding, isMachining, " + _
                                         "reportDate, expiredDate, insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
                                         "(@MPIHdID, @projectID, @reportNo, @serialNo, @MPITypeSCode, @description, @qty, @dimension, " + _
-                                        "@areaInspection, @ACOtherDescription, @material, @surfaceCondition, @metalSurfaceTemp, @materialThickness, " + _
+                                        "@areaInspection, @material, @surfaceCondition, @metalSurfaceTemp, @materialThickness, " + _
                                         "@setCalibration, @poleSpacing, @application, @contrast, @magneticParticle, @cleaner, @penetrant, " + _
                                         "@developer, @yokeSCode, @coilSCode, @fluorescentSCode, @contrastBWSCode, @inspectionResult, @notes, " + _
+                                        "@yokeSerialNo, @coilSerialNo, @rodsSerialNo, @blacklightSerialNo, " + _
+                                        "@ACASMEDescription, @ACAPISpecDescription, @ACDS1Description, @ACOtherDescription, " + _
                                         "@ACIsASME, @ACIsAPISpec, @ACIsDS1, @ACIsOther, @isBlacklight, @isRods, @isDyePenetrant, @isWireBrush, " + _
                                         "@isBlastCleaning, @isGrinding, @isMachining, " + _
                                         "@reportDate, @expiredDate, GETDATE(), GETDATE(), " + _
@@ -65,8 +71,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@description", _description)
                 cmdToExecute.Parameters.AddWithValue("@qty", _qty)
                 cmdToExecute.Parameters.AddWithValue("@dimension", _dimension)
-                cmdToExecute.Parameters.AddWithValue("@areaInspection", _areaInspection)
-                cmdToExecute.Parameters.AddWithValue("@ACOtherDescription", _ACOtherDescription)
+                cmdToExecute.Parameters.AddWithValue("@areaInspection", _areaInspection)                
                 cmdToExecute.Parameters.AddWithValue("@material", _material)
                 cmdToExecute.Parameters.AddWithValue("@surfaceCondition", _surfaceCondition)
                 cmdToExecute.Parameters.AddWithValue("@metalSurfaceTemp", _metalSurfaceTemp)
@@ -85,6 +90,14 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@contrastBWSCode", _contrastBWSCode)
                 cmdToExecute.Parameters.AddWithValue("@inspectionResult", _inspectionResult)
                 cmdToExecute.Parameters.AddWithValue("@notes", _notes)
+                cmdToExecute.Parameters.AddWithValue("@yokeSerialNo", _yokeSerialNo)
+                cmdToExecute.Parameters.AddWithValue("@coilSerialNo", _coilSerialNo)
+                cmdToExecute.Parameters.AddWithValue("@rodsSerialNo", _rodsSerialNo)
+                cmdToExecute.Parameters.AddWithValue("@blacklightSerialNo", _blacklightSerialNo)
+                cmdToExecute.Parameters.AddWithValue("@ACASMEDescription", _ACASMEDescription)
+                cmdToExecute.Parameters.AddWithValue("@ACAPISpecDescription", _ACAPISpecDescription)
+                cmdToExecute.Parameters.AddWithValue("@ACDS1Description", _ACDS1Description)
+                cmdToExecute.Parameters.AddWithValue("@ACOtherDescription", _ACOtherDescription)
                 cmdToExecute.Parameters.AddWithValue("@ACIsASME", _ACIsASME)
                 cmdToExecute.Parameters.AddWithValue("@ACIsAPISpec", _ACIsAPISpec)
                 cmdToExecute.Parameters.AddWithValue("@ACIsDS1", _ACIsDS1)
@@ -121,10 +134,12 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "UPDATE MPIHd " + _
                                         "SET reportNo=@reportNo, serialNo=@serialNo, MPITypeSCode=@MPITypeSCode, description=@description, qty=@qty, dimension=@dimension, " + _
-                                        "areaInspection=@areaInspection, ACOtherDescription=@ACOtherDescription, material=@material, surfaceCondition=@surfaceCondition, " + _
+                                        "areaInspection=@areaInspection, material=@material, surfaceCondition=@surfaceCondition, " + _
                                         "metalSurfaceTemp=@metalSurfaceTemp, materialThickness=@materialThickness, " + _
                                         "setCalibration=@setCalibration, poleSpacing=@poleSpacing, application=@application, contrast=@contrast, magneticParticle=@magneticParticle, cleaner=@cleaner, penetrant=@penetrant, " + _
                                         "developer=@developer, yokeSCode=@yokeSCode, coilSCode=@coilSCode, fluorescentSCode=@fluorescentSCode, contrastBWSCode=@contrastBWSCode, inspectionResult=@inspectionResult, notes=@notes, " + _
+                                        "yokeSerialNo=@yokeSerialNo, coilSerialNo=@coilSerialNo, rodsSerialNo=@rodsSerialNo, blacklightSerialNo=@blacklightSerialNo, " + _
+                                        "ACASMEDescription=@ACASMEDescription, ACAPISpecDescription=@ACAPISpecDescription, ACDS1Description=@ACDS1Description, ACOtherDescription=@ACOtherDescription, " + _
                                         "ACIsASME=@ACIsASME, ACIsAPISpec=@ACIsAPISpec, ACIsDS1=@ACIsDS1, ACIsOther=@ACIsOther, isBlacklight=@isBlacklight, isRods=@isRods, isDyePenetrant=@isDyePenetrant, isWireBrush=@isWireBrush, " + _
                                         "isBlastCleaning=@isBlastCleaning, isGrinding=@isGrinding, isMachining=@isMachining, " + _
                                         "reportDate=@reportDate, expiredDate=@expiredDate, updateDate=GETDATE(), userIDUpdate=@userIDUpdate " + _
@@ -141,7 +156,6 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@qty", _qty)
                 cmdToExecute.Parameters.AddWithValue("@dimension", _dimension)
                 cmdToExecute.Parameters.AddWithValue("@areaInspection", _areaInspection)
-                cmdToExecute.Parameters.AddWithValue("@ACOtherDescription", _ACOtherDescription)
                 cmdToExecute.Parameters.AddWithValue("@material", _material)
                 cmdToExecute.Parameters.AddWithValue("@surfaceCondition", _surfaceCondition)
                 cmdToExecute.Parameters.AddWithValue("@metalSurfaceTemp", _metalSurfaceTemp)
@@ -160,6 +174,14 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@contrastBWSCode", _contrastBWSCode)
                 cmdToExecute.Parameters.AddWithValue("@inspectionResult", _inspectionResult)
                 cmdToExecute.Parameters.AddWithValue("@notes", _notes)
+                cmdToExecute.Parameters.AddWithValue("@yokeSerialNo", _yokeSerialNo)
+                cmdToExecute.Parameters.AddWithValue("@coilSerialNo", _coilSerialNo)
+                cmdToExecute.Parameters.AddWithValue("@rodsSerialNo", _rodsSerialNo)
+                cmdToExecute.Parameters.AddWithValue("@blacklightSerialNo", _blacklightSerialNo)
+                cmdToExecute.Parameters.AddWithValue("@ACASMEDescription", _ACASMEDescription)
+                cmdToExecute.Parameters.AddWithValue("@ACAPISpecDescription", _ACAPISpecDescription)
+                cmdToExecute.Parameters.AddWithValue("@ACDS1Description", _ACDS1Description)
+                cmdToExecute.Parameters.AddWithValue("@ACOtherDescription", _ACOtherDescription)
                 cmdToExecute.Parameters.AddWithValue("@ACIsASME", _ACIsASME)
                 cmdToExecute.Parameters.AddWithValue("@ACIsAPISpec", _ACIsAPISpec)
                 cmdToExecute.Parameters.AddWithValue("@ACIsDS1", _ACIsDS1)
@@ -249,7 +271,6 @@ Namespace Raven.Common.BussinessRules
                     _qty = CType(toReturn.Rows(0)("qty"), String)
                     _dimension = CType(toReturn.Rows(0)("dimension"), String)
                     _areaInspection = CType(toReturn.Rows(0)("areaInspection"), String)
-                    _ACOtherDescription = CType(toReturn.Rows(0)("ACOtherDescription"), String)
                     _material = CType(toReturn.Rows(0)("material"), String)
                     _surfaceCondition = CType(toReturn.Rows(0)("surfaceCondition"), String)
                     _metalSurfaceTemp = CType(toReturn.Rows(0)("metalSurfaceTemp"), String)
@@ -268,6 +289,14 @@ Namespace Raven.Common.BussinessRules
                     _contrastBWSCode = CType(toReturn.Rows(0)("contrastBWSCode"), String)
                     _inspectionResult = CType(toReturn.Rows(0)("inspectionResult"), String)
                     _notes = CType(toReturn.Rows(0)("notes"), String)
+                    _yokeSerialNo = CType(toReturn.Rows(0)("yokeSerialNo"), String)
+                    _coilSerialNo = CType(toReturn.Rows(0)("coilSerialNo"), String)
+                    _rodsSerialNo = CType(toReturn.Rows(0)("rodsSerialNo"), String)
+                    _blacklightSerialNo = CType(toReturn.Rows(0)("blacklightSerialNo"), String)
+                    _ACASMEDescription = CType(toReturn.Rows(0)("ACASMEDescription"), String)
+                    _ACAPISpecDescription = CType(toReturn.Rows(0)("ACAPISpecDescription"), String)
+                    _ACDS1Description = CType(toReturn.Rows(0)("ACDS1Description"), String)
+                    _ACOtherDescription = CType(toReturn.Rows(0)("ACOtherDescription"), String)
                     _ACIsASME = CType(toReturn.Rows(0)("ACIsASME"), Boolean)
                     _ACIsAPISpec = CType(toReturn.Rows(0)("ACIsAPISpec"), Boolean)
                     _ACIsDS1 = CType(toReturn.Rows(0)("ACIsDS1"), Boolean)
@@ -440,15 +469,6 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
-        Public Property [ACOtherDescription]() As String
-            Get
-                Return _ACOtherDescription
-            End Get
-            Set(ByVal Value As String)
-                _ACOtherDescription = Value
-            End Set
-        End Property
-
         Public Property [material]() As String
             Get
                 Return _material
@@ -608,6 +628,78 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _notes = Value
+            End Set
+        End Property
+
+        Public Property [yokeSerialNo]() As String
+            Get
+                Return _yokeSerialNo
+            End Get
+            Set(ByVal Value As String)
+                _yokeSerialNo = Value
+            End Set
+        End Property
+
+        Public Property [coilSerialNo]() As String
+            Get
+                Return _coilSerialNo
+            End Get
+            Set(ByVal Value As String)
+                _coilSerialNo = Value
+            End Set
+        End Property
+
+        Public Property [rodsSerialNo]() As String
+            Get
+                Return _rodsSerialNo
+            End Get
+            Set(ByVal Value As String)
+                _rodsSerialNo = Value
+            End Set
+        End Property
+
+        Public Property [blacklightSerialNo]() As String
+            Get
+                Return _blacklightSerialNo
+            End Get
+            Set(ByVal Value As String)
+                _blacklightSerialNo = Value
+            End Set
+        End Property
+
+        Public Property [ACASMEDescription]() As String
+            Get
+                Return _ACASMEDescription
+            End Get
+            Set(ByVal Value As String)
+                _ACASMEDescription = Value
+            End Set
+        End Property
+
+        Public Property [ACAPISpecDescription]() As String
+            Get
+                Return _ACAPISpecDescription
+            End Get
+            Set(ByVal Value As String)
+                _ACAPISpecDescription = Value
+            End Set
+        End Property
+
+        Public Property [ACDS1Description]() As String
+            Get
+                Return _ACDS1Description
+            End Get
+            Set(ByVal Value As String)
+                _ACDS1Description = Value
+            End Set
+        End Property
+
+        Public Property [ACOtherDescription]() As String
+            Get
+                Return _ACOtherDescription
+            End Get
+            Set(ByVal Value As String)
+                _ACOtherDescription = Value
             End Set
         End Property
 

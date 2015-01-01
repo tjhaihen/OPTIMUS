@@ -34,6 +34,22 @@
             height: auto;
             margin: 0px;
         }
+        
+        #ulRepMPIimages
+        {
+            width: 100%;
+            margin: 0;
+            padding: 0;                     
+        }
+        #ulRepMPIimages li
+        {
+            list-style-type: none;
+            display: inline-block; /* FF3.6; Chrome10+ */                     
+            *display: inline;
+            width: 35px;
+            height: auto;
+            margin: 0px;
+        }
     </style>
 </head>
 <body>
@@ -253,7 +269,7 @@
                                                         <ItemTemplate>
                                                             <table width="100%">
                                                                 <tr>
-                                                                    <td>
+                                                                    <td style="margin: 15 0 0 0">
                                                                         <asp:Label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ReportTypeID") %>'
                                                                             ToolTip='<%# DataBinder.Eval(Container.DataItem, "ReportTypeCode") %>' ID="_lblReportTypeID"
                                                                             Visible="false" />
@@ -416,7 +432,55 @@
                                                     </table>
                                                 </asp:Panel>
                                                 <asp:Panel ID="pnlServiceAcceptance" runat="server">
-                                                    This is Service Acceptance Panel
+                                                    <table cellpadding="2" cellspacing="1" width="100%">
+                                                        <tr>
+                                                            <td>
+                                                                <asp:DataGrid ID="SA_grdProjectDt" runat="server" BorderWidth="0" GridLines="None"
+                                                                    Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                                    AutoGenerateColumns="false">
+                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                                    <ItemStyle CssClass="gridItemStyle" />
+                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                                    <Columns>
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="50">
+                                                                            <ItemTemplate>
+                                                                                <asp:ImageButton ID="SA_ibtnPrint" runat="server" ImageUrl="/PureravensLib/images/print.png"
+                                                                                    ImageAlign="AbsMiddle" CommandName="Print" CausesValidation="false" />
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Description" ItemStyle-Width="450px">
+                                                                            <ItemTemplate>
+                                                                                <asp:Label runat="server" ID="SA_lblProjectDtID" Visible="false" Text='<%# DataBinder.Eval(Container.DataItem, "projectDtID") %>' />
+                                                                                <%# DataBinder.Eval(Container.DataItem, "description") %>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Reference No." ItemStyle-Width="100px">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "referenceNo") %>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Qty" ItemStyle-Width="80px">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "Qty") %>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="UOM" ItemStyle-Width="100px">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "unitOfMeasurement") %>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Detail Description" ItemStyle-Width="450px">
+                                                                            <ItemTemplate>
+                                                                                <asp:TextBox ID="SA_txtdescriptionDetail" runat="server" BorderStyle="None" CssClass="txtweak"
+                                                                                    TextMode="MultiLine" Width="100%" Text='<%# DataBinder.Eval(Container.DataItem, "descriptionDetail") %>'></asp:TextBox>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                    </Columns>
+                                                                </asp:DataGrid>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
                                                 </asp:Panel>
                                                 <asp:Panel ID="pnlSummaryOfInspection" runat="server">
                                                     <asp:Panel ID="SOI_pnlApproved" Visible="false" runat="server">
@@ -923,7 +987,7 @@
                                                         </tr>
                                                     </table>
                                                 </asp:Panel>
-                                                <asp:Panel ID="pnlDailyInspectionReport" runat="server">
+                                                <asp:Panel ID="pnlDailyProgressReportMPI" runat="server">
                                                     <table cellpadding="2" cellspacing="1" width="100%">
                                                         <tr>
                                                             <td colspan="5">
@@ -1041,7 +1105,7 @@
                                                                             Service Report for
                                                                         </td>
                                                                         <td>
-                                                                            <asp:DropDownList ID="SR_ddlServiceReportFor" runat="server" Width="300">
+                                                                            <asp:DropDownList ID="SR_ddlServiceReportFor" runat="server" Width="300" AutoPostBack="true">
                                                                             </asp:DropDownList>
                                                                             <asp:TextBox ID="SR_txtServiceReportID" runat="server" Width="266" Visible="false"></asp:TextBox>
                                                                         </td>
@@ -1277,19 +1341,22 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td valign="top">
-                                                                                        <asp:CheckBox ID="MPI_chkACIsASME" runat="server" Text="ASME" />
+                                                                                        <asp:CheckBox ID="MPI_chkACIsASME" runat="server" Text="" />
+                                                                                        <asp:TextBox ID="MPI_txtACASMEDescription" runat="server" Text="ASME" Width="100"></asp:TextBox>
                                                                                     </td>
                                                                                     <td valign="top">
-                                                                                        <asp:CheckBox ID="MPI_chkACIsAPISpec" runat="server" Text="API Spec." />
+                                                                                        <asp:CheckBox ID="MPI_chkACIsAPISpec" runat="server" Text="" />
+                                                                                        <asp:TextBox ID="MPI_txtACAPISpecDescription" runat="server" Text="API Spec." Width="100"></asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td valign="top">
-                                                                                        <asp:CheckBox ID="MPI_chkIsACDS1" runat="server" Text="DS-1" />
+                                                                                        <asp:CheckBox ID="MPI_chkIsACDS1" runat="server" Text="" />
+                                                                                        <asp:TextBox ID="MPI_txtACDS1Description" runat="server" Text="DS-1" Width="100"></asp:TextBox>
                                                                                     </td>
                                                                                     <td valign="top">
-                                                                                        <asp:CheckBox ID="MPI_chkIsACOther" runat="server" Text="Other" /><br />
-                                                                                        <asp:TextBox ID="MPI_txtACOtherDescription" runat="server" Width="100"></asp:TextBox>
+                                                                                        <asp:CheckBox ID="MPI_chkIsACOther" runat="server" Text="" />
+                                                                                        <asp:TextBox ID="MPI_txtACOtherDescription" runat="server" Text="Other" Width="100"></asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -1408,8 +1475,11 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="gridAlternatingItemStyle center" colspan="2">
+                                                                        <td class="gridAlternatingItemStyle center">
                                                                             Equipment - Mag Current
+                                                                        </td>
+                                                                        <td class="gridAlternatingItemStyle center">
+                                                                            Serial Number
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle center">
                                                                             System
@@ -1419,10 +1489,10 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="2" valign="top">
+                                                                        <td valign="top">
                                                                             <table>
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td class="right">
                                                                                         Yoke
                                                                                     </td>
                                                                                     <td>
@@ -1431,7 +1501,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td class="right">
                                                                                         Coil
                                                                                     </td>
                                                                                     <td>
@@ -1440,17 +1510,49 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td class="right">
+                                                                                        Rods
                                                                                     </td>
                                                                                     <td>
-                                                                                        <asp:CheckBox ID="MPI_chkIsBlacklight" runat="server" Text="Blacklight" />
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlRods" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        Blacklight
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlBlacklight" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                        <td valign="top">
+                                                                            <table width="100%">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <asp:TextBox ID="MPI_txtYokeSerialNo" runat="server" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>
+                                                                                        <asp:TextBox ID="MPI_txtCoilSerialNo" runat="server" Width="100%"></asp:TextBox>
                                                                                     </td>
+                                                                                </tr>
+                                                                                <tr>
                                                                                     <td>
-                                                                                        <asp:CheckBox ID="MPI_chkIsRods" runat="server" Text="Rods" />
+                                                                                        <asp:TextBox ID="MPI_txtRodsSerialNo" runat="server" Width="100%"></asp:TextBox>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <asp:TextBox ID="MPI_txtBlacklightSerialNo" runat="server" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -1458,7 +1560,7 @@
                                                                         <td valign="top">
                                                                             <table>
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td class="right">
                                                                                         Fluorescent
                                                                                     </td>
                                                                                     <td>
@@ -1467,7 +1569,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td>
+                                                                                    <td class="right">
                                                                                         Contrast B/W
                                                                                     </td>
                                                                                     <td>
@@ -1477,9 +1579,13 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>
+                                                                                        Dye Penetrant
                                                                                     </td>
                                                                                     <td>
-                                                                                        <asp:CheckBox ID="MPI_chkIsDyePenetrant" runat="server" Text="Dye Penetrant" />
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlDyePenetrant" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                        </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -1487,23 +1593,47 @@
                                                                         <td>
                                                                             <table>
                                                                                 <tr>
+                                                                                    <td class="right">
+                                                                                        Wire Brush
+                                                                                    </td>
                                                                                     <td>
-                                                                                        <asp:CheckBox ID="MPI_chkIsWireBrush" runat="server" Text="Wire Brush" />
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlWireBrush" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                        </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
+                                                                                    <td class="right">
+                                                                                        Blast Cleaning
+                                                                                    </td>
                                                                                     <td>
-                                                                                        <asp:CheckBox ID="MPI_chkIsBlastCleaning" runat="server" Text="Blast Cleaning" />
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlBlastCleaning" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                        </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
+                                                                                    <td class="right">
+                                                                                        Grinding
+                                                                                    </td>
                                                                                     <td>
-                                                                                        <asp:CheckBox ID="MPI_chkIsGrinding" runat="server" Text="Grinding" />
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlGrinding" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                        </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
+                                                                                    <td class="right">
+                                                                                        Machining
+                                                                                    </td>
                                                                                     <td>
-                                                                                        <asp:CheckBox ID="MPI_chkIsMachining" runat="server" Text="Machining" />
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlMachining" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                        </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -1514,7 +1644,7 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>
+                                                                        <td class="right">
                                                                             Inspection Result/Comments
                                                                         </td>
                                                                         <td colspan="3">
@@ -1523,7 +1653,7 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>
+                                                                        <td class="right">
                                                                             Notes
                                                                         </td>
                                                                         <td colspan="3">
@@ -1546,9 +1676,9 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td>
-                                                                                            <%--<input id="MPI_ImageFile" type="file" runat="server" autopostback="True" name="MPI_ImageFile"
-                                                                                                class="imguploader" style="width: 404;" />--%>
-                                                                                            <asp:FileUpload ID="MPI_fuImage" runat="server" />
+                                                                                            <asp:TextBox ID="MPI_txtMPIDtID" runat="server" Visible="false"></asp:TextBox>
+                                                                                            <input id="MPI_ImageFile" type="file" runat="server" autopostback="True" name="MPI_ImageFile"
+                                                                                                class="imguploader" style="width: 404;" />
                                                                                             <asp:DropDownList ID="MPI_ddlPicGroup" runat="server" Width="150">
                                                                                             </asp:DropDownList>
                                                                                             <asp:TextBox ID="MPI_txtPicDescription" runat="server" Width="300"></asp:TextBox>
@@ -1558,8 +1688,44 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td>
-                                                                                            <asp:Image ID="MPI_ImagePreview" runat="server" />
                                                                                             <!-- Place for DataGrid MPIDt -->
+                                                                                            <asp:Repeater ID="MPI_repMPIimages" runat="server">
+                                                                                                <HeaderTemplate>
+                                                                                                    <ul id="ulRepMPIimages">
+                                                                                                </HeaderTemplate>
+                                                                                                <ItemTemplate>
+                                                                                                    <li>
+                                                                                                        <table cellspacing="1">
+                                                                                                            <tr>
+                                                                                                                <td>
+                                                                                                                    <asp:Label ID="MPI_lblMPIDtIDonRep" runat="server" Visible="false" Text='<%# DataBinder.Eval(Container.DataItem, "MPIDtID") %>'></asp:Label>
+                                                                                                                    <asp:Image ID="MPI_img" runat="server" Width="200" />
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                            <tr>
+                                                                                                                <td>
+                                                                                                                    <table width="100%" cellspacing="0" cellpadding="2">
+                                                                                                                        <tr>
+                                                                                                                            <td class="gridAlternatingItemStyle">
+                                                                                                                                <%# Left(DataBinder.Eval(Container.DataItem, "MPIpicDescription"),15) %>&nbsp;(<%# DataBinder.Eval(Container.DataItem, "MPIpicType")%>)
+                                                                                                                            </td>
+                                                                                                                            <td align="right" class="gridAlternatingItemStyle">
+                                                                                                                                <asp:ImageButton ID="MPI_ibtnMPIpicEdit" runat="server" CommandName="Edit" ImageUrl="/pureravensLib/images/edit_small.png"
+                                                                                                                                    ImageAlign="AbsMiddle" ToolTip="Edit" />
+                                                                                                                                <asp:ImageButton ID="MPI_ibtnMPIpicDelete" runat="server" CommandName="Delete" ImageUrl="/pureravensLib/images/delete_small.png"
+                                                                                                                                    ImageAlign="AbsMiddle" ToolTip="Delete" />
+                                                                                                                            </td>
+                                                                                                                        </tr>
+                                                                                                                    </table>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </table>
+                                                                                                    </li>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    </ul>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:Repeater>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
@@ -1775,7 +1941,7 @@
                                                     <table cellpadding="2" cellspacing="1" width="100%">
                                                         <tr>
                                                             <td colspan="6">
-                                                                <table>
+                                                                <table width="100%">
                                                                     <tr>
                                                                         <td style="width: 100px;" class="right">
                                                                             Report ID - Report No.
@@ -1786,19 +1952,21 @@
                                                                             <asp:TextBox ID="DP_txtReportNo" runat="server" Width="200"></asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
-                                                                            Report Date
-                                                                        </td>
-                                                                        <td>
-                                                                            <Module:Calendar ID="DP_calReportDate" runat="server" DontResetDate="true" />
-                                                                        </td>
-                                                                        <td style="width: 100px;" class="right">
                                                                             Specification
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 200px;">
                                                                             <asp:TextBox ID="DP_txtSpecificationID" runat="server" Width="200" Visible="false"></asp:TextBox>
                                                                             <asp:TextBox ID="DP_txtSpecificationCode" runat="server" Width="166" AutoPostBack="true"></asp:TextBox>
                                                                             <asp:Button ID="DP_btnSearchSpecification" runat="server" Text="..." Width="30" />
                                                                             <asp:TextBox ID="DP_txtSpecificationName" runat="server" Width="200" ReadOnly="true"></asp:TextBox>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Report Date - Caption Template
+                                                                        </td>
+                                                                        <td>
+                                                                            <Module:Calendar ID="DP_calReportDate" runat="server" DontResetDate="true" />
+                                                                            <asp:DropDownList ID="DP_ddlCaptionTemplate" runat="server" Width="200" AutoPostBack="true">
+                                                                            </asp:DropDownList>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -1965,13 +2133,13 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="6">
-                                                                <table cellpadding="2" cellspacing="1" width="100%">
+                                                                <table cellpadding="2" cellspacing="1">
                                                                     <tr>
                                                                         <td class="gridAlternatingItemStyle right" style="width: 100px;">
                                                                             No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_txtDrillPipeReportDtID" runat="server" Width="200" Visible="false"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtDrillPipeReportDtID" runat="server" Visible="false"></asp:TextBox>
                                                                             <asp:TextBox ID="DP_txtSequenceNo" runat="server" Width="80"></asp:TextBox>
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle right" style="width: 100px;">
@@ -1989,60 +2157,60 @@
                                                                             <table cellpadding="2" cellspacing="1">
                                                                                 <tr>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Body Wear
+                                                                                        <asp:Label ID="DP_lblBod001Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Bent
+                                                                                        <asp:Label ID="DP_lblBod002Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Body Damage
+                                                                                        <asp:Label ID="DP_lblBod003Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        EMI
+                                                                                        <asp:Label ID="DP_lblBod004Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        UT End Area
+                                                                                        <asp:Label ID="DP_lblBod005Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Plastic Coating
+                                                                                        <asp:Label ID="DP_lblBod006Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Wall
+                                                                                        <asp:Label ID="DP_lblBod007Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Wall Remanent
+                                                                                        <asp:Label ID="DP_lblBod008Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Tube Class
+                                                                                        <asp:Label ID="DP_lblBod009Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbdBodyWear" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod001Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbdBent" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod002Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbdBodyDamage" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod003Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbdEMI" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod004Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbdUTEndArea" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod005Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbdPlasticCoating" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod006Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbdWall" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod007Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbdWallRemanent" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod008Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbdTubeClass" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod009Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -2056,72 +2224,78 @@
                                                                             <table cellpadding="2" cellspacing="1">
                                                                                 <tr>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Tool Joint Year
+                                                                                        <asp:Label ID="DP_lblPin001Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Outside Dia
+                                                                                        <asp:Label ID="DP_lblPin002Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Inside Dia
+                                                                                        <asp:Label ID="DP_lblPin003Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Tong Space
+                                                                                        <asp:Label ID="DP_lblPin004Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Thread Length
+                                                                                        <asp:Label ID="DP_lblPin005Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Bevel Dia
+                                                                                        <asp:Label ID="DP_lblPin006Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Lead
+                                                                                        <asp:Label ID="DP_lblPin007Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Shoulder Width
+                                                                                        <asp:Label ID="DP_lblPin008Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Neck Length
+                                                                                        <asp:Label ID="DP_lblPin009Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Reface
+                                                                                        <asp:Label ID="DP_lblPin010Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Final Condition
+                                                                                        <asp:Label ID="DP_lblPin011Caption" runat="server"></asp:Label>
+                                                                                    </td>
+                                                                                    <td class="rheaderSmallText center" style="width: 80px;">
+                                                                                        Is HB?
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcToolJointYear" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin001Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcOutsideDia" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin002Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcInsideDia" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin003Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcTongSpace" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin004Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcThreadLength" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin005Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcBevelDia" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin006Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcLead" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin007Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcShoulderWidth" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin008Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcNeckLength" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin009Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcReface" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin010Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtpcFinalCondition" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin011Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                    </td>
+                                                                                    <td class="rheaderSmallText center" style="width: 80px;">
+                                                                                        <asp:CheckBox ID="DP_chkIsPinHB" runat="server" />
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -2135,60 +2309,78 @@
                                                                             <table cellpadding="2" cellspacing="1">
                                                                                 <tr>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Outside Dia
+                                                                                        <asp:Label ID="DP_lblBox001Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Tong Space
+                                                                                        <asp:Label ID="DP_lblBox002Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        QC Dia
+                                                                                        <asp:Label ID="DP_lblBox003Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        QC Depth
+                                                                                        <asp:Label ID="DP_lblBox004Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Shoulder Witdh
+                                                                                        <asp:Label ID="DP_lblBox005Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Bevel Dia
+                                                                                        <asp:Label ID="DP_lblBox006Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Seal Width
+                                                                                        <asp:Label ID="DP_lblBox007Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Reface
+                                                                                        <asp:Label ID="DP_lblBox008Caption" runat="server"></asp:Label>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                        Final Condition
+                                                                                        <asp:Label ID="DP_lblBox009Caption" runat="server"></asp:Label>
+                                                                                    </td>
+                                                                                    <td class="rheaderSmallText center" style="width: 80px;">
+                                                                                        <asp:Label ID="DP_lblBox010Caption" runat="server"></asp:Label>
+                                                                                    </td>
+                                                                                    <td class="rheaderSmallText center" style="width: 80px;">
+                                                                                        <asp:Label ID="DP_lblBox011Caption" runat="server"></asp:Label>
+                                                                                    </td>
+                                                                                    <td class="rheaderSmallText center" style="width: 80px;">
+                                                                                        Is HB?
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbcOutsideDia" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox001Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbcTongSpace" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox002Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbcQCDia" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox003Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbcQCDepth" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox004Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbcShoulderWidth" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox005Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbcBevelDia" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox006Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbcSealWidth" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox007Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbcReface" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox008Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtbcFinalCondition" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox009Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                    </td>
+                                                                                    <td style="width: 80px;">
+                                                                                        <asp:TextBox ID="DP_txtBox010Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                    </td>
+                                                                                    <td style="width: 80px;">
+                                                                                        <asp:TextBox ID="DP_txtBox011Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                    </td>
+                                                                                    <td class="rheaderSmallText center" style="width: 80px;">
+                                                                                        <asp:CheckBox ID="DP_chkIsBoxHB" runat="server" />
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -2199,6 +2391,8 @@
                                                                             Remarks
                                                                         </td>
                                                                         <td colspan="3">
+                                                                            <asp:DropDownList ID="DP_ddlRemarks" runat="server" Width="300">
+                                                                            </asp:DropDownList>
                                                                             <asp:TextBox ID="DP_txtRemarks" runat="server" Width="300"></asp:TextBox>
                                                                         </td>
                                                                     </tr>
@@ -2215,274 +2409,296 @@
                                                                     <AlternatingItemStyle CssClass="gridItemStyle" />
                                                                     <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
                                                                     <Columns>
-                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="50">
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="32" ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="DP_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
                                                                                     ImageAlign="AbsMiddle" CommandName="Edit" CausesValidation="false" />
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="No.">
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="32" ItemStyle-VerticalAlign="Top">
+                                                                            <ItemTemplate>
+                                                                                <asp:ImageButton ID="DP_ibtnDelete" runat="server" ImageUrl="/PureravensLib/images/delete.png"
+                                                                                    ImageAlign="AbsMiddle" CommandName="Delete" CausesValidation="false" />
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="No." ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <asp:Label ID="DP_lblDrillPipeReportDtID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "DrillPipeReportDtID") %>'
                                                                                     Visible="false"></asp:Label>
                                                                                 <%# DataBinder.Eval(Container.DataItem, "sequenceNo") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Serial No.">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Serial No." ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <%# DataBinder.Eval(Container.DataItem, "serialNo") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" ItemStyle-VerticalAlign="Top">
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-VerticalAlign="Top" HeaderText="Body"
+                                                                            HeaderStyle-HorizontalAlign="Center">
                                                                             <ItemTemplate>
                                                                                 <table width="100%" cellspacing="1">
                                                                                     <tr>
-                                                                                        <td style="width: 250px;" colspan="3" class="rheaderSmallText center">
-                                                                                            Body
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Body Wear
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod001Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Bent
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod002Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Body Damage
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod003Caption")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bdBodyWear")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod001Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bdBent")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod002Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bdBodyDamage")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod003Value")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            EMI
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod004Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            UT End Area
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod005Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Plastic Coating
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod006Caption")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bdEMI")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod004Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bdUTEndArea")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod005Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bdPlasticCoating")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod006Value")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Wall
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod007Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Wall Remanent
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod008Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Tube Class
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod009Caption")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bdWall")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod007Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bdWallRemanent")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod008Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bdTubeClass")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "bod009Value")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" ItemStyle-VerticalAlign="Top">
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-VerticalAlign="Top" HeaderText="Pin Connection"
+                                                                            HeaderStyle-HorizontalAlign="Center">
                                                                             <ItemTemplate>
                                                                                 <table width="100%" cellspacing="1">
                                                                                     <tr>
-                                                                                        <td style="width: 250px;" colspan="3" class="rheaderSmallText center">
-                                                                                            Pin Connection
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Tool Joint Year
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin001Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Outside Dia
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin002Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Inside Dia
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin003Caption")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcToolJointYear")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin001Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcOutsideDia")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin002Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcInsideDia")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin003Value")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Tong Space
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin004Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Thread Length
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin005Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Bevel Dia
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin006Caption")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcTongSpace")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin004Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcThreadLength")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin005Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcBevelDia")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin006Value")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Lead
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin007Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Shoulder Width
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin008Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Neck Length
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin009Caption")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcLead")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin007Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcShoulderWidth")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin008Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcNeckLength")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin009Value")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Reface
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin010Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Final Condition
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin011Caption")%>
+                                                                                        </td>
+                                                                                        <td class="rheaderSmallText center" style="width: 80px;">
+                                                                                            Is HB?
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcReface")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin010Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "pcFinalCondition")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "pin011Value")%>
+                                                                                        </td>
+                                                                                        <td class="center" style="width: 80px;">
+                                                                                            <asp:CheckBox ID="DP_grdDPDt_chkIsPinHB" runat="server" Enabled="false" Checked='<%# DataBinder.Eval(Container.DataItem, "isPinHB")%>' />
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" ItemStyle-VerticalAlign="Top">
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-VerticalAlign="Top" HeaderText="Box Connection"
+                                                                            HeaderStyle-HorizontalAlign="Center">
                                                                             <ItemTemplate>
                                                                                 <table width="100%" cellspacing="1">
                                                                                     <tr>
-                                                                                        <td style="width: 250px;" colspan="3" class="rheaderSmallText center">
-                                                                                            Box Connection
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Outside Dia
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box001Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Tong Space
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box002Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            QC Dia
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box003Caption")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bcOutsideDia")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box001Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bcTongSpace")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box002Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bcQCDia")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box003Value")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            QC Depth
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box004Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Shoulder Width
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box005Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Bevel Dia
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box006Caption")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bcQCDepth")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box004Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bcShoulderWidth")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box005Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bcBevelDia")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box006Value")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Seal Width
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box007Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Reface
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box008Caption")%>
                                                                                         </td>
                                                                                         <td class="rheaderSmallText center" style="width: 80px;">
-                                                                                            Final Condition
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box009Caption")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bcSealWidth")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box007Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bcReface")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box008Value")%>
                                                                                         </td>
                                                                                         <td class="center" style="width: 80px;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "bcFinalCondition")%>
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box009Value")%>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="rheaderSmallText center" style="width: 80px;">
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box010Caption")%>
+                                                                                        </td>
+                                                                                        <td class="rheaderSmallText center" style="width: 80px;">
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box011Caption")%>
+                                                                                        </td>
+                                                                                        <td class="rheaderSmallText center" style="width: 80px;">
+                                                                                            Is HB?
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="center" style="width: 80px;">
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box010Value")%>
+                                                                                        </td>
+                                                                                        <td class="center" style="width: 80px;">
+                                                                                            <%# DataBinder.Eval(Container.DataItem, "box011Value")%>
+                                                                                        </td>
+                                                                                        <td class="center" style="width: 80px;">
+                                                                                            <asp:CheckBox ID="DP_grdDPDt_chkIsBoxHB" runat="server" Enabled="false" Checked='<%# DataBinder.Eval(Container.DataItem, "isBoxHB")%>' />
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Remarks">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Remarks" ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
-                                                                                <%# DataBinder.Eval(Container.DataItem, "remarks") %>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "remarksText") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
                                                                     </Columns>
@@ -2491,8 +2707,8 @@
                                                         </tr>
                                                     </table>
                                                 </asp:Panel>
-                                                <asp:Panel ID="pnlThroughVisualInspectionReport" runat="server">
-                                                    This is Through Visual Inspection Report Panel
+                                                <asp:Panel ID="pnlThoroughVisualInspectionReport" runat="server">
+                                                    This is Thorough Visual Inspection Report Panel
                                                 </asp:Panel>
                                                 <asp:Panel ID="pnlInspectionTallyReport" runat="server">
                                                     This is Inspection Tally Report Panel
@@ -2500,7 +2716,7 @@
                                                 <asp:Panel ID="pnlUTSpotCheck" runat="server">
                                                     <table cellpadding="2" cellspacing="1" width="100%">
                                                         <tr>
-                                                            <td colspan="6">
+                                                            <td colspan="12">
                                                                 <table width="100%">
                                                                     <tr>
                                                                         <td style="width: 100px;" class="right">
@@ -2520,16 +2736,95 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="width: 100px;" class="right">
-                                                                            Nominal W.T.
+                                                                            Report Type
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtNominalWT" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:DropDownList ID="UTSC_ddlUTSpotType" runat="server" Width="200" AutoPostBack="true">
+                                                                            </asp:DropDownList>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
-                                                                            Minimal W.T.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtMinimalWT" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Description
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="UTSC_txtDescription" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Serial No.
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="UTSC_txtSerialNo" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Material
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="UTSC_txtMaterial" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Equipment
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="UTSC_txtEquipment" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Couplant
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="UTSC_txtCouplant" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Probe Type
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="UTSC_txtProbeType" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Impact Device
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="UTSC_txtImpactDevice" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right">
+                                                                        </td>
+                                                                        <td>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Reference Level
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="UTSC_txtReferenceLevel" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Cal Reference
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="UTSC_txtCalReference" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Frequency
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="UTSC_txtFrequency" runat="server" Width="200"></asp:TextBox>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right">
+                                                                        </td>
+                                                                        <td>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -2537,52 +2832,91 @@
                                                         </tr>
                                                         <tr>
                                                             <td class="gridAlternatingItemStyle center" rowspan="2">
-                                                                Tally No.
+                                                                Structure/Tally#
                                                             </td>
                                                             <td class="gridAlternatingItemStyle center" rowspan="2">
-                                                                Location
-                                                            </td>
-                                                            <td class="gridAlternatingItemStyle center" style="width: 40%;" colspan="3">
-                                                                Wall Thickness in Inch
+                                                                Size (Inch)
                                                             </td>
                                                             <td class="gridAlternatingItemStyle center" rowspan="2">
+                                                                Length (mm)
+                                                            </td>
+                                                            <td class="gridAlternatingItemStyle center" style="width: 30%;" colspan="4">
+                                                                Wall Thickness
+                                                            </td>
+                                                            <td class="gridAlternatingItemStyle center" style="width: 30%;" colspan="4">
+                                                                Hardness Test (HRA,HRB,HRC,HB,HV)
+                                                            </td>
+                                                            <td class="gridAlternatingItemStyle center" rowspan="2" style="width: 120px;">
                                                                 Remark
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="gridAlternatingItemStyle center">
-                                                                1
+                                                                0
                                                             </td>
                                                             <td class="gridAlternatingItemStyle center">
-                                                                2
+                                                                90
                                                             </td>
                                                             <td class="gridAlternatingItemStyle center">
-                                                                3
+                                                                180
+                                                            </td>
+                                                            <td class="gridAlternatingItemStyle center">
+                                                                270
+                                                            </td>
+                                                            <td class="gridAlternatingItemStyle center">
+                                                                0
+                                                            </td>
+                                                            <td class="gridAlternatingItemStyle center">
+                                                                90
+                                                            </td>
+                                                            <td class="gridAlternatingItemStyle center">
+                                                                180
+                                                            </td>
+                                                            <td class="gridAlternatingItemStyle center">
+                                                                270
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 <asp:TextBox ID="UTSC_txtUTSpotCheckDtID" runat="server" Visible="false"></asp:TextBox>
-                                                                <asp:TextBox ID="UTSC_txtTallyNo" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtStructureTallyNo" runat="server" Width="100%"></asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtLocation" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtSize" runat="server" Width="100%"></asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtWallThicknessInch1" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtLength" runat="server" Width="100%"></asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtWallThicknessInch2" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtWallThickness1" runat="server" Width="100%"></asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtWallThicknessInch3" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtWallThickness2" runat="server" Width="100%"></asp:TextBox>
                                                             </td>
                                                             <td>
+                                                                <asp:TextBox ID="UTSC_txtWallThickness3" runat="server" Width="100%"></asp:TextBox>
+                                                            </td>
+                                                            <td>
+                                                                <asp:TextBox ID="UTSC_txtWallThickness4" runat="server" Width="100%"></asp:TextBox>
+                                                            </td>
+                                                            <td>
+                                                                <asp:TextBox ID="UTSC_txtHardnessTest1" runat="server" Width="100%"></asp:TextBox>
+                                                            </td>
+                                                            <td>
+                                                                <asp:TextBox ID="UTSC_txtHardnessTest2" runat="server" Width="100%"></asp:TextBox>
+                                                            </td>
+                                                            <td>
+                                                                <asp:TextBox ID="UTSC_txtHardnessTest3" runat="server" Width="100%"></asp:TextBox>
+                                                            </td>
+                                                            <td>
+                                                                <asp:TextBox ID="UTSC_txtHardnessTest4" runat="server" Width="100%"></asp:TextBox>
+                                                            </td>
+                                                            <td style="width: 120px;">
                                                                 <asp:TextBox ID="UTSC_txtRemark" runat="server" Width="100%"></asp:TextBox>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="6">
+                                                            <td colspan="12">
                                                                 <asp:DataGrid ID="UTSC_grdUTSpotCheckDt" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
@@ -2603,31 +2937,61 @@
                                                                                     ImageAlign="AbsMiddle" CommandName="Delete" CausesValidation="false" />
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Tally No.">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Structure/Tally#">
                                                                             <ItemTemplate>
                                                                                 <asp:Label ID="UTSC_lblUTSpotCheckDtID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "UTSpotCheckDtID") %>'
                                                                                     Visible="false"></asp:Label>
-                                                                                <%# DataBinder.Eval(Container.DataItem, "tallyNo") %>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "structureTallyNo")%>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Location">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Size">
                                                                             <ItemTemplate>
-                                                                                <%# DataBinder.Eval(Container.DataItem, "location") %>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "size") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Wall Thickness-1 (Inch)">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Length">
                                                                             <ItemTemplate>
-                                                                                <%# DataBinder.Eval(Container.DataItem, "wallThicknessInch1") %>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "length") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Wall Thickness-2 (Inch)">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Wall Thickness-0">
                                                                             <ItemTemplate>
-                                                                                <%# DataBinder.Eval(Container.DataItem, "wallThicknessInch2")%>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "wallThickness1")%>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Wall Thickness-3 (Inch)">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Wall Thickness-90">
                                                                             <ItemTemplate>
-                                                                                <%# DataBinder.Eval(Container.DataItem, "wallThicknessInch3")%>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "wallThickness2")%>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Wall Thickness-180">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "wallThickness3")%>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Wall Thickness-270">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "wallThickness4")%>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Hardness Test-0">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "hardnessTest1")%>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Hardness Test-90">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "hardnessTest2")%>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Hardness Test-180">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "hardnessTest3")%>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Hardness Test-270">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "hardnessTest4")%>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
                                                                         <asp:TemplateColumn runat="server" HeaderText="Remark">
@@ -2644,8 +3008,8 @@
                                                 <asp:Panel ID="pnlRotaryShoulderConnectionReport" runat="server">
                                                     This is Rotary Shoulder Connection Report Panel
                                                 </asp:Panel>
-                                                <asp:Panel ID="pnlUTSpotEndArea" runat="server">
-                                                    This is UT Spot End Area (Cat 5) Panel
+                                                <asp:Panel ID="pnlUTSpotArea" runat="server">
+                                                    This is UT Spot Area Panel
                                                 </asp:Panel>
                                                 <asp:Panel ID="pnlCertificateInspection" runat="server">
                                                     <table cellpadding="2" cellspacing="1" width="100%">

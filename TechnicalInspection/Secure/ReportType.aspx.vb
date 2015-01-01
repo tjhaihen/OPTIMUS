@@ -89,6 +89,11 @@ Namespace Raven.Web.Secure
             txtReportTypeID.Text = String.Empty
             txtReportTypeName.Text = String.Empty
             txtSequence.Text = String.Empty
+            txtDocumentNo.Text = String.Empty
+            txtRevisionNo.Text = String.Empty
+            calEffectiveDate.selectedDate = Nothing
+            chkIsNoEffectiveDate.Checked = True
+            chkIsMandatory.Checked = False
             txtPanelID.Text = String.Empty
             chkIsActive.Checked = True
             If isNew Then
@@ -121,6 +126,16 @@ Namespace Raven.Web.Secure
                     txtSequence.Text = .sequence.Trim
                     txtPanelID.Text = .panelID.Trim
                     chkIsActive.Checked = .isActive
+                    txtDocumentNo.Text = .documentNo.Trim
+                    txtRevisionNo.Text = .revisionNo.Trim
+                    If .effectiveDate <> Nothing Then
+                        calEffectiveDate.selectedDate = .effectiveDate
+                        chkIsNoEffectiveDate.Checked = False
+                    Else
+                        calEffectiveDate.selectedDate = Nothing
+                        chkIsNoEffectiveDate.Checked = True
+                    End If
+                    chkIsMandatory.Checked = .isMandatory
                 Else
                     prepareScreen(False)
                 End If
@@ -145,6 +160,12 @@ Namespace Raven.Web.Secure
         Private Sub _update()
             Page.Validate()
             If Not Page.IsValid Then Exit Sub
+
+            If calEffectiveDate.selectedDate = Nothing And chkIsNoEffectiveDate.Checked = False Then
+                commonFunction.MsgBox(Me, Common.Constants.MessageBoxText.Validate_EffeciveDateCannotEmpty)
+                Exit Sub
+            End If
+
             Dim isNew As Boolean = True
 
             Dim oProd As New Common.BussinessRules.ReportType
@@ -161,6 +182,14 @@ Namespace Raven.Web.Secure
                 .sequence = txtSequence.Text.Trim
                 .panelID = txtPanelID.Text.Trim
                 .isActive = chkIsActive.Checked
+                .documentNo = txtDocumentNo.Text.Trim
+                .revisionNo = txtRevisionNo.Text.Trim
+                If calEffectiveDate.selectedDate = Nothing Or chkIsNoEffectiveDate.Checked Then
+                    .effectiveDate = Nothing
+                Else
+                    .effectiveDate = calEffectiveDate.selectedDate
+                End If
+                .isMandatory = chkIsMandatory.Checked
                 .userIDinsert = MyBase.LoggedOnUserID
                 .userIDupdate = MyBase.LoggedOnUserID
                 If isNew Then

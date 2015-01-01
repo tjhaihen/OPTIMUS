@@ -11,9 +11,12 @@ Namespace Raven.Common.BussinessRules
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _inspectionReportDtID, _inspectionReportHdID, _serialNo, _length, _remark As String
-        Private _Adesc, _Bdesc, _Cdesc, _Ddesc As String
-        Private _Edesc, _Fdesc, _Gdesc, _Hdesc, _Idesc As String
+        Private _inspectionReportDtID, _inspectionReportHdID As String
+        Private _description, _serialNo, _totalLength, _connectionSizePin, _connectionSizeBox, _connectionODPin, _connectionODBox As String
+        Private _elevatorGrooveDiaPin, _elevatorGrooveDiaBox, _elevatorGrooveDepthPin, _elevatorGrooveDepthBox, _IDdescription As String
+        Private _BBackRGrooveDiaPin, _BBackRGrooveDiaBox, _BBackRGrooveLengthPin, _BBackRGrooveLengthBox, _bevelDiaPin, _bevelDiaBox As String
+        Private _threadLengthPin, _threadLengthBox, _counterBoreDiaPin, _counterBoreDiaBox, _counterBoreDepthPin, _counterBoreDepthBox As String
+        Private _tongSpacePin, _tongSpaceBox, _conditionPin, _conditionBox, _BSR, _remarksPin, _remarksBox As String
         Private _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
@@ -30,35 +33,62 @@ Namespace Raven.Common.BussinessRules
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO InspectionReportDt " + _
-                                        "(inspectionReportHdID, inspectionReportDtID, serialNo, length, " + _
-                                        "remark, Adesc, Bdesc, Cdesc, Ddesc, " + _
-                                        "Edesc, Fdesc, Gdesc, Hdesc, Idesc, " + _
-                                        "userIDinsert, userIDupdate, insertDate, updateDate) " + _
+                                        "(inspectionReportDtID, inspectionReportHdID, " + _
+                                        "description, serialNo, totalLength, connectionSizePin, connectionSizeBox, connectionODPin, connectionODBox, " + _
+                                        "elevatorGrooveDiaPin, elevatorGrooveDiaBox, elevatorGrooveDepthPin, elevatorGrooveDepthBox, IDdescription, " + _
+                                        "BBackRGrooveDiaPin, BBackRGrooveDiaBox, BBackRGrooveLengthPin, BBackRGrooveLengthBox, bevelDiaPin, bevelDiaBox, " + _
+                                        "threadLengthPin, threadLengthBox, counterBoreDiaPin, counterBoreDiaBox, counterBoreDepthPin, counterBoreDepthBox, " + _
+                                        "tongSpacePin, tongSpaceBox, conditionPin, conditionBox, BSR, remarksPin, remarksBox, " + _
+                                        "insertDate, updateDate, " + _
+                                        "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
-                                        "(@inspectionReportHdID, @inspectionReportDtID, @serialNo, @length, " + _
-                                        "@remark, @Adesc, @Bdesc, @Cdesc, @Ddesc, " + _
-                                        "@Edesc, @Fdesc, @Gdesc, @Hdesc, @Idesc, " + _
-                                        "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
+                                        "(@inspectionReportDtID, @inspectionReportHdID, " + _
+                                        "@description, @serialNo, @totalLength, @connectionSizePin, @connectionSizeBox, @connectionODPin, @connectionODBox, " + _
+                                        "@elevatorGrooveDiaPin, @elevatorGrooveDiaBox, @elevatorGrooveDepthPin, @elevatorGrooveDepthBox, @IDdescription, " + _
+                                        "@BBackRGrooveDiaPin, @BBackRGrooveDiaBox, @BBackRGrooveLengthPin, @BBackRGrooveLengthBox, @bevelDiaPin, @bevelDiaBox, " + _
+                                        "@threadLengthPin, @threadLengthBox, @counterBoreDiaPin, @counterBoreDiaBox, @counterBoreDepthPin, @counterBoreDepthBox, " + _
+                                        "@tongSpacePin, @tongSpaceBox, @conditionPin, @conditionBox, @BSR, @remarksPin, @remarksBox, " + _
+                                        "GETDATE(), GETDATE(), " + _
+                                        "@userIDInsert, @userIDUpdate)"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
             Dim strID As String = ID.GenerateIDNumber("InspectionReportDt", "inspectionReportDtID")
 
             Try
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportDtID", _inspectionReportDtID)
                 cmdToExecute.Parameters.AddWithValue("@inspectionReportHdID", _inspectionReportHdID)
-                cmdToExecute.Parameters.AddWithValue("@inspectionReportDtID", strID)
+                cmdToExecute.Parameters.AddWithValue("@description", _description)
                 cmdToExecute.Parameters.AddWithValue("@serialNo", _serialNo)
-                cmdToExecute.Parameters.AddWithValue("@length", _length)
-                cmdToExecute.Parameters.AddWithValue("@remark", _remark)
-                cmdToExecute.Parameters.AddWithValue("@Adesc", _Adesc)
-                cmdToExecute.Parameters.AddWithValue("@Bdesc", _Bdesc)
-                cmdToExecute.Parameters.AddWithValue("@Cdesc", _Cdesc)
-                cmdToExecute.Parameters.AddWithValue("@Ddesc", _Ddesc)
-                cmdToExecute.Parameters.AddWithValue("@Edesc", _Edesc)
-                cmdToExecute.Parameters.AddWithValue("@Fdesc", _Fdesc)
-                cmdToExecute.Parameters.AddWithValue("@Gdesc", _Gdesc)
-                cmdToExecute.Parameters.AddWithValue("@Hdesc", _Hdesc)
-                cmdToExecute.Parameters.AddWithValue("@Idesc", _Idesc)
+                cmdToExecute.Parameters.AddWithValue("@totalLength", _totalLength)
+                cmdToExecute.Parameters.AddWithValue("@connectionSizePin", _connectionSizePin)
+                cmdToExecute.Parameters.AddWithValue("@connectionSizeBox", _connectionSizeBox)
+                cmdToExecute.Parameters.AddWithValue("@connectionODPin", _connectionODPin)
+                cmdToExecute.Parameters.AddWithValue("@connectionODBox", _connectionODBox)
+                cmdToExecute.Parameters.AddWithValue("@elevatorGrooveDiaPin", _elevatorGrooveDiaPin)
+                cmdToExecute.Parameters.AddWithValue("@elevatorGrooveDiaBox", _elevatorGrooveDiaBox)
+                cmdToExecute.Parameters.AddWithValue("@elevatorGrooveDepthPin", _elevatorGrooveDepthPin)
+                cmdToExecute.Parameters.AddWithValue("@elevatorGrooveDepthBox", _elevatorGrooveDepthBox)
+                cmdToExecute.Parameters.AddWithValue("@IDdescription", _IDdescription)
+                cmdToExecute.Parameters.AddWithValue("@BBackRGrooveDiaPin", _BBackRGrooveDiaPin)
+                cmdToExecute.Parameters.AddWithValue("@BBackRGrooveDiaBox", _BBackRGrooveDiaBox)
+                cmdToExecute.Parameters.AddWithValue("@BBackRGrooveLengthPin", _BBackRGrooveLengthPin)
+                cmdToExecute.Parameters.AddWithValue("@BBackRGrooveLengthBox", _BBackRGrooveLengthBox)
+                cmdToExecute.Parameters.AddWithValue("@bevelDiaPin", _bevelDiaPin)
+                cmdToExecute.Parameters.AddWithValue("@bevelDiaBox", _bevelDiaBox)
+                cmdToExecute.Parameters.AddWithValue("@threadLengthPin", _threadLengthPin)
+                cmdToExecute.Parameters.AddWithValue("@threadLengthBox", _threadLengthBox)
+                cmdToExecute.Parameters.AddWithValue("@counterBoreDiaPin", _counterBoreDiaPin)
+                cmdToExecute.Parameters.AddWithValue("@counterBoreDiaBox", _counterBoreDiaBox)
+                cmdToExecute.Parameters.AddWithValue("@counterBoreDepthPin", _counterBoreDepthPin)
+                cmdToExecute.Parameters.AddWithValue("@counterBoreDepthBox", _counterBoreDepthBox)
+                cmdToExecute.Parameters.AddWithValue("@tongSpacePin", _tongSpacePin)
+                cmdToExecute.Parameters.AddWithValue("@tongSpaceBox", _tongSpaceBox)
+                cmdToExecute.Parameters.AddWithValue("@conditionPin", _conditionPin)
+                cmdToExecute.Parameters.AddWithValue("@conditionBox", _conditionBox)
+                cmdToExecute.Parameters.AddWithValue("@BSR", _BSR)
+                cmdToExecute.Parameters.AddWithValue("@remarksPin", _remarksPin)
+                cmdToExecute.Parameters.AddWithValue("@remarksBox", _remarksBox)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDInsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
@@ -68,7 +98,7 @@ Namespace Raven.Common.BussinessRules
                 ' // Execute Query
                 cmdToExecute.ExecuteNonQuery()
 
-                _inspectionReportDtID = strID
+                _inspectionReportHdID = strID
                 Return True
             Catch ex As Exception
                 ExceptionManager.Publish(ex)
@@ -81,9 +111,16 @@ Namespace Raven.Common.BussinessRules
         Public Overrides Function Update() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "UPDATE InspectionReportDt " + _
-                                        "SET serialNo=@serialNo, length=@length, " + _
-                                        "remark=@remark, Adesc=@Adesc, Bdesc=@Bdesc, Cdesc=@Cdesc, Ddesc=@Ddesc, " + _
-                                        "Edesc=@Edesc, Fdesc=@Fdesc, Gdesc=@Gdesc, Hdesc=@Hdesc, Idesc=@Idesc, " + _
+                                        "SET description=@description, serialNo=@serialNo, totalLength=@totalLength, connectionSizePin=@connectionSizePin, " + _
+                                        "connectionSizeBox=@connectionSizeBox, connectionODPin=@connectionODPin, connectionODBox=@connectionODBox, " + _
+                                        "elevatorGrooveDiaPin=@elevatorGrooveDiaPin, elevatorGrooveDiaBox=@elevatorGrooveDiaBox, " + _
+                                        "elevatorGrooveDepthPin=@elevatorGrooveDepthPin, elevatorGrooveDepthBox=@elevatorGrooveDepthBox, IDdescription=@IDdescription, " + _
+                                        "BBackRGrooveDiaPin=@BBackRGrooveDiaPin, BBackRGrooveDiaBox=@BBackRGrooveDiaBox, BBackRGrooveLengthPin=@BBackRGrooveLengthPin, " + _
+                                        "BBackRGrooveLengthBox=@BBackRGrooveLengthBox, bevelDiaPin=@bevelDiaPin, bevelDiaBox=@bevelDiaBox, " + _
+                                        "threadLengthPin=@threadLengthPin, threadLengthBox=@threadLengthBox, counterBoreDiaPin=@counterBoreDiaPin, " + _
+                                        "counterBoreDiaBox=@counterBoreDiaBox, counterBoreDepthPin=@counterBoreDepthPin, counterBoreDepthBox=@counterBoreDepthBox, " + _
+                                        "tongSpacePin=@tongSpacePin, tongSpaceBox=@tongSpaceBox, conditionPin=@conditionPin, " + _
+                                        "conditionBox=@conditionBox, BSR=@BSR, remarksPin=@remarksPin, remarksBox=@remarksBox, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE inspectionReportDtID=@inspectionReportDtID"
             cmdToExecute.CommandType = CommandType.Text
@@ -91,19 +128,38 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@inspectionReportDtID", _inspectionReportDtID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportDtID", _inspectionReportDtID)                
+                cmdToExecute.Parameters.AddWithValue("@description", _description)
                 cmdToExecute.Parameters.AddWithValue("@serialNo", _serialNo)
-                cmdToExecute.Parameters.AddWithValue("@length", _length)
-                cmdToExecute.Parameters.AddWithValue("@remark", _remark)
-                cmdToExecute.Parameters.AddWithValue("@Adesc", _Adesc)
-                cmdToExecute.Parameters.AddWithValue("@Bdesc", _Bdesc)
-                cmdToExecute.Parameters.AddWithValue("@Cdesc", _Cdesc)
-                cmdToExecute.Parameters.AddWithValue("@Ddesc", _Ddesc)
-                cmdToExecute.Parameters.AddWithValue("@Edesc", _Edesc)
-                cmdToExecute.Parameters.AddWithValue("@Fdesc", _Fdesc)
-                cmdToExecute.Parameters.AddWithValue("@Gdesc", _Gdesc)
-                cmdToExecute.Parameters.AddWithValue("@Hdesc", _Hdesc)
-                cmdToExecute.Parameters.AddWithValue("@Idesc", _Idesc)
+                cmdToExecute.Parameters.AddWithValue("@totalLength", _totalLength)
+                cmdToExecute.Parameters.AddWithValue("@connectionSizePin", _connectionSizePin)
+                cmdToExecute.Parameters.AddWithValue("@connectionSizeBox", _connectionSizeBox)
+                cmdToExecute.Parameters.AddWithValue("@connectionODPin", _connectionODPin)
+                cmdToExecute.Parameters.AddWithValue("@connectionODBox", _connectionODBox)
+                cmdToExecute.Parameters.AddWithValue("@elevatorGrooveDiaPin", _elevatorGrooveDiaPin)
+                cmdToExecute.Parameters.AddWithValue("@elevatorGrooveDiaBox", _elevatorGrooveDiaBox)
+                cmdToExecute.Parameters.AddWithValue("@elevatorGrooveDepthPin", _elevatorGrooveDepthPin)
+                cmdToExecute.Parameters.AddWithValue("@elevatorGrooveDepthBox", _elevatorGrooveDepthBox)
+                cmdToExecute.Parameters.AddWithValue("@IDdescription", _IDdescription)
+                cmdToExecute.Parameters.AddWithValue("@BBackRGrooveDiaPin", _BBackRGrooveDiaPin)
+                cmdToExecute.Parameters.AddWithValue("@BBackRGrooveDiaBox", _BBackRGrooveDiaBox)
+                cmdToExecute.Parameters.AddWithValue("@BBackRGrooveLengthPin", _BBackRGrooveLengthPin)
+                cmdToExecute.Parameters.AddWithValue("@BBackRGrooveLengthBox", _BBackRGrooveLengthBox)
+                cmdToExecute.Parameters.AddWithValue("@bevelDiaPin", _bevelDiaPin)
+                cmdToExecute.Parameters.AddWithValue("@bevelDiaBox", _bevelDiaBox)
+                cmdToExecute.Parameters.AddWithValue("@threadLengthPin", _threadLengthPin)
+                cmdToExecute.Parameters.AddWithValue("@threadLengthBox", _threadLengthBox)
+                cmdToExecute.Parameters.AddWithValue("@counterBoreDiaPin", _counterBoreDiaPin)
+                cmdToExecute.Parameters.AddWithValue("@counterBoreDiaBox", _counterBoreDiaBox)
+                cmdToExecute.Parameters.AddWithValue("@counterBoreDepthPin", _counterBoreDepthPin)
+                cmdToExecute.Parameters.AddWithValue("@counterBoreDepthBox", _counterBoreDepthBox)
+                cmdToExecute.Parameters.AddWithValue("@tongSpacePin", _tongSpacePin)
+                cmdToExecute.Parameters.AddWithValue("@tongSpaceBox", _tongSpaceBox)
+                cmdToExecute.Parameters.AddWithValue("@conditionPin", _conditionPin)
+                cmdToExecute.Parameters.AddWithValue("@conditionBox", _conditionBox)
+                cmdToExecute.Parameters.AddWithValue("@BSR", _BSR)
+                cmdToExecute.Parameters.AddWithValue("@remarksPin", _remarksPin)
+                cmdToExecute.Parameters.AddWithValue("@remarksBox", _remarksBox)                
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
@@ -170,20 +226,39 @@ Namespace Raven.Common.BussinessRules
                 adapter.Fill(toReturn)
 
                 If toReturn.Rows.Count > 0 Then
+                    _inspectionReportHdID = CType(toReturn.Rows(0)("inspectionReportDtID"), String)
                     _inspectionReportHdID = CType(toReturn.Rows(0)("inspectionReportHdID"), String)
-                    _inspectionReportDtID = CType(toReturn.Rows(0)("inspectionReportDtID"), String)
+                    _description = CType(toReturn.Rows(0)("description"), String)
                     _serialNo = CType(toReturn.Rows(0)("serialNo"), String)
-                    _length = CType(toReturn.Rows(0)("length"), String)
-                    _remark = CType(toReturn.Rows(0)("remark"), String)
-                    _Adesc = CType(toReturn.Rows(0)("Adesc"), String)
-                    _Bdesc = CType(toReturn.Rows(0)("Bdesc"), String)
-                    _Cdesc = CType(toReturn.Rows(0)("Cdesc"), String)
-                    _Ddesc = CType(toReturn.Rows(0)("Ddesc"), String)
-                    _Edesc = CType(toReturn.Rows(0)("Edesc"), String)
-                    _Fdesc = CType(toReturn.Rows(0)("Fdesc"), String)
-                    _Gdesc = CType(toReturn.Rows(0)("Gdesc"), String)
-                    _Hdesc = CType(toReturn.Rows(0)("Hdesc"), String)
-                    _Idesc = CType(toReturn.Rows(0)("Idesc"), String)
+                    _totalLength = CType(toReturn.Rows(0)("totalLength"), String)
+                    _connectionSizePin = CType(toReturn.Rows(0)("connectionSizePin"), String)
+                    _connectionSizeBox = CType(toReturn.Rows(0)("connectionSizeBox"), String)
+                    _connectionODPin = CType(toReturn.Rows(0)("connectionODPin"), String)
+                    _connectionODBox = CType(toReturn.Rows(0)("connectionODBox"), String)
+                    _elevatorGrooveDiaPin = CType(toReturn.Rows(0)("elevatorGrooveDiaPin"), String)
+                    _elevatorGrooveDiaBox = CType(toReturn.Rows(0)("elevatorGrooveDiaBox"), String)
+                    _elevatorGrooveDepthPin = CType(toReturn.Rows(0)("elevatorGrooveDepthPin"), String)
+                    _elevatorGrooveDepthBox = CType(toReturn.Rows(0)("elevatorGrooveDepthBox"), String)
+                    _IDdescription = CType(toReturn.Rows(0)("IDdescription"), String)
+                    _BBackRGrooveDiaPin = CType(toReturn.Rows(0)("BBackRGrooveDiaPin"), String)
+                    _BBackRGrooveDiaBox = CType(toReturn.Rows(0)("BBackRGrooveDiaBox"), String)
+                    _BBackRGrooveLengthPin = CType(toReturn.Rows(0)("BBackRGrooveLengthPin"), String)
+                    _BBackRGrooveLengthBox = CType(toReturn.Rows(0)("BBackRGrooveLengthBox"), String)
+                    _bevelDiaPin = CType(toReturn.Rows(0)("bevelDiaPin"), String)
+                    _bevelDiaBox = CType(toReturn.Rows(0)("bevelDiaBox"), String)
+                    _threadLengthPin = CType(toReturn.Rows(0)("threadLengthPin"), String)
+                    _threadLengthBox = CType(toReturn.Rows(0)("threadLengthBox"), String)
+                    _counterBoreDiaPin = CType(toReturn.Rows(0)("counterBoreDiaPin"), String)
+                    _counterBoreDiaBox = CType(toReturn.Rows(0)("counterBoreDiaBox"), String)
+                    _counterBoreDepthPin = CType(toReturn.Rows(0)("counterBoreDepthPin"), String)
+                    _counterBoreDepthBox = CType(toReturn.Rows(0)("counterBoreDepthBox"), String)
+                    _tongSpacePin = CType(toReturn.Rows(0)("tongSpacePin"), String)
+                    _tongSpaceBox = CType(toReturn.Rows(0)("tongSpaceBox"), String)
+                    _conditionPin = CType(toReturn.Rows(0)("conditionPin"), String)
+                    _conditionBox = CType(toReturn.Rows(0)("conditionBox"), String)
+                    _BSR = CType(toReturn.Rows(0)("BSR"), String)
+                    _remarksPin = CType(toReturn.Rows(0)("remarksPin"), String)
+                    _remarksBox = CType(toReturn.Rows(0)("remarksBox"), String)                    
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -230,10 +305,10 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Custom Function "
-        Public Function SelectByInspectionReportHdID() As DataTable
+        Public Function SelectByHdID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT drd.* " +
-                                        "FROM InspectionReportDt drd WHERE drd.inspectionReportHdID=@inspectionReportHdID"
+            cmdToExecute.CommandText = "SELECT * " +
+                                        "FROM InspectionReportDt WHERE inspectionReportHdID=@inspectionReportHdID"
             cmdToExecute.CommandType = CommandType.Text
 
             Dim toReturn As DataTable = New DataTable("InspectionReportDt")
@@ -264,6 +339,15 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Class Property Declarations "
+        Public Property [inspectionReportDtID]() As String
+            Get
+                Return _inspectionReportDtID
+            End Get
+            Set(ByVal Value As String)
+                _inspectionReportDtID = Value
+            End Set
+        End Property
+
         Public Property [inspectionReportHdID]() As String
             Get
                 Return _inspectionReportHdID
@@ -273,12 +357,12 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
-        Public Property [inspectionReportDtID]() As String
+        Public Property [description]() As String
             Get
-                Return _inspectionReportDtID
+                Return _description
             End Get
             Set(ByVal Value As String)
-                _inspectionReportDtID = Value
+                _description = Value
             End Set
         End Property
 
@@ -291,102 +375,264 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
-        Public Property [length]() As String
+        Public Property [totalLength]() As String
             Get
-                Return _length
+                Return _totalLength
             End Get
             Set(ByVal Value As String)
-                _length = Value
+                _totalLength = Value
             End Set
         End Property
 
-        Public Property [remark]() As String
+        Public Property [connectionSizePin]() As String
             Get
-                Return _remark
+                Return _connectionSizePin
             End Get
             Set(ByVal Value As String)
-                _remark = Value
+                _connectionSizePin = Value
             End Set
         End Property
 
-        Public Property [Adesc]() As String
+        Public Property [connectionSizeBox]() As String
             Get
-                Return _Adesc
+                Return _connectionSizeBox
             End Get
             Set(ByVal Value As String)
-                _Adesc = Value
+                _connectionSizeBox = Value
             End Set
         End Property
 
-        Public Property [Bdesc]() As String
+        Public Property [connectionODPin]() As String
             Get
-                Return _Bdesc
+                Return _connectionODPin
             End Get
             Set(ByVal Value As String)
-                _Bdesc = Value
+                _connectionODPin = Value
             End Set
         End Property
 
-        Public Property [Cdesc]() As String
+        Public Property [connectionODBox]() As String
             Get
-                Return _Cdesc
+                Return _connectionODBox
             End Get
             Set(ByVal Value As String)
-                _Cdesc = Value
+                _connectionODBox = Value
             End Set
         End Property
 
-        Public Property [Ddesc]() As String
+        Public Property [elevatorGrooveDiaPin]() As String
             Get
-                Return _Ddesc
+                Return _elevatorGrooveDiaPin
             End Get
             Set(ByVal Value As String)
-                _Ddesc = Value
+                _elevatorGrooveDiaPin = Value
             End Set
         End Property
 
-        Public Property [Edesc]() As String
+        Public Property [elevatorGrooveDiaBox]() As String
             Get
-                Return _Edesc
+                Return _elevatorGrooveDiaBox
             End Get
             Set(ByVal Value As String)
-                _Edesc = Value
+                _elevatorGrooveDiaBox = Value
             End Set
         End Property
 
-        Public Property [Fdesc]() As String
+        Public Property [elevatorGrooveDepthPin]() As String
             Get
-                Return _Fdesc
+                Return _elevatorGrooveDepthPin
             End Get
             Set(ByVal Value As String)
-                _Fdesc = Value
+                _elevatorGrooveDepthPin = Value
             End Set
         End Property
 
-        Public Property [Gdesc]() As String
+        Public Property [elevatorGrooveDepthBox]() As String
             Get
-                Return _Gdesc
+                Return _elevatorGrooveDepthBox
             End Get
             Set(ByVal Value As String)
-                _Gdesc = Value
+                _elevatorGrooveDepthBox = Value
             End Set
         End Property
 
-        Public Property [Hdesc]() As String
+        Public Property [IDdescription]() As String
             Get
-                Return _Hdesc
+                Return _IDdescription
             End Get
             Set(ByVal Value As String)
-                _Hdesc = Value
+                _IDdescription = Value
             End Set
         End Property
 
-        Public Property [Idesc]() As String
+        Public Property [BBackRGrooveDiaPin]() As String
             Get
-                Return _Idesc
+                Return _BBackRGrooveDiaPin
             End Get
             Set(ByVal Value As String)
-                _Idesc = Value
+                _BBackRGrooveDiaPin = Value
+            End Set
+        End Property
+
+        Public Property [BBackRGrooveDiaBox]() As String
+            Get
+                Return _BBackRGrooveDiaBox
+            End Get
+            Set(ByVal Value As String)
+                _BBackRGrooveDiaBox = Value
+            End Set
+        End Property
+
+        Public Property [BBackRGrooveLengthPin]() As String
+            Get
+                Return _BBackRGrooveLengthPin
+            End Get
+            Set(ByVal Value As String)
+                _BBackRGrooveLengthPin = Value
+            End Set
+        End Property
+
+        Public Property [BBackRGrooveLengthBox]() As String
+            Get
+                Return _BBackRGrooveLengthBox
+            End Get
+            Set(ByVal Value As String)
+                _BBackRGrooveLengthBox = Value
+            End Set
+        End Property
+
+        Public Property [bevelDiaPin]() As String
+            Get
+                Return _bevelDiaPin
+            End Get
+            Set(ByVal Value As String)
+                _bevelDiaPin = Value
+            End Set
+        End Property
+
+        Public Property [bevelDiaBox]() As String
+            Get
+                Return _bevelDiaBox
+            End Get
+            Set(ByVal Value As String)
+                _bevelDiaBox = Value
+            End Set
+        End Property
+
+        Public Property [threadLengthPin]() As String
+            Get
+                Return _threadLengthPin
+            End Get
+            Set(ByVal Value As String)
+                _threadLengthPin = Value
+            End Set
+        End Property
+
+        Public Property [threadLengthBox]() As String
+            Get
+                Return _threadLengthBox
+            End Get
+            Set(ByVal Value As String)
+                _threadLengthBox = Value
+            End Set
+        End Property
+
+        Public Property [counterBoreDiaPin]() As String
+            Get
+                Return _counterBoreDiaPin
+            End Get
+            Set(ByVal Value As String)
+                _counterBoreDiaPin = Value
+            End Set
+        End Property
+
+        Public Property [counterBoreDiaBox]() As String
+            Get
+                Return _counterBoreDiaBox
+            End Get
+            Set(ByVal Value As String)
+                _counterBoreDiaBox = Value
+            End Set
+        End Property
+
+        Public Property [counterBoreDepthPin]() As String
+            Get
+                Return _counterBoreDepthPin
+            End Get
+            Set(ByVal Value As String)
+                _counterBoreDepthPin = Value
+            End Set
+        End Property
+
+        Public Property [counterBoreDepthBox]() As String
+            Get
+                Return _counterBoreDepthBox
+            End Get
+            Set(ByVal Value As String)
+                _counterBoreDepthBox = Value
+            End Set
+        End Property
+
+        Public Property [tongSpacePin]() As String
+            Get
+                Return _tongSpacePin
+            End Get
+            Set(ByVal Value As String)
+                _tongSpacePin = Value
+            End Set
+        End Property
+
+        Public Property [tongSpaceBox]() As String
+            Get
+                Return _tongSpaceBox
+            End Get
+            Set(ByVal Value As String)
+                _tongSpaceBox = Value
+            End Set
+        End Property
+
+        Public Property [conditionPin]() As String
+            Get
+                Return _conditionPin
+            End Get
+            Set(ByVal Value As String)
+                _conditionPin = Value
+            End Set
+        End Property
+
+        Public Property [conditionBox]() As String
+            Get
+                Return _conditionBox
+            End Get
+            Set(ByVal Value As String)
+                _conditionBox = Value
+            End Set
+        End Property
+
+        Public Property [BSR]() As String
+            Get
+                Return _BSR
+            End Get
+            Set(ByVal Value As String)
+                _BSR = Value
+            End Set
+        End Property
+
+        Public Property [remarksPin]() As String
+            Get
+                Return _remarksPin
+            End Get
+            Set(ByVal Value As String)
+                _remarksPin = Value
+            End Set
+        End Property
+
+        Public Property [remarksBox]() As String
+            Get
+                Return _remarksBox
+            End Get
+            Set(ByVal Value As String)
+                _remarksBox = Value
             End Set
         End Property
 

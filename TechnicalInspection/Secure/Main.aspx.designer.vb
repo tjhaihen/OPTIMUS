@@ -303,6 +303,15 @@ Namespace Raven.Web
         Protected WithEvents pnlServiceAcceptance As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
+        '''SA_grdProjectDt control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents SA_grdProjectDt As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
         '''pnlSummaryOfInspection control.
         '''</summary>
         '''<remarks>
@@ -735,13 +744,13 @@ Namespace Raven.Web
         Protected WithEvents DPR_grdDailyReportDt As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
-        '''pnlDailyInspectionReport control.
+        '''pnlDailyProgressReportMPI control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents pnlDailyInspectionReport As Global.System.Web.UI.WebControls.Panel
+        Protected WithEvents pnlDailyProgressReportMPI As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
         '''DIR_txtDailyReportHdID control.
@@ -1095,6 +1104,15 @@ Namespace Raven.Web
         Protected WithEvents MPI_chkACIsASME As Global.System.Web.UI.WebControls.CheckBox
 
         '''<summary>
+        '''MPI_txtACASMEDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_txtACASMEDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''MPI_chkACIsAPISpec control.
         '''</summary>
         '''<remarks>
@@ -1104,6 +1122,15 @@ Namespace Raven.Web
         Protected WithEvents MPI_chkACIsAPISpec As Global.System.Web.UI.WebControls.CheckBox
 
         '''<summary>
+        '''MPI_txtACAPISpecDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_txtACAPISpecDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''MPI_chkIsACDS1 control.
         '''</summary>
         '''<remarks>
@@ -1111,6 +1138,15 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents MPI_chkIsACDS1 As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''MPI_txtACDS1Description control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_txtACDS1Description As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''MPI_chkIsACOther control.
@@ -1284,22 +1320,58 @@ Namespace Raven.Web
         Protected WithEvents MPI_rbtnlCoil As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
-        '''MPI_chkIsBlacklight control.
+        '''MPI_rbtnlRods control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_chkIsBlacklight As Global.System.Web.UI.WebControls.CheckBox
+        Protected WithEvents MPI_rbtnlRods As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
-        '''MPI_chkIsRods control.
+        '''MPI_rbtnlBlacklight control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_chkIsRods As Global.System.Web.UI.WebControls.CheckBox
+        Protected WithEvents MPI_rbtnlBlacklight As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''MPI_txtYokeSerialNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_txtYokeSerialNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''MPI_txtCoilSerialNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_txtCoilSerialNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''MPI_txtRodsSerialNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_txtRodsSerialNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''MPI_txtBlacklightSerialNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_txtBlacklightSerialNo As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''MPI_rbtnlFluorescent control.
@@ -1320,49 +1392,49 @@ Namespace Raven.Web
         Protected WithEvents MPI_rbtnlContrastBW As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
-        '''MPI_chkIsDyePenetrant control.
+        '''MPI_rbtnlDyePenetrant control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_chkIsDyePenetrant As Global.System.Web.UI.WebControls.CheckBox
+        Protected WithEvents MPI_rbtnlDyePenetrant As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
-        '''MPI_chkIsWireBrush control.
+        '''MPI_rbtnlWireBrush control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_chkIsWireBrush As Global.System.Web.UI.WebControls.CheckBox
+        Protected WithEvents MPI_rbtnlWireBrush As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
-        '''MPI_chkIsBlastCleaning control.
+        '''MPI_rbtnlBlastCleaning control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_chkIsBlastCleaning As Global.System.Web.UI.WebControls.CheckBox
+        Protected WithEvents MPI_rbtnlBlastCleaning As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
-        '''MPI_chkIsGrinding control.
+        '''MPI_rbtnlGrinding control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_chkIsGrinding As Global.System.Web.UI.WebControls.CheckBox
+        Protected WithEvents MPI_rbtnlGrinding As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
-        '''MPI_chkIsMachining control.
+        '''MPI_rbtnlMachining control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_chkIsMachining As Global.System.Web.UI.WebControls.CheckBox
+        Protected WithEvents MPI_rbtnlMachining As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
         '''MPI_txtInspectionResult control.
@@ -1392,13 +1464,22 @@ Namespace Raven.Web
         Protected WithEvents MPI_pnlMPIDt As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
-        '''MPI_fuImage control.
+        '''MPI_txtMPIDtID control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_fuImage As Global.System.Web.UI.WebControls.FileUpload
+        Protected WithEvents MPI_txtMPIDtID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''MPI_ImageFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_ImageFile As Global.System.Web.UI.HtmlControls.HtmlInputFile
 
         '''<summary>
         '''MPI_ddlPicGroup control.
@@ -1428,13 +1509,13 @@ Namespace Raven.Web
         Protected WithEvents MPI_btnUploadImage As Global.System.Web.UI.WebControls.Button
 
         '''<summary>
-        '''MPI_ImagePreview control.
+        '''MPI_repMPIimages control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_ImagePreview As Global.System.Web.UI.WebControls.Image
+        Protected WithEvents MPI_repMPIimages As Global.System.Web.UI.WebControls.Repeater
 
         '''<summary>
         '''pnlHardnessTestReport control.
@@ -1644,15 +1725,6 @@ Namespace Raven.Web
         Protected WithEvents DP_txtReportNo As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_calReportDate control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents DP_calReportDate As Global.Raven.Web.Calendar
-
-        '''<summary>
         '''DP_txtSpecificationID control.
         '''</summary>
         '''<remarks>
@@ -1687,6 +1759,24 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents DP_txtSpecificationName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_calReportDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_calReportDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''DP_ddlCaptionTemplate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_ddlCaptionTemplate As Global.System.Web.UI.WebControls.DropDownList
 
         '''<summary>
         '''DP_txtSize control.
@@ -1914,265 +2004,589 @@ Namespace Raven.Web
         Protected WithEvents DP_txtSerialNo As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_txtbdBodyWear control.
+        '''DP_lblBod001Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbdBodyWear As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblBod001Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbdBent control.
+        '''DP_lblBod002Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbdBent As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblBod002Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbdBodyDamage control.
+        '''DP_lblBod003Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbdBodyDamage As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblBod003Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbdEMI control.
+        '''DP_lblBod004Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbdEMI As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblBod004Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbdUTEndArea control.
+        '''DP_lblBod005Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbdUTEndArea As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblBod005Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbdPlasticCoating control.
+        '''DP_lblBod006Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbdPlasticCoating As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblBod006Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbdWall control.
+        '''DP_lblBod007Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbdWall As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblBod007Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbdWallRemanent control.
+        '''DP_lblBod008Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbdWallRemanent As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblBod008Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbdTubeClass control.
+        '''DP_lblBod009Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbdTubeClass As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblBod009Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtpcToolJointYear control.
+        '''DP_txtBod001Value control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcToolJointYear As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_txtBod001Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_txtpcOutsideDia control.
+        '''DP_txtBod002Value control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcOutsideDia As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_txtBod002Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_txtpcInsideDia control.
+        '''DP_txtBod003Value control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcInsideDia As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_txtBod003Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_txtpcTongSpace control.
+        '''DP_txtBod004Value control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcTongSpace As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_txtBod004Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_txtpcThreadLength control.
+        '''DP_txtBod005Value control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcThreadLength As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_txtBod005Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_txtpcBevelDia control.
+        '''DP_txtBod006Value control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcBevelDia As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_txtBod006Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_txtpcLead control.
+        '''DP_txtBod007Value control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcLead As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_txtBod007Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_txtpcShoulderWidth control.
+        '''DP_txtBod008Value control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcShoulderWidth As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_txtBod008Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_txtpcNeckLength control.
+        '''DP_txtBod009Value control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcNeckLength As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_txtBod009Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_txtpcReface control.
+        '''DP_lblPin001Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcReface As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin001Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtpcFinalCondition control.
+        '''DP_lblPin002Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtpcFinalCondition As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin002Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbcOutsideDia control.
+        '''DP_lblPin003Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbcOutsideDia As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin003Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbcTongSpace control.
+        '''DP_lblPin004Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbcTongSpace As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin004Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbcQCDia control.
+        '''DP_lblPin005Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbcQCDia As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin005Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbcQCDepth control.
+        '''DP_lblPin006Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbcQCDepth As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin006Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbcShoulderWidth control.
+        '''DP_lblPin007Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbcShoulderWidth As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin007Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbcBevelDia control.
+        '''DP_lblPin008Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbcBevelDia As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin008Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbcSealWidth control.
+        '''DP_lblPin009Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbcSealWidth As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin009Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbcReface control.
+        '''DP_lblPin010Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbcReface As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin010Caption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''DP_txtbcFinalCondition control.
+        '''DP_lblPin011Caption control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_txtbcFinalCondition As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_lblPin011Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_txtPin001Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin001Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtPin002Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin002Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtPin003Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin003Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtPin004Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin004Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtPin005Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin005Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtPin006Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin006Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtPin007Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin007Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtPin008Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin008Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtPin009Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin009Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtPin010Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin010Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtPin011Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtPin011Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_chkIsPinHB control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_chkIsPinHB As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''DP_lblBox001Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox001Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_lblBox002Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox002Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_lblBox003Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox003Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_lblBox004Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox004Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_lblBox005Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox005Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_lblBox006Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox006Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_lblBox007Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox007Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_lblBox008Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox008Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_lblBox009Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox009Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_lblBox010Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox010Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_lblBox011Caption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_lblBox011Caption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''DP_txtBox001Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox001Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtBox002Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox002Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtBox003Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox003Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtBox004Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox004Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtBox005Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox005Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtBox006Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox006Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtBox007Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox007Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtBox008Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox008Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtBox009Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox009Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtBox010Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox010Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_txtBox011Value control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_txtBox011Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_chkIsBoxHB control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_chkIsBoxHB As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''DP_ddlRemarks control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_ddlRemarks As Global.System.Web.UI.WebControls.DropDownList
 
         '''<summary>
         '''DP_txtRemarks control.
@@ -2193,13 +2607,13 @@ Namespace Raven.Web
         Protected WithEvents DP_grdDrillPipeReportDt As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
-        '''pnlThroughVisualInspectionReport control.
+        '''pnlThoroughVisualInspectionReport control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents pnlThroughVisualInspectionReport As Global.System.Web.UI.WebControls.Panel
+        Protected WithEvents pnlThoroughVisualInspectionReport As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
         '''pnlInspectionTallyReport control.
@@ -2256,22 +2670,103 @@ Namespace Raven.Web
         Protected WithEvents UTSC_calReportDate As Global.Raven.Web.Calendar
 
         '''<summary>
-        '''UTSC_txtNominalWT control.
+        '''UTSC_ddlUTSpotType control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents UTSC_txtNominalWT As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents UTSC_ddlUTSpotType As Global.System.Web.UI.WebControls.DropDownList
 
         '''<summary>
-        '''UTSC_txtMinimalWT control.
+        '''UTSC_txtDescription control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents UTSC_txtMinimalWT As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents UTSC_txtDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtSerialNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtSerialNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtMaterial control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtMaterial As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtEquipment control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtEquipment As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtCouplant control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtCouplant As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtProbeType control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtProbeType As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtImpactDevice control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtImpactDevice As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtReferenceLevel control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtReferenceLevel As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtCalReference control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtCalReference As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtFrequency control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtFrequency As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''UTSC_txtUTSpotCheckDtID control.
@@ -2283,49 +2778,103 @@ Namespace Raven.Web
         Protected WithEvents UTSC_txtUTSpotCheckDtID As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''UTSC_txtTallyNo control.
+        '''UTSC_txtStructureTallyNo control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents UTSC_txtTallyNo As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents UTSC_txtStructureTallyNo As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''UTSC_txtLocation control.
+        '''UTSC_txtSize control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents UTSC_txtLocation As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents UTSC_txtSize As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''UTSC_txtWallThicknessInch1 control.
+        '''UTSC_txtLength control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents UTSC_txtWallThicknessInch1 As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents UTSC_txtLength As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''UTSC_txtWallThicknessInch2 control.
+        '''UTSC_txtWallThickness1 control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents UTSC_txtWallThicknessInch2 As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents UTSC_txtWallThickness1 As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''UTSC_txtWallThicknessInch3 control.
+        '''UTSC_txtWallThickness2 control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents UTSC_txtWallThicknessInch3 As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents UTSC_txtWallThickness2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtWallThickness3 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtWallThickness3 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtWallThickness4 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtWallThickness4 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtHardnessTest1 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtHardnessTest1 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtHardnessTest2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtHardnessTest2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtHardnessTest3 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtHardnessTest3 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSC_txtHardnessTest4 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_txtHardnessTest4 As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''UTSC_txtRemark control.
@@ -2355,13 +2904,13 @@ Namespace Raven.Web
         Protected WithEvents pnlRotaryShoulderConnectionReport As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
-        '''pnlUTSpotEndArea control.
+        '''pnlUTSpotArea control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents pnlUTSpotEndArea As Global.System.Web.UI.WebControls.Panel
+        Protected WithEvents pnlUTSpotArea As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
         '''pnlCertificateInspection control.
