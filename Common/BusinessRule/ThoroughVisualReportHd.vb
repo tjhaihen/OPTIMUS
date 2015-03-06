@@ -297,6 +297,15 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
+        Public Property [tviTypeSCode]() As String
+            Get
+                Return _tviTypeSCode
+            End Get
+            Set(ByVal Value As String)
+                _tviTypeSCode = Value
+            End Set
+        End Property
+
         Public Property [Description]() As String
             Get
                 Return _description

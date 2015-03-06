@@ -24,6 +24,26 @@ Namespace Raven.Common
             Return result
         End Function
 
+        Public Shared Function GetUserFullName(ByVal UserID As String) As String
+            Dim result As String = String.Empty
+            Dim oUser As New Common.BussinessRules.User
+            oUser.UserID = UserID.Trim
+            If oUser.SelectOne.Rows.Count > 0 Then
+                Dim oPerson As New Common.BussinessRules.Person
+                oPerson.PersonID = oUser.PersonID.Trim
+                If oPerson.SelectOne.Rows.Count > 0 Then
+                    result = Replace((Trim((oPerson.FirstName.Trim + " " + oPerson.MiddleName.Trim + " " + oPerson.LastName.Trim))), "  ", " ")
+                Else
+                    result = String.Empty
+                End If
+            Else
+                result = String.Empty
+            End If
+            oUser.Dispose()
+            oUser = Nothing
+            Return result
+        End Function
+
         Public Shared Function SelectListItem(ByRef list As DropDownList, ByVal value As String) As Boolean
             Try
                 list.SelectedItem.Selected = False

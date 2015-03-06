@@ -125,6 +125,45 @@ Namespace Raven.Common.BussinessRules
             End Try
         End Function
 
+        Public Function SelectReportTypeByProductIDWithNoProductID(ByVal _projectID As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "SELECT pm.*, rt.ReportTypeCode, rt.ReportTypeName AS ReportTypeName, rt.PanelID FROM ProductReportType pm " + _
+                                        "INNER JOIN ReportType rt ON pm.ReportTypeID=rt.ReportTypeID " + _
+                                        "WHERE pm.ProductID=@ProductID " + _
+                                        "UNION ALL " + _
+                                        "SELECT 'NO PRODUCT ID' AS productReportTypeID, 'NO PRODUCT ID' AS productID, 'NO PRODUCT ID' AS reportTypeID, 'NO PRODUCT ID' AS userIDinsert, GETDATE() AS insertDate, " + _
+                                        "rt.ReportTypeCode, rt.ReportTypeName, rt.PanelID FROM ReportType rt " + _
+                                        "WHERE rt.ReportTypeID NOT IN (SELECT reportTypeID FROM ProductReportType) " + _
+                                        "AND rt.reportTypeID IN (SELECT reportTypeID FROM ProjectReportType WHERE projectID=@projectID)"
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("ReportTypeByProductIDWithNoProductID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@ProductID", _productID)
+                cmdToExecute.Parameters.AddWithValue("@ProjectID", _projectID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                Return toReturn
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                Throw New Exception(ex.Message)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+        End Function
+
         Public Function SelectReportTypeNotInProdctReportTypeByProductID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "SELECT * FROM ReportType WHERE ReportTypeID NOT IN " & _
@@ -149,6 +188,73 @@ Namespace Raven.Common.BussinessRules
             Catch ex As Exception
                 ' // some error occured. Bubble it to caller and encapsulate Exception object
                 Throw New Exception(ex.Message)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+        End Function
+
+        Public Function SelectReportTypeNotInProdctReportType() As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "SELECT * FROM ReportType WHERE ReportTypeID NOT IN " & _
+                                        "(SELECT ReportTypeID FROM ProductReportType)"
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("ReportTypeNotInProdctReportType")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                Return toReturn
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                Throw New Exception(ex.Message)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+        End Function
+
+        Public Function GetProductReportTypeByProjectID(ByVal _projectID As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand()
+            cmdToExecute.CommandText = "SELECT DISTINCT p.productID, p.productCode, p.productName, " + _
+                    "FROM ProductReportType pt " + _
+                    "INNER JOIN ProjectReportType pr ON pt.reportTypeID=pr.reportTypeID " + _
+                    "INNER JOIN Product p ON pt.productID=p.productID " + _
+                    "WHERE pr.projectID=@ProjectID AND p.isActive=1 " +
+                    "UNION ALL " + _
+                    "SELECT 'NO PRODUCT ID' AS productID, 'NO PRODUCT ID' AS productCode, 'NO PRODUCT ID' AS productName "
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("GetProductReportTypeByProjectID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@ProjectID", _projectID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                Return toReturn
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
             Finally
                 ' // Close connection.
                 _mainConnection.Close()

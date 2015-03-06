@@ -83,6 +83,32 @@
                                         <td class="hseparator" style="width: 100%;">
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            <table class="Menu" cellpadding="4" cellspacing="1" width="100%">
+                                                <tr>
+                                                    <td style="width: 20px;" class="Menu center">
+                                                        1
+                                                    </td>
+                                                    <td class="gridAlternatingItemStyle" style="font-size: 12pt; padding-left: 10;">
+                                                        Input Work Request Data
+                                                    </td>
+                                                    <td style="width: 20px;" class="Menu center">
+                                                        2
+                                                    </td>
+                                                    <td class="gridAlternatingItemStyle" style="font-size: 12pt; padding-left: 10;">
+                                                        Assign Project Resource
+                                                    </td>
+                                                    <td style="width: 20px;" class="Menu center">
+                                                        3
+                                                    </td>
+                                                    <td class="gridAlternatingItemStyle" style="font-size: 12pt; padding-left: 10;">
+                                                        Add Project Report Type
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
                                     <tr class="rbody">
                                         <td valign="top">
                                             <table width="100%">
@@ -357,6 +383,195 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <td class="heading1" colspan="4">
+                                                        Customer PIC
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="hseparator" colspan="4" style="width: 100%;">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <asp:TextBox ID="txtCustomerPIC" Width="100%" Height="80" runat="server" TextMode="MultiLine" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="heading1" colspan="4">
+                                                        Work Location Description (Detail of Work Location)
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="hseparator" colspan="4" style="width: 100%;">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <asp:TextBox ID="txtWorkLocationDescription" Width="100%" Height="50" runat="server"
+                                                            TextMode="MultiLine" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="heading1" colspan="4">
+                                                        Terms and Conditions
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="hseparator" colspan="4" style="width: 100%;">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <asp:TextBox ID="txtTermsAndConditions" Width="100%" Height="50" runat="server" TextMode="MultiLine" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="heading1" colspan="4">
+                                                        Company To Provide
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="hseparator" colspan="4" style="width: 100%;">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <asp:TextBox ID="txtCompanyToProvide" Width="100%" Height="80" runat="server" TextMode="MultiLine" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="heading1" colspan="4">
+                                                        Customer To Provide
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="hseparator" colspan="4" style="width: 100%;">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <asp:TextBox ID="txtCustomerToProvide" Width="100%" Height="80" runat="server" TextMode="MultiLine" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="heading1" colspan="4">
+                                                        Work Request Acknowledgement
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="hseparator" colspan="4" style="width: 100%;">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" class="heading2">
+                                                        Marketing
+                                                    </td>
+                                                    <td colspan="2" class="heading2">
+                                                        Operational
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;" class="right">
+                                                        Requested by
+                                                    </td>
+                                                    <td style="width: 500px;">
+                                                        <asp:TextBox ID="txtRequestedBy" Width="300" runat="server" />
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Checked by
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtCheckedBy" Width="300" MaxLength="500" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;" class="right">
+                                                        Acknowledged by
+                                                    </td>
+                                                    <td style="width: 500px;">
+                                                        <asp:TextBox ID="txtAcknowledgedBy" Width="300" runat="server" />
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Approved by
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtApprovedBy" Width="300" MaxLength="500" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;" class="right">
+                                                    </td>
+                                                    <td style="width: 500px;">
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Prepared by
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtPreparedBy" Width="300" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;" class="right">
+                                                    </td>
+                                                    <td style="width: 500px;">
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Warehouse PIC
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtWarehousePIC" Width="300" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: none;">
+                                                    <td class="heading1" colspan="4">
+                                                        Service for Equipment
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: none;">
+                                                    <td class="hseparator" colspan="4" style="width: 100%;">
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: none;">
+                                                    <td class="right">
+                                                        Name
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtServiceName" Width="300" MaxLength="100" runat="server" />
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Serial No.
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtSerialNo" Width="300" MaxLength="100" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: none;">
+                                                    <td class="right">
+                                                        Asset No.
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtAssetNo" Width="300" MaxLength="100" runat="server" />
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Manufacturer
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtManufacturer" Width="300" MaxLength="100" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: none;">
+                                                    <td class="right">
+                                                        Model / Type
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtModel" Width="300" MaxLength="100" runat="server" />
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td class="Heading1" colspan="4">
                                                         Project Resource
                                                     </td>
@@ -447,182 +662,6 @@
                                                                 </asp:TemplateColumn>
                                                             </Columns>
                                                         </asp:DataGrid>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="heading1" colspan="4">
-                                                        Customer PIC
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="hseparator" colspan="4" style="width: 100%;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4">
-                                                        <asp:TextBox ID="txtCustomerPIC" Width="100%" Height="80" runat="server" TextMode="MultiLine" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="heading1" colspan="4">
-                                                        Work Location Description (Detail of Work Location)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="hseparator" colspan="4" style="width: 100%;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4">
-                                                        <asp:TextBox ID="txtWorkLocationDescription" Width="100%" Height="50" runat="server" TextMode="MultiLine" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="heading1" colspan="4">
-                                                        Terms and Conditions
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="hseparator" colspan="4" style="width: 100%;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4">
-                                                        <asp:TextBox ID="txtTermsAndConditions" Width="100%" Height="50" runat="server" TextMode="MultiLine" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="heading1" colspan="4">
-                                                        Company To Provide
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="hseparator" colspan="4" style="width: 100%;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4">
-                                                        <asp:TextBox ID="txtCompanyToProvide" Width="100%" Height="80" runat="server" TextMode="MultiLine" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="heading1" colspan="4">
-                                                        Customer To Provide
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="hseparator" colspan="4" style="width: 100%;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4">
-                                                        <asp:TextBox ID="txtCustomerToProvide" Width="100%" Height="80" runat="server" TextMode="MultiLine" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="heading1" colspan="4">
-                                                        Work Request Acknowledgement
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="hseparator" colspan="4" style="width: 100%;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" class="heading2">
-                                                        Marketing
-                                                    </td>
-                                                    <td colspan="2" class="heading2">
-                                                        Operational
-                                                    </td>
-                                                </tr>
-                                                <tr>                                                    
-                                                    <td style="width: 150px;" class="right">
-                                                        Requested by
-                                                    </td>
-                                                    <td style="width: 500px;">
-                                                        <asp:TextBox ID="txtRequestedBy" Width="300" runat="server" />
-                                                    </td>
-                                                    <td style="width: 150px;" class="right">
-                                                        Checked by
-                                                    </td>
-                                                    <td>
-                                                        <asp:TextBox ID="txtCheckedBy" Width="300" MaxLength="500" runat="server" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width: 150px;" class="right">
-                                                        Acknowledged by
-                                                    </td>
-                                                    <td style="width: 500px;">
-                                                        <asp:TextBox ID="txtAcknowledgedBy" Width="300" runat="server" />
-                                                    </td>
-                                                    <td style="width: 150px;" class="right">
-                                                        Approved by
-                                                    </td>
-                                                    <td>
-                                                        <asp:TextBox ID="txtApprovedBy" Width="300" MaxLength="500" runat="server" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width: 150px;" class="right">
-                                                        Prepared by
-                                                    </td>
-                                                    <td style="width: 500px;">
-                                                        <asp:TextBox ID="txtPreparedBy" Width="300" runat="server" />
-                                                    </td>
-                                                    <td style="width: 150px;" class="right">
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                                <tr style="display: none;">
-                                                    <td class="heading1" colspan="4">
-                                                        Service for Equipment
-                                                    </td>
-                                                </tr>
-                                                <tr style="display: none;">
-                                                    <td class="hseparator" colspan="4" style="width: 100%;">
-                                                    </td>
-                                                </tr>
-                                                <tr style="display: none;">
-                                                    <td class="right">
-                                                        Name
-                                                    </td>
-                                                    <td>
-                                                        <asp:TextBox ID="txtServiceName" Width="300" MaxLength="100" runat="server" />
-                                                    </td>
-                                                    <td style="width: 150px;" class="right">
-                                                        Serial No.
-                                                    </td>
-                                                    <td>
-                                                        <asp:TextBox ID="txtSerialNo" Width="300" MaxLength="100" runat="server" />
-                                                    </td>
-                                                </tr>
-                                                <tr style="display: none;">
-                                                    <td class="right">
-                                                        Asset No.
-                                                    </td>
-                                                    <td>
-                                                        <asp:TextBox ID="txtAssetNo" Width="300" MaxLength="100" runat="server" />
-                                                    </td>
-                                                    <td style="width: 150px;" class="right">
-                                                        Manufacturer
-                                                    </td>
-                                                    <td>
-                                                        <asp:TextBox ID="txtManufacturer" Width="300" MaxLength="100" runat="server" />
-                                                    </td>
-                                                </tr>
-                                                <tr style="display: none;">
-                                                    <td class="right">
-                                                        Model / Type
-                                                    </td>
-                                                    <td>
-                                                        <asp:TextBox ID="txtModel" Width="300" MaxLength="100" runat="server" />
-                                                    </td>
-                                                    <td style="width: 150px;" class="right">
-                                                    </td>
-                                                    <td>
                                                     </td>
                                                 </tr>
                                                 <tr>

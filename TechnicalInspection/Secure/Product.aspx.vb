@@ -126,7 +126,7 @@ Namespace Raven.Web.Secure
         Private Sub SetDataGridProductReportType()
             Dim oPr As New Common.BussinessRules.ProductReportType
             oPr.ProductID = txtProductID.Text.Trim
-            grdReportType.DataSource = oPr.SelectReportTypeNotInProdctReportTypeByProductID()
+            grdReportType.DataSource = oPr.SelectReportTypeNotInProdctReportType()
             grdReportType.DataBind()
             grdProductReportType.DataSource = oPr.SelectReportTypeByProductID()
             grdProductReportType.DataBind()

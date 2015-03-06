@@ -18,7 +18,11 @@
             Public Const MPIContrastBW_SCode As String = "MPICONTBW"
             Public Const HardnessTestLocation_SCode As String = "HTLOCATION"
             Public Const UTSpotType_SCode As String = "UTSTYPE"
+            Public Const UTSpotAreaType_SCode As String = "UTSATYPE"
             Public Const DrillPipeRemarks_SCode As String = "DPREMARKS"
+            Public Const InspectionReportType_SCode As String = "INSTYPE"
+            Public Const ThoroughVisualType_SCode As String = "TVITYPE"
+            Public Const InspectionTallyType_SCode As String = "ITTYPE"
         End Class
 
         Public NotInheritable Class FormatString
@@ -70,7 +74,7 @@
             Public Const ThoroughVisualInspectionReport_PanelID As String = "pnlThoroughVisualInspectionReport"
             Public Const InspectionTallyReport_PanelID As String = "pnlInspectionTallyReport"
             Public Const UTSpotCheck_PanelID As String = "pnlUTSpotCheck"
-            Public Const RotaryShoulderConnectionReport_PanelID As String = "pnlRotaryShoulderConnectionReport"
+            Public Const InspectionReport_PanelID As String = "pnlInspectionReport"
             Public Const UTSpotArea_PanelID As String = "pnlUTSpotArea"
             Public Const CheckListCompletionReport_PanelID As String = "pnlCheckListCompletionReport"
             Public Const CertificateOfInspection_PanelID As String = "pnlCertificateInspection"
@@ -85,6 +89,10 @@
 
         Public NotInheritable Class IDPrefix
             Public Const WorkRequestPrefix As String = "WR"            
+        End Class
+
+        Public NotInheritable Class UOM
+            Public Const DailyProgressReportDefaultUOM As String = "Jts"
         End Class
 
         Public NotInheritable Class ReportTypeCode
@@ -133,21 +141,17 @@
             Public Const MPIAfterLoadTestCaption As String = "MPI After Load Test"
         End Class
 
-        'Public NotInheritable Class ReportTypeName
-        '    Public Const ServiceAcceptance As String = "ServiceAcceptance"
-        '    Public Const SummaryOfInspection As String = "SummaryOfInspection"
-        '    Public Const TimeSheet As String = "TimeSheet"
-        '    Public Const DailyProgressReport As String = "DailyProgressReport"
-        '    Public Const ServiceReport As String = "ServiceReport"
-        '    Public Const MPIReport As String = "MPIReport"
-        '    Public Const DrillPipeInspectionReport As String = "DrillPipeInspectionReport"
-        '    Public Const ThroughVisualInspectionReport As String = "ThroughVisualInspectionReport"
-        '    Public Const InspectionTallyReport As String = "InspectionTallyReport"
-        '    Public Const UTSpotCheck As String = "UTSpotCheck"
-        '    Public Const RotaryShoulderConnectionReport As String = "RotaryShoulderConnectionReport"
-        '    Public Const UTSpotEndArea As String = "UTSpotEndArea"
-        '    Public Const CheckListCompletionReport As String = "CheckListCompletionReport"
-        'End Class
+        Public NotInheritable Class ReportTypeCodeInspectionReport
+            Public Const DrillCollar As String = "DC"
+            Public Const SpiralDrillCollar As String = "SDC"
+            Public Const HWDP As String = "HWDP"
+            Public Const RotaryShoulder As String = "RS"
+        End Class
+
+        Public NotInheritable Class ReportTypeCodeThoroughVisualType
+            Public Const Sling As String = "TVISL"
+            Public Const Shackle As String = "TVISH"            
+        End Class
     End Class
 End Namespace
 

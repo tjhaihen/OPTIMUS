@@ -16,7 +16,9 @@ Namespace Raven.Common.BussinessRules
         Private _elevatorGrooveDiaPin, _elevatorGrooveDiaBox, _elevatorGrooveDepthPin, _elevatorGrooveDepthBox, _IDdescription As String
         Private _BBackRGrooveDiaPin, _BBackRGrooveDiaBox, _BBackRGrooveLengthPin, _BBackRGrooveLengthBox, _bevelDiaPin, _bevelDiaBox As String
         Private _threadLengthPin, _threadLengthBox, _counterBoreDiaPin, _counterBoreDiaBox, _counterBoreDepthPin, _counterBoreDepthBox As String
+        Private _centerPadDiaPin, _centerPadDiaBox, _centerPadDepthPin, _centerPadDepthBox As String
         Private _tongSpacePin, _tongSpaceBox, _conditionPin, _conditionBox, _BSR, _remarksPin, _remarksBox As String
+        Private _HBPin, _HBBox, _HBCenterPad As String
         Private _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
@@ -38,7 +40,9 @@ Namespace Raven.Common.BussinessRules
                                         "elevatorGrooveDiaPin, elevatorGrooveDiaBox, elevatorGrooveDepthPin, elevatorGrooveDepthBox, IDdescription, " + _
                                         "BBackRGrooveDiaPin, BBackRGrooveDiaBox, BBackRGrooveLengthPin, BBackRGrooveLengthBox, bevelDiaPin, bevelDiaBox, " + _
                                         "threadLengthPin, threadLengthBox, counterBoreDiaPin, counterBoreDiaBox, counterBoreDepthPin, counterBoreDepthBox, " + _
+                                        "centerPadDiaPin, centerPadDiaBox, centerPadDepthPin, centerPadDepthBox, " + _
                                         "tongSpacePin, tongSpaceBox, conditionPin, conditionBox, BSR, remarksPin, remarksBox, " + _
+                                        "HBPin, HBBox, HBCenterPad, " + _
                                         "insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
@@ -47,7 +51,9 @@ Namespace Raven.Common.BussinessRules
                                         "@elevatorGrooveDiaPin, @elevatorGrooveDiaBox, @elevatorGrooveDepthPin, @elevatorGrooveDepthBox, @IDdescription, " + _
                                         "@BBackRGrooveDiaPin, @BBackRGrooveDiaBox, @BBackRGrooveLengthPin, @BBackRGrooveLengthBox, @bevelDiaPin, @bevelDiaBox, " + _
                                         "@threadLengthPin, @threadLengthBox, @counterBoreDiaPin, @counterBoreDiaBox, @counterBoreDepthPin, @counterBoreDepthBox, " + _
+                                        "@centerPadDiaPin, @centerPadDiaBox, @centerPadDepthPin, @centerPadDepthBox, " + _
                                         "@tongSpacePin, @tongSpaceBox, @conditionPin, @conditionBox, @BSR, @remarksPin, @remarksBox, " + _
+                                        "@HBPin, @HBBox, @HBCenterPad, " + _
                                         "GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate)"
             cmdToExecute.CommandType = CommandType.Text
@@ -56,7 +62,7 @@ Namespace Raven.Common.BussinessRules
             Dim strID As String = ID.GenerateIDNumber("InspectionReportDt", "inspectionReportDtID")
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@inspectionReportDtID", _inspectionReportDtID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionReportDtID", strID)
                 cmdToExecute.Parameters.AddWithValue("@inspectionReportHdID", _inspectionReportHdID)
                 cmdToExecute.Parameters.AddWithValue("@description", _description)
                 cmdToExecute.Parameters.AddWithValue("@serialNo", _serialNo)
@@ -82,6 +88,10 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@counterBoreDiaBox", _counterBoreDiaBox)
                 cmdToExecute.Parameters.AddWithValue("@counterBoreDepthPin", _counterBoreDepthPin)
                 cmdToExecute.Parameters.AddWithValue("@counterBoreDepthBox", _counterBoreDepthBox)
+                cmdToExecute.Parameters.AddWithValue("@centerPadDiaPin", _centerPadDiaPin)
+                cmdToExecute.Parameters.AddWithValue("@centerPadDiaBox", _centerPadDiaBox)
+                cmdToExecute.Parameters.AddWithValue("@centerPadDepthPin", _centerPadDepthPin)
+                cmdToExecute.Parameters.AddWithValue("@centerPadDepthBox", _centerPadDepthBox)
                 cmdToExecute.Parameters.AddWithValue("@tongSpacePin", _tongSpacePin)
                 cmdToExecute.Parameters.AddWithValue("@tongSpaceBox", _tongSpaceBox)
                 cmdToExecute.Parameters.AddWithValue("@conditionPin", _conditionPin)
@@ -89,6 +99,9 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@BSR", _BSR)
                 cmdToExecute.Parameters.AddWithValue("@remarksPin", _remarksPin)
                 cmdToExecute.Parameters.AddWithValue("@remarksBox", _remarksBox)
+                cmdToExecute.Parameters.AddWithValue("@HBPin", _HBPin)
+                cmdToExecute.Parameters.AddWithValue("@HBBox", _HBBox)
+                cmdToExecute.Parameters.AddWithValue("@HBCenterPad", _HBCenterPad)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDInsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
@@ -119,8 +132,10 @@ Namespace Raven.Common.BussinessRules
                                         "BBackRGrooveLengthBox=@BBackRGrooveLengthBox, bevelDiaPin=@bevelDiaPin, bevelDiaBox=@bevelDiaBox, " + _
                                         "threadLengthPin=@threadLengthPin, threadLengthBox=@threadLengthBox, counterBoreDiaPin=@counterBoreDiaPin, " + _
                                         "counterBoreDiaBox=@counterBoreDiaBox, counterBoreDepthPin=@counterBoreDepthPin, counterBoreDepthBox=@counterBoreDepthBox, " + _
+                                        "centerPadDiaPin=@centerPadDiaPin, centerPadDiaBox=@centerPadDiaBox, centerPadDepthPin=@centerPadDepthPin, centerPadDepthBox=@centerPadDepthBox, " + _
                                         "tongSpacePin=@tongSpacePin, tongSpaceBox=@tongSpaceBox, conditionPin=@conditionPin, " + _
                                         "conditionBox=@conditionBox, BSR=@BSR, remarksPin=@remarksPin, remarksBox=@remarksBox, " + _
+                                        "HBPin=@HBPin, HBBox=@HBBox, HBCenterPad=@HBCenterPad, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE inspectionReportDtID=@inspectionReportDtID"
             cmdToExecute.CommandType = CommandType.Text
@@ -153,13 +168,20 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@counterBoreDiaBox", _counterBoreDiaBox)
                 cmdToExecute.Parameters.AddWithValue("@counterBoreDepthPin", _counterBoreDepthPin)
                 cmdToExecute.Parameters.AddWithValue("@counterBoreDepthBox", _counterBoreDepthBox)
+                cmdToExecute.Parameters.AddWithValue("@centerPadDiaPin", _centerPadDiaPin)
+                cmdToExecute.Parameters.AddWithValue("@centerPadDiaBox", _centerPadDiaBox)
+                cmdToExecute.Parameters.AddWithValue("@centerPadDepthPin", _centerPadDepthPin)
+                cmdToExecute.Parameters.AddWithValue("@centerPadDepthBox", _centerPadDepthBox)
                 cmdToExecute.Parameters.AddWithValue("@tongSpacePin", _tongSpacePin)
                 cmdToExecute.Parameters.AddWithValue("@tongSpaceBox", _tongSpaceBox)
                 cmdToExecute.Parameters.AddWithValue("@conditionPin", _conditionPin)
                 cmdToExecute.Parameters.AddWithValue("@conditionBox", _conditionBox)
                 cmdToExecute.Parameters.AddWithValue("@BSR", _BSR)
                 cmdToExecute.Parameters.AddWithValue("@remarksPin", _remarksPin)
-                cmdToExecute.Parameters.AddWithValue("@remarksBox", _remarksBox)                
+                cmdToExecute.Parameters.AddWithValue("@remarksBox", _remarksBox)
+                cmdToExecute.Parameters.AddWithValue("@HBPin", _HBPin)
+                cmdToExecute.Parameters.AddWithValue("@HBBox", _HBBox)
+                cmdToExecute.Parameters.AddWithValue("@HBCenterPad", _HBCenterPad)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
@@ -252,13 +274,20 @@ Namespace Raven.Common.BussinessRules
                     _counterBoreDiaBox = CType(toReturn.Rows(0)("counterBoreDiaBox"), String)
                     _counterBoreDepthPin = CType(toReturn.Rows(0)("counterBoreDepthPin"), String)
                     _counterBoreDepthBox = CType(toReturn.Rows(0)("counterBoreDepthBox"), String)
+                    _centerPadDiaPin = CType(toReturn.Rows(0)("centerPadDiaPin"), String)
+                    _centerPadDiaBox = CType(toReturn.Rows(0)("centerPadDiaBox"), String)
+                    _centerPadDepthPin = CType(toReturn.Rows(0)("centerPadDepthPin"), String)
+                    _centerPadDepthBox = CType(toReturn.Rows(0)("centerPadDepthBox"), String)
                     _tongSpacePin = CType(toReturn.Rows(0)("tongSpacePin"), String)
                     _tongSpaceBox = CType(toReturn.Rows(0)("tongSpaceBox"), String)
                     _conditionPin = CType(toReturn.Rows(0)("conditionPin"), String)
                     _conditionBox = CType(toReturn.Rows(0)("conditionBox"), String)
                     _BSR = CType(toReturn.Rows(0)("BSR"), String)
                     _remarksPin = CType(toReturn.Rows(0)("remarksPin"), String)
-                    _remarksBox = CType(toReturn.Rows(0)("remarksBox"), String)                    
+                    _remarksBox = CType(toReturn.Rows(0)("remarksBox"), String)
+                    _HBPin = CType(toReturn.Rows(0)("HBPin"), String)
+                    _HBBox = CType(toReturn.Rows(0)("HBBox"), String)
+                    _HBCenterPad = CType(toReturn.Rows(0)("HBCenterPad"), String)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -573,6 +602,42 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
+        Public Property [centerPadDiaPin]() As String
+            Get
+                Return _centerPadDiaPin
+            End Get
+            Set(ByVal Value As String)
+                _centerPadDiaPin = Value
+            End Set
+        End Property
+
+        Public Property [centerPadDiaBox]() As String
+            Get
+                Return _centerPadDiaBox
+            End Get
+            Set(ByVal Value As String)
+                _centerPadDiaBox = Value
+            End Set
+        End Property
+
+        Public Property [centerPadDepthPin]() As String
+            Get
+                Return _centerPadDepthPin
+            End Get
+            Set(ByVal Value As String)
+                _centerPadDepthPin = Value
+            End Set
+        End Property
+
+        Public Property [centerPadDepthBox]() As String
+            Get
+                Return _centerPadDepthBox
+            End Get
+            Set(ByVal Value As String)
+                _centerPadDepthBox = Value
+            End Set
+        End Property
+
         Public Property [tongSpacePin]() As String
             Get
                 Return _tongSpacePin
@@ -633,6 +698,33 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _remarksBox = Value
+            End Set
+        End Property
+
+        Public Property [HBPin]() As String
+            Get
+                Return _HBPin
+            End Get
+            Set(ByVal Value As String)
+                _HBPin = Value
+            End Set
+        End Property
+
+        Public Property [HBBox]() As String
+            Get
+                Return _HBBox
+            End Get
+            Set(ByVal Value As String)
+                _HBBox = Value
+            End Set
+        End Property
+
+        Public Property [HBCenterPad]() As String
+            Get
+                Return _HBCenterPad
+            End Get
+            Set(ByVal Value As String)
+                _HBCenterPad = Value
             End Set
         End Property
 

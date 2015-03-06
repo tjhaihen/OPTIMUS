@@ -107,6 +107,7 @@ Namespace Raven.Web.Secure
         Private Sub mdlToolbar_commandBarClick(ByVal sender As Object, ByVal e As CSSToolbarItem) Handles CSSToolbar.CSSToolbarItemClick
             Select Case e
                 Case CSSToolbarItem.tidRefresh
+                    GetDashboardInformation()
                     SetDataGridCustomerInspectionInformation()
             End Select
         End Sub
@@ -166,6 +167,38 @@ Namespace Raven.Web.Secure
 
             grdCustomerInspection.DataSource = dtInspectionInfo
             grdCustomerInspection.DataBind()
+        End Sub
+
+        Private Sub GetDashboardInformation()
+            Dim oProject As New Common.BussinessRules.ProjectHd
+            Dim dtTotalInspectionByCustomer As New DataTable
+            Dim dtItemDueToExpiredInspection As New DataTable
+            Dim dtInspectionSerialIDNo As New DataTable
+            With oProject
+                dtTotalInspectionByCustomer = .GetTotalInspectionByCustomer(txtCustomerID.Text.Trim)
+                dtItemDueToExpiredInspection = .GetListOfItemDueToExpiredInspectionByCustomer(txtCustomerID.Text.Trim, CInt(txtItemDueToExpiredInspectionInDay.Text.Trim))
+                dtInspectionSerialIDNo = .GetListOfInspectionByCustomerIDSerialIDNo(txtCustomerID.Text.Trim, txtSerialNo.Text.Trim)
+
+                If dtTotalInspectionByCustomer.Rows.Count > 0 Then
+                    lblTotalWorkOrder.Text = .totalWorkOrder.ToString.Trim
+                    lblTotalItemIspected.Text = .totalItemInspected.ToString.Trim
+                    lblTotalItemAccepted.Text = .totalItemAccepted.ToString.Trim
+                    lblTotalItemRejected.Text = .totalItemRejected.ToString.Trim
+                Else
+                    lblTotalWorkOrder.Text = "0"
+                    lblTotalItemIspected.Text = "0"
+                    lblTotalItemAccepted.Text = "0"
+                    lblTotalItemRejected.Text = "0"
+                End If
+            End With
+            oProject.Dispose()
+            oProject = Nothing
+
+            grdItemDueToExpiredInspection.DataSource = dtItemDueToExpiredInspection
+            grdItemDueToExpiredInspection.DataBind()
+
+            grdInspectionBySerialIDNo.DataSource = dtInspectionSerialIDNo
+            grdInspectionBySerialIDNo.DataBind()
         End Sub
 
         Private Sub _openCustomer(ByVal _customerID As String)

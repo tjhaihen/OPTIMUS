@@ -22,8 +22,10 @@ Namespace Raven.Common.BussinessRules
 
         Private _isNoExpiredDate As Boolean
         Private _isProposed, _isApproval, _isDone As Boolean
-        Private _proposedBy, _approvalBy, _doneBy As String
+        Private _proposedBy, _approvalBy, _doneBy, _warehousePIC As String
         Private _proposedDate, _approvalDate, _doneDate As DateTime
+
+        Private _totalWorkOrder, _totalItemInspected, _totalItemAccepted, _totalItemRejected As Decimal
 #End Region
 
         Public Sub New()
@@ -44,7 +46,7 @@ Namespace Raven.Common.BussinessRules
                                         "workLocationDescription, termsAndConditions, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate, " + _
                                         "toDepartment, reference, note, customerPIC, companyToProvide, customerToProvide, " + _
-                                        "requestedBy, ackBy, preparedBy, checkedBy, approvedBy, " + _
+                                        "requestedBy, ackBy, preparedBy, checkedBy, approvedBy, warehousePIC, " + _
                                         "isProposed, proposedBy, isApproval, approvalBy) " + _
                                         "VALUES " + _
                                         "(@projectID, @customerID, @siteID, @projectCode, @projectName, @workOrderNo, " + _
@@ -53,7 +55,7 @@ Namespace Raven.Common.BussinessRules
                                         "@workLocationDescription, @termsAndConditions, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE(), " + _
                                         "@toDepartment, @reference, @note, @customerPIC, @companyToProvide, @customerToProvide, " + _
-                                        "@requestedBy, @ackBy, @preparedBy, @checkedBy, @approvedBy, " + _
+                                        "@requestedBy, @ackBy, @preparedBy, @checkedBy, @approvedBy, @warehousePIC, " + _
                                         "0, '', 0, '')"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -97,6 +99,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@preparedBy", _preparedBy)
                 cmdToExecute.Parameters.AddWithValue("@checkedBy", _checkedBy)
                 cmdToExecute.Parameters.AddWithValue("@approvedBy", _approvedBy)
+                cmdToExecute.Parameters.AddWithValue("@warehousePIC", _warehousePIC)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -128,7 +131,7 @@ Namespace Raven.Common.BussinessRules
                                         "companyToProvide=@companyToProvide, customerToProvide=@customerToProvide, " + _
                                         "workLocationDescription=@workLocationDescription, termsAndConditions=@termsAndConditions, " + _
                                         "requestedBy=@requestedBy, ackBy=@ackBy, preparedBy=@preparedBy, checkedBy=@checkedBy, " + _
-                                        "approvedBy=@approvedBy " + _
+                                        "approvedBy=@approvedBy, warehousePIC=@warehousePIC " + _
                                         "WHERE projectID=@projectID"
             cmdToExecute.CommandType = CommandType.Text
 
@@ -169,6 +172,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@preparedBy", _preparedBy)
                 cmdToExecute.Parameters.AddWithValue("@checkedBy", _checkedBy)
                 cmdToExecute.Parameters.AddWithValue("@approvedBy", _approvedBy)
+                cmdToExecute.Parameters.AddWithValue("@warehousePIC", _warehousePIC)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -271,6 +275,7 @@ Namespace Raven.Common.BussinessRules
                     _preparedBy = CType(toReturn.Rows(0)("preparedBy"), String)
                     _checkedBy = CType(toReturn.Rows(0)("checkedBy"), String)
                     _approvedBy = CType(toReturn.Rows(0)("approvedBy"), String)
+                    _warehousePIC = CType(toReturn.Rows(0)("warehousePIC"), String)
                     _isProposed = CType(toReturn.Rows(0)("isProposed"), Boolean)
                     _proposedBy = CType(toReturn.Rows(0)("proposedBy"), String)
                     _proposedDate = CType(ProcessNull.GetDateTime(toReturn.Rows(0)("proposedDate")), DateTime)
@@ -378,6 +383,113 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
                 cmdToExecute.Parameters.AddWithValue("@WRStatus", strWRStatus)
                 cmdToExecute.Parameters.AddWithValue("@value", intValue)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+
+        Public Function GetTotalInspectionByCustomer(ByVal strCustomerID As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "sp_GetTotalInspectionByCustomerID"
+            cmdToExecute.CommandType = CommandType.StoredProcedure
+
+            Dim toReturn As DataTable = New DataTable("sp_GetTotalInspectionByCustomerID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)                
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                If toReturn.Rows.Count > 0 Then
+                    _totalWorkOrder = CType(toReturn.Rows(0)("TotalWorkOrder"), Decimal)
+                    _totalItemInspected = CType(toReturn.Rows(0)("TotalItemInspected"), Decimal)
+                    _totalItemAccepted = CType(toReturn.Rows(0)("TotalItemAccepted"), Decimal)
+                    _totalItemRejected = CType(toReturn.Rows(0)("TotalItemRejected"), Decimal)
+                Else
+                    _totalWorkOrder = 0
+                    _totalItemInspected = 0
+                    _totalItemAccepted = 0
+                    _totalItemRejected = 0
+                End If
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+
+        Public Function GetListOfItemDueToExpiredInspectionByCustomer(ByVal strCustomerID As String, ByVal intValue As Integer) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "sp_GetListOfItemDueToExpiredInspectionByCustomerID"
+            cmdToExecute.CommandType = CommandType.StoredProcedure
+
+            Dim toReturn As DataTable = New DataTable("sp_GetListOfItemDueToExpiredInspectionByCustomerID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
+                cmdToExecute.Parameters.AddWithValue("@value", intValue)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+
+        Public Function GetListOfInspectionByCustomerIDSerialIDNo(ByVal strCustomerID As String, ByVal strSerialIDNo As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "sp_GetListOfInspectionByCustomerIDSerialIDNo"
+            cmdToExecute.CommandType = CommandType.StoredProcedure
+
+            Dim toReturn As DataTable = New DataTable("sp_GetListOfInspectionByCustomerIDSerialIDNo")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
+                cmdToExecute.Parameters.AddWithValue("@serialIDNo", strSerialIDNo)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -852,6 +964,15 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
+        Public Property [warehousePIC]() As String
+            Get
+                Return _warehousePIC
+            End Get
+            Set(ByVal Value As String)
+                _warehousePIC = Value
+            End Set
+        End Property
+
         Public Property [isProposed]() As Boolean
             Get
                 Return _isProposed
@@ -932,6 +1053,44 @@ Namespace Raven.Common.BussinessRules
                 _doneDate = Value
             End Set
         End Property
+
+#Region " Customer Information "
+        Public Property [totalWorkOrder]() As Decimal
+            Get
+                Return _totalWorkOrder
+            End Get
+            Set(ByVal Value As Decimal)
+                _totalWorkOrder = Value
+            End Set
+        End Property
+
+        Public Property [totalItemInspected]() As Decimal
+            Get
+                Return _totalItemInspected
+            End Get
+            Set(ByVal Value As Decimal)
+                _totalItemInspected = Value
+            End Set
+        End Property
+
+        Public Property [totalItemAccepted]() As Decimal
+            Get
+                Return _totalItemAccepted
+            End Get
+            Set(ByVal Value As Decimal)
+                _totalItemAccepted = Value
+            End Set
+        End Property
+
+        Public Property [totalItemRejected]() As Decimal
+            Get
+                Return _totalItemRejected
+            End Get
+            Set(ByVal Value As Decimal)
+                _totalItemRejected = Value
+            End Set
+        End Property
+#End Region
 #End Region
 
     End Class

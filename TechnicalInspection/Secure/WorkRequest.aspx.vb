@@ -191,7 +191,7 @@ Namespace Raven.Web.Secure
             txtReferenceNo.Text = String.Empty
             txtQty.Text = "1"
             txtUOM.Text = String.Empty
-            txtDescriptionDetail.Text = String.Empty
+            txtDescriptionDetail.Text = String.Empty            
 
             txtResourceID.Text = String.Empty
             txtResourceCode.Text = String.Empty
@@ -204,11 +204,12 @@ Namespace Raven.Web.Secure
             txtCustomerPIC.Text = String.Empty
             txtCompanyToProvide.Text = String.Empty
             txtCustomerToProvide.Text = String.Empty
-            txtRequestedBy.Text = String.Empty
+            txtRequestedBy.Text = Common.Methods.GetUserFullName(MyBase.LoggedOnUserID.Trim)
             txtAcknowledgedBy.Text = Common.Methods.GetSettingParameter("MKTMGR").Trim
             txtPreparedBy.Text = String.Empty
             txtCheckedBy.Text = Common.Methods.GetSettingParameter("QAMGR").Trim
             txtApprovedBy.Text = Common.Methods.GetSettingParameter("OPSDIR").Trim
+            txtWarehousePIC.Text = String.Empty
 
             pnlProposed.Visible = False
             lblProposedBy.Text = String.Empty
@@ -377,6 +378,7 @@ Namespace Raven.Web.Secure
                     txtPreparedBy.Text = .preparedBy.Trim
                     txtCheckedBy.Text = .checkedBy.Trim
                     txtApprovedBy.Text = .approvedBy.Trim
+                    txtWarehousePIC.Text = .warehousePIC.Trim
                 Else
                     prepareScreen(False)
                 End If
@@ -564,15 +566,16 @@ Namespace Raven.Web.Secure
                 .preparedBy = txtPreparedBy.Text.Trim
                 .checkedBy = txtCheckedBy.Text.Trim
                 .approvedBy = txtApprovedBy.Text.Trim
+                .warehousePIC = txtWarehousePIC.Text.Trim
                 If isNew Then
                     If .Insert() Then
                         txtProjectID.Text = .projectID.Trim
                         txtProjectCode.Text = .projectCode.Trim
-                        Dim oPr As New Common.BussinessRules.ProjectReportType
-                        oPr.ProjectID = txtProjectID.Text.Trim
-                        oPr.UserIDInsert = MyBase.LoggedOnUserID
-                        oPr.UserIDPrepare = MyBase.LoggedOnUserID
-                        oPr.InsertMandatoryReport()
+                        'Dim oPr As New Common.BussinessRules.ProjectReportType
+                        'oPr.ProjectID = txtProjectID.Text.Trim
+                        'oPr.UserIDInsert = MyBase.LoggedOnUserID
+                        'oPr.UserIDPrepare = MyBase.LoggedOnUserID
+                        'oPr.InsertMandatoryReport()
                         SetDataGridProjectReportType()
                     End If                    
                 Else

@@ -13,6 +13,7 @@ Namespace Raven.Common.BussinessRules
 #Region " Class Member Declarations "
         Private _certificateInspectionID, _projectID, _certificateNo, _owner, _userLabel, _location, _description, _notes As String
         Private _serialNo, _maxGrossWeightR, _loadTest, _duration, _specification, _examination, _result As String
+        Private _Pic1, _Pic2, _Pic3 As SqlBinary
         Private _certificateDate, _inspectionDate, _expiredDate, _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
@@ -199,6 +200,9 @@ Namespace Raven.Common.BussinessRules
                     _certificateDate = CType(toReturn.Rows(0)("certificateDate"), DateTime)
                     _inspectionDate = CType(toReturn.Rows(0)("inspectionDate"), DateTime)
                     _expiredDate = CType(toReturn.Rows(0)("expiredDate"), DateTime)
+                    _Pic1 = CType(toReturn.Rows(0)("Pic1"), Byte())
+                    _Pic2 = CType(toReturn.Rows(0)("Pic2"), Byte())
+                    _Pic3 = CType(toReturn.Rows(0)("Pic3"), Byte())
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -275,6 +279,56 @@ Namespace Raven.Common.BussinessRules
             End Try
 
             Return toReturn
+        End Function
+
+        Public Function UpdatePic(ByVal PicNo As Integer) As Boolean
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            Select Case PicNo
+                Case 1
+                    cmdToExecute.CommandText = "UPDATE CertificateInspection " + _
+                                        "SET Pic1=@Pic1, " + _
+                                        "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
+                                        "WHERE certificateInspectionID=@certificateInspectionID"
+                Case 2
+                    cmdToExecute.CommandText = "UPDATE CertificateInspection " + _
+                                        "SET Pic2=@Pic2, " + _
+                                        "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
+                                        "WHERE certificateInspectionID=@certificateInspectionID"
+                Case Else
+                    cmdToExecute.CommandText = "UPDATE CertificateInspection " + _
+                                        "SET Pic3=@Pic3, " + _
+                                        "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
+                                        "WHERE certificateInspectionID=@certificateInspectionID"
+            End Select
+            cmdToExecute.CommandType = CommandType.Text
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                Select Case PicNo
+                    Case 1
+                        cmdToExecute.Parameters.AddWithValue("@Pic1", _Pic1)
+                    Case 2
+                        cmdToExecute.Parameters.AddWithValue("@Pic2", _Pic2)
+                    Case Else
+                        cmdToExecute.Parameters.AddWithValue("@Pic3", _Pic3)
+                End Select
+                cmdToExecute.Parameters.AddWithValue("@certificateInspectionID", _certificateInspectionID)
+                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
+
+                ' // Open Connection
+                _mainConnection.Open()
+
+                ' // Execute Query
+                cmdToExecute.ExecuteNonQuery()
+
+                Return True
+            Catch ex As Exception
+                ExceptionManager.Publish(ex)
+            Finally
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+            End Try
         End Function
 #End Region
 
@@ -438,6 +492,33 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As DateTime)
                 _expiredDate = Value
+            End Set
+        End Property
+
+        Public Property [Pic1]() As SqlBinary
+            Get
+                Return _Pic1
+            End Get
+            Set(ByVal Value As SqlBinary)
+                _Pic1 = Value
+            End Set
+        End Property
+
+        Public Property [Pic2]() As SqlBinary
+            Get
+                Return _Pic2
+            End Get
+            Set(ByVal Value As SqlBinary)
+                _Pic2 = Value
+            End Set
+        End Property
+
+        Public Property [Pic3]() As SqlBinary
+            Get
+                Return _Pic3
+            End Get
+            Set(ByVal Value As SqlBinary)
+                _Pic3 = Value
             End Set
         End Property
 

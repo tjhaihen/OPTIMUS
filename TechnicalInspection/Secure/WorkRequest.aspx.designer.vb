@@ -384,78 +384,6 @@ Namespace Raven.Web.Secure
         Protected WithEvents txtNote As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''txtPersonID control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtPersonID As Global.System.Web.UI.WebControls.TextBox
-
-        '''<summary>
-        '''txtResourceID control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtResourceID As Global.System.Web.UI.WebControls.TextBox
-
-        '''<summary>
-        '''txtResourceCode control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtResourceCode As Global.System.Web.UI.WebControls.TextBox
-
-        '''<summary>
-        '''btnSearchResource control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents btnSearchResource As Global.System.Web.UI.WebControls.Button
-
-        '''<summary>
-        '''ddlResourceRole control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents ddlResourceRole As Global.System.Web.UI.WebControls.DropDownList
-
-        '''<summary>
-        '''txtResourceName control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtResourceName As Global.System.Web.UI.WebControls.TextBox
-
-        '''<summary>
-        '''btnAddResource control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents btnAddResource As Global.System.Web.UI.WebControls.Button
-
-        '''<summary>
-        '''grdProjectResource control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents grdProjectResource As Global.System.Web.UI.WebControls.DataGrid
-
-        '''<summary>
         '''txtCustomerPIC control.
         '''</summary>
         '''<remarks>
@@ -546,6 +474,15 @@ Namespace Raven.Web.Secure
         Protected WithEvents txtPreparedBy As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''txtWarehousePIC control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtWarehousePIC As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''txtServiceName control.
         '''</summary>
         '''<remarks>
@@ -589,6 +526,78 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents txtModel As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtPersonID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtPersonID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtResourceID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtResourceID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtResourceCode control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtResourceCode As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''btnSearchResource control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnSearchResource As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''ddlResourceRole control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ddlResourceRole As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''txtResourceName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtResourceName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''btnAddResource control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnAddResource As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''grdProjectResource control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdProjectResource As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
         '''grdReportType control.

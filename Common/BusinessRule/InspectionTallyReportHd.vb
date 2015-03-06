@@ -54,6 +54,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@projectID", _projectID)
                 cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
                 cmdToExecute.Parameters.AddWithValue("@inspectionTallyTypeSCode", _inspectionTallyTypeSCode)
+                cmdToExecute.Parameters.AddWithValue("@driftSizeLength", _driftSizeLength)
                 cmdToExecute.Parameters.AddWithValue("@driftSizeOD", _driftSizeOD)
                 cmdToExecute.Parameters.AddWithValue("@size", _size)
                 cmdToExecute.Parameters.AddWithValue("@grade", _grade)
@@ -94,7 +95,7 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "UPDATE InspectionTallyReportHd " + _
                                         "SET reportNo=@reportNo, reportDate=@reportDate, " + _
                                         "inspectionTallyTypeSCode=@inspectionTallyTypeSCode, driftSizeOD=@driftSizeOD, " + _
-                                        "size=@Usize, grade=@grade, weight=@weight, " + _
+                                        "size=@size, grade=@grade, weight=@weight, " + _
                                         "connection=@connection, range=@range, nominalWT=@nominalWT, " + _
                                         "ACcaption1=@ACcaption1, ACcaption2=@ACcaption2, ACcaption3=@ACcaption3, ACcaption4=@ACcaption4, " + _
                                         "isAC1=@isAC1, isAC2=@isAC2, isAC3=@isAC3, isAC4=@isAC4, " + _

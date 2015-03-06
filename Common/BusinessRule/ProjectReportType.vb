@@ -137,13 +137,8 @@ Namespace Raven.Common.BussinessRules
 
         Public Function GetReportTypeByProjectID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand()
-            cmdToExecute.CommandText = "SELECT pr.*, " + _
-                    "rt.reportTypeName, rt.panelID, rt.reportTypeCode " + _
-                    "FROM ProjectReportType pr " + _
-                    "INNER JOIN ReportType rt ON pr.reportTypeID=rt.reportTypeID " + _
-                    "WHERE pr.projectID=@ProjectID AND rt.isActive=1 " +
-                    "ORDER BY rt.sequence"
-            cmdToExecute.CommandType = CommandType.Text
+            cmdToExecute.CommandText = "sp_ReportTypeByProjectID"
+            cmdToExecute.CommandType = CommandType.StoredProcedure
             Dim toReturn As DataTable = New DataTable("GetReportTypeByProjectID")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 

@@ -96,6 +96,132 @@ Namespace Raven.Web.Secure
         Protected WithEvents txtCustomerName As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''rtsInspectionInformation control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents rtsInspectionInformation As Global.Telerik.Web.UI.RadTabStrip
+
+        '''<summary>
+        '''rmpInspectionInformation control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents rmpInspectionInformation As Global.Telerik.Web.UI.RadMultiPage
+
+        '''<summary>
+        '''pvInformationDashboard control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvInformationDashboard As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
+        '''lblTotalWorkOrder control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalWorkOrder As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblTotalItemIspected control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemIspected As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblTotalItemAccepted control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemAccepted As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblTotalItemRejected control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemRejected As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''txtItemDueToExpiredInspectionInDay control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtItemDueToExpiredInspectionInDay As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''grdItemDueToExpiredInspection control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdItemDueToExpiredInspection As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''chtTotalInspection control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents chtTotalInspection As Global.System.Web.UI.DataVisualization.Charting.Chart
+
+        '''<summary>
+        '''pvInspectionByItem control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvInspectionByItem As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
+        '''txtSerialNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtSerialNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''grdInspectionBySerialIDNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdInspectionBySerialIDNo As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''pvInspectionByWorkRequest control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvInspectionByWorkRequest As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
         '''ddlInformationType control.
         '''</summary>
         '''<remarks>

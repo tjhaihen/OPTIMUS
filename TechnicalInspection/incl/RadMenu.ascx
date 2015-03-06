@@ -14,13 +14,13 @@
                         OPTIMUS&reg
                     </td>
                     <td class="Menu Separator">
-                        <img src="/PureravensLib/images/separator.png" />                    
+                        <img src="/PureravensLib/images/separator.png" border="0" alt="" align="absmiddle" />                    
                     </td>
                     <td class="Menu center" style="width: auto;">
                         <asp:Label ID="lblUserFullName" runat="server"></asp:Label>
                     </td>
                     <td class="Menu Separator">
-                        <img src="/PureravensLib/images/separator.png" />                    
+                        <img src="/PureravensLib/images/separator.png" border="0" alt="" align="absmiddle" />                    
                     </td>
                     <td class="Menu center" style="width: auto;">
                         <asp:Label ID="lblProfileName" runat="server"></asp:Label>
@@ -32,7 +32,7 @@
                             ToolTip="Log Out" ImageAlign="AbsMiddle" CausesValidation="false" />                                                                        
                     </td>
                     <td class="Menu Separator">
-                        <img src="/PureravensLib/images/separator.png" />                    
+                        <img src="/PureravensLib/images/separator.png" border="0" alt="" align="absmiddle" />                    
                     </td>
                     <td class="Menu center" style="width: auto;">
                         <asp:Label ID="lblCompanyName" runat="server"></asp:Label>

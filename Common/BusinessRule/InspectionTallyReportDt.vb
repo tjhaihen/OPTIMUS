@@ -12,9 +12,9 @@ Namespace Raven.Common.BussinessRules
 
 #Region " Class Member Declarations "
         Private _inspectionTallyDtID, _inspectionTallyHdID, _pipeNo, _pipeLength As String
-        Private _VBI, _RWT, _CCUYellow, _CCUBlue, _CCUGreen, _CCURed As String
-        Private _VTIPin, _VTIBox, _FLD As String
-        Private _CCNWhite, _CCNYellow, _CCNRed As String
+        Private _isCCUYellow, _isCCUBlue, _isCCUGreen, _isCCURed As Boolean
+        Private _VBI, _RWT, _VTIPin, _VTIBox, _FLD As String
+        Private _isCCNWhite, _isCCNYellow, _isCCNRed As Boolean
         Private _finalClass, _intExtCleaning, _intExtCoating, _remarks As String
         Private _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
@@ -33,14 +33,14 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO InspectionTallyReportDt " + _
                                         "(InspectionTallyDtID, InspectionTallyHdID, pipeNo, pipeLength, VBI, RWT, " + _
-                                        "CCUYellow, CCUBlue, CCUGreen, CCURed, VTIPin, VTBox, FLD, " + _
-                                        "CCNWhite, CCNYellow, CCNRed, finalClass, intExtCleaning, intExtCoating, remarks, " + _
+                                        "isCCUYellow, isCCUBlue, isCCUGreen, isCCURed, VTIPin, VTIBox, FLD, " + _
+                                        "isCCNWhite, isCCNYellow, isCCNRed, finalClass, intExtCleaning, intExtCoating, remarks, " + _
                                         "insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
                                         "(@InspectionTallyDtID, @InspectionTallyHdID, @pipeNo, @pipeLength, @VBI, @RWT, " + _
-                                        "@CCUYellow, @CCUBlue, @CCUGreen, @CCURed, @VTIPin, @VTBox, @FLD, " + _
-                                        "@CCNWhite, @CCNYellow, @CCNRed, @finalClass, @intExtCleaning, @intExtCoating, @remarks, " + _
+                                        "@isCCUYellow, @isCCUBlue, @isCCUGreen, @isCCURed, @VTIPin, @VTIBox, @FLD, " + _
+                                        "@isCCNWhite, @isCCNYellow, @isCCNRed, @finalClass, @intExtCleaning, @intExtCoating, @remarks, " + _
                                         "GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate)"
             cmdToExecute.CommandType = CommandType.Text
@@ -55,16 +55,16 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@pipeLength", _pipeLength)
                 cmdToExecute.Parameters.AddWithValue("@VBI", _VBI)
                 cmdToExecute.Parameters.AddWithValue("@RWT", _RWT)
-                cmdToExecute.Parameters.AddWithValue("@CCUYellow", _CCUYellow)
-                cmdToExecute.Parameters.AddWithValue("@CCUBlue", _CCUBlue)
-                cmdToExecute.Parameters.AddWithValue("@CCUGreen", _CCUGreen)
-                cmdToExecute.Parameters.AddWithValue("@CCURed", _CCURed)
+                cmdToExecute.Parameters.AddWithValue("@isCCUYellow", _isCCUYellow)
+                cmdToExecute.Parameters.AddWithValue("@isCCUBlue", _isCCUBlue)
+                cmdToExecute.Parameters.AddWithValue("@isCCUGreen", _isCCUGreen)
+                cmdToExecute.Parameters.AddWithValue("@isCCURed", _isCCURed)
                 cmdToExecute.Parameters.AddWithValue("@VTIPin", _VTIPin)
                 cmdToExecute.Parameters.AddWithValue("@VTIBox", _VTIBox)
                 cmdToExecute.Parameters.AddWithValue("@FLD", _FLD)
-                cmdToExecute.Parameters.AddWithValue("@CCNWhite", _CCNWhite)
-                cmdToExecute.Parameters.AddWithValue("@CCNYellow", _CCNYellow)
-                cmdToExecute.Parameters.AddWithValue("@CCNRed", _CCNRed)
+                cmdToExecute.Parameters.AddWithValue("@isCCNWhite", _isCCNWhite)
+                cmdToExecute.Parameters.AddWithValue("@isCCNYellow", _isCCNYellow)
+                cmdToExecute.Parameters.AddWithValue("@isCCNRed", _isCCNRed)
                 cmdToExecute.Parameters.AddWithValue("@finalClass", _finalClass)
                 cmdToExecute.Parameters.AddWithValue("@intExtCleaning", _intExtCleaning)
                 cmdToExecute.Parameters.AddWithValue("@intExtCoating", _intExtCoating)
@@ -93,9 +93,9 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "UPDATE InspectionTallyReportDt " + _
                                         "SET pipeNo=@pipeNo, pipeLength=@pipeLength, " + _
                                         "VBI=@VBI, RWT=@RWT, " + _
-                                        "CCUYellow=@CCUYellow, CCUBlue=@CCUBlue, CCUGreen=@CCUGreen, CCURed=@CCURed, " + _
+                                        "isCCUYellow=@isCCUYellow, isCCUBlue=@isCCUBlue, isCCUGreen=@isCCUGreen, isCCURed=@isCCURed, " + _
                                         "VTIPin=@VTIPin, VTIBox=@VTIBox, FLD=@FLD, " + _
-                                        "CCNWhite=@CCNWhite, CCYellow=@CCYellow, CCNRed=@CCNRed, finalClass=@finalClass, " + _
+                                        "isCCNWhite=@isCCNWhite, isCCNYellow=@isCCNYellow, isCCNRed=@isCCNRed, finalClass=@finalClass, " + _
                                         "intExtCleaning=@intExtCleaning, intExtCoating=@intExtCoating, remarks=@remarks, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE InspectionTallyDtID=@InspectionTallyDtID"
@@ -109,16 +109,16 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@pipeLength", _pipeLength)
                 cmdToExecute.Parameters.AddWithValue("@VBI", _VBI)
                 cmdToExecute.Parameters.AddWithValue("@RWT", _RWT)
-                cmdToExecute.Parameters.AddWithValue("@CCUYellow", _CCUYellow)
-                cmdToExecute.Parameters.AddWithValue("@CCUBlue", _CCUBlue)
-                cmdToExecute.Parameters.AddWithValue("@CCUGreen", _CCUGreen)
-                cmdToExecute.Parameters.AddWithValue("@CCURed", _CCURed)
+                cmdToExecute.Parameters.AddWithValue("@isCCUYellow", _isCCUYellow)
+                cmdToExecute.Parameters.AddWithValue("@isCCUBlue", _isCCUBlue)
+                cmdToExecute.Parameters.AddWithValue("@isCCUGreen", _isCCUGreen)
+                cmdToExecute.Parameters.AddWithValue("@isCCURed", _isCCURed)
                 cmdToExecute.Parameters.AddWithValue("@VTIPin", _VTIPin)
                 cmdToExecute.Parameters.AddWithValue("@VTIBox", _VTIBox)
                 cmdToExecute.Parameters.AddWithValue("@FLD", _FLD)
-                cmdToExecute.Parameters.AddWithValue("@CCNWhite", _CCNWhite)
-                cmdToExecute.Parameters.AddWithValue("@CCNYellow", _CCNYellow)
-                cmdToExecute.Parameters.AddWithValue("@CCNRed", _CCNRed)
+                cmdToExecute.Parameters.AddWithValue("@isCCNWhite", _isCCNWhite)
+                cmdToExecute.Parameters.AddWithValue("@isCCNYellow", _isCCNYellow)
+                cmdToExecute.Parameters.AddWithValue("@isCCNRed", _isCCNRed)
                 cmdToExecute.Parameters.AddWithValue("@finalClass", _finalClass)
                 cmdToExecute.Parameters.AddWithValue("@intExtCleaning", _intExtCleaning)
                 cmdToExecute.Parameters.AddWithValue("@intExtCoating", _intExtCoating)
@@ -195,16 +195,16 @@ Namespace Raven.Common.BussinessRules
                     _pipeLength = CType(toReturn.Rows(0)("pipeLength"), String)
                     _VBI = CType(toReturn.Rows(0)("VBI"), String)
                     _RWT = CType(toReturn.Rows(0)("RWT"), String)
-                    _CCUYellow = CType(toReturn.Rows(0)("CCUYellow"), String)
-                    _CCUBlue = CType(toReturn.Rows(0)("CCUBlue"), String)
-                    _CCUGreen = CType(toReturn.Rows(0)("CCUGreen"), String)
-                    _CCURed = CType(toReturn.Rows(0)("CCURed"), String)
+                    _isCCUYellow = CType(toReturn.Rows(0)("isCCUYellow"), String)
+                    _isCCUBlue = CType(toReturn.Rows(0)("isCCUBlue"), String)
+                    _isCCUGreen = CType(toReturn.Rows(0)("isCCUGreen"), String)
+                    _isCCURed = CType(toReturn.Rows(0)("isCCURed"), String)
                     _VTIPin = CType(toReturn.Rows(0)("VTIPin"), String)
                     _VTIBox = CType(toReturn.Rows(0)("VTIBox"), String)
                     _FLD = CType(toReturn.Rows(0)("FLD"), String)
-                    _CCNWhite = CType(toReturn.Rows(0)("CCNWhite"), String)
-                    _CCNYellow = CType(toReturn.Rows(0)("CCNYellow"), String)
-                    _CCNRed = CType(toReturn.Rows(0)("CCNRed"), String)
+                    _isCCNWhite = CType(toReturn.Rows(0)("isCCNWhite"), String)
+                    _isCCNYellow = CType(toReturn.Rows(0)("isCCNYellow"), String)
+                    _isCCNRed = CType(toReturn.Rows(0)("isCCNRed"), String)
                     _finalClass = CType(toReturn.Rows(0)("finalClass"), String)
                     _intExtCleaning = CType(toReturn.Rows(0)("intExtCleaning"), String)
                     _intExtCoating = CType(toReturn.Rows(0)("intExtCoating"), String)
@@ -343,39 +343,39 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
-        Public Property [CCUYellow]() As String
+        Public Property [isCCUYellow]() As Boolean
             Get
-                Return _CCUYellow
+                Return _isCCUYellow
             End Get
-            Set(ByVal Value As String)
-                _CCUYellow = Value
+            Set(ByVal Value As Boolean)
+                _isCCUYellow = Value
             End Set
         End Property
 
-        Public Property [CCUBlue]() As String
+        Public Property [isCCUBlue]() As Boolean
             Get
-                Return _CCUBlue
+                Return _isCCUBlue
             End Get
-            Set(ByVal Value As String)
-                _CCUBlue = Value
+            Set(ByVal Value As Boolean)
+                _isCCUBlue = Value
             End Set
         End Property
 
-        Public Property [CCUGreen]() As String
+        Public Property [isCCUGreen]() As Boolean
             Get
-                Return _CCUGreen
+                Return _isCCUGreen
             End Get
-            Set(ByVal Value As String)
-                _CCUGreen = Value
+            Set(ByVal Value As Boolean)
+                _isCCUGreen = Value
             End Set
         End Property
 
-        Public Property [CCURed]() As String
+        Public Property [isCCURed]() As Boolean
             Get
-                Return _CCURed
+                Return _isCCURed
             End Get
-            Set(ByVal Value As String)
-                _CCURed = Value
+            Set(ByVal Value As Boolean)
+                _isCCURed = Value
             End Set
         End Property
 
@@ -406,30 +406,39 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
-        Public Property [CCNWhite]() As String
+        Public Property [finalClass]() As String
             Get
-                Return _CCNWhite
+                Return _finalClass
             End Get
             Set(ByVal Value As String)
-                _CCNWhite = Value
+                _finalClass = Value
             End Set
         End Property
 
-        Public Property [CCNYellow]() As String
+        Public Property [isCCNWhite]() As Boolean
             Get
-                Return _CCNYellow
+                Return _isCCNWhite
             End Get
-            Set(ByVal Value As String)
-                _CCNYellow = Value
+            Set(ByVal Value As Boolean)
+                _isCCNWhite = Value
             End Set
         End Property
 
-        Public Property [CCNRed]() As String
+        Public Property [isCCNYellow]() As Boolean
             Get
-                Return _CCNRed
+                Return _isCCNYellow
             End Get
-            Set(ByVal Value As String)
-                _CCNRed = Value
+            Set(ByVal Value As Boolean)
+                _isCCNYellow = Value
+            End Set
+        End Property
+
+        Public Property [isCCNRed]() As Boolean
+            Get
+                Return _isCCNRed
+            End Get
+            Set(ByVal Value As Boolean)
+                _isCCNRed = Value
             End Set
         End Property
 

@@ -51,6 +51,15 @@ Namespace Raven
         Protected WithEvents lblProjectCode As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
+        '''lblJobDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblJobDescription As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
         '''lblLocation control.
         '''</summary>
         '''<remarks>
@@ -69,6 +78,15 @@ Namespace Raven
         Protected WithEvents lblWorkOrderNo As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
+        '''lblPeriod control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblPeriod As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
         '''lblProjectName control.
         '''</summary>
         '''<remarks>
@@ -85,23 +103,5 @@ Namespace Raven
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents lblWorkOrderDate As Global.System.Web.UI.WebControls.Label
-
-        '''<summary>
-        '''lblJobDescription control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents lblJobDescription As Global.System.Web.UI.WebControls.Label
-
-        '''<summary>
-        '''lblPeriod control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents lblPeriod As Global.System.Web.UI.WebControls.Label
     End Class
 End Namespace

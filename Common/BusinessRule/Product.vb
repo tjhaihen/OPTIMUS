@@ -100,7 +100,7 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectAll() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM Product"
+            cmdToExecute.CommandText = "SELECT * FROM Product ORDER BY ProductCode"
             cmdToExecute.CommandType = CommandType.Text
 
             Dim toReturn As DataTable = New DataTable("Product")

@@ -34,13 +34,13 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "INSERT INTO reportType " + _
                                         "(reportTypeID, reportTypeCode, parentreportTypeCode, reportTypeName, sequence, " + _
                                         "documentNo, revisionNo, " + _
-                                        "effectiveDate, " + _
+                                        "effectiveDate, panelID, " + _
                                         "isMandatory, isActive, userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@reportTypeID, @reportTypeCode, @parentreportTypeCode, @reportTypeName, @sequence, " + _
                                         "@documentNo, @revisionNo, " + _
                                         IIf(_effectiveDate = Nothing, cmdNull, "@effectiveDate, ") + _
-                                        "@isMandatory, @isActive, @userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
+                                        "@panelID, @isMandatory, @isActive, @userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
@@ -55,6 +55,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@documentNo", _documentNo)
                 cmdToExecute.Parameters.AddWithValue("@revisionNo", _revisionNo)
                 If _effectiveDate <> Nothing Then cmdToExecute.Parameters.AddWithValue("@effectiveDate", _effectiveDate)
+                cmdToExecute.Parameters.AddWithValue("@panelID", _panelID)
                 cmdToExecute.Parameters.AddWithValue("@isMandatory", _isMandatory)
                 cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
@@ -84,7 +85,7 @@ Namespace Raven.Common.BussinessRules
                                         "SET reportTypeCode=@reportTypeCode, parentreportTypeCode=@parentreportTypeCode, reportTypeName=@reportTypeName, " + _
                                         "documentNo=@documentNo, revisionNo=@revisionNo, " + _
                                         IIf(_effectiveDate = Nothing, cmdNull, "effectiveDate=@effectiveDate, ") + _
-                                        "isMandatory=@isMandatory, " + _
+                                        "panelID=@panelID, isMandatory=@isMandatory, " + _
                                         "sequence=@sequence, isActive=@isActive, userIDupdate=@userIDupdate, " + _
                                         "updateDate=GETDATE() " + _
                                         "WHERE reportTypeID=@reportTypeID"
@@ -101,6 +102,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@documentNo", _documentNo)
                 cmdToExecute.Parameters.AddWithValue("@revisionNo", _revisionNo)
                 If _effectiveDate <> Nothing Then cmdToExecute.Parameters.AddWithValue("@effectiveDate", _effectiveDate)
+                cmdToExecute.Parameters.AddWithValue("@panelID", _panelID)
                 cmdToExecute.Parameters.AddWithValue("@isMandatory", _isMandatory)
                 cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)

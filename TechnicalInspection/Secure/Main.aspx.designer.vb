@@ -672,6 +672,15 @@ Namespace Raven.Web
         Protected WithEvents DPR_calReportDate As Global.Raven.Web.Calendar
 
         '''<summary>
+        '''DPR_txtMaterialDetail control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DPR_txtMaterialDetail As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''DPR_txtDailyReportDtID control.
         '''</summary>
         '''<remarks>
@@ -717,6 +726,15 @@ Namespace Raven.Web
         Protected WithEvents DPR_txtQtyCurrent As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''DPR_txtUOMCurrent control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DPR_txtUOMCurrent As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''DPR_txtQtyPrevious control.
         '''</summary>
         '''<remarks>
@@ -726,6 +744,15 @@ Namespace Raven.Web
         Protected WithEvents DPR_txtQtyPrevious As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''DPR_txtUOMPrevious control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DPR_txtUOMPrevious As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''DPR_txtQtyCumulative control.
         '''</summary>
         '''<remarks>
@@ -733,6 +760,15 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents DPR_txtQtyCumulative As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DPR_txtUOMCumulative control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DPR_txtUOMCumulative As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''DPR_grdDailyReportDt control.
@@ -2616,6 +2652,213 @@ Namespace Raven.Web
         Protected WithEvents pnlThoroughVisualInspectionReport As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
+        '''TVI_txtTVIHdID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtTVIHdID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_txtReportNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtReportNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_btnReportNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_btnReportNo As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''TVI_calReportDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_calReportDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''TVI_ddlTVIType control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_ddlTVIType As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''TVI_txtDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_txtSerialNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtSerialNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_lblWLLSWLCaption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_lblWLLSWLCaption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''TVI_txtWLLSWL control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtWLLSWL As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_lblDimensionDiameterCaption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_lblDimensionDiameterCaption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''TVI_txtDimensionDiameter control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtDimensionDiameter As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_txtReferenceLevel control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtReferenceLevel As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_pnlLength control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_pnlLength As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''TVI_txtLength control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtLength As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_txtManufacturer control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtManufacturer As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_txtCalReference control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtCalReference As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_pnlDefectFound control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_pnlDefectFound As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''TVI_txtDefectFound control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtDefectFound As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_txtExamineWith control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtExamineWith As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_txtResult control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtResult As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_txtNote control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_txtNote As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TVI_pnlNextInspectionDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_pnlNextInspectionDate As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''TVI_calNextInspectionDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TVI_calNextInspectionDate As Global.Raven.Web.Calendar
+
+        '''<summary>
         '''pnlInspectionTallyReport control.
         '''</summary>
         '''<remarks>
@@ -2623,6 +2866,312 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents pnlInspectionTallyReport As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''IT_txtInspectionTallyHdID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtInspectionTallyHdID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_btnInspectionTallyHdID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_btnInspectionTallyHdID As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''IT_calReportDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_calReportDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''IT_chkIsAC1 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_chkIsAC1 As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''IT_txtAC1 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtAC1 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_chkIsAC2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_chkIsAC2 As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''IT_txtAC2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtAC2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_chkIsAC3 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_chkIsAC3 As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''IT_txtAC3 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtAC3 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_chkIsAC4 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_chkIsAC4 As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''IT_txtAC4 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtAC4 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtReportNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtReportNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_ddlTallyType control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_ddlTallyType As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''IT_txtSize control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtSize As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtGrade control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtGrade As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtWeight control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtWeight As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtConnection control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtConnection As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtRange control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtRange As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtNominalWT control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtNominalWT As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtInspectionTallyDtID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtInspectionTallyDtID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtPipeNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtPipeNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtPipeLength control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtPipeLength As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtVBI control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtVBI As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtRWT control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtRWT As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_rdblCCU control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_rdblCCU As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''IT_txtVTIPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtVTIPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtVTIBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtVTIBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtFLD control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtFLD As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_rdblCCN control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_rdblCCN As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''IT_txtFinalClass control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtFinalClass As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtInternalExternalCleaning control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtInternalExternalCleaning As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtInternalExternalCoating control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtInternalExternalCoating As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_txtRemark control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_txtRemark As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''IT_grdInspectionTally control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents IT_grdInspectionTally As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
         '''pnlUTSpotCheck control.
@@ -2769,6 +3318,24 @@ Namespace Raven.Web
         Protected WithEvents UTSC_txtFrequency As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''UTSC_chkIsAreaSpotSquare control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_chkIsAreaSpotSquare As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''UTSC_chkIsAreaSpotCylinder control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSC_chkIsAreaSpotCylinder As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
         '''UTSC_txtUTSpotCheckDtID control.
         '''</summary>
         '''<remarks>
@@ -2895,15 +3462,6 @@ Namespace Raven.Web
         Protected WithEvents UTSC_grdUTSpotCheckDt As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
-        '''pnlRotaryShoulderConnectionReport control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents pnlRotaryShoulderConnectionReport As Global.System.Web.UI.WebControls.Panel
-
-        '''<summary>
         '''pnlUTSpotArea control.
         '''</summary>
         '''<remarks>
@@ -2911,6 +3469,681 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents pnlUTSpotArea As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''UTSA_txtUTSpotCheckHdID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtUTSpotCheckHdID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtReportNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtReportNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_btnReportNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_btnReportNo As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''UTSA_calReportDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_calReportDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''UTSA_ddlUTSpotType control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_ddlUTSpotType As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''UTSA_txtDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtEquipment control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtEquipment As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtCouplant control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtCouplant As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtProbe control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtProbe As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtReferenceLevel control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtReferenceLevel As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtCalReference control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtCalReference As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtFrequency control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtFrequency As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtUTSpotAreaDtID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtUTSpotAreaDtID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtPipeNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtPipeNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtPinCaption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtPinCaption As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtBoxCaption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtBoxCaption As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtConditionResultPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtConditionResultPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtConditionResultBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtConditionResultBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtRemarkPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtRemarkPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_txtRemarkBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_txtRemarkBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''UTSA_grdUTSpotAreaDt control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents UTSA_grdUTSpotAreaDt As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''pnlInspectionReport control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlInspectionReport As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''INS_txtInspectionReportHdID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtInspectionReportHdID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_btnSearchInspectionReport control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_btnSearchInspectionReport As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''INS_txtReportNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtReportNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_calReportDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_calReportDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''INS_ddlInspectionReportType control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_ddlInspectionReportType As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''INS_chkMPI control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_chkMPI As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''INS_chkVTI control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_chkVTI As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''INS_chkDIM control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_chkDIM As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''INS_chkBLC control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_chkBLC As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''INS_chkVBI control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_chkVBI As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''INS_txtInspectionReportDTID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtInspectionReportDTID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtSerialNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtSerialNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtTotalLength control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtTotalLength As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtIDDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtIDDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtConnectionSizePin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtConnectionSizePin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtConnectionODPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtConnectionODPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtConnectionSizeBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtConnectionSizeBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtConnectionODBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtConnectionODBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_pnlElevatorGroove control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_pnlElevatorGroove As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''INS_txtElevatorGrooveDiaPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtElevatorGrooveDiaPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtElevatorGrooveDepthPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtElevatorGrooveDepthPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtElevatorGrooveDiaBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtElevatorGrooveDiaBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtElevatorGrooveDepthBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtElevatorGrooveDepthBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtBBackRGrooveDiaPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtBBackRGrooveDiaPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtBBackRGrooveLengthPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtBBackRGrooveLengthPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtBBackRGrooveDiaBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtBBackRGrooveDiaBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtBBackRGrooveLengthBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtBBackRGrooveLengthBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtBevelDiameterPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtBevelDiameterPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtBevelDiameterBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtBevelDiameterBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtThreadLengthPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtThreadLengthPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtThreadLengthBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtThreadLengthBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_pnlCenterPad control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_pnlCenterPad As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''INS_txtCenterPadDiaPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtCenterPadDiaPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtCenterPadDepthPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtCenterPadDepthPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtCenterPadDiaBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtCenterPadDiaBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtCenterPadDepthBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtCenterPadDepthBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtCounterBoreDiaPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtCounterBoreDiaPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtCounterBoreDepthPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtCounterBoreDepthPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtCounterBoreDiaBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtCounterBoreDiaBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtCounterBoreDepthBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtCounterBoreDepthBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtTongSpacePin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtTongSpacePin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtTongSpaceBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtTongSpaceBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtConditionPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtConditionPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtConditionBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtConditionBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtBSR control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtBSR As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtRemarksPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtRemarksPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtRemarksBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtRemarksBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtHBPin control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtHBPin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_pnlHBCenterPad control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_pnlHBCenterPad As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''INS_txtHBCenterPad control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtHBCenterPad As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_txtHBBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_txtHBBox As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''INS_grdInspectionReportDt control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents INS_grdInspectionReportDt As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
         '''pnlCertificateInspection control.
@@ -3073,6 +4306,87 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents COI_txtNotes As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''COI_ImageFilePic1 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_ImageFilePic1 As Global.System.Web.UI.HtmlControls.HtmlInputFile
+
+        '''<summary>
+        '''COI_btnUploadPic1 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_btnUploadPic1 As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''COI_imgPic1 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_imgPic1 As Global.System.Web.UI.WebControls.Image
+
+        '''<summary>
+        '''COI_ImageFilePic2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_ImageFilePic2 As Global.System.Web.UI.HtmlControls.HtmlInputFile
+
+        '''<summary>
+        '''COI_btnUploadPic2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_btnUploadPic2 As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''COI_imgPic2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_imgPic2 As Global.System.Web.UI.WebControls.Image
+
+        '''<summary>
+        '''COI_ImageFilePic3 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_ImageFilePic3 As Global.System.Web.UI.HtmlControls.HtmlInputFile
+
+        '''<summary>
+        '''COI_btnUploadPic3 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_btnUploadPic3 As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''COI_imgPic3 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_imgPic3 As Global.System.Web.UI.WebControls.Image
 
         '''<summary>
         '''COI_grdCertificateInspection control.

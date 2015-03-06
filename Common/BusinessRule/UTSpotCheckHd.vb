@@ -14,6 +14,7 @@ Namespace Raven.Common.BussinessRules
         Private _UTSpotCheckHdID, _projectID, _reportNo, _nominalWT, _minimalWT As String
         Private _UTSpotTypeSCode, _serialNo, _description, _material, _equipment, _couplant, _probeType, _impactDevice, _
                     _referenceLevel, _frequency, _calReference As String
+        Private _isUTSpotArea, _isAreaSpotCylinder, _isAreaSpotSquare As Boolean
         Private _reportDate, _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
@@ -34,13 +35,13 @@ Namespace Raven.Common.BussinessRules
                                         "UTSpotTypeSCode, serialNo, description, material, equipment, couplant, probeType, impactDevice, " + _
                                         "referenceLevel, frequency, calReference, " + _
                                         "reportDate, insertDate, updateDate, " + _
-                                        "userIDInsert, userIDUpdate) " + _
+                                        "userIDInsert, userIDUpdate, isUTSpotArea, isAreaSpotCylinder, isAreaSpotSquare) " + _
                                         "VALUES " + _
                                         "(@UTSpotCheckHdID, @projectID, @reportNo, @nominalWT, @minimalWT, " + _
                                         "@UTSpotTypeSCode, @serialNo, @description, @material, @equipment, @couplant, @probeType, @impactDevice, " + _
                                         "@referenceLevel, @frequency, @calReference, " + _
                                         "@reportDate, GETDATE(), GETDATE(), " + _
-                                        "@userIDInsert, @userIDUpdate)"
+                                        "@userIDInsert, @userIDUpdate, @isUTSpotArea, @isAreaSpotCylinder, @isAreaSpotSquare)"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
@@ -65,7 +66,10 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@calReference", _calReference)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
-                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
+                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
+                cmdToExecute.Parameters.AddWithValue("@isUTSpotArea", _isUTSpotArea)
+                cmdToExecute.Parameters.AddWithValue("@isAreaSpotCylinder", _isAreaSpotCylinder)
+                cmdToExecute.Parameters.AddWithValue("@isAreaSpotSquare", _isAreaSpotSquare)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -91,6 +95,7 @@ Namespace Raven.Common.BussinessRules
                                         "UTSpotTypeSCode=@UTSpotTypeSCode, serialNo=@serialNo, description=@description, " + _
                                         "material=@material, equipment=@equipment, couplant=@couplant, probeType=@probeType, " + _
                                         "impactDevice=@impactDevice, referenceLevel=@referenceLevel, frequency=@frequency, calReference=@calReference, " + _
+                                        "isAreaSpotCylinder=@isAreaSpotCylinder, isAreaSpotSquare=@isAreaSpotSquare, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE UTSpotCheckHdID=@UTSpotCheckHdID"
             cmdToExecute.CommandType = CommandType.Text
@@ -115,6 +120,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@calReference", _calReference)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
+                cmdToExecute.Parameters.AddWithValue("@isAreaSpotCylinder", _isAreaSpotCylinder)
+                cmdToExecute.Parameters.AddWithValue("@isAreaSpotSquare", _isAreaSpotSquare)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -201,6 +208,9 @@ Namespace Raven.Common.BussinessRules
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
                     _updateDate = CType(toReturn.Rows(0)("updateDate"), DateTime)
+                    _isUTSpotArea = CType(toReturn.Rows(0)("isUTSpotArea"), Boolean)
+                    _isAreaSpotCylinder = CType(toReturn.Rows(0)("isAreaSpotCylinder"), Boolean)
+                    _isAreaSpotSquare = CType(toReturn.Rows(0)("isAreaSpotSquare"), Boolean)
                 End If
             Catch ex As Exception
                 ' // some error occured. Bubble it to caller and encapsulate Exception object
@@ -463,6 +473,33 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As DateTime)
                 _updateDate = Value
+            End Set
+        End Property
+
+        Public Property [isUTSpotArea]() As Boolean
+            Get
+                Return _isUTSpotArea
+            End Get
+            Set(ByVal Value As Boolean)
+                _isUTSpotArea = Value
+            End Set
+        End Property
+
+        Public Property [isAreaSpotCylinder]() As Boolean
+            Get
+                Return _isAreaSpotCylinder
+            End Get
+            Set(ByVal Value As Boolean)
+                _isAreaSpotCylinder = Value
+            End Set
+        End Property
+
+        Public Property [isAreaSpotSquare]() As Boolean
+            Get
+                Return _isAreaSpotSquare
+            End Get
+            Set(ByVal Value As Boolean)
+                _isAreaSpotSquare = Value
             End Set
         End Property
 #End Region

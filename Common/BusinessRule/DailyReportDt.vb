@@ -13,6 +13,7 @@ Namespace Raven.Common.BussinessRules
 #Region " Class Member Declarations "
         Private _dailyReportHdID, _dailyReportDtID, _sequenceNo, _weatherConditionSCode, _description, _result As String
         Private _beginningQty, _currentQty, _endingQty As Decimal
+        Private _beginningUOM, _currentUOM, _endingUOM, _materialDetail As String
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate As DateTime
 #End Region
@@ -31,10 +32,12 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "INSERT INTO DailyReportDt " + _
                                         "(dailyReportHdID, dailyReportDtID, sequenceNo, weatherConditionSCode, description, result, " + _
                                         "beginningQty, currentQty, endingQty, " + _
+                                        "beginningUOM, currentUOM, endingUOM, materialDetail, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@dailyReportHdID, @dailyReportDtID, @sequenceNo, @weatherConditionSCode, @description, @result, " + _
                                         "@beginningQty, @currentQty, @endingQty, " + _
+                                        "@beginningUOM, @currentUOM, @endingUOM, @materialDetail, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -51,6 +54,10 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@beginningQty", _beginningQty)
                 cmdToExecute.Parameters.AddWithValue("@currentQty", _currentQty)
                 cmdToExecute.Parameters.AddWithValue("@endingQty", _endingQty)
+                cmdToExecute.Parameters.AddWithValue("@beginningUOM", _beginningUOM)
+                cmdToExecute.Parameters.AddWithValue("@currentUOM", _currentUOM)
+                cmdToExecute.Parameters.AddWithValue("@endingUOM", _endingUOM)
+                cmdToExecute.Parameters.AddWithValue("@materialDetail", _materialDetail)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -75,10 +82,10 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "UPDATE DailyReportDt " + _
                                         "SET sequenceNo=@sequenceNo, weatherConditionSCode=@weatherConditionSCode, description=@description, " + _
                                         "result=@result, beginningQty=@beginningQty, currentQty=@currentQty, endingQty=@endingQty, " + _
+                                        "beginningUOM=@beginningUOM, currentUOM=@currentUOM, endingUOM=@endingUOM, materialDetail=@materialDetail, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE dailyReportDtID=@dailyReportDtID"
             cmdToExecute.CommandType = CommandType.Text
-
             cmdToExecute.Connection = _mainConnection
 
             Try
@@ -89,7 +96,11 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@result", _result)
                 cmdToExecute.Parameters.AddWithValue("@beginningQty", _beginningQty)
                 cmdToExecute.Parameters.AddWithValue("@currentQty", _currentQty)
-                cmdToExecute.Parameters.AddWithValue("@endingQty", _endingQty)                
+                cmdToExecute.Parameters.AddWithValue("@endingQty", _endingQty)
+                cmdToExecute.Parameters.AddWithValue("@beginningUOM", _beginningUOM)
+                cmdToExecute.Parameters.AddWithValue("@currentUOM", _currentUOM)
+                cmdToExecute.Parameters.AddWithValue("@endingUOM", _endingUOM)
+                cmdToExecute.Parameters.AddWithValue("@materialDetail", _materialDetail)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -165,6 +176,10 @@ Namespace Raven.Common.BussinessRules
                     _beginningQty = CType(toReturn.Rows(0)("beginningQty"), Decimal)
                     _currentQty = CType(toReturn.Rows(0)("currentQty"), Decimal)
                     _endingQty = CType(toReturn.Rows(0)("endingQty"), Decimal)
+                    _beginningUOM = CType(toReturn.Rows(0)("beginningUOM"), String)
+                    _currentUOM = CType(toReturn.Rows(0)("currentUOM"), String)
+                    _endingUOM = CType(toReturn.Rows(0)("endingUOM"), String)
+                    _materialDetail = CType(toReturn.Rows(0)("materialDetail"), String)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -324,6 +339,42 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As Decimal)
                 _endingQty = Value
+            End Set
+        End Property
+
+        Public Property [beginningUOM]() As String
+            Get
+                Return _beginningUOM
+            End Get
+            Set(ByVal Value As String)
+                _beginningUOM = Value
+            End Set
+        End Property
+
+        Public Property [currentUOM]() As String
+            Get
+                Return _currentUOM
+            End Get
+            Set(ByVal Value As String)
+                _currentUOM = Value
+            End Set
+        End Property
+
+        Public Property [endingUOM]() As String
+            Get
+                Return _endingUOM
+            End Get
+            Set(ByVal Value As String)
+                _endingUOM = Value
+            End Set
+        End Property
+
+        Public Property [materialDetail]() As String
+            Get
+                Return _materialDetail
+            End Get
+            Set(ByVal Value As String)
+                _materialDetail = Value
             End Set
         End Property
 

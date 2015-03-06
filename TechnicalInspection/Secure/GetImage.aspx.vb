@@ -51,6 +51,24 @@ Namespace Raven.Web
                         If br.SelectOne.Rows.Count > 0 Then
                             Response.BinaryWrite(br.MPIpic.Value)
                         End If
+                    Case "COI-1"
+                        Dim br As New Common.BussinessRules.CertificateInspection
+                        br.certificateInspectionID = strID.Trim
+                        If br.SelectOne.Rows.Count > 0 Then
+                            Response.BinaryWrite(br.Pic1.Value)
+                        End If
+                    Case "COI-2"
+                        Dim br As New Common.BussinessRules.CertificateInspection
+                        br.certificateInspectionID = strID.Trim
+                        If br.SelectOne.Rows.Count > 0 Then
+                            Response.BinaryWrite(br.Pic2.Value)
+                        End If
+                    Case "COI-3"
+                        Dim br As New Common.BussinessRules.CertificateInspection
+                        br.certificateInspectionID = strID.Trim
+                        If br.SelectOne.Rows.Count > 0 Then
+                            Response.BinaryWrite(br.Pic3.Value)
+                        End If
                 End Select
             End If
         End Sub
