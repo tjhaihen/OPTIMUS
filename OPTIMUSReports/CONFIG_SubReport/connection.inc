@@ -1,0 +1,13 @@
+<%
+
+	Set oConn = Server.CreateObject("ADODB.Connection")
+
+	cst = "Provider=SQLOLEDB;Server=.\SQLSVR2008;User ID=sa;" & _
+          		";Password=p455w0rd.;Initial Catalog=OPTIMUS;"
+
+	oConn.Mode = adModeRead
+	oConn.Open cst
+	oConn.CommandTimeout = 300
+
+
+%>
