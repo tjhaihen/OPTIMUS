@@ -10,6 +10,7 @@ Imports System.Web.Security
 Imports System.Collections
 Imports System.ComponentModel
 Imports System.Data
+Imports System.IO
 Imports Microsoft.VisualBasic
 
 Imports System.Data.SqlTypes
@@ -154,10 +155,10 @@ Namespace Raven.Web.Secure
             chkIsActive.Checked = True
             If isNew Then
                 txtUserName.Text = String.Empty
-                commonFunction.Focus(Me, txtUserName.ClientID)                            
+                commonFunction.Focus(Me, txtUserName.ClientID)                
             End If
-
             prepareScreenPerson()
+            SetEnableButton(False)
             SetDataGridUserProfile()
             SetDataGridUserSite()
             SetDataGridUserCustomer()
@@ -184,6 +185,21 @@ Namespace Raven.Web.Secure
             txtFax.Text = String.Empty
             txtEmail.Text = String.Empty
             txtUrl.Text = String.Empty
+        End Sub
+
+        Private Sub SetEnableButton(ByVal isEnable As Boolean)
+            btnUserCustomerAdd.Enabled = isEnable
+            btnUserCustomerAddAll.Enabled = isEnable
+            btnUserCustomerRemove.Enabled = isEnable
+            btnUserCustomerRemoveAll.Enabled = isEnable
+            btnUserProfileAdd.Enabled = isEnable
+            btnUserProfileAddAll.Enabled = isEnable
+            btnUserProfileRemove.Enabled = isEnable
+            btnUserProfileRemoveAll.Enabled = isEnable
+            btnUserSiteAdd.Enabled = isEnable
+            btnUserSiteAddAll.Enabled = isEnable
+            btnUserSiteRemove.Enabled = isEnable
+            btnUserSiteRemoveAll.Enabled = isEnable            
         End Sub
 
         Private Sub SetDataGridUser()
@@ -237,8 +253,9 @@ Namespace Raven.Web.Secure
                     txtPersonID.Text = .personID.Trim
                     _openPerson()
                     chkIsActive.Checked = .isActive
+                    SetEnableButton(True)
                 Else
-                    prepareScreen(False)
+                    prepareScreen(False)                    
                     commonFunction.Focus(Me, txtPassword.ClientID)
                 End If
             End With
@@ -379,14 +396,16 @@ Namespace Raven.Web.Secure
                 .userIDinsert = MyBase.LoggedOnUserID
                 .userIDupdate = MyBase.LoggedOnUserID
                 If isNew Then
-                    If .Insert() Then txtUserID.Text = .UserID
+                    If .Insert() Then
+                        txtUserID.Text = .UserID
+                        SetEnableButton(True)
+                    End If
                 Else
-                    .Update()
+                    If .Update() Then SetEnableButton(True)
                 End If
             End With
             oRsrc.Dispose()
             oRsrc = Nothing
-            prepareScreen(True)
             SetDataGridUser()
         End Sub
 
@@ -502,6 +521,7 @@ Namespace Raven.Web.Secure
 
             SetDataGridUserCustomer()
         End Sub
+
 #End Region
 
     End Class

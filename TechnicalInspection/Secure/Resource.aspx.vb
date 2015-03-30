@@ -9,6 +9,7 @@ Imports System.Web.UI.WebControls
 Imports System.Collections
 Imports System.ComponentModel
 Imports System.Data
+Imports System.IO
 Imports Microsoft.VisualBasic
 
 Imports System.Data.SqlTypes
@@ -49,6 +50,10 @@ Namespace Raven.Web.Secure
 
         Private Sub txtUserName_TextChanged(sender As Object, e As System.EventArgs) Handles txtUserName.TextChanged
             txtUserID.Text = Common.BussinessRules.ID.GetFieldValue("Resource", "ResourceCode", txtResourceCode.Text.Trim, "ResourceID").Trim
+        End Sub
+
+        Private Sub btnUploadPicSignature_Click(sender As Object, e As System.EventArgs) Handles btnUploadPicSignature.Click
+            UploadPic()
         End Sub
 
         Private Sub grdResource_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdResource.ItemCommand
@@ -198,6 +203,7 @@ Namespace Raven.Web.Secure
                     txtFax.Text = .Fax.Trim
                     txtEmail.Text = .Email.Trim
                     txtUrl.Text = .Url.Trim
+                    imgPicSignature.ImageUrl = GetPic(txtPersonID.Text.Trim)
                 Else
                     prepareScreenPerson()
                 End If
@@ -315,6 +321,61 @@ Namespace Raven.Web.Secure
             oPerson.Dispose()
             oPerson = Nothing
         End Sub
+
+        Private Sub UploadPic()
+            Dim strFileName As String
+            Dim strFileExtension As String
+            Dim strFilePath As String
+            Dim strFolder As String
+
+            strFolder = Server.MapPath("ImgTmp") + "\"
+
+            strFileName = ImageFilePicSignature.PostedFile.FileName
+            strFileName = Path.GetFileName(strFileName)
+            strFileExtension = Path.GetExtension(strFileName)
+
+            If (Not Directory.Exists(strFolder)) Then
+                Directory.CreateDirectory(strFolder)
+            End If
+
+            'Save the uploaded file to the server.
+            strFilePath = strFolder & txtUserID.Text.Trim & strFileName
+            If File.Exists(strFilePath) Then
+                File.Delete(strFilePath)
+            Else
+                ImageFilePicSignature.PostedFile.SaveAs(strFilePath)
+            End If
+
+            Dim fs As New FileStream(strFilePath, FileMode.OpenOrCreate, FileAccess.Read)
+            Dim b(CInt(fs.Length)) As Byte
+            fs.Read(b, 0, CInt(fs.Length))
+            fs.Close()
+
+            Dim br As New Common.BussinessRules.Person
+            Dim fnotnew As Boolean = False
+
+            With br
+                .PersonID = txtPersonID.Text.Trim
+                fnotnew = (.SelectOne.Rows.Count > 0)
+                .SignaturePic = New SqlBinary(b)
+                .userIDupdate = MyBase.LoggedOnUserID.Trim
+
+                If fnotnew Then
+                    .UpdatePic()
+                    imgPicSignature.ImageUrl = GetPic(txtPersonID.Text.Trim)
+                End If
+            End With
+            br.Dispose()
+            br = Nothing
+
+            File.Delete(strFilePath)
+        End Sub
+
+        Private Function GetPic(ByVal ID As String) As String
+            Dim strURL As String = String.Empty
+            strURL = UrlBase + "/secure/GetImage.aspx?imgType=PersonSignature&cn=" + ID.Trim
+            Return strURL.Trim
+        End Function
 #End Region
     End Class
 

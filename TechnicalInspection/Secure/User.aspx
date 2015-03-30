@@ -60,13 +60,11 @@
                                                             Visible="false" />
                                                         <asp:TextBox ID="txtUserName" Width="300" MaxLength="15" runat="server" AutoPostBack="True" />
                                                         <asp:RequiredFieldValidator ID="rfvUserName" runat="server" ControlToValidate="txtUserName"
-                                                            ErrorMessage="Username" Display="dynamic" Text="*">																
+                                                            ErrorMessage="Username" Display="dynamic" Text="*">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
-                                                    <td style="width: 150px;" class="right">
-                                                    </td>
-                                                    <td>
-                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="right">
@@ -75,10 +73,8 @@
                                                     <td>
                                                         <asp:TextBox ID="txtPassword" Width="300" runat="server" TextMode="Password" />
                                                     </td>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -86,10 +82,8 @@
                                                     <td>
                                                         <asp:CheckBox ID="chkIsActive" runat="server" Text="Is Active?" Checked="False" />
                                                     </td>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -125,7 +119,7 @@
                                                         <asp:TextBox ID="txtMiddleName" Width="97" MaxLength="100" runat="server" />
                                                         <asp:TextBox ID="txtLastName" Width="98" MaxLength="100" runat="server" />
                                                         <asp:RequiredFieldValidator ID="rfvName" runat="server" ControlToValidate="txtFirstName"
-                                                            ErrorMessage="Name" Display="dynamic" Text="*">									
+                                                            ErrorMessage="Name" Display="dynamic" Text="*">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td class="right">
@@ -213,11 +207,11 @@
                                                     <td valign="top" style="width: 40%;">
                                                         <asp:DataGrid ID="grdProfile" runat="server" BorderWidth="0" GridLines="None" Width="100%"
                                                             CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false" AutoGenerateColumns="false">
-                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                            <ItemStyle CssClass="gridItemStyle" />
-                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                            <Columns>
+                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                            <itemstyle cssclass="gridItemStyle" />
+                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                            <columns>
                                                                 <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkSelect" runat="server" />
@@ -230,7 +224,7 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "ProfileName") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </Columns>
+                                                            </columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                     <td valign="top" class="center">
@@ -247,11 +241,11 @@
                                                         <asp:DataGrid ID="grdUserProfile" runat="server" BorderWidth="0" GridLines="None"
                                                             Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                             AutoGenerateColumns="false">
-                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                            <ItemStyle CssClass="gridItemStyle" />
-                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                            <Columns>
+                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                            <itemstyle cssclass="gridItemStyle" />
+                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                            <columns>
                                                                 <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkSelect" runat="server" />
@@ -264,7 +258,7 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "ProfileName") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </Columns>
+                                                            </columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                 </tr>
@@ -287,11 +281,11 @@
                                                     <td valign="top" style="width: 40%;">
                                                         <asp:DataGrid ID="grdSite" runat="server" BorderWidth="0" GridLines="None" Width="100%"
                                                             CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false" AutoGenerateColumns="false">
-                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                            <ItemStyle CssClass="gridItemStyle" />
-                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                            <Columns>
+                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                            <itemstyle cssclass="gridItemStyle" />
+                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                            <columns>
                                                                 <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkSelect" runat="server" />
@@ -304,7 +298,7 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "SiteName") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </Columns>
+                                                            </columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                     <td valign="top" class="center">
@@ -320,11 +314,11 @@
                                                     <td valign="top" style="width: 40%;">
                                                         <asp:DataGrid ID="grdUserSite" runat="server" BorderWidth="0" GridLines="None" Width="100%"
                                                             CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false" AutoGenerateColumns="false">
-                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                            <ItemStyle CssClass="gridItemStyle" />
-                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                            <Columns>
+                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                            <itemstyle cssclass="gridItemStyle" />
+                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                            <columns>
                                                                 <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkSelect" runat="server" />
@@ -337,7 +331,7 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "SiteName") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </Columns>
+                                                            </columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                 </tr>
@@ -360,11 +354,11 @@
                                                     <td valign="top" style="width: 40%;">
                                                         <asp:DataGrid ID="grdCustomer" runat="server" BorderWidth="0" GridLines="None" Width="100%"
                                                             CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false" AutoGenerateColumns="false">
-                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                            <ItemStyle CssClass="gridItemStyle" />
-                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                            <Columns>
+                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                            <itemstyle cssclass="gridItemStyle" />
+                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                            <columns>
                                                                 <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkSelect" runat="server" />
@@ -377,11 +371,12 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "CustomerName")%>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </Columns>
+                                                            </columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                     <td valign="top" class="center">
-                                                        <asp:Button ID="btnUserCustomerAdd" runat="server" Text="Add >" CssClass="sbttn" Width="100px" /><br />
+                                                        <asp:Button ID="btnUserCustomerAdd" runat="server" Text="Add >" CssClass="sbttn"
+                                                            Width="100px" /><br />
                                                         <asp:Button ID="btnUserCustomerAddAll" runat="server" Text="Add All >>" CssClass="sbttn"
                                                             Width="100px" /><br />
                                                         <br />
@@ -391,13 +386,14 @@
                                                             Width="100px" />
                                                     </td>
                                                     <td valign="top" style="width: 40%;">
-                                                        <asp:DataGrid ID="grdUserCustomer" runat="server" BorderWidth="0" GridLines="None" Width="100%"
-                                                            CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false" AutoGenerateColumns="false">
-                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                            <ItemStyle CssClass="gridItemStyle" />
-                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                            <Columns>
+                                                        <asp:DataGrid ID="grdUserCustomer" runat="server" BorderWidth="0" GridLines="None"
+                                                            Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                            AutoGenerateColumns="false">
+                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                            <itemstyle cssclass="gridItemStyle" />
+                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                            <columns>
                                                                 <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkSelect" runat="server" />
@@ -410,7 +406,7 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "CustomerName") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </Columns>
+                                                            </columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                 </tr>
@@ -425,11 +421,11 @@
                                         <td valign="top">
                                             <asp:DataGrid ID="grdUser" runat="server" BorderWidth="0" GridLines="None" Width="100%"
                                                 CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false" AutoGenerateColumns="false">
-                                                <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                <ItemStyle CssClass="gridItemStyle" />
-                                                <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                <Columns>
+                                                <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                <itemstyle cssclass="gridItemStyle" />
+                                                <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                <columns>
                                                     <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -478,7 +474,7 @@
                                                                 Enabled="false" />
                                                         </ItemTemplate>
                                                     </asp:TemplateColumn>
-                                                </Columns>
+                                                </columns>
                                             </asp:DataGrid>
                                         </td>
                                     </tr>

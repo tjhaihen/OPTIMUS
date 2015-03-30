@@ -87,40 +87,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine">
-      <HintPath>..\..\..\pureMed\_dll\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <HintPath>..\..\..\..\_dll\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Shared">
-      <HintPath>..\..\..\pureMed\_dll\CrystalDecisions.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\_dll\CrystalDecisions.Shared.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Web">
-      <HintPath>..\..\..\pureMed\_dll\CrystalDecisions.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Data.v11.1">
-      <HintPath>..\..\..\_dll\DevExpress.Data.v11.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Design.v11.1">
-      <HintPath>..\..\..\_dll\DevExpress.Design.v11.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v11.1.Core">
-      <HintPath>..\..\..\_dll\DevExpress.Printing.v11.1.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v11.1">
-      <HintPath>..\..\..\_dll\DevExpress.Utils.v11.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Web.ASPxEditors.v11.1">
-      <HintPath>..\..\..\_dll\DevExpress.Web.ASPxEditors.v11.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Web.v11.1">
-      <HintPath>..\..\..\_dll\DevExpress.Web.v11.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraReports.v11.1">
-      <HintPath>..\..\..\_dll\DevExpress.XtraReports.v11.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraReports.v11.1.Web">
-      <HintPath>..\..\..\_dll\DevExpress.XtraReports.v11.1.Web.dll</HintPath>
+      <HintPath>..\..\..\..\_dll\CrystalDecisions.Web.dll</HintPath>
     </Reference>
     <Reference Include="eWorld.UI">
-      <HintPath>..\..\..\pureMed\_dll\eWorld.UI.dll</HintPath>
+      <HintPath>..\..\..\..\_dll\eWorld.UI.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Conversion.v4.0" />
     <Reference Include="System">
@@ -146,7 +122,7 @@
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Telerik.Web.UI">
-      <HintPath>..\..\..\pureMed\_dll\Telerik.Web.UI.dll</HintPath>
+      <HintPath>..\..\..\..\_dll\Telerik.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -637,7 +613,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

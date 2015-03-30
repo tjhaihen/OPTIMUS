@@ -142,6 +142,7 @@
     <Compile Include="BusinessRule\ID.vb" />
     <Compile Include="BusinessRule\InspectionReportDt.vb" />
     <Compile Include="BusinessRule\InspectionReportHd.vb" />
+    <Compile Include="BusinessRule\OfficialReport.vb" />
     <Compile Include="BusinessRule\Temp_InspectionReportDt.vb" />
     <Compile Include="BusinessRule\Temp_InspectionReportHd.vb" />
     <Compile Include="BusinessRule\InspectionSpec.vb" />

@@ -566,11 +566,19 @@ Namespace Raven.Web
 #End Region
 
 #Region " Service Acceptance "
-        Private Sub SetDataGridProjectDetail()
+        Private Sub SetDataGridProjectDetail(ByVal _VisiblePanelID As String)
             Dim oProjectDt As New Common.BussinessRules.ProjectDt
             oProjectDt.projectID = txtProjectID.Text.Trim
-            SA_grdProjectDt.DataSource = oProjectDt.SelectByProjectID
-            SA_grdProjectDt.DataBind()
+
+            Select _VisiblePanelID
+                Case Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID
+                    SA_grdProjectDt.DataSource = oProjectDt.SelectByProjectID
+                    SA_grdProjectDt.DataBind()
+                Case Common.Constants.ReportTypePanelID.OfficialReport_PanelID
+                    BA_grdBeritaAcaraAkhir.DataSource = oProjectDt.SelectByProjectID
+                    BA_grdBeritaAcaraAkhir.DataBind()
+            End Select
+
             oProjectDt.Dispose()
             oProjectDt = Nothing
         End Sub
@@ -619,6 +627,45 @@ Namespace Raven.Web
 
         Private Sub IT_txtInspectionTallyHdID_TextChanged(sender As Object, e As System.EventArgs) Handles IT_txtInspectionTallyHdID.TextChanged
             _open(Common.Constants.ReportTypePanelID.InspectionTallyReport_PanelID)
+        End Sub
+#End Region
+
+#Region " Official Report (Berita Acara) "
+        Private Sub BA_grdBeritaAcara_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles BA_grdBeritaAcara.ItemCommand
+            Select Case e.CommandName
+                Case "Edit"
+                    Dim _BA_lblOfficialReportID As Label = CType(e.Item.FindControl("BA_lblOfficialReportID"), Label)
+                    BA_txtOfficialReportID.Text = _BA_lblOfficialReportID.Text.Trim
+                    _open(Common.Constants.ReportTypePanelID.OfficialReport_PanelID)
+                    SetDataGrid(Common.Constants.ReportTypePanelID.OfficialReport_PanelID)
+
+                Case "Delete"
+                    Dim _BA_lblOfficialReportID As Label = CType(e.Item.FindControl("BA_lblOfficialReportID"), Label)
+                    BA_txtOfficialReportID.Text = _BA_lblOfficialReportID.Text.Trim
+                    _delete(Common.Constants.ReportTypePanelID.OfficialReport_PanelID, BA_txtOfficialReportID.Text.Trim)
+                    PrepareScreen(Common.Constants.ReportTypePanelID.OfficialReport_PanelID, False, True)
+                    SetDataGrid(Common.Constants.ReportTypePanelID.OfficialReport_PanelID)
+
+                Case "Print"
+                    Dim br As New Common.BussinessRules.MyReport
+                    Dim strUserID As String = MyBase.LoggedOnUserID.Trim
+                    Dim _BA_lblOfficialReportID As Label = CType(e.Item.FindControl("BA_lblOfficialReportID"), Label)
+
+                    br.ReportCode = "1000000098"
+                    br.AddParameters(_BA_lblOfficialReportID.Text.Trim)
+                    br.AddParameters(strUserID)
+                    Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
+            End Select
+        End Sub
+
+        Private Sub BA_ddlOfficialReportType_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles BA_ddlOfficialReportType.SelectedIndexChanged
+            Select Case BA_ddlOfficialReportType.SelectedValue.Trim
+                Case Common.Constants.OfficialReportType.OfficialReportStart
+                    BA_pnlBeritaAcaraAkhir.Visible = False
+                Case Else
+                    BA_pnlBeritaAcaraAkhir.Visible = True
+                    SetDataGridProjectDetail(Common.Constants.ReportTypePanelID.OfficialReport_PanelID)
+            End Select
         End Sub
 #End Region
 
@@ -684,6 +731,9 @@ Namespace Raven.Web
                     If pnlInspectionTallyReport.Visible Then
                         _update(Common.Constants.ReportTypePanelID.InspectionTallyReport_PanelID)
                     End If
+                    If pnlBeritaAcara.Visible Then
+                        _update(Common.Constants.ReportTypePanelID.OfficialReport_PanelID)
+                    End If
 
                 Case CSSToolbarItem.tidNew
                     If pnlSummaryOfInspection.Visible Then
@@ -743,6 +793,10 @@ Namespace Raven.Web
                     If pnlInspectionTallyReport.Visible Then
                         PrepareScreen(Common.Constants.ReportTypePanelID.InspectionTallyReport_PanelID, False, True)
                         SetDataGrid(Common.Constants.ReportTypePanelID.InspectionTallyReport_PanelID)
+                    End If
+                    If pnlBeritaAcara.Visible Then
+                        PrepareScreen(Common.Constants.ReportTypePanelID.OfficialReport_PanelID, False, True)
+                        SetDataGrid(Common.Constants.ReportTypePanelID.OfficialReport_PanelID)
                     End If
 
                 Case CSSToolbarItem.tidPrint
@@ -860,13 +914,18 @@ Namespace Raven.Web
                     End If
 
                     If pnlInspectionTallyReport.Visible Then
-                        br.ReportCode = "1000000013"
-                        br.AddParameters(TVI_txtTVIHdID.Text.Trim)
+                        br.ReportCode = "1000000017"
+                        br.AddParameters(IT_txtInspectionTallyHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
-                    '// Berita Acara 1000000098
+                    If pnlBeritaAcara.Visible Then
+                        br.ReportCode = "1000000098"
+                        br.AddParameters(BA_txtOfficialReportID.Text.Trim)
+                        br.AddParameters(strUserID)
+                        Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
+                    End If
 
                     br.Dispose()
                     br = Nothing
@@ -1036,6 +1095,22 @@ Namespace Raven.Web
                     IT_grdInspectionTally.DataBind()
                     oBR.Dispose()
                     oBR = Nothing
+                Case Common.Constants.ReportTypePanelID.OfficialReport_PanelID
+                    Dim oBR As New Common.BussinessRules.OfficialReport
+                    oBR.projectID = txtProjectID.Text.Trim
+                    BA_grdBeritaAcara.DataSource = oBR.SelectByProjectID
+                    BA_grdBeritaAcara.DataBind()
+                    oBR.Dispose()
+                    oBR = Nothing
+
+                    If BA_pnlBeritaAcaraAkhir.Visible Then
+                        Dim oPDT As New Common.BussinessRules.ProjectDt
+                        oPDT.projectID = txtProjectID.Text.Trim
+                        BA_grdBeritaAcaraAkhir.DataSource = oPDT.SelectByProjectID
+                        BA_grdBeritaAcaraAkhir.DataBind()
+                        oPDT.Dispose()
+                        oPDT = Nothing
+                    End If
             End Select
         End Sub
 
@@ -1075,6 +1150,7 @@ Namespace Raven.Web
             pnlCertificateInspection.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlCertificateInspection.ID, True, False))
 
             pnlHardnessTestReport.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlHardnessTestReport.ID, True, False))
+            pnlBeritaAcara.Visible = CBool(IIf(_VisiblePanelID.Trim = pnlBeritaAcara.ID, True, False))
         End Sub
 
         Private Sub SetDropDownListItems()
@@ -1092,6 +1168,7 @@ Namespace Raven.Web
             commonFunction.SetDDL_Table(INS_ddlInspectionReportType, "CommonCode", Common.Constants.GroupCode.InspectionReportType_SCode)
             commonFunction.SetDDL_Table(TVI_ddlTVIType, "CommonCode", Common.Constants.GroupCode.ThoroughVisualType_SCode)
             commonFunction.SetDDL_Table(IT_ddlTallyType, "CommonCode", Common.Constants.GroupCode.InspectionTallyType_SCode)
+            commonFunction.SetDDL_Table(BA_ddlOfficialReportType, "CommonCode", Common.Constants.GroupCode.OfficialReportType_SCode)
         End Sub
 
         Private Sub SetRadioButtonListItems()
@@ -1356,9 +1433,6 @@ Namespace Raven.Web
                     End If
 
                 Case Common.Constants.ReportTypePanelID.InspectionReport_PanelID
-                    INS_btnSearchInspectionReport.Attributes.Remove("onclick")
-                    INS_btnSearchInspectionReport.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("INSHd", INS_txtInspectionReportHdID.ClientID, txtProjectCode.Text.Trim))
-                    
                     If _isNew = True Then
                         INS_txtInspectionReportHdID.Text = String.Empty
                         INS_txtReportNo.Text = String.Empty
@@ -1453,6 +1527,8 @@ Namespace Raven.Web
                             INS_ddlInspectionReportType.Items.FindByValue(Common.Constants.ReportTypeCodeInspectionReport.SpiralDrillCollar).Enabled = False
                             INS_ddlInspectionReportType.SelectedValue = Common.Constants.ReportTypeCodeInspectionReport.HWDP
                     End Select
+                    INS_btnSearchInspectionReport.Attributes.Remove("onclick")
+                    INS_btnSearchInspectionReport.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("INSHd", INS_txtInspectionReportHdID.ClientID, txtProjectCode.Text.Trim + "|" + INS_ddlInspectionReportType.SelectedValue.Trim))
 
                 Case Common.Constants.ReportTypePanelID.ServiceReport_PanelID
                     SR_txtServiceReportID.Text = String.Empty
@@ -1503,7 +1579,7 @@ Namespace Raven.Web
                     commonFunction.Focus(Me, SR_ddlServiceReportFor.ClientID)
 
                 Case Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID
-                    SetDataGridProjectDetail()
+                    SetDataGridProjectDetail(Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID)
 
                 Case Common.Constants.ReportTypePanelID.CertificateOfInspection_PanelID
                     COI_txtCertificateInspectionID.Text = String.Empty
@@ -1784,6 +1860,13 @@ Namespace Raven.Web
                             End If
                         End If
                     End If
+
+                Case Common.Constants.ReportTypePanelID.OfficialReport_PanelID
+                    BA_txtOfficialReportID.Text = String.Empty
+                    BA_txtReportNo.Text = String.Empty
+                    BA_ddlOfficialReportType.SelectedIndex = 0
+                    BA_calReportDate.selectedDate = Date.Today
+                    BA_pnlBeritaAcaraAkhir.Visible = False
             End Select
         End Sub
 
@@ -2424,6 +2507,7 @@ Namespace Raven.Web
                     With oTVI
                         .tviHdID = TVI_txtTVIHdID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
+                            TVI_txtTVIHdID.Text = .tviHdID.Trim
                             TVI_txtReportNo.Text = .reportNo.Trim
                             commonFunction.SelectListItem(TVI_ddlTVIType, .tviTypeSCode.Trim)
                             TVI_calReportDate.selectedDate = .reportDate
@@ -2519,6 +2603,22 @@ Namespace Raven.Web
                     oDt.Dispose()
                     oDt = Nothing
                     SetDataGrid(Common.Constants.ReportTypePanelID.InspectionTallyReport_PanelID)
+
+                Case Common.Constants.ReportTypePanelID.OfficialReport_PanelID
+                    Dim oBR As New Common.BussinessRules.OfficialReport
+                    With oBR
+                        .officialReportID = BA_txtOfficialReportID.Text.Trim
+                        If .SelectOne.Rows.Count > 0 Then
+                            BA_txtReportNo.Text = .reportNo.Trim
+                            BA_calReportDate.selectedDate = .reportDate
+                            commonFunction.SelectListItem(BA_ddlOfficialReportType, .officialReportTypeSCode.Trim)
+                            BA_ddlOfficialReportType_SelectedIndexChanged(Nothing, Nothing)
+                        Else
+                            PrepareScreen(_VisiblePanelID.Trim, False)
+                        End If
+                    End With
+                    oBR.Dispose()
+                    oBR = Nothing
             End Select
         End Sub
 
@@ -3757,6 +3857,49 @@ Namespace Raven.Web
                         oDt = Nothing
                     End If
                     SetDataGrid(_VisiblePanelID.Trim)
+
+                Case Common.Constants.ReportTypePanelID.OfficialReport_PanelID
+                    Dim oBR As New Common.BussinessRules.OfficialReport
+                    With oBR
+                        .officialReportID = BA_txtOfficialReportID.Text.Trim
+                        If .SelectOne.Rows.Count > 0 Then
+                            isNew = False
+                        Else
+                            isNew = True
+                        End If
+                        .projectID = txtProjectID.Text.Trim
+                        .reportNo = BA_txtReportNo.Text.Trim
+                        .reportDate = BA_calReportDate.selectedDate
+                        .officialReportTypeSCode = BA_ddlOfficialReportType.SelectedValue.Trim
+                        .userIDinsert = MyBase.LoggedOnUserID
+                        .userIDupdate = MyBase.LoggedOnUserID
+                        If isNew Then
+                            If .Insert() Then BA_txtOfficialReportID.Text = .officialReportID
+                            If BA_pnlBeritaAcaraAkhir.Visible = False Then PrepareScreen(_VisiblePanelID.Trim, True)
+                        Else
+                            .Update()
+                            If BA_pnlBeritaAcaraAkhir.Visible = False Then PrepareScreen(_VisiblePanelID.Trim, False)
+                        End If
+                    End With
+                    oBR.Dispose()
+                    oBR = Nothing
+
+                    If BA_pnlBeritaAcaraAkhir.Visible Then
+                        Dim oPDT As New Common.BussinessRules.ProjectDt
+                        Dim _item As DataGridItem
+                        For Each _item In BA_grdBeritaAcaraAkhir.Items
+                            Dim BA_lblProjectDtID As Label = CType(_item.FindControl("BA_lblProjectDtID"), Label)
+                            Dim BA_txtQtyActual As TextBox = CType(_item.FindControl("BA_txtQtyActual"), TextBox)
+                            oPDT.projectDetailID = BA_lblProjectDtID.Text.Trim
+                            oPDT.qtyActual = CDec(IIf(IsNumeric(BA_txtQtyActual.Text.Trim) = True, BA_txtQtyActual.Text.Trim, 0))
+                            oPDT.userIDupdate = MyBase.LoggedOnUserID
+                            oPDT.UpdateQtyActual()
+                        Next
+                        oPDT.Dispose()
+                        oPDT = Nothing
+                    End If
+
+                    SetDataGrid(_VisiblePanelID.Trim)
             End Select
         End Sub
 
@@ -3851,10 +3994,19 @@ Namespace Raven.Web
                     End With
                     oBr.Dispose()
                     oBr = Nothing
+
+                Case Common.Constants.ReportTypePanelID.OfficialReport_PanelID
+                    Dim oBr As New Common.BussinessRules.OfficialReport
+                    With oBr
+                        .officialReportID = _IDtoDelete.Trim
+                        .Delete()
+                    End With
+                    oBr.Dispose()
+                    oBr = Nothing
             End Select
         End Sub
 
-#Region " Drill Pipe Inspection Report "
+#Region " C,R,U,D for Drill Pipe Inspection Report "
         Private Sub _openInspectionSpec()
             Dim oIS As New Common.BussinessRules.InspectionSpec
             With oIS
@@ -4229,7 +4381,7 @@ Namespace Raven.Web
         End Sub
 #End Region
 
-#Region " Certificate of Inspection "
+#Region " C,R,U,D for Certificate of Inspection "
         Private Sub UploadPic_COI(ByVal PicNo As Integer)
             Dim strFileName As String
             Dim strFileExtension As String

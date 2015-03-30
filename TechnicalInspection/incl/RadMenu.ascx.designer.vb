@@ -15,15 +15,6 @@ Namespace Raven
     Partial Public Class RadMenu
 
         '''<summary>
-        '''ScriptManager control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents ScriptManager As Global.Telerik.Web.UI.RadScriptManager
-
-        '''<summary>
         '''lblUserFullName control.
         '''</summary>
         '''<remarks>

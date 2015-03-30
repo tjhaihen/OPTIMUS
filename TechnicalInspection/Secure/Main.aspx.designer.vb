@@ -4398,6 +4398,78 @@ Namespace Raven.Web
         Protected WithEvents COI_grdCertificateInspection As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
+        '''pnlBeritaAcara control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlBeritaAcara As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''BA_txtOfficialReportID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents BA_txtOfficialReportID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''BA_txtReportNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents BA_txtReportNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''BA_calReportDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents BA_calReportDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''BA_ddlOfficialReportType control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents BA_ddlOfficialReportType As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''BA_pnlBeritaAcaraAkhir control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents BA_pnlBeritaAcaraAkhir As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''BA_grdBeritaAcaraAkhir control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents BA_grdBeritaAcaraAkhir As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''BA_grdBeritaAcara control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents BA_grdBeritaAcara As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
         '''mdlCopyRight control.
         '''</summary>
         '''<remarks>

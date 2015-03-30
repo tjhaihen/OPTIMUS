@@ -69,6 +69,12 @@ Namespace Raven.Web
                         If br.SelectOne.Rows.Count > 0 Then
                             Response.BinaryWrite(br.Pic3.Value)
                         End If
+                    Case "PersonSignature"
+                        Dim br As New Common.BussinessRules.Person
+                        br.PersonID = strID.Trim
+                        If br.SelectOne.Rows.Count > 0 Then
+                            Response.BinaryWrite(br.SignaturePic.Value)
+                        End If
                 End Select
             End If
         End Sub

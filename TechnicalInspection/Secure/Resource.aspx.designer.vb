@@ -339,6 +339,33 @@ Namespace Raven.Web.Secure
         Protected WithEvents txtUrl As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''ImageFilePicSignature control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ImageFilePicSignature As Global.System.Web.UI.HtmlControls.HtmlInputFile
+
+        '''<summary>
+        '''btnUploadPicSignature control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnUploadPicSignature As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''imgPicSignature control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents imgPicSignature As Global.System.Web.UI.WebControls.Image
+
+        '''<summary>
         '''grdResource control.
         '''</summary>
         '''<remarks>

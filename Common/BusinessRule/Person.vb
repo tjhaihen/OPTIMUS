@@ -14,6 +14,7 @@ Namespace Raven.Common.BussinessRules
         Private _personID, _firstName, _middleName, _lastName, _salutation, _academicTitle As String
         Private _genderSCode, _sexSCode, _religionSCode, _nationalitySCode As String
         Private _address1, _address2, _address3, _city, _postalCode, _phone, _mobile, _fax, _email, _url As String
+        Private _signaturePic As SqlBinary
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate As DateTime
 #End Region
@@ -204,6 +205,9 @@ Namespace Raven.Common.BussinessRules
                     _fax = CType(toReturn.Rows(0)("fax"), String)
                     _email = CType(toReturn.Rows(0)("email"), String)
                     _url = CType(toReturn.Rows(0)("url"), String)
+                    If Not IsDBNull(toReturn.Rows(0)("signaturePic")) Then
+                        _signaturePic = CType(toReturn.Rows(0)("signaturePic"), Byte())
+                    End If
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -232,6 +236,38 @@ Namespace Raven.Common.BussinessRules
 
             Try
                 cmdToExecute.Parameters.AddWithValue("@personID", _personID)
+
+                ' // Open Connection
+                _mainConnection.Open()
+
+                ' // Execute Query
+                cmdToExecute.ExecuteNonQuery()
+
+                Return True
+            Catch ex As Exception
+                ExceptionManager.Publish(ex)
+            Finally
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+            End Try
+        End Function
+#End Region
+
+#Region " Custom Functions "
+        Public Function UpdatePic() As Boolean
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "UPDATE Person " + _
+                                        "SET signaturePic=@signaturePic, " + _
+                                        "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
+                                        "WHERE personID=@personID"
+            cmdToExecute.CommandType = CommandType.Text
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@personID", _personID)
+                cmdToExecute.Parameters.AddWithValue("@signaturePic", _signaturePic)
+                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -427,6 +463,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _url = Value
+            End Set
+        End Property
+
+        Public Property [SignaturePic]() As SqlBinary
+            Get
+                Return _signaturePic
+            End Get
+            Set(ByVal Value As SqlBinary)
+                _signaturePic = Value
             End Set
         End Property
 

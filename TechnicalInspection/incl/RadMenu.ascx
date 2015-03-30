@@ -2,7 +2,6 @@
 <%@ Register Src="~/Libs/Controls/Menu.ascx" TagName="Menu" TagPrefix="ucMenu" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Import Namespace="Raven.Web" %>
-<telerik:RadScriptManager ID="ScriptManager" runat="server" />
 <link href="/PureravensLib/css/styles_blue.css" type="text/css" rel="Stylesheet" />
 <link rel="shortcut icon" type="image/x-icon" href="/PureravensLib/images/Ravenicon.ico" />
 <table width="100%" cellpadding="1" cellspacing="0">

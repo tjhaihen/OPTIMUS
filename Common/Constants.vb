@@ -23,6 +23,7 @@
             Public Const InspectionReportType_SCode As String = "INSTYPE"
             Public Const ThoroughVisualType_SCode As String = "TVITYPE"
             Public Const InspectionTallyType_SCode As String = "ITTYPE"
+            Public Const OfficialReportType_SCode As String = "BATYPE"
         End Class
 
         Public NotInheritable Class FormatString
@@ -79,6 +80,7 @@
             Public Const CheckListCompletionReport_PanelID As String = "pnlCheckListCompletionReport"
             Public Const CertificateOfInspection_PanelID As String = "pnlCertificateInspection"
             Public Const HardnessTest_PanelID As String = "pnlHardnessTestReport"
+            Public Const OfficialReport_PanelID As String = "pnlBeritaAcara"
         End Class
 
         Public NotInheritable Class CaptionTemplateGroup
@@ -151,6 +153,11 @@
         Public NotInheritable Class ReportTypeCodeThoroughVisualType
             Public Const Sling As String = "TVISL"
             Public Const Shackle As String = "TVISH"            
+        End Class
+
+        Public NotInheritable Class OfficialReportType
+            Public Const OfficialReportStart As String = "STR"
+            Public Const OfficialReportEnd As String = "END"
         End Class
     End Class
 End Namespace

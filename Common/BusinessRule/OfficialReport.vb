@@ -7,14 +7,13 @@ Imports System.Data.SqlClient
 Imports Raven.Common
 
 Namespace Raven.Common.BussinessRules
-    Public Class ProjectDt
+    Public Class OfficialReport
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _projectID, _projectDtID, _description, _descriptionDetail, _referenceNo, _unitOfMeasurement As String
-        Private _qty, _qtyActual As Decimal
+        Private _officialReportID, _projectID, _reportNo, _officialReportTypeSCode As String
         Private _userIDinsert, _userIDupdate As String
-        Private _insertDate, _updateDate As DateTime
+        Private _reportDate, _insertDate, _updateDate As DateTime
 #End Region
 
         Public Sub New()
@@ -28,27 +27,23 @@ Namespace Raven.Common.BussinessRules
 #Region " C,R,U,D "
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "INSERT INTO ProjectDt " + _
-                                        "(projectID, projectDtID, description, descriptionDetail, referenceNo, " + _
-                                        "qty, unitOfMeasurement, " + _
+            cmdToExecute.CommandText = "INSERT INTO OfficialReport " + _
+                                        "(officialReportID, projectID, reportNo, officialReportTypeSCode, reportDate, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
-                                        "(@projectID, @projectDtID, @description, @descriptionDetail, @referenceNo, " + _
-                                        "@qty, @unitOfMeasurement, " + _
+                                        "(@officialReportID, @projectID, @reportNo, @officialReportTypeSCode, @reportDate, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
-            Dim strProjectDtID As String = ID.GenerateIDNumber("ProjectDt", "ProjectDtID")
+            Dim strHdID As String = ID.GenerateIDNumber("OfficialReport", "OfficialReportID")
 
             Try
+                cmdToExecute.Parameters.AddWithValue("@officialReportID", strHdID)
                 cmdToExecute.Parameters.AddWithValue("@projectID", _projectID)
-                cmdToExecute.Parameters.AddWithValue("@projectDtID", strProjectDtID)
-                cmdToExecute.Parameters.AddWithValue("@description", _description)
-                cmdToExecute.Parameters.AddWithValue("@descriptionDetail", _descriptionDetail)
-                cmdToExecute.Parameters.AddWithValue("@referenceNo", _referenceNo)
-                cmdToExecute.Parameters.AddWithValue("@qty", _qty)                
-                cmdToExecute.Parameters.AddWithValue("@unitOfMeasurement", _unitOfMeasurement)
+                cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
+                cmdToExecute.Parameters.AddWithValue("@officialReportTypeSCode", _officialReportTypeSCode)
+                cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -58,7 +53,7 @@ Namespace Raven.Common.BussinessRules
                 ' // Execute Query
                 cmdToExecute.ExecuteNonQuery()
 
-                _projectDtID = strProjectDtID
+                _officialReportID = strHdID
                 Return True
             Catch ex As Exception
                 ExceptionManager.Publish(ex)
@@ -70,22 +65,18 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Update() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "UPDATE ProjectHd " + _
-                                        "SET description=@description, descriptionDetail=@descriptionDetail, referenceNo=@referenceNo, " + _
-                                        "qty=@qty, unitOfMeasurement=@unitOfMeasurement, " + _
+            cmdToExecute.CommandText = "UPDATE OfficialReport " + _
+                                        "SET reportNo=@reportNo, reportDate=@reportDate, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
-                                        "WHERE projectDtID=@projectDtID"
+                                        "WHERE officialReportID=@officialReportID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
-            Try                
-                cmdToExecute.Parameters.AddWithValue("@projectDtID", _projectDtID)
-                cmdToExecute.Parameters.AddWithValue("@description", _description)
-                cmdToExecute.Parameters.AddWithValue("@descriptionDetail", _descriptionDetail)
-                cmdToExecute.Parameters.AddWithValue("@referenceNo", _referenceNo)
-                cmdToExecute.Parameters.AddWithValue("@qty", _qty)
-                cmdToExecute.Parameters.AddWithValue("@unitOfMeasurement", _unitOfMeasurement)                
+            Try
+                cmdToExecute.Parameters.AddWithValue("@officialReportID", _officialReportID)                
+                cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
+                cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -105,10 +96,10 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectAll() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM ProjectDt"
+            cmdToExecute.CommandText = "SELECT * FROM OfficialReport"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("ProjectDt")
+            Dim toReturn As DataTable = New DataTable("OfficialReport")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
@@ -134,16 +125,16 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectOne(Optional ByVal recStatus As RavenRecStatus = RavenRecStatus.CurrentRecord) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM ProjectDt WHERE projectDtID=@projectDtID"
+            cmdToExecute.CommandText = "SELECT * FROM OfficialReport WHERE officialReportID=@officialReportID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("Project")
+            Dim toReturn As DataTable = New DataTable("OfficialReport")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@projectID", _projectID)
+                cmdToExecute.Parameters.AddWithValue("@officialReportID", _officialReportID)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -152,14 +143,11 @@ Namespace Raven.Common.BussinessRules
                 adapter.Fill(toReturn)
 
                 If toReturn.Rows.Count > 0 Then
+                    _officialReportID = CType(toReturn.Rows(0)("officialReportID"), String)
                     _projectID = CType(toReturn.Rows(0)("projectID"), String)
-                    _projectDtID = CType(toReturn.Rows(0)("projectDtID"), String)
-                    _description = CType(toReturn.Rows(0)("description"), String)
-                    _descriptionDetail = CType(toReturn.Rows(0)("descriptionDetail"), String)
-                    _referenceNo = CType(toReturn.Rows(0)("referenceNo"), String)
-                    _qty = CType(toReturn.Rows(0)("qty"), Decimal)
-                    _qtyActual = CType(toReturn.Rows(0)("qtyActual"), Decimal)
-                    _unitOfMeasurement = CType(toReturn.Rows(0)("unitOfMeasurement"), String)
+                    _reportNo = CType(toReturn.Rows(0)("reportNo"), String)
+                    _officialReportTypeSCode = CType(toReturn.Rows(0)("officialReportTypeSCode"), String)
+                    _reportDate = CType(toReturn.Rows(0)("reportDate"), DateTime)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -180,14 +168,14 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Delete() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "DELETE FROM ProjectDt " + _
-                                        "WHERE projectDtID=@projectDtID"
+            cmdToExecute.CommandText = "DELETE FROM OfficialReport " + _
+                                        "WHERE officialReportID=@officialReportID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@projectDtID", _projectDtID)
+                cmdToExecute.Parameters.AddWithValue("@officialReportID", _officialReportID)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -208,10 +196,12 @@ Namespace Raven.Common.BussinessRules
 #Region " Custom Function "
         Public Function SelectByProjectID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM ProjectDt WHERE ProjectID=@ProjectID"
+            cmdToExecute.CommandText = "SELECT drh.*, " +
+                                        "(SELECT caption FROM CommonCode WHERE groupCode='BATYPE' and value=drh.officialReportTypeSCode) AS officialReportTypeName " +
+                                        "FROM OfficialReport drh WHERE drh.projectID=@projectID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("ProjectDt")
+            Dim toReturn As DataTable = New DataTable("OfficialReport")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
@@ -236,39 +226,18 @@ Namespace Raven.Common.BussinessRules
 
             Return toReturn
         End Function
-
-        Public Function UpdateQtyActual() As Boolean
-            Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "UPDATE ProjectDt " + _
-                                        "SET qtyActual=@qtyActual, " + _
-                                        "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
-                                        "WHERE projectDtID=@projectDtID"
-            cmdToExecute.CommandType = CommandType.Text
-
-            cmdToExecute.Connection = _mainConnection
-
-            Try
-                cmdToExecute.Parameters.AddWithValue("@projectDtID", _projectDtID)
-                cmdToExecute.Parameters.AddWithValue("@qtyActual", _qtyActual)
-                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
-
-                ' // Open Connection
-                _mainConnection.Open()
-
-                ' // Execute Query
-                cmdToExecute.ExecuteNonQuery()
-
-                Return True
-            Catch ex As Exception
-                ExceptionManager.Publish(ex)
-            Finally
-                _mainConnection.Close()
-                cmdToExecute.Dispose()
-            End Try
-        End Function
 #End Region
 
 #Region " Class Property Declarations "
+        Public Property [officialReportID]() As String
+            Get
+                Return _officialReportID
+            End Get
+            Set(ByVal Value As String)
+                _officialReportID = Value
+            End Set
+        End Property
+
         Public Property [projectID]() As String
             Get
                 Return _projectID
@@ -278,66 +247,30 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
-        Public Property [projectDetailID]() As String
+        Public Property [reportNo]() As String
             Get
-                Return _projectDtID
+                Return _reportNo
             End Get
             Set(ByVal Value As String)
-                _projectDtID = Value
+                _reportNo = Value
             End Set
         End Property
 
-        Public Property [description]() As String
+        Public Property [officialReportTypeSCode]() As String
             Get
-                Return _description
+                Return _officialReportTypeSCode
             End Get
             Set(ByVal Value As String)
-                _description = Value
+                _officialReportTypeSCode = Value
             End Set
         End Property
 
-        Public Property [descriptionDetail]() As String
+        Public Property [reportDate]() As DateTime
             Get
-                Return _descriptionDetail
+                Return _reportDate
             End Get
-            Set(ByVal Value As String)
-                _descriptionDetail = Value
-            End Set
-        End Property
-
-        Public Property [qty]() As Decimal
-            Get
-                Return _qty
-            End Get
-            Set(ByVal Value As Decimal)
-                _qty = Value
-            End Set
-        End Property
-
-        Public Property [qtyActual]() As Decimal
-            Get
-                Return _qtyActual
-            End Get
-            Set(ByVal Value As Decimal)
-                _qtyActual = Value
-            End Set
-        End Property
-
-        Public Property [referenceNo]() As String
-            Get
-                Return _referenceNo
-            End Get
-            Set(ByVal Value As String)
-                _referenceNo = Value
-            End Set
-        End Property
-
-        Public Property [unitOfMeasurement]() As String
-            Get
-                Return _unitOfMeasurement
-            End Get
-            Set(ByVal Value As String)
-                _unitOfMeasurement = Value
+            Set(ByVal Value As DateTime)
+                _reportDate = Value
             End Set
         End Property
 

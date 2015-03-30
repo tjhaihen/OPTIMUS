@@ -88,17 +88,21 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:TextBox ID="txtWorkRequestListFilter" runat="server" Width="200"></asp:TextBox>
+                                            <asp:TextBox ID="txtWorkRequestListFilter" runat="server" Width="200">
+                                            </asp:TextBox>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="ddlWorkRequestListFilter" runat="server" Width="130" AutoPostBack="true">
-                                                <asp:ListItem Text="In Progress" Value="InProgress"></asp:ListItem>
-                                                <asp:ListItem Text="Done" Value="Done"></asp:ListItem>
+                                                <asp:ListItem Text="In Progress" Value="InProgress">
+                                                </asp:ListItem>
+                                                <asp:ListItem Text="Done" Value="Done">
+                                                </asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
                                         <td>
                                             <asp:TextBox ID="txtWorkRequestListDisplayFilter" runat="server" Width="80" ToolTip="Display top N records"
-                                                CssClass="right" Text="50"></asp:TextBox>
+                                                CssClass="right" Text="50">
+                                            </asp:TextBox>
                                         </td>
                                         <td>
                                             <asp:Button ID="btnWorkRequestListFilter" runat="server" Width="50" Text="Apply"
@@ -117,11 +121,11 @@
                                 <asp:DataGrid ID="grdWorkRequest" runat="server" BorderWidth="0" GridLines="None"
                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                     AutoGenerateColumns="false">
-                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                    <ItemStyle CssClass="gridItemStyle" />
-                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                    <Columns>
+                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                    <itemstyle cssclass="gridItemStyle" />
+                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                    <columns>
                                         <asp:TemplateColumn runat="server" HeaderText="Work Request" ItemStyle-VerticalAlign="Top">
                                             <ItemTemplate>
                                                 <table>
@@ -212,7 +216,7 @@
                                                     ToolTip="Process this Work Request" CommandName="Process" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                    </Columns>
+                                    </columns>
                                 </asp:DataGrid>
                             </td>
                         </tr>
@@ -241,14 +245,17 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:TextBox ID="txtProjectID" runat="server" Visible="false"></asp:TextBox>
-                                            <asp:TextBox ID="txtProjectCode" runat="server" Width="146" AutoPostBack="true"></asp:TextBox>
+                                            <asp:TextBox ID="txtProjectID" runat="server" Visible="false">
+                                            </asp:TextBox>
+                                            <asp:TextBox ID="txtProjectCode" runat="server" Width="146" AutoPostBack="true">
+                                            </asp:TextBox>
                                             <asp:Button ID="btnSearchProject" runat="server" Text="..." Width="30" />
                                         </td>
                                     </tr>
                                     <tr style="display: none;">
                                         <td>
-                                            <asp:TextBox ID="txtProjectName" runat="server" ReadOnly="true" CssClass="txtreadonly"></asp:TextBox>
+                                            <asp:TextBox ID="txtProjectName" runat="server" ReadOnly="true" CssClass="txtreadonly">
+                                            </asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
@@ -260,11 +267,11 @@
                                             <asp:DataGrid ID="grdReportTypeByProject" runat="server" BorderWidth="0" GridLines="None"
                                                 Width="100%" CellPadding="2" CellSpacing="2" ShowHeader="false" ShowFooter="false"
                                                 AutoGenerateColumns="false">
-                                                <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                <ItemStyle CssClass="gridMedHeightItemStyle" />
-                                                <AlternatingItemStyle CssClass="gridMedHeightItemStyle" />
-                                                <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                <Columns>
+                                                <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                <itemstyle cssclass="gridMedHeightItemStyle" />
+                                                <alternatingitemstyle cssclass="gridMedHeightItemStyle" />
+                                                <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                <columns>
                                                     <asp:TemplateColumn runat="server">
                                                         <ItemTemplate>
                                                             <asp:Panel ID="_pnlProduct" runat="server" Visible='<%# DataBinder.Eval(Container.DataItem, "isheader") %>'>
@@ -295,7 +302,7 @@
                                                             </table>
                                                         </ItemTemplate>
                                                     </asp:TemplateColumn>
-                                                </Columns>
+                                                </columns>
                                             </asp:DataGrid>
                                         </td>
                                     </tr>
@@ -361,27 +368,33 @@
                                                         </tr>
                                                         <tr>
                                                             <td style="width: 50px;">
-                                                                <asp:TextBox ID="CCR_txtCCRID" runat="server" Visible="false"></asp:TextBox>
-                                                                <asp:TextBox ID="CCR_txtSequenceNo" runat="server" Width="50"></asp:TextBox>
+                                                                <asp:TextBox ID="CCR_txtCCRID" runat="server" Visible="false">
+                                                                </asp:TextBox>
+                                                                <asp:TextBox ID="CCR_txtSequenceNo" runat="server" Width="50">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td style="width: auto;">
-                                                                <asp:TextBox ID="CCR_txtDescription" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="CCR_txtDescription" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td style="width: 100px;">
                                                                 <asp:DropDownList ID="CCR_ddlTypeOfReport" runat="server" Width="100">
                                                                 </asp:DropDownList>
                                                             </td>
                                                             <td style="width: 100px;">
-                                                                <asp:TextBox ID="CCR_txtPreparedByName" runat="server" Width="100"></asp:TextBox>
+                                                                <asp:TextBox ID="CCR_txtPreparedByName" runat="server" Width="100">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td style="width: 100px;">
                                                                 <Module:Calendar ID="CCR_calPreparedDate" runat="server" DontResetDate="true" />
                                                             </td>
                                                             <td style="width: 150px;">
-                                                                <asp:TextBox ID="CCR_txtReportNo" runat="server" Width="150"></asp:TextBox>
+                                                                <asp:TextBox ID="CCR_txtReportNo" runat="server" Width="150">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td style="width: 100px;">
-                                                                <asp:TextBox ID="CCR_txtRemarks" runat="server" Width="100"></asp:TextBox>
+                                                                <asp:TextBox ID="CCR_txtRemarks" runat="server" Width="100">
+                                                                </asp:TextBox>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -389,11 +402,11 @@
                                                                 <asp:DataGrid ID="CCR_grdCheckListOfCompletionReport" runat="server" BorderWidth="0"
                                                                     GridLines="None" Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true"
                                                                     ShowFooter="false" AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="CCR_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -436,7 +449,7 @@
                                                                             <ItemTemplate>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -449,11 +462,11 @@
                                                                 <asp:DataGrid ID="SA_grdProjectDt" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="SA_ibtnPrint" runat="server" ImageUrl="/PureravensLib/images/print.png"
@@ -487,7 +500,7 @@
                                                                                     TextMode="MultiLine" Width="100%" Text='<%# DataBinder.Eval(Container.DataItem, "descriptionDetail") %>'></asp:TextBox>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -516,8 +529,10 @@
                                                             <td class="Menu">
                                                                 <asp:RadioButtonList ID="SOI_rbtnlInputMethod" runat="server" RepeatDirection="Horizontal"
                                                                     CssClass="Menu" AutoPostBack="true">
-                                                                    <asp:ListItem Value="Entry" Text="Entry" Selected="True"></asp:ListItem>
-                                                                    <asp:ListItem Value="Upload" Text="Upload"></asp:ListItem>
+                                                                    <asp:ListItem Value="Entry" Text="Entry" Selected="True">
+                                                                    </asp:ListItem>
+                                                                    <asp:ListItem Value="Upload" Text="Upload">
+                                                                    </asp:ListItem>
                                                                 </asp:RadioButtonList>
                                                             </td>
                                                         </tr>
@@ -549,26 +564,34 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtSummaryOfInspectionID" runat="server" Width="50" Visible="false"></asp:TextBox>
-                                                                    <asp:TextBox ID="SOI_txtSequenceNo" runat="server" Width="100%" CssClass="right"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtSummaryOfInspectionID" runat="server" Width="50" Visible="false">
+                                                                    </asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtSequenceNo" runat="server" Width="100%" CssClass="right">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtDescOfEquip" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtDescOfEquip" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtSerialNo" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtSerialNo" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtLocation" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtLocation" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtManufacture" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtManufacture" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtSWLWWLMGW" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtSWLWWLMGW" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtDimensional" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtDimensional" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -612,10 +635,12 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtDefectFound" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtDefectFound" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtResult" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtResult" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td>
                                                                     <Module:Calendar ID="SOI_calExamDate" runat="server" DontResetDate="true" />
@@ -624,22 +649,28 @@
                                                                     <Module:Calendar ID="SOI_calExpiredDate" runat="server" />
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtReportNumber" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtReportNumber" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td class="center">
-                                                                    <asp:CheckBox ID="SOI_chkIsV" runat="server"></asp:CheckBox>
+                                                                    <asp:CheckBox ID="SOI_chkIsV" runat="server">
+                                                                    </asp:CheckBox>
                                                                 </td>
                                                                 <td class="center">
-                                                                    <asp:CheckBox ID="SOI_chkIsN" runat="server"></asp:CheckBox>
+                                                                    <asp:CheckBox ID="SOI_chkIsN" runat="server">
+                                                                    </asp:CheckBox>
                                                                 </td>
                                                                 <td class="center">
-                                                                    <asp:CheckBox ID="SOI_chkIsT" runat="server"></asp:CheckBox>
+                                                                    <asp:CheckBox ID="SOI_chkIsT" runat="server">
+                                                                    </asp:CheckBox>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtInterval" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtInterval" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtRemarks" runat="server"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtRemarks" runat="server">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -673,7 +704,8 @@
                                                                         size="85" class="imguploader" style="width: 404; display: none;">
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="SOI_txtSheetName" runat="server" Width="200" Text="Sheet1"></asp:TextBox>
+                                                                    <asp:TextBox ID="SOI_txtSheetName" runat="server" Width="200" Text="Sheet1">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -684,11 +716,11 @@
                                                                 <asp:DataGrid ID="SOI_grdSummaryOfInspection" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="30">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="SOI_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -747,7 +779,7 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "remarks")%>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -788,10 +820,10 @@
                                                                         </td>
                                                                         <td>
                                                                             <asp:Repeater ID="repDateInMonthHd" runat="server" OnItemDataBound="repDateInMonthHd_ItemDataBound">
-                                                                                <HeaderTemplate>
+                                                                                <headertemplate>
                                                                                     <ul id="ulRepDate">
-                                                                                </HeaderTemplate>
-                                                                                <ItemTemplate>
+                                                                                </headertemplate>
+                                                                                <itemtemplate>
                                                                                     <li>
                                                                                         <table cellspacing="0" cellpadding="0" style="border-style: solid; border-width: 1px;
                                                                                             border-color: #ffffff;">
@@ -808,23 +840,23 @@
                                                                                             </tr>
                                                                                         </table>
                                                                                     </li>
-                                                                                </ItemTemplate>
-                                                                                <FooterTemplate>
+                                                                                </itemtemplate>
+                                                                                <footertemplate>
                                                                                     </ul>
-                                                                                </FooterTemplate>
+                                                                                </footertemplate>
                                                                             </asp:Repeater>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
                                                                 <asp:ListView ID="lvwTimeSheet" runat="server" OnItemDataBound="lvwTimeSheet_ItemDataBound">
-                                                                    <LayoutTemplate>
+                                                                    <layouttemplate>
                                                                         <table id="tblView" runat="server" class="lvwView" cellspacing="1" border="0" style="border-style: solid;
                                                                             border-width: 1px; border-color: #999999;">
                                                                             <tr runat="server" id="itemPlaceholder">
                                                                             </tr>
                                                                         </table>
-                                                                    </LayoutTemplate>
-                                                                    <ItemTemplate>
+                                                                    </layouttemplate>
+                                                                    <itemtemplate>
                                                                         <tr class="gridAlternatingItemStyle">
                                                                             <td style="width: 100px">
                                                                                 <table>
@@ -868,7 +900,7 @@
                                                                                 </asp:Repeater>
                                                                             </td>
                                                                         </tr>
-                                                                    </ItemTemplate>
+                                                                    </itemtemplate>
                                                                 </asp:ListView>
                                                             </td>
                                                         </tr>
@@ -884,7 +916,8 @@
                                                                             Report ID
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DPR_txtDailyReportHdID" runat="server" Width="200" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="DPR_txtDailyReportHdID" runat="server" Width="200" AutoPostBack="true">
+                                                                            </asp:TextBox>
                                                                             <asp:Button ID="DPR_btnSearchDailyReportHd" runat="server" Text="..." Width="30" />
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
@@ -927,32 +960,42 @@
                                                                 Material Detail
                                                             </td>
                                                             <td colspan="4">
-                                                                <asp:TextBox ID="DPR_txtMaterialDetail" runat="server" Width="99.2%"></asp:TextBox>
+                                                                <asp:TextBox ID="DPR_txtMaterialDetail" runat="server" Width="99.2%">
+                                                                </asp:TextBox>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="width: 50px;">
-                                                                <asp:TextBox ID="DPR_txtDailyReportDtID" runat="server" Width="50" Visible="false"></asp:TextBox>
-                                                                <asp:TextBox ID="DPR_txtSequenceNo" runat="server" Width="50"></asp:TextBox>
+                                                                <asp:TextBox ID="DPR_txtDailyReportDtID" runat="server" Width="50" Visible="false">
+                                                                </asp:TextBox>
+                                                                <asp:TextBox ID="DPR_txtSequenceNo" runat="server" Width="50">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td style="width: 100px;">
                                                                 <asp:DropDownList ID="DPR_ddlWeatherCondition" runat="server" Width="100">
                                                                 </asp:DropDownList>
                                                             </td>
                                                             <td style="width: auto;">
-                                                                <asp:TextBox ID="DPR_txtDescription" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="DPR_txtDescription" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="DPR_txtQtyCurrent" runat="server" Width="48%"></asp:TextBox>
-                                                                <asp:TextBox ID="DPR_txtUOMCurrent" runat="server" Width="48%"></asp:TextBox>
+                                                                <asp:TextBox ID="DPR_txtQtyCurrent" runat="server" Width="48%">
+                                                                </asp:TextBox>
+                                                                <asp:TextBox ID="DPR_txtUOMCurrent" runat="server" Width="48%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="DPR_txtQtyPrevious" runat="server" Width="48%"></asp:TextBox>
-                                                                <asp:TextBox ID="DPR_txtUOMPrevious" runat="server" Width="48%"></asp:TextBox>
+                                                                <asp:TextBox ID="DPR_txtQtyPrevious" runat="server" Width="48%">
+                                                                </asp:TextBox>
+                                                                <asp:TextBox ID="DPR_txtUOMPrevious" runat="server" Width="48%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="DPR_txtQtyCumulative" runat="server" Width="48%"></asp:TextBox>
-                                                                <asp:TextBox ID="DPR_txtUOMCumulative" runat="server" Width="48%"></asp:TextBox>
+                                                                <asp:TextBox ID="DPR_txtQtyCumulative" runat="server" Width="48%">
+                                                                </asp:TextBox>
+                                                                <asp:TextBox ID="DPR_txtUOMCumulative" runat="server" Width="48%">
+                                                                </asp:TextBox>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -960,11 +1003,11 @@
                                                                 <asp:DataGrid ID="DPR_grdDailyReportDt" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="30">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="DPR_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -1017,7 +1060,7 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "endingUOM") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -1033,7 +1076,8 @@
                                                                             Report ID
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DIR_txtDailyReportHdID" runat="server" Width="200" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="DIR_txtDailyReportHdID" runat="server" Width="200" AutoPostBack="true">
+                                                                            </asp:TextBox>
                                                                             <asp:Button ID="DIR_btnSearchDailyReportHd" runat="server" Text="..." Width="30" />
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
@@ -1065,21 +1109,26 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <asp:TextBox ID="DIR_txtDailyReportDtID" runat="server" Visible="false"></asp:TextBox>
-                                                                <asp:TextBox ID="DIR_txtSequenceNo" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="DIR_txtDailyReportDtID" runat="server" Visible="false">
+                                                                </asp:TextBox>
+                                                                <asp:TextBox ID="DIR_txtSequenceNo" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
                                                                 <asp:DropDownList ID="DIR_ddlWeatherCondition" runat="server" Width="100%">
                                                                 </asp:DropDownList>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="DIR_txtDescription" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="DIR_txtDescription" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="DIR_txtQty" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="DIR_txtQty" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="DIR_txtResult" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="DIR_txtResult" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -1087,11 +1136,11 @@
                                                                 <asp:DataGrid ID="DIR_grdDailyReportDt" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="DIR_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -1125,7 +1174,7 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "result")%>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -1143,7 +1192,8 @@
                                                                         <td>
                                                                             <asp:DropDownList ID="SR_ddlServiceReportFor" runat="server" Width="300" AutoPostBack="true">
                                                                             </asp:DropDownList>
-                                                                            <asp:TextBox ID="SR_txtServiceReportID" runat="server" Width="266" Visible="false"></asp:TextBox>
+                                                                            <asp:TextBox ID="SR_txtServiceReportID" runat="server" Width="266" Visible="false">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Service Report Date
@@ -1164,7 +1214,8 @@
                                                                     <tr>
                                                                         <td colspan="4">
                                                                             <asp:TextBox ID="SR_txtTypeOfInspection" runat="server" Width="100%" TextMode="MultiLine"
-                                                                                Height="100" Style="font-family: Segoe UI, Arial, tahoma"></asp:TextBox>
+                                                                                Height="100" Style="font-family: Segoe UI, Arial, tahoma">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1182,7 +1233,8 @@
                                                                                 Manufacturer
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="SR_txtManufacturer" runat="server" Width="300"></asp:TextBox>
+                                                                                <asp:TextBox ID="SR_txtManufacturer" runat="server" Width="300">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                             <td style="width: 100px;" class="right">
                                                                             </td>
@@ -1194,13 +1246,15 @@
                                                                                 Type of Pipe
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="SR_txtTypeOfPipe" runat="server" Width="300"></asp:TextBox>
+                                                                                <asp:TextBox ID="SR_txtTypeOfPipe" runat="server" Width="300">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                             <td style="width: 100px;" class="right">
                                                                                 Pipe Wt. Lbs/ft
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="SR_txtPipeWeight" runat="server" Width="300"></asp:TextBox>
+                                                                                <asp:TextBox ID="SR_txtPipeWeight" runat="server" Width="300">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -1208,13 +1262,15 @@
                                                                                 Pipe O.D.
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="SR_txtPipeOD" runat="server" Width="300"></asp:TextBox>
+                                                                                <asp:TextBox ID="SR_txtPipeOD" runat="server" Width="300">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                             <td style="width: 100px;" class="right">
                                                                                 Thread Connection
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="SR_txtThreadConnection" runat="server" Width="300"></asp:TextBox>
+                                                                                <asp:TextBox ID="SR_txtThreadConnection" runat="server" Width="300">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -1222,13 +1278,15 @@
                                                                                 Pipe Grade
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="SR_txtPipeGrade" runat="server" Width="300"></asp:TextBox>
+                                                                                <asp:TextBox ID="SR_txtPipeGrade" runat="server" Width="300">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                             <td style="width: 100px;" class="right">
                                                                                 Range
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="SR_txtRange" runat="server" Width="300"></asp:TextBox>
+                                                                                <asp:TextBox ID="SR_txtRange" runat="server" Width="300">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -1236,13 +1294,15 @@
                                                                                 Total Inspected
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="SR_txtTotalInspected" runat="server" Width="300"></asp:TextBox>
+                                                                                <asp:TextBox ID="SR_txtTotalInspected" runat="server" Width="300">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                             <td style="width: 100px;" class="right">
                                                                                 Total Accepted
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="SR_txtTotalAccepted" runat="server" Width="300"></asp:TextBox>
+                                                                                <asp:TextBox ID="SR_txtTotalAccepted" runat="server" Width="300">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                         </tr>
                                                                     </asp:Panel>
@@ -1250,7 +1310,8 @@
                                                                         <tr>
                                                                             <td colspan="4">
                                                                                 <asp:TextBox ID="SR_txtMaterialDescription" runat="server" Width="100%" TextMode="MultiLine"
-                                                                                    Height="100" Style="font-family: Segoe UI, Arial, tahoma; font-size: 12pt; font-weight: bold;"></asp:TextBox>
+                                                                                    Height="100" Style="font-family: Segoe UI, Arial, tahoma; font-size: 12pt; font-weight: bold;">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                         </tr>
                                                                     </asp:Panel>
@@ -1266,7 +1327,8 @@
                                                                     <tr>
                                                                         <td colspan="4">
                                                                             <asp:TextBox ID="SR_txtResult" runat="server" Width="100%" TextMode="MultiLine" Height="100"
-                                                                                Style="font-family: Segoe UI, Arial, tahoma"></asp:TextBox>
+                                                                                Style="font-family: Segoe UI, Arial, tahoma">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -1277,11 +1339,11 @@
                                                                 <asp:DataGrid ID="SR_grdServiceReport" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="SR_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -1303,7 +1365,7 @@
                                                                                 <asp:Label ID="SR_lblServiceReportID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "serviceReportID") %>'></asp:Label>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -1332,8 +1394,10 @@
                                                                             Report No
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtMPIHdID" runat="server" Width="200" Visible="false"></asp:TextBox>
-                                                                            <asp:TextBox ID="MPI_txtReportNo" runat="server" Width="200" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtMPIHdID" runat="server" Width="200" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtReportNo" runat="server" Width="200" AutoPostBack="true">
+                                                                            </asp:TextBox>
                                                                             <asp:Button ID="MPI_btnReportNo" runat="server" Text="..." Width="30" />
                                                                         </td>
                                                                         <td class="right">
@@ -1348,7 +1412,8 @@
                                                                             Serial No
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtSerialNo" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtSerialNo" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="right">
                                                                             Expired Date
@@ -1366,7 +1431,8 @@
                                                                             Description
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtDescription" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtDescription" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="right" colspan="2" rowspan="4" valign="top">
                                                                             <table width="100%">
@@ -1378,21 +1444,25 @@
                                                                                 <tr>
                                                                                     <td valign="top">
                                                                                         <asp:CheckBox ID="MPI_chkACIsASME" runat="server" Text="" />
-                                                                                        <asp:TextBox ID="MPI_txtACASMEDescription" runat="server" Text="ASME" Width="100"></asp:TextBox>
+                                                                                        <asp:TextBox ID="MPI_txtACASMEDescription" runat="server" Text="ASME" Width="100">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td valign="top">
                                                                                         <asp:CheckBox ID="MPI_chkACIsAPISpec" runat="server" Text="" />
-                                                                                        <asp:TextBox ID="MPI_txtACAPISpecDescription" runat="server" Text="API Spec." Width="100"></asp:TextBox>
+                                                                                        <asp:TextBox ID="MPI_txtACAPISpecDescription" runat="server" Text="API Spec." Width="100">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td valign="top">
                                                                                         <asp:CheckBox ID="MPI_chkIsACDS1" runat="server" Text="" />
-                                                                                        <asp:TextBox ID="MPI_txtACDS1Description" runat="server" Text="DS-1" Width="100"></asp:TextBox>
+                                                                                        <asp:TextBox ID="MPI_txtACDS1Description" runat="server" Text="DS-1" Width="100">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td valign="top">
                                                                                         <asp:CheckBox ID="MPI_chkIsACOther" runat="server" Text="" />
-                                                                                        <asp:TextBox ID="MPI_txtACOtherDescription" runat="server" Text="Other" Width="100"></asp:TextBox>
+                                                                                        <asp:TextBox ID="MPI_txtACOtherDescription" runat="server" Text="Other" Width="100">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -1403,7 +1473,8 @@
                                                                             Quantity
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtQty" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtQty" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1411,7 +1482,8 @@
                                                                             Dimension
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtDimension" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtDimension" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1419,7 +1491,8 @@
                                                                             Area Inspection
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtAreaInspection" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtAreaInspection" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1431,13 +1504,15 @@
                                                                             Material
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtMaterial" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtMaterial" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="right">
                                                                             Application
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtApplication" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtApplication" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1445,13 +1520,15 @@
                                                                             Surface Condition
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtSurfaceCondition" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtSurfaceCondition" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="right">
                                                                             Contrast
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtContrast" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtContrast" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1459,13 +1536,15 @@
                                                                             Metal Surface Temp.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtMetalSurfaceTemp" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtMetalSurfaceTemp" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="right">
                                                                             Magnetic Particle
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtMagneticParticle" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtMagneticParticle" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1473,13 +1552,15 @@
                                                                             Material Thickness
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtMaterialThickness" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtMaterialThickness" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="right">
                                                                             Cleaner
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtCleaner" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtCleaner" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1487,13 +1568,15 @@
                                                                             Set Calibration
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtSetCalibration" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtSetCalibration" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="right">
                                                                             Penetrant
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtPenetrant" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtPenetrant" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1501,13 +1584,15 @@
                                                                             Pole Spacing
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtPoleSpacing" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtPoleSpacing" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="right">
                                                                             Developer
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="MPI_txtDeveloper" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="MPI_txtDeveloper" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1551,8 +1636,10 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <asp:RadioButtonList ID="MPI_rbtnlRods" runat="server" RepeatDirection="Horizontal">
-                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
@@ -1562,8 +1649,10 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <asp:RadioButtonList ID="MPI_rbtnlBlacklight" runat="server" RepeatDirection="Horizontal">
-                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
@@ -1573,22 +1662,26 @@
                                                                             <table width="100%">
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <asp:TextBox ID="MPI_txtYokeSerialNo" runat="server" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="MPI_txtYokeSerialNo" runat="server" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <asp:TextBox ID="MPI_txtCoilSerialNo" runat="server" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="MPI_txtCoilSerialNo" runat="server" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <asp:TextBox ID="MPI_txtRodsSerialNo" runat="server" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="MPI_txtRodsSerialNo" runat="server" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <asp:TextBox ID="MPI_txtBlacklightSerialNo" runat="server" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="MPI_txtBlacklightSerialNo" runat="server" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -1619,8 +1712,10 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <asp:RadioButtonList ID="MPI_rbtnlDyePenetrant" runat="server" RepeatDirection="Horizontal">
-                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
@@ -1634,8 +1729,10 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <asp:RadioButtonList ID="MPI_rbtnlWireBrush" runat="server" RepeatDirection="Horizontal">
-                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
@@ -1645,8 +1742,10 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <asp:RadioButtonList ID="MPI_rbtnlBlastCleaning" runat="server" RepeatDirection="Horizontal">
-                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
@@ -1656,8 +1755,10 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <asp:RadioButtonList ID="MPI_rbtnlGrinding" runat="server" RepeatDirection="Horizontal">
-                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
@@ -1667,8 +1768,10 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <asp:RadioButtonList ID="MPI_rbtnlMachining" runat="server" RepeatDirection="Horizontal">
-                                                                                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                                                                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
@@ -1685,7 +1788,8 @@
                                                                         </td>
                                                                         <td colspan="3">
                                                                             <asp:TextBox ID="MPI_txtInspectionResult" runat="server" Width="100%" TextMode="MultiLine"
-                                                                                Height="50" Font-Names="Segoe UI, Arial, Verdana"></asp:TextBox>
+                                                                                Height="50" Font-Names="Segoe UI, Arial, Verdana">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1694,7 +1798,8 @@
                                                                         </td>
                                                                         <td colspan="3">
                                                                             <asp:TextBox ID="MPI_txtNotes" runat="server" Width="100%" TextMode="MultiLine" Height="50"
-                                                                                Font-Names="Segoe UI, Arial, Verdana"></asp:TextBox>
+                                                                                Font-Names="Segoe UI, Arial, Verdana">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -1712,12 +1817,14 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td>
-                                                                                            <asp:TextBox ID="MPI_txtMPIDtID" runat="server" Visible="false"></asp:TextBox>
+                                                                                            <asp:TextBox ID="MPI_txtMPIDtID" runat="server" Visible="false">
+                                                                                            </asp:TextBox>
                                                                                             <input id="MPI_ImageFile" type="file" runat="server" autopostback="True" name="MPI_ImageFile"
                                                                                                 class="imguploader" style="width: 404;" />
                                                                                             <asp:DropDownList ID="MPI_ddlPicGroup" runat="server" Width="150">
                                                                                             </asp:DropDownList>
-                                                                                            <asp:TextBox ID="MPI_txtPicDescription" runat="server" Width="300"></asp:TextBox>
+                                                                                            <asp:TextBox ID="MPI_txtPicDescription" runat="server" Width="300">
+                                                                                            </asp:TextBox>
                                                                                             <asp:Button ID="MPI_btnUploadImage" runat="server" Text="Upload" CssClass="sbttn"
                                                                                                 Width="100" />
                                                                                         </td>
@@ -1726,10 +1833,10 @@
                                                                                         <td>
                                                                                             <!-- Place for DataGrid MPIDt -->
                                                                                             <asp:Repeater ID="MPI_repMPIimages" runat="server">
-                                                                                                <HeaderTemplate>
+                                                                                                <headertemplate>
                                                                                                     <ul id="ulRepMPIimages">
-                                                                                                </HeaderTemplate>
-                                                                                                <ItemTemplate>
+                                                                                                </headertemplate>
+                                                                                                <itemtemplate>
                                                                                                     <li>
                                                                                                         <table cellspacing="1">
                                                                                                             <tr>
@@ -1757,10 +1864,10 @@
                                                                                                             </tr>
                                                                                                         </table>
                                                                                                     </li>
-                                                                                                </ItemTemplate>
-                                                                                                <FooterTemplate>
+                                                                                                </itemtemplate>
+                                                                                                <footertemplate>
                                                                                                     </ul>
-                                                                                                </FooterTemplate>
+                                                                                                </footertemplate>
                                                                                             </asp:Repeater>
                                                                                         </td>
                                                                                     </tr>
@@ -1783,8 +1890,10 @@
                                                                             Report No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="HT_txtHardnessTestHdID" runat="server" Width="200" Visible="false"></asp:TextBox>
-                                                                            <asp:TextBox ID="HT_txtReportNo" runat="server" Width="200" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="HT_txtHardnessTestHdID" runat="server" Width="200" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="HT_txtReportNo" runat="server" Width="200" AutoPostBack="true">
+                                                                            </asp:TextBox>
                                                                             <asp:Button ID="HT_btnReportNo" runat="server" Text="..." Width="30" />
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
@@ -1845,42 +1954,54 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHardnessTestDtID" runat="server" Visible="false"></asp:TextBox>
-                                                                <asp:TextBox ID="HT_txtPipeNo" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHardnessTestDtID" runat="server" Visible="false">
+                                                                </asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtPipeNo" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
                                                                 <asp:DropDownList ID="HT_ddlLocation" runat="server" Width="100%">
                                                                 </asp:DropDownList>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHRB1" runat="server" Width="100%" onkeyup="countAvgHRB()"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHRB1" runat="server" Width="100%" onkeyup="countAvgHRB()">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHRB2" runat="server" Width="100%" onkeyup="countAvgHRB()"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHRB2" runat="server" Width="100%" onkeyup="countAvgHRB()">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHRB3" runat="server" Width="100%" onkeyup="countAvgHRB()"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHRB3" runat="server" Width="100%" onkeyup="countAvgHRB()">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHRB4" runat="server" Width="100%" onkeyup="countAvgHRB()"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHRB4" runat="server" Width="100%" onkeyup="countAvgHRB()">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHRBAvg" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHRBAvg" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHB1" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHB1" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHB2" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHB2" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHB3" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHB3" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHB4" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHB4" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="HT_txtHBAvg" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="HT_txtHBAvg" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -1888,11 +2009,11 @@
                                                                 <asp:DataGrid ID="HT_grdHardnessTestDt" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="HT_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -1967,7 +2088,7 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "HBAvg")%>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -1983,18 +2104,23 @@
                                                                             Report ID - Report No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_txtDrillPipeReportHdID" runat="server" Width="166" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtDrillPipeReportHdID" runat="server" Width="166" AutoPostBack="true">
+                                                                            </asp:TextBox>
                                                                             <asp:Button ID="DP_btnSearchDrillPipeReport" runat="server" Text="..." Width="30" />
-                                                                            <asp:TextBox ID="DP_txtReportNo" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtReportNo" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Specification
                                                                         </td>
                                                                         <td style="width: 200px;">
-                                                                            <asp:TextBox ID="DP_txtSpecificationID" runat="server" Width="200" Visible="false"></asp:TextBox>
-                                                                            <asp:TextBox ID="DP_txtSpecificationCode" runat="server" Width="166" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtSpecificationID" runat="server" Width="200" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtSpecificationCode" runat="server" Width="166" AutoPostBack="true">
+                                                                            </asp:TextBox>
                                                                             <asp:Button ID="DP_btnSearchSpecification" runat="server" Text="..." Width="30" />
-                                                                            <asp:TextBox ID="DP_txtSpecificationName" runat="server" Width="200" ReadOnly="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtSpecificationName" runat="server" Width="200" ReadOnly="true">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Report Date - Caption Template
@@ -2033,22 +2159,28 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td colspan="2">
-                                                                            <asp:TextBox ID="DP_txtSize" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtSize" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td colspan="2">
-                                                                            <asp:TextBox ID="DP_txtWeight" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtWeight" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td colspan="3">
-                                                                            <asp:TextBox ID="DP_txtGrade" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtGrade" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td colspan="3">
-                                                                            <asp:TextBox ID="DP_txtConnection" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtConnection" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td colspan="3">
-                                                                            <asp:TextBox ID="DP_txtRange" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtRange" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td colspan="3">
-                                                                            <asp:TextBox ID="DP_txtNominalWT" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtNominalWT" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -2116,52 +2248,68 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Premium_txtMinOD" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Premium_txtMinOD" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Premium_txtMaxID" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Premium_txtMaxID" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Premium_txtMinWall" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Premium_txtMinWall" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Premium_txtMinShoulder" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Premium_txtMinShoulder" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Premium_txtMinSeal" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Premium_txtMinSeal" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMinOD" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtMinOD" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMaxID" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtMaxID" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMinWall" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtMinWall" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMinShoulder" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtMinShoulder" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMinSeal" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtMinSeal" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMinTongSpacePB" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtMinTongSpacePB" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMaxQC" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtMaxQC" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtBevelDia" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtBevelDia" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMinQCDepth" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtMinQCDepth" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMaxLengthPin" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtMaxLengthPin" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMaxPinNeck" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_Class2_txtMaxPinNeck" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -2175,14 +2323,17 @@
                                                                             No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_txtDrillPipeReportDtID" runat="server" Visible="false"></asp:TextBox>
-                                                                            <asp:TextBox ID="DP_txtSequenceNo" runat="server" Width="80"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtDrillPipeReportDtID" runat="server" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtSequenceNo" runat="server" Width="80">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle right" style="width: 100px;">
                                                                             Serial No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_txtSerialNo" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtSerialNo" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -2222,31 +2373,40 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBod001Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod001Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBod002Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod002Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBod003Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod003Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBod004Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod004Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBod005Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod005Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBod006Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod006Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBod007Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod007Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBod008Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod008Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBod009Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBod009Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -2298,37 +2458,48 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin001Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin001Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin002Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin002Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin003Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin003Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin004Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin004Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin005Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin005Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin006Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin006Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin007Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin007Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin008Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin008Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin009Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin009Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin010Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin010Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtPin011Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtPin011Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
                                                                                         <asp:CheckBox ID="DP_chkIsPinHB" runat="server" />
@@ -2383,37 +2554,48 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox001Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox001Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox002Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox002Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox003Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox003Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox004Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox004Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox005Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox005Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox006Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox006Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox007Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox007Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox008Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox008Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox009Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox009Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox010Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox010Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="DP_txtBox011Value" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="DP_txtBox011Value" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
                                                                                         <asp:CheckBox ID="DP_chkIsBoxHB" runat="server" />
@@ -2429,7 +2611,8 @@
                                                                         <td colspan="3">
                                                                             <asp:DropDownList ID="DP_ddlRemarks" runat="server" Width="300">
                                                                             </asp:DropDownList>
-                                                                            <asp:TextBox ID="DP_txtRemarks" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="DP_txtRemarks" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -2440,11 +2623,11 @@
                                                                 <asp:DataGrid ID="DP_grdDrillPipeReportDt" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="32" ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="DP_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -2737,7 +2920,7 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "remarksText") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -2753,8 +2936,10 @@
                                                                             Report No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="TVI_txtTVIHdID" runat="server" Width="200" Visible="false"></asp:TextBox>
-                                                                            <asp:TextBox ID="TVI_txtReportNo" runat="server" Width="200" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="TVI_txtTVIHdID" runat="server" Width="200" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="TVI_txtReportNo" runat="server" Width="200" AutoPostBack="true">
+                                                                            </asp:TextBox>
                                                                             <asp:Button ID="TVI_btnReportNo" runat="server" Text="..." Width="30" />
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
@@ -2782,13 +2967,15 @@
                                                                             Description
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="TVI_txtDescription" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="TVI_txtDescription" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Serial No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="TVI_txtSerialNo" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="TVI_txtSerialNo" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -2796,13 +2983,15 @@
                                                                             <asp:Label ID="TVI_lblWLLSWLCaption" runat="server" Text="WLL"></asp:Label>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="TVI_txtWLLSWL" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="TVI_txtWLLSWL" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             <asp:Label ID="TVI_lblDimensionDiameterCaption" runat="server" Text="Dimension"></asp:Label>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="TVI_txtDimensionDiameter" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="TVI_txtDimensionDiameter" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -2810,14 +2999,16 @@
                                                                             Reference Level
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="TVI_txtReferenceLevel" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="TVI_txtReferenceLevel" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <asp:Panel ID="TVI_pnlLength" runat="server">
                                                                             <td style="width: 100px;" class="right">
                                                                                 Length
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="TVI_txtLength" runat="server" Width="200"></asp:TextBox>
+                                                                                <asp:TextBox ID="TVI_txtLength" runat="server" Width="200">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                         </asp:Panel>
                                                                     </tr>
@@ -2826,13 +3017,15 @@
                                                                             Manufacturer
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="TVI_txtManufacturer" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="TVI_txtManufacturer" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Cal Reference
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="TVI_txtCalReference" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="TVI_txtCalReference" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <asp:Panel ID="TVI_pnlDefectFound" runat="server">
@@ -2841,7 +3034,8 @@
                                                                                 Defect Found
                                                                             </td>
                                                                             <td>
-                                                                                <asp:TextBox ID="TVI_txtDefectFound" runat="server" Width="200"></asp:TextBox>
+                                                                                <asp:TextBox ID="TVI_txtDefectFound" runat="server" Width="200">
+                                                                                </asp:TextBox>
                                                                             </td>
                                                                             <td style="width: 100px;" class="right">
                                                                             </td>
@@ -2907,7 +3101,7 @@
                                                                     </asp:Panel>
                                                                 </table>
                                                             </td>
-                                                        </tr>                                                        
+                                                        </tr>
                                                     </table>
                                                 </asp:Panel>
                                                 <asp:Panel ID="pnlInspectionTallyReport" runat="server">
@@ -2920,8 +3114,9 @@
                                                                             Report ID
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtInspectionTallyHdID" runat="server" Width="166" AutoPostBack="true"></asp:TextBox>
-                                                                            <asp:Button ID="IT_btnInspectionTallyHdID" runat="server" Text="..." Width="30" />                                                                            
+                                                                            <asp:TextBox ID="IT_txtInspectionTallyHdID" runat="server" Width="166" AutoPostBack="true">
+                                                                            </asp:TextBox>
+                                                                            <asp:Button ID="IT_btnInspectionTallyHdID" runat="server" Text="..." Width="30" />
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Report Date
@@ -2941,25 +3136,29 @@
                                                                                 <tr>
                                                                                     <td>
                                                                                         <asp:CheckBox ID="IT_chkIsAC1" runat="server" />
-                                                                                        <asp:TextBox ID="IT_txtAC1" runat="server" Width="200" Text="API RP 5A5"></asp:TextBox>
+                                                                                        <asp:TextBox ID="IT_txtAC1" runat="server" Width="200" Text="API RP 5A5">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>
                                                                                         <asp:CheckBox ID="IT_chkIsAC2" runat="server" />
-                                                                                        <asp:TextBox ID="IT_txtAC2" runat="server" Width="200" Text="API RP 5C1"></asp:TextBox>
+                                                                                        <asp:TextBox ID="IT_txtAC2" runat="server" Width="200" Text="API RP 5C1">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>
                                                                                         <asp:CheckBox ID="IT_chkIsAC3" runat="server" />
-                                                                                        <asp:TextBox ID="IT_txtAC3" runat="server" Width="200" Text="API SPEC 5B"></asp:TextBox>
+                                                                                        <asp:TextBox ID="IT_txtAC3" runat="server" Width="200" Text="API SPEC 5B">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>
                                                                                         <asp:CheckBox ID="IT_chkIsAC4" runat="server" />
-                                                                                        <asp:TextBox ID="IT_txtAC4" runat="server" Width="200" Text="API SPEC 5CT"></asp:TextBox>
+                                                                                        <asp:TextBox ID="IT_txtAC4" runat="server" Width="200" Text="API SPEC 5CT">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -2970,13 +3169,15 @@
                                                                             Report No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtReportNo" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtReportNo" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             For
                                                                         </td>
                                                                         <td>
-                                                                            <asp:DropDownList ID="IT_ddlTallyType" runat="server" width="200"></asp:DropDownList>
+                                                                            <asp:DropDownList ID="IT_ddlTallyType" runat="server" width="200">
+                                                                            </asp:DropDownList>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -2984,27 +3185,31 @@
                                                                             Size
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtSize" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtSize" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Grade
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtGrade" runat="server" Width="200"></asp:TextBox>
-                                                                        </td>                                                                        
+                                                                            <asp:TextBox ID="IT_txtGrade" runat="server" Width="200">
+                                                                            </asp:TextBox>
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td style="width: 100px;" class="right">
                                                                             Weight
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtWeight" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtWeight" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Connection
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtConnection" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtConnection" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3012,13 +3217,15 @@
                                                                             Range
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtRange" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtRange" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Nominal W.T.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtNominalWT" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtNominalWT" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -3032,14 +3239,17 @@
                                                                             Pipe No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtInspectionTallyDtID" runat="server" Visible="false"></asp:TextBox>
-                                                                            <asp:TextBox ID="IT_txtPipeNo" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtInspectionTallyDtID" runat="server" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtPipeNo" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle right" style="width: 100px;">
                                                                             Pipe Length
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtPipeLength" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtPipeLength" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3047,13 +3257,15 @@
                                                                             VBI
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtVBI" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtVBI" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle right" style="width: 100px;">
                                                                             RWT
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtRWT" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtRWT" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3062,10 +3274,14 @@
                                                                         </td>
                                                                         <td colspan="2">
                                                                             <asp:RadioButtonList ID="IT_rdblCCU" runat="server" RepeatDirection="Horizontal">
-                                                                                <asp:ListItem Text="Yellow" Value="Y"></asp:ListItem>
-                                                                                <asp:ListItem Text="Blue" Value="B"></asp:ListItem>
-                                                                                <asp:ListItem Text="Green" Value="G"></asp:ListItem>
-                                                                                <asp:ListItem Text="Red" Value="R"></asp:ListItem>
+                                                                                <asp:ListItem Text="Yellow" Value="Y">
+                                                                                </asp:ListItem>
+                                                                                <asp:ListItem Text="Blue" Value="B">
+                                                                                </asp:ListItem>
+                                                                                <asp:ListItem Text="Green" Value="G">
+                                                                                </asp:ListItem>
+                                                                                <asp:ListItem Text="Red" Value="R">
+                                                                                </asp:ListItem>
                                                                             </asp:RadioButtonList>
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle right">
@@ -3083,10 +3299,12 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td style="width: 99px;">
-                                                                                        <asp:TextBox ID="IT_txtVTIPin" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="IT_txtVTIPin" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 99px;">
-                                                                                        <asp:TextBox ID="IT_txtVTIBox" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="IT_txtVTIBox" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -3095,7 +3313,8 @@
                                                                             FLD
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtFLD" runat="server" Width="100"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtFLD" runat="server" Width="100">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3104,16 +3323,20 @@
                                                                         </td>
                                                                         <td colspan="2">
                                                                             <asp:RadioButtonList ID="IT_rdblCCN" runat="server" RepeatDirection="Horizontal">
-                                                                                <asp:ListItem Text="White" Value="W"></asp:ListItem>
-                                                                                <asp:ListItem Text="Yellow" Value="Y"></asp:ListItem>
-                                                                                <asp:ListItem Text="Red" Value="R"></asp:ListItem>
+                                                                                <asp:ListItem Text="White" Value="W">
+                                                                                </asp:ListItem>
+                                                                                <asp:ListItem Text="Yellow" Value="Y">
+                                                                                </asp:ListItem>
+                                                                                <asp:ListItem Text="Red" Value="R">
+                                                                                </asp:ListItem>
                                                                             </asp:RadioButtonList>
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle right">
                                                                             Final Class
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtFinalClass" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtFinalClass" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3133,11 +3356,13 @@
                                                                                 <tr>
                                                                                     <td style="width: 99px;">
                                                                                         <asp:TextBox ID="IT_txtInternalExternalCleaning" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 99px;">
                                                                                         <asp:TextBox ID="IT_txtInternalExternalCoating" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -3146,7 +3371,8 @@
                                                                             Remark
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtRemark" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="IT_txtRemark" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -3157,11 +3383,11 @@
                                                                 <asp:DataGrid ID="IT_grdInspectionTally" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="30">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="IT_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -3232,7 +3458,7 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "remarks")%>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>                                                                        
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -3248,8 +3474,10 @@
                                                                             Report No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtUTSpotCheckHdID" runat="server" Width="200" Visible="false"></asp:TextBox>
-                                                                            <asp:TextBox ID="UTSC_txtReportNo" runat="server" Width="200" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtUTSpotCheckHdID" runat="server" Width="200" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtReportNo" runat="server" Width="200" AutoPostBack="true">
+                                                                            </asp:TextBox>
                                                                             <asp:Button ID="UTSC_btnReportNo" runat="server" Text="..." Width="30" />
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
@@ -3277,13 +3505,15 @@
                                                                             Description
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtDescription" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtDescription" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Serial No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtSerialNo" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtSerialNo" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3291,13 +3521,15 @@
                                                                             Material
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtMaterial" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtMaterial" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Equipment
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtEquipment" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtEquipment" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3305,13 +3537,15 @@
                                                                             Couplant
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtCouplant" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtCouplant" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Probe Type
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtProbeType" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtProbeType" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3319,7 +3553,8 @@
                                                                             Impact Device
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtImpactDevice" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtImpactDevice" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                         </td>
@@ -3331,13 +3566,15 @@
                                                                             Reference Level
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtReferenceLevel" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtReferenceLevel" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Cal Reference
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtCalReference" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtCalReference" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr style="display: none;">
@@ -3345,7 +3582,8 @@
                                                                             Frequency
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSC_txtFrequency" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSC_txtFrequency" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                         </td>
@@ -3439,41 +3677,54 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtUTSpotCheckDtID" runat="server" Visible="false"></asp:TextBox>
-                                                                <asp:TextBox ID="UTSC_txtStructureTallyNo" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtUTSpotCheckDtID" runat="server" Visible="false">
+                                                                </asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtStructureTallyNo" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtSize" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtSize" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtLength" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtLength" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtWallThickness1" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtWallThickness1" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtWallThickness2" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtWallThickness2" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtWallThickness3" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtWallThickness3" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtWallThickness4" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtWallThickness4" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtHardnessTest1" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtHardnessTest1" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtHardnessTest2" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtHardnessTest2" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtHardnessTest3" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtHardnessTest3" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="UTSC_txtHardnessTest4" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtHardnessTest4" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td style="width: 120px;">
-                                                                <asp:TextBox ID="UTSC_txtRemark" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSC_txtRemark" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -3481,11 +3732,11 @@
                                                                 <asp:DataGrid ID="UTSC_grdUTSpotCheckDt" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="UTSC_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -3560,7 +3811,7 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "remark")%>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -3576,8 +3827,10 @@
                                                                             Report No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtUTSpotCheckHdID" runat="server" Width="200" Visible="false"></asp:TextBox>
-                                                                            <asp:TextBox ID="UTSA_txtReportNo" runat="server" Width="200" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtUTSpotCheckHdID" runat="server" Width="200" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtReportNo" runat="server" Width="200" AutoPostBack="true">
+                                                                            </asp:TextBox>
                                                                             <asp:Button ID="UTSA_btnReportNo" runat="server" Text="..." Width="30" />
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
@@ -3605,13 +3858,15 @@
                                                                             Description
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtDescription" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtDescription" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Equipment
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtEquipment" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtEquipment" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3619,13 +3874,15 @@
                                                                             Couplant
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtCouplant" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtCouplant" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Probe
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtProbe" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtProbe" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3633,13 +3890,15 @@
                                                                             Reference Level
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtReferenceLevel" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtReferenceLevel" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Cal Reference
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtCalReference" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtCalReference" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3647,7 +3906,8 @@
                                                                             Frequency
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtFrequency" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtFrequency" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                         </td>
@@ -3673,21 +3933,25 @@
                                                         </tr>
                                                         <tr>
                                                             <td valign="top">
-                                                                <asp:TextBox ID="UTSA_txtUTSpotAreaDtID" runat="server" Visible="false"></asp:TextBox>
-                                                                <asp:TextBox ID="UTSA_txtPipeNo" runat="server" Width="100%"></asp:TextBox>
+                                                                <asp:TextBox ID="UTSA_txtUTSpotAreaDtID" runat="server" Visible="false">
+                                                                </asp:TextBox>
+                                                                <asp:TextBox ID="UTSA_txtPipeNo" runat="server" Width="100%">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td valign="top" style="width: 120px;">
                                                                 <table width="100%">
                                                                     <tr>
                                                                         <td class="gridAlternatingItemStyle right" style="height: 24px;">
                                                                             <asp:TextBox ID="UTSA_txtPinCaption" runat="server" Width="100%" CssClass="gridAlternatingItemStyle right"
-                                                                                BorderStyle="None" Text="Pin" ReadOnly="true"></asp:TextBox>
+                                                                                BorderStyle="None" Text="Pin" ReadOnly="true">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="gridAlternatingItemStyle right" style="height: 24px;">
                                                                             <asp:TextBox ID="UTSA_txtBoxCaption" runat="server" Width="100%" CssClass="gridAlternatingItemStyle right"
-                                                                                BorderStyle="None" Text="Box" ReadOnly="true"></asp:TextBox>
+                                                                                BorderStyle="None" Text="Box" ReadOnly="true">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -3696,12 +3960,14 @@
                                                                 <table width="100%" cellpadding="0" cellspacing="1">
                                                                     <tr>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtConditionResultPin" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtConditionResultPin" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtConditionResultBox" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtConditionResultBox" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -3710,12 +3976,14 @@
                                                                 <table width="100%" cellpadding="0" cellspacing="1">
                                                                     <tr>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtRemarkPin" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtRemarkPin" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>
-                                                                            <asp:TextBox ID="UTSA_txtRemarkBox" runat="server" Width="100%"></asp:TextBox>
+                                                                            <asp:TextBox ID="UTSA_txtRemarkBox" runat="server" Width="100%">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -3726,11 +3994,11 @@
                                                                 <asp:DataGrid ID="UTSA_grdUTSpotAreaDt" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="30">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="UTSA_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -3800,7 +4068,7 @@
                                                                                 </table>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -3816,9 +4084,11 @@
                                                                             Report ID - Report No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="INS_txtInspectionReportHdID" runat="server" Width="166" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="INS_txtInspectionReportHdID" runat="server" Width="166" AutoPostBack="true">
+                                                                            </asp:TextBox>
                                                                             <asp:Button ID="INS_btnSearchInspectionReport" runat="server" Text="..." Width="30" />
-                                                                            <asp:TextBox ID="INS_txtReportNo" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="INS_txtReportNo" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Report Date
@@ -3861,14 +4131,17 @@
                                                                             Description
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="INS_txtInspectionReportDTID" runat="server" Visible="false"></asp:TextBox>
-                                                                            <asp:TextBox ID="INS_txtDescription" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="INS_txtInspectionReportDTID" runat="server" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="INS_txtDescription" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle right" style="width: 100px;">
                                                                             Serial No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="INS_txtSerialNo" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="INS_txtSerialNo" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3876,13 +4149,15 @@
                                                                             Total Length
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="INS_txtTotalLength" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="INS_txtTotalLength" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle right" style="width: 100px;">
                                                                             ID
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="INS_txtIDDescription" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="INS_txtIDDescription" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -3907,10 +4182,12 @@
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtConnectionSizePin" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtConnectionODPin" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtConnectionODPin" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -3919,10 +4196,12 @@
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtConnectionSizeBox" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtConnectionODBox" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtConnectionODBox" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -3949,11 +4228,13 @@
                                                                                         </td>
                                                                                         <td style="width: 80px;">
                                                                                             <asp:TextBox ID="INS_txtElevatorGrooveDiaPin" runat="server" CssClass="txtSmallText"
-                                                                                                Width="100%"></asp:TextBox>
+                                                                                                Width="100%">
+                                                                                            </asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width: 80px;">
                                                                                             <asp:TextBox ID="INS_txtElevatorGrooveDepthPin" runat="server" CssClass="txtSmallText"
-                                                                                                Width="100%"></asp:TextBox>
+                                                                                                Width="100%">
+                                                                                            </asp:TextBox>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
@@ -3962,11 +4243,13 @@
                                                                                         </td>
                                                                                         <td style="width: 80px;">
                                                                                             <asp:TextBox ID="INS_txtElevatorGrooveDiaBox" runat="server" CssClass="txtSmallText"
-                                                                                                Width="100%"></asp:TextBox>
+                                                                                                Width="100%">
+                                                                                            </asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width: 80px;">
                                                                                             <asp:TextBox ID="INS_txtElevatorGrooveDepthBox" runat="server" CssClass="txtSmallText"
-                                                                                                Width="100%"></asp:TextBox>
+                                                                                                Width="100%">
+                                                                                            </asp:TextBox>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
@@ -3993,11 +4276,13 @@
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtBBackRGrooveDiaPin" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtBBackRGrooveLengthPin" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -4006,11 +4291,13 @@
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtBBackRGrooveDiaBox" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtBBackRGrooveLengthBox" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -4030,7 +4317,8 @@
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtBevelDiameterPin" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -4039,7 +4327,8 @@
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtBevelDiameterBox" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -4060,7 +4349,8 @@
                                                                                         Pin
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtThreadLengthPin" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtThreadLengthPin" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -4068,7 +4358,8 @@
                                                                                         Box
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtThreadLengthBox" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtThreadLengthBox" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -4094,11 +4385,13 @@
                                                                                             Pin
                                                                                         </td>
                                                                                         <td style="width: 80px;">
-                                                                                            <asp:TextBox ID="INS_txtCenterPadDiaPin" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                            <asp:TextBox ID="INS_txtCenterPadDiaPin" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                            </asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width: 80px;">
                                                                                             <asp:TextBox ID="INS_txtCenterPadDepthPin" runat="server" CssClass="txtSmallText"
-                                                                                                Width="100%"></asp:TextBox>
+                                                                                                Width="100%">
+                                                                                            </asp:TextBox>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
@@ -4106,11 +4399,13 @@
                                                                                             Box
                                                                                         </td>
                                                                                         <td style="width: 80px;">
-                                                                                            <asp:TextBox ID="INS_txtCenterPadDiaBox" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                            <asp:TextBox ID="INS_txtCenterPadDiaBox" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                            </asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width: 80px;">
                                                                                             <asp:TextBox ID="INS_txtCenterPadDepthBox" runat="server" CssClass="txtSmallText"
-                                                                                                Width="100%"></asp:TextBox>
+                                                                                                Width="100%">
+                                                                                            </asp:TextBox>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
@@ -4137,11 +4432,13 @@
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtCounterBoreDiaPin" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtCounterBoreDepthPin" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -4150,11 +4447,13 @@
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtCounterBoreDiaBox" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                     <td style="width: 80px;">
                                                                                         <asp:TextBox ID="INS_txtCounterBoreDepthBox" runat="server" CssClass="txtSmallText"
-                                                                                            Width="100%"></asp:TextBox>
+                                                                                            Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -4173,7 +4472,8 @@
                                                                                         Pin
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtTongSpacePin" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtTongSpacePin" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -4181,7 +4481,8 @@
                                                                                         Box
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtTongSpaceBox" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtTongSpaceBox" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -4202,7 +4503,8 @@
                                                                                         Pin
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtConditionPin" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtConditionPin" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -4210,7 +4512,8 @@
                                                                                         Box
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtConditionBox" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtConditionBox" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -4219,7 +4522,8 @@
                                                                             BSR
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="INS_txtBSR" runat="server" Width="200"></asp:TextBox>
+                                                                            <asp:TextBox ID="INS_txtBSR" runat="server" Width="200">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle right" style="width: 100px;">
                                                                             Remarks
@@ -4235,7 +4539,8 @@
                                                                                         Pin
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtRemarksPin" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtRemarksPin" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -4243,7 +4548,8 @@
                                                                                         Box
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtRemarksBox" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtRemarksBox" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -4258,7 +4564,8 @@
                                                                                         Pin
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtHBPin" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtHBPin" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <asp:Panel ID="INS_pnlHBCenterPad" runat="server">
@@ -4267,7 +4574,8 @@
                                                                                             CP
                                                                                         </td>
                                                                                         <td style="width: 80px;">
-                                                                                            <asp:TextBox ID="INS_txtHBCenterPad" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                            <asp:TextBox ID="INS_txtHBCenterPad" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                            </asp:TextBox>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </asp:Panel>
@@ -4276,7 +4584,8 @@
                                                                                         Box
                                                                                     </td>
                                                                                     <td style="width: 80px;">
-                                                                                        <asp:TextBox ID="INS_txtHBBox" runat="server" CssClass="txtSmallText" Width="100%"></asp:TextBox>
+                                                                                        <asp:TextBox ID="INS_txtHBBox" runat="server" CssClass="txtSmallText" Width="100%">
+                                                                                        </asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -4290,11 +4599,11 @@
                                                                 <asp:DataGrid ID="INS_grdInspectionReportDt" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="30">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="INS_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -4391,7 +4700,7 @@
                                                                                 </table>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -4407,8 +4716,10 @@
                                                                             Certificate No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtCertificateInspectionID" runat="server" Width="300" Visible="false"></asp:TextBox>
-                                                                            <asp:TextBox ID="COI_txtCertificateNo" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtCertificateInspectionID" runat="server" Width="300" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtCertificateNo" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Certificate Date
@@ -4422,13 +4733,15 @@
                                                                             Owner
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtOwner" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtOwner" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             User
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtUser" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtUser" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -4436,13 +4749,15 @@
                                                                             Location
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtLocation" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtLocation" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Description
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtDescription" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtDescription" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -4450,13 +4765,15 @@
                                                                             Serial No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtSerialNo" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtSerialNo" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Max Gross Weight (R)
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtMaxGossWeightR" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtMaxGossWeightR" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -4464,13 +4781,15 @@
                                                                             Load Test
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtLoadTest" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtLoadTest" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Duration
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtDuration" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtDuration" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -4478,13 +4797,15 @@
                                                                             Specification
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtSpecification" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtSpecification" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                             Examination
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtExamination" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtExamination" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -4492,7 +4813,8 @@
                                                                             Result
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtResult" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtResult" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                         </td>
@@ -4518,7 +4840,8 @@
                                                                             Notes
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="COI_txtNotes" runat="server" Width="300"></asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtNotes" runat="server" Width="300">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
                                                                         </td>
@@ -4567,11 +4890,11 @@
                                                                 <asp:DataGrid ID="COI_grdCertificateInspection" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="30">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="COI_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -4611,7 +4934,138 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "result") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
+                                                                </asp:DataGrid>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </asp:Panel>
+                                                <asp:Panel ID="pnlBeritaAcara" runat="server">
+                                                    <table cellpadding="2" cellspacing="1" width="100%">
+                                                        <tr>
+                                                            <td>
+                                                                <table width="100%">
+                                                                    <tr>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            No. Berita Acara
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="BA_txtOfficialReportID" runat="server" Width="300" Visible="false">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="BA_txtReportNo" runat="server" Width="300">
+                                                                            </asp:TextBox>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Report Date
+                                                                        </td>
+                                                                        <td>
+                                                                            <Module:Calendar ID="BA_calReportDate" runat="server" DontResetDate="true" />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 100px;" class="right">
+                                                                            Report Type
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:DropDownList id="BA_ddlOfficialReportType" runat="server" width="300" AutoPostBack="true">
+                                                                            </asp:DropDownList>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right">
+                                                                        </td>
+                                                                        <td>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <asp:Panel id="BA_pnlBeritaAcaraAkhir" runat="server">
+                                                                        <tr>
+                                                                            <td colspan="4">
+                                                                                <asp:DataGrid ID="BA_grdBeritaAcaraAkhir" runat="server" BorderWidth="0" GridLines="None"
+                                                                                    Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                                                    AutoGenerateColumns="false">
+                                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                                    <columns>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="Description" ItemStyle-Width="450px">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:Label runat="server" ID="BA_lblProjectDtID" Visible="false" Text='<%# DataBinder.Eval(Container.DataItem, "projectDtID") %>' />
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "description") %>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="Reference No." ItemStyle-Width="100px">
+                                                                                            <ItemTemplate>
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "referenceNo") %>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="Qty" ItemStyle-Width="80px">
+                                                                                            <ItemTemplate>
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "Qty") %>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="Qty Actual" ItemStyle-Width="80px">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:TextBox id="BA_txtQtyActual" runat="server" width="100" class="right" text='<%# DataBinder.Eval(Container.DataItem, "QtyActual") %>'></asp:TextBox>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="UOM" ItemStyle-Width="100px">
+                                                                                            <ItemTemplate>
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "unitOfMeasurement") %>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>                                                                    
+                                                                                    </columns>
+                                                                                </asp:DataGrid>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </asp:Panel>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <asp:DataGrid ID="BA_grdBeritaAcara" runat="server" BorderWidth="0" GridLines="None"
+                                                                    Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                                    AutoGenerateColumns="false">
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="30">
+                                                                            <ItemTemplate>
+                                                                                <asp:ImageButton ID="BA_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
+                                                                                    ImageAlign="AbsMiddle" CommandName="Edit" CausesValidation="false" />
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="30">
+                                                                            <ItemTemplate>
+                                                                                <asp:ImageButton ID="BA_ibtnPrint" runat="server" ImageUrl="/PureravensLib/images/print.png"
+                                                                                    ImageAlign="AbsMiddle" CommandName="Print" CausesValidation="false" />
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="No. Berita Acara">
+                                                                            <ItemTemplate>
+                                                                                <asp:Label ID="BA_lblOfficialReportID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "officialReportID") %>'
+                                                                                    Visible="false"></asp:Label>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "reportNo") %>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Date">
+                                                                            <ItemTemplate>
+                                                                                <%# Format(DataBinder.Eval(Container.DataItem, "reportDate"), "dd-MMM-yyyy")%>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="ReportType">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "officialReportTypeName") %>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="30">
+                                                                            <ItemTemplate>
+                                                                                <asp:ImageButton ID="BA_ibtnDelete" runat="server" ImageUrl="/PureravensLib/images/delete.png"
+                                                                                    ImageAlign="AbsMiddle" CommandName="Delete" CausesValidation="false" />
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>                                                                        
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
