@@ -292,12 +292,12 @@ Namespace Raven.Common.BussinessRules
         End Function
 #End Region
 
-#Region " Custom "
+#Region " Custom Functions "
         Public Function SelectForInspectionReport() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM InspectionSpec WHERE inspectionSpecID=@inspectionSpecID AND " + _
-                                        "size=@size AND weight=@weight AND connection=@connection AND range=@range " + _
-                                        "AND grade=@grade AND nominalWT=@nominalWT "
+            cmdToExecute.CommandText = "SELECT * FROM InspectionSpec WHERE inspectionSpecCode=@inspectionSpecCode AND " + _
+                                        "size=@size AND weight=@weight AND connection=@connection " + _
+                                        "AND grade=@grade"
             cmdToExecute.CommandType = CommandType.Text
 
             Dim toReturn As DataTable = New DataTable("InspectionSpec")
@@ -306,13 +306,11 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@inspectionSpecID", _inspectionSpecID)
+                cmdToExecute.Parameters.AddWithValue("@inspectionSpecCode", _inspectionSpecCode)
                 cmdToExecute.Parameters.AddWithValue("@size", _size)
                 cmdToExecute.Parameters.AddWithValue("@weight", _weight)
                 cmdToExecute.Parameters.AddWithValue("@connection", _connection)
                 cmdToExecute.Parameters.AddWithValue("@grade", _grade)
-                cmdToExecute.Parameters.AddWithValue("@range", _range)
-                cmdToExecute.Parameters.AddWithValue("@nominalWT", _nominalWT)
 
                 ' // Open connection.
                 _mainConnection.Open()

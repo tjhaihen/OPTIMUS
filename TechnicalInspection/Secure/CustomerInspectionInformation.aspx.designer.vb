@@ -177,15 +177,6 @@ Namespace Raven.Web.Secure
         Protected WithEvents grdItemDueToExpiredInspection As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
-        '''chtTotalInspection control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents chtTotalInspection As Global.System.Web.UI.DataVisualization.Charting.Chart
-
-        '''<summary>
         '''pvInspectionByItem control.
         '''</summary>
         '''<remarks>

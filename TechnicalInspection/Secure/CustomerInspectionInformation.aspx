@@ -68,7 +68,7 @@
                                                         <asp:TextBox ID="txtCustomerCode" Width="266" MaxLength="15" runat="server" AutoPostBack="True" />
                                                         <asp:Button ID="btnSearchCustomer" runat="server" Text="..." Width="30" CausesValidation="false" />
                                                         <asp:RequiredFieldValidator ID="rfvCustomerCode" runat="server" ControlToValidate="txtCustomerCode"
-                                                            ErrorMessage="Customer Code" Display="dynamic" Text="*">																
+                                                            ErrorMessage="Customer Code" Display="dynamic" Text="*">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td style="width: 150px;" class="right">
@@ -180,7 +180,8 @@
                                                                         <td class="projectBanner" style="width: 624;">
                                                                             List of Item Due to Expired Inspection in &nbsp;
                                                                             <asp:TextBox ID="txtItemDueToExpiredInspectionInDay" runat="server" Width="50" CssClass="right"
-                                                                                Text="30"></asp:TextBox>
+                                                                                Text="30">
+                                                                            </asp:TextBox>
                                                                             &nbsp; day(s)
                                                                         </td>
                                                                     </tr>
@@ -189,11 +190,11 @@
                                                                             <asp:DataGrid ID="grdItemDueToExpiredInspection" runat="server" BorderWidth="0" GridLines="None"
                                                                                 Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                                 AutoGenerateColumns="false">
-                                                                                <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                                <ItemStyle CssClass="gridItemStyle" />
-                                                                                <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                                <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                                <Columns>
+                                                                                <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                                <itemstyle cssclass="gridItemStyle" />
+                                                                                <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                                <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                                <columns>
                                                                                     <asp:TemplateColumn runat="server" HeaderText="Description of Equipment" ItemStyle-VerticalAlign="Top">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "descriptionOfEquipment") %>
@@ -227,7 +228,7 @@
                                                                                             <%# DataBinder.Eval(Container.DataItem, "result") %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                </Columns>
+                                                                                </columns>
                                                                             </asp:DataGrid>
                                                                         </td>
                                                                     </tr>
@@ -237,16 +238,6 @@
                                                                 <table cellspacing="1" cellpadding="2">
                                                                     <tr>
                                                                         <td valign="top">
-                                                                            <asp:Chart ID="chtTotalInspection" runat="server">
-                                                                                <Series>
-                                                                                    <asp:Series Name="Series1">
-                                                                                    </asp:Series>
-                                                                                </Series>
-                                                                                <ChartAreas>
-                                                                                    <asp:ChartArea Name="ChartArea1">
-                                                                                    </asp:ChartArea>
-                                                                                </ChartAreas>
-                                                                            </asp:Chart>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -261,7 +252,8 @@
                                                                 Serial No.
                                                             </td>
                                                             <td style="width: 500px;">
-                                                                <asp:TextBox ID="txtSerialNo" runat="server" Width="300"></asp:TextBox>
+                                                                <asp:TextBox ID="txtSerialNo" runat="server" Width="300">
+                                                                </asp:TextBox>
                                                             </td>
                                                             <td>
                                                             </td>
@@ -270,11 +262,11 @@
                                                             <td colspan="3">
                                                                 <asp:DataGrid ID="grdInspectionBySerialIDNo" runat="server" BorderWidth="0" GridLines="None"
                                                                     CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false" AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" HeaderText="Description of Equipment" ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <%# DataBinder.Eval(Container.DataItem, "descriptionOfEquipment") %>
@@ -302,7 +294,7 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "result") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -316,8 +308,10 @@
                                                             </td>
                                                             <td style="width: 500px;">
                                                                 <asp:DropDownList ID="ddlInformationType" runat="server" Width="300" AutoPostBack="true">
-                                                                    <asp:ListItem Text="Due to Expired Inspection" Value="Due"></asp:ListItem>
-                                                                    <asp:ListItem Text="History Inspection" Value="History"></asp:ListItem>
+                                                                    <asp:ListItem Text="Due to Expired Inspection" Value="Due">
+                                                                    </asp:ListItem>
+                                                                    <asp:ListItem Text="History Inspection" Value="History">
+                                                                    </asp:ListItem>
                                                                 </asp:DropDownList>
                                                             </td>
                                                             <td style="width: 150px;" class="right">
@@ -360,11 +354,11 @@
                                                                 <asp:DataGrid ID="grdCustomerInspection" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                    <ItemStyle CssClass="gridItemStyle" />
-                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                    <Columns>
+                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                    <columns>
                                                                         <asp:TemplateColumn runat="server" HeaderText="Work Order" ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <table>
@@ -442,7 +436,7 @@
                                                                                     ToolTip="Process this Work Request" CommandName="Process" />
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </Columns>
+                                                                    </columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>

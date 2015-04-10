@@ -3099,6 +3099,24 @@
                                                                             </td>
                                                                         </tr>
                                                                     </asp:Panel>
+                                                                    <tr>
+                                                                        <td class="hseparator" colspan="4" style="width: 100%;">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 100px;" class="right" valign="top">
+                                                                            Image
+                                                                        </td>
+                                                                        <td valign="top">
+                                                                            <asp:DropDownList ID="TVI_ddlImage" runat="server" width="200">
+                                                                            </asp:DropDownList>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right" valign="top">
+                                                                        </td>
+                                                                        <td valign="top">
+                                                                            <asp:Image ID="imgPicTVI" runat="server" Width="160" />
+                                                                        </td>
+                                                                    </tr>
                                                                 </table>
                                                             </td>
                                                         </tr>
