@@ -24,6 +24,9 @@
             Public Const ThoroughVisualType_SCode As String = "TVITYPE"
             Public Const InspectionTallyType_SCode As String = "ITTYPE"
             Public Const OfficialReportType_SCode As String = "BATYPE"
+            Public Const TVIShacklePic_SCode As String = "SHACKLEPIC"
+            Public Const TVISlingPic_SCode As String = "SLINGPIC"
+            Public Const InspectionTallyRemark_SCode As String = "ITRREMARK"
         End Class
 
         Public NotInheritable Class FormatString
@@ -158,6 +161,16 @@
         Public NotInheritable Class OfficialReportType
             Public Const OfficialReportStart As String = "STR"
             Public Const OfficialReportEnd As String = "END"
+        End Class
+
+        Public NotInheritable Class GetImageType
+            Public Const GetImage_MPI As String = "MPI"
+            Public Const GetImage_COI1 As String = "COI-1"
+            Public Const GetImage_COI2 As String = "COI-2"
+            Public Const GetImage_COI3 As String = "COI-3"
+            Public Const GetImage_PersonSignature As String = "PersonSignature"
+            Public Const GetImage_ResourceSignature As String = "ResourceSignature"
+            Public Const GetImage_CommonCodeFilePic As String = "CommonCodeFilePic"            
         End Class
     End Class
 End Namespace

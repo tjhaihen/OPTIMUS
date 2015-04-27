@@ -12,7 +12,7 @@ Namespace Raven.Common.BussinessRules
 
 #Region " Class Member Declarations "
         Private _tviHdID, _projectID, _reportNo, _tviTypeSCode, _description As String
-        Private _serialNo, _WLLSWL, _dimension, _length, _manufacture, _defectFound, _examineWith, _result, _note As String
+        Private _serialNo, _WLLSWL, _dimension, _length, _manufacture, _defectFound, _examineWith, _result, _note, _tviImageSCode As String
         Private _reportDate, _nextInspectionDate, _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
@@ -30,12 +30,12 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO ThoroughVisualReportHd " + _
                                         "(tviHdID, projectID, reportNo, tviTypeSCode, description, " + _
-                                        "serialNo, WLLSWL, dimension, length, manufacture, defectFound, examineWith, result, note, " + _
+                                        "serialNo, WLLSWL, dimension, length, manufacture, defectFound, examineWith, result, note, tviImageSCode, " + _
                                         "reportDate, nextInspectionDate, insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
                                         "(@tviHdID, @projectID, @reportNo, @tviTypeSCode, @description, " + _
-                                        "@serialNo, @WLLSWL, @dimension, @length, @manufacture, @defectFound, @examineWith, @result, @note, " + _
+                                        "@serialNo, @WLLSWL, @dimension, @length, @manufacture, @defectFound, @examineWith, @result, @note, @tviImageSCode, " + _
                                         "@reportDate, @nextInspectionDate, GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate)"
             cmdToExecute.CommandType = CommandType.Text
@@ -58,6 +58,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@examineWith", _examineWith)
                 cmdToExecute.Parameters.AddWithValue("@result", _result)
                 cmdToExecute.Parameters.AddWithValue("@note", _note)
+                cmdToExecute.Parameters.AddWithValue("@tviImageSCode", _tviImageSCode)
                 cmdToExecute.Parameters.AddWithValue("@nextInspectionDate", _nextInspectionDate)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDInsert)
@@ -85,9 +86,9 @@ Namespace Raven.Common.BussinessRules
                                         "SET reportNo=@reportNo, reportDate=@reportDate, nextInspectionDate=@nextInspectionDate, " + _
                                         "tviTypeSCode=@tviTypeSCode, description=@description, serialNo=@serialNo, " + _
                                         "WLLSWL=@WLLSWL, dimension=@dimension, length=@length, manufacture=@manufacture, " + _
-                                        "defectFound=@defectFound, examineWith=@examineWith, result=@result, note=@note, " + _
+                                        "defectFound=@defectFound, examineWith=@examineWith, result=@result, note=@note, tviImageSCode=@tviImageSCode, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
-                                        "WHERE UTSpotCheckHdID=@UTSpotCheckHdID"
+                                        "WHERE tviHdID=@tviHdID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
@@ -106,6 +107,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@examineWith", _examineWith)
                 cmdToExecute.Parameters.AddWithValue("@result", _result)
                 cmdToExecute.Parameters.AddWithValue("@note", _note)
+                cmdToExecute.Parameters.AddWithValue("@tviImageSCode", _tviImageSCode)
                 cmdToExecute.Parameters.AddWithValue("@nextInspectionDate", _nextInspectionDate)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)                
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
@@ -188,6 +190,7 @@ Namespace Raven.Common.BussinessRules
                     _examineWith = CType(toReturn.Rows(0)("examineWith"), String)
                     _result = CType(toReturn.Rows(0)("result"), String)
                     _note = CType(toReturn.Rows(0)("note"), String)
+                    _tviImageSCode = CType(toReturn.Rows(0)("tviImageSCode"), String)
                     _nextInspectionDate = CType(toReturn.Rows(0)("nextInspectionDate"), DateTime)
                     _reportDate = CType(toReturn.Rows(0)("reportDate"), DateTime)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
@@ -393,6 +396,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _note = Value
+            End Set
+        End Property
+
+        Public Property [TVIImageSCode]() As String
+            Get
+                Return _tviImageSCode
+            End Get
+            Set(ByVal Value As String)
+                _tviImageSCode = Value
             End Set
         End Property
 

@@ -218,6 +218,11 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td class="heading1">
+                                            Resource Signature
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td class="hseparator" style="width: 100%;">
                                         </td>
                                     </tr>
@@ -229,16 +234,25 @@
                                                         Signature
                                                     </td>
                                                     <td style="width: 500px;" valign="top">
+                                                        <asp:TextBox ID="txtResourceSignatureID" Width="300" MaxLength="100" runat="server" Visible="false" />
                                                         <input id="ImageFilePicSignature" type="file" runat="server" autopostback="True"
                                                             name="ImageFilePicSignature" class="imguploader" style="width: 200;" />
                                                         <asp:Button ID="btnUploadPicSignature" runat="server" Text="Upload" CssClass="sbttn"
-                                                            Width="100" />                                                        
-                                                    </td> 
-                                                    <td></td>
-                                                    <td></td>
+                                                            Width="100" />
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Description
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtResourceSignatureDescription" Width="300" MaxLength="100" runat="server" />
+                                                        <asp:RequiredFieldValidator ID="rfvResourceSignatureDescription" runat="server" ControlToValidate="txtResourceSignatureDescription"
+                                                            ErrorMessage="Resource Signature Description" Display="dynamic" Text="*">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width: 150px;"></td>
+                                                    <td style="width: 150px;">
+                                                    </td>
                                                     <td style="width: 500px;">
                                                         <table width="300" cellpadding="0" cellspacing="0">
                                                             <tr>
@@ -246,10 +260,50 @@
                                                                     <asp:Image ID="imgPicSignature" runat="server" Width="160" />
                                                                 </td>
                                                             </tr>
-                                                        </table>                                                        
+                                                        </table>
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" colspan="4">
+                                                        <asp:DataGrid ID="grdResourceSignature" runat="server" BorderWidth="0" GridLines="None"
+                                                            Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                            AutoGenerateColumns="false">
+                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                            <itemstyle cssclass="gridItemStyle" />
+                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                            <columns>
+                                                                <asp:TemplateColumn runat="server" ItemStyle-Width="50">
+                                                                    <ItemTemplate>
+                                                                        <asp:ImageButton ID="_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
+                                                                            ImageAlign="AbsMiddle" CommandName="Edit" CausesValidation="false" />
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                                <asp:TemplateColumn runat="server" HeaderText="Signature" ItemStyle-Width="180">
+                                                                    <ItemTemplate>
+                                                                        <asp:Image ID="_imgPicSignature" runat="server" Width="160" />
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                                <asp:TemplateColumn runat="server" HeaderText="Signature Description">
+                                                                    <ItemTemplate>
+                                                                        <asp:Label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ResourceSignatureID") %>'
+                                                                            ID="_lblResourceSignatureID" Visible="false" />
+                                                                        <%# DataBinder.Eval(Container.DataItem, "Description")%>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                                <asp:TemplateColumn runat="server" ItemStyle-Width="50">
+                                                                    <ItemTemplate>
+                                                                        <asp:ImageButton ID="_ibtnDelete" runat="server" ImageUrl="/PureravensLib/images/delete.png"
+                                                                            ImageAlign="AbsMiddle" CommandName="Delete" CausesValidation="false" />
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                            </columns>
+                                                        </asp:DataGrid>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </td>

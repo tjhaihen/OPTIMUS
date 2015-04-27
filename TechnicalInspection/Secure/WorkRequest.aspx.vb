@@ -9,6 +9,7 @@ Imports System.Web.UI.WebControls
 Imports System.Collections
 Imports System.ComponentModel
 Imports System.Data
+Imports System.IO
 Imports Microsoft.VisualBasic
 
 Imports System.Data.SqlTypes
@@ -37,12 +38,14 @@ Namespace Raven.Web.Secure
                 btnSearchProject.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Project", txtProjectCode.ClientID))
                 btnSearchCustomer.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Customer", txtCustomerCode.ClientID))
                 btnSearchResource.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Resource", txtResourceCode.ClientID))
+                btnSearchProduct.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Product", txtProductCode.ClientID))
 
                 prepareDDL()
                 prepareScreen(True)
                 SetDataGridProjectDetail()
                 SetDataGridProjectReportType()
                 SetDataGridProjectResource()
+                SetDataGridProjectFile()
                 DataBind()
             End If
         End Sub
@@ -56,6 +59,10 @@ Namespace Raven.Web.Secure
             _openCustomer(Common.BussinessRules.ID.GetFieldValue("Customer", "CustomerCode", txtCustomerCode.Text.Trim, "CustomerID"))
         End Sub
 
+        Private Sub txtProductCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtProductCode.TextChanged
+            _openProduct(Common.BussinessRules.ID.GetFieldValue("Product", "ProductCode", txtProductCode.Text.Trim, "ProductID"))
+        End Sub
+
         Private Sub txtResourceCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtResourceCode.TextChanged
             _openResource(Common.BussinessRules.ID.GetFieldValue("Resource", "ResourceCode", txtResourceCode.Text.Trim, "ResourceID"))
             commonFunction.Focus(Me, txtResourceName.ClientID)
@@ -65,8 +72,12 @@ Namespace Raven.Web.Secure
             _updateProjectResource()
         End Sub
 
-        Private Sub btnAddDetail_Click(sender As Object, e As System.EventArgs) Handles btnAddDetail.Click
+        Private Sub btnAddDetail_Click(sender As Object, e As System.EventArgs) Handles btnAddDetail.Click            
             _updateProjectDetail()
+        End Sub
+
+        Private Sub btnAttachProjectFile_Click(sender As Object, e As System.EventArgs) Handles btnAttachProjectFile.Click
+            _attachFile()
         End Sub
 
         Private Sub grdProjectDetail_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdProjectDetail.ItemCommand
@@ -85,6 +96,15 @@ Namespace Raven.Web.Secure
                 Case "Delete"
                     Dim _lblProjectResourceID As Label = CType(e.Item.FindControl("_lblProjectResourceID"), Label)
                     _deleteProjectResource(_lblProjectResourceID.Text.Trim)
+            End Select
+        End Sub
+
+        Private Sub grdProjectFile_ItemCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdProjectFile.ItemCommand
+            Dim _lblProjectFileID As Label
+            Select Case e.CommandName
+                Case "Delete"
+                    _lblProjectFileID = CType(e.Item.FindControl("_lblProjectFileID"), Label)
+                    _deleteProjectFile(_lblProjectFileID.Text.Trim)
             End Select
         End Sub
 
@@ -156,6 +176,7 @@ Namespace Raven.Web.Secure
             commonFunction.SetDDL_Table(ddlSite, "Site", String.Empty)
             commonFunction.SetDDL_Table(ddlPriority, "CommonCode", Common.Constants.GroupCode.Priority_SCode)
             commonFunction.SetDDL_Table(ddlResourceRole, "CommonCode", Common.Constants.GroupCode.ResourceType_SCode)
+            commonFunction.SetDDL_Table(ddlResourceSignature, "ResourceSignature", txtResourceID.Text.Trim)
         End Sub
 
         Private Sub prepareScreen(ByVal isNew As Boolean)
@@ -176,6 +197,9 @@ Namespace Raven.Web.Secure
             txtCustomerID.Text = String.Empty
             txtCustomerCode.Text = String.Empty
             txtCustomerName.Text = String.Empty
+            txtProductID.Text = String.Empty
+            txtProductCode.Text = String.Empty
+            txtProductName.Text = String.Empty
             txtWorkLocation.Text = String.Empty
             calRequiredDate.selectedDate = Date.Today
             ddlPriority.SelectedIndex = 0
@@ -197,6 +221,7 @@ Namespace Raven.Web.Secure
             txtResourceCode.Text = String.Empty
             txtResourceName.Text = String.Empty
             ddlResourceRole.SelectedIndex = 0
+            commonFunction.SetDDL_Table(ddlResourceSignature, "ResourceSignature", txtResourceID.Text.Trim)
 
             txtToDepartment.Text = Common.Methods.GetSettingParameter("TODEPT").Trim
             txtWorkRequestReference.Text = Common.Methods.GetSettingParameter("WRREF").Trim
@@ -222,7 +247,18 @@ Namespace Raven.Web.Secure
             _refreshStatus()
             SetDataGridProjectReportType()
             SetDataGridProjectDetail()
+            SetDataGridProjectResource()
+            SetDataGridProjectFile()
             setToolbarVisibleButton()
+        End Sub
+
+        Private Sub PrepareScreenProjectFile()
+            txtProjectFileName.Text = String.Empty
+            txtProjectFileNo.Text = String.Empty
+            txtProjectFileDescription.Text = String.Empty
+            chkIsShared.Checked = False
+
+            commonFunction.Focus(Me, txtProjectFileName.ClientID)
         End Sub
 
         Private Sub SetDataGridProjectDetail()
@@ -252,6 +288,21 @@ Namespace Raven.Web.Secure
             grdProjectResource.DataBind()
             oProjectResource.Dispose()
             oProjectResource = Nothing
+        End Sub
+
+        Private Sub SetDataGridProjectFile()
+            Dim br As New Common.BussinessRules.ProjectFile
+            Dim dt As New DataTable
+            With br
+                .projectID = txtProjectID.Text.Trim
+                dt = .GetFileByProjectID(False)
+            End With
+
+            grdProjectFile.DataSource = dt.DefaultView
+            grdProjectFile.DataBind()
+
+            br.Dispose()
+            br = Nothing
         End Sub
 
         Private Sub _refreshStatus()
@@ -356,6 +407,8 @@ Namespace Raven.Web.Secure
                     chkIsNoExpiredDate.Checked = .isNoExpiredDate
                     txtCustomerID.Text = .customerID.Trim
                     _openCustomer(.customerID.Trim)
+                    txtProductID.Text = .productID.Trim
+                    _openProduct(.productID.Trim)
                     txtWorkLocation.Text = .workLocation.Trim
                     calRequiredDate.selectedDate = .requiredDate
                     commonFunction.SelectListItem(ddlPriority, .prioritySCode.Trim)
@@ -389,6 +442,7 @@ Namespace Raven.Web.Secure
             SetDataGridProjectDetail()
             SetDataGridProjectReportType()
             SetDataGridProjectResource()
+            SetDataGridProjectFile()
             _refreshStatus()
         End Sub
 
@@ -406,6 +460,22 @@ Namespace Raven.Web.Secure
             End If
             oCustomer.Dispose()
             oCustomer = Nothing
+        End Sub
+
+        Private Sub _openProduct(ByVal _productID As String)
+            Dim oProduct As New Common.BussinessRules.Product
+            oProduct.productID = _productID.Trim
+            If oProduct.SelectOne.Rows.Count > 0 Then
+                txtProductID.Text = _productID.Trim
+                txtProductCode.Text = oProduct.productCode.Trim
+                txtProductName.Text = oProduct.productName.Trim
+            Else
+                txtProductID.Text = String.Empty
+                txtProductCode.Text = String.Empty
+                txtProductName.Text = String.Empty
+            End If
+            oProduct.Dispose()
+            oProduct = Nothing
         End Sub
 
         Private Sub _openResource(ByVal _resourceID As String)
@@ -426,6 +496,7 @@ Namespace Raven.Web.Secure
             End If
             oResource.Dispose()
             oResource = Nothing
+            commonFunction.SetDDL_Table(ddlResourceSignature, "ResourceSignature", txtResourceID.Text.Trim)
         End Sub
 
         Private Sub _openProjectDetail(ByVal _projectDtID As String)
@@ -474,6 +545,7 @@ Namespace Raven.Web.Secure
             SetDataGridProjectDetail()
             SetDataGridProjectReportType()
             SetDataGridProjectResource()
+            SetDataGridProjectFile()
         End Sub
 
         Private Sub _deleteProjectReportType(ByVal isRemoveAll As Boolean)
@@ -522,6 +594,29 @@ Namespace Raven.Web.Secure
             commonFunction.Focus(Me, txtDescription.ClientID)
         End Sub
 
+        Private Sub _deleteProjectFile(ByVal _ProjectFileID As String)
+            Dim br As New Common.BussinessRules.ProjectFile
+            Dim strFileName As String = String.Empty
+            Dim nmFile As String = String.Empty
+            With br
+                .projectFileID = _ProjectFileID.Trim
+                If .SelectOne.Rows.Count > 0 Then
+                    strFileName = .fileName.Trim
+
+                    Dim Pathdb As New Common.SystemParameter                    
+                    nmFile = Pathdb.GetValue("AttachFileUrl").ToString + strFileName
+                    If File.Exists(nmFile) Then
+                        File.Delete(nmFile)
+                        If .Delete() Then
+                            SetDataGridProjectFile()
+                        End If
+                    End If
+                End If
+            End With
+            br.Dispose()
+            br = Nothing
+        End Sub
+
         Private Sub _update()
             Dim isNew As Boolean = True
 
@@ -545,6 +640,7 @@ Namespace Raven.Web.Secure
                 .workLocation = txtWorkLocation.Text.Trim
                 .requiredDate = calRequiredDate.selectedDate
                 .prioritySCode = ddlPriority.SelectedValue.Trim
+                .productID = txtProductID.Text.Trim
                 .serviceName = txtServiceName.Text.Trim
                 .assetNo = txtAssetNo.Text.Trim
                 .model = txtModel.Text.Trim
@@ -571,15 +667,81 @@ Namespace Raven.Web.Secure
                     If .Insert() Then
                         txtProjectID.Text = .projectID.Trim
                         txtProjectCode.Text = .projectCode.Trim
-                        'Dim oPr As New Common.BussinessRules.ProjectReportType
-                        'oPr.ProjectID = txtProjectID.Text.Trim
-                        'oPr.UserIDInsert = MyBase.LoggedOnUserID
-                        'oPr.UserIDPrepare = MyBase.LoggedOnUserID
-                        'oPr.InsertMandatoryReport()
+
+                        Dim oPrt As New Common.BussinessRules.ProductReportType
+                        Dim oPr As New Common.BussinessRules.ProjectReportType
+                        Dim strReportTypeID As String = String.Empty
+                        Dim dtPrtTemp As New DataTable
+                        Dim dtPrtMandatoryTemp As New DataTable
+                        oPrt.ProductID = txtProductID.Text.Trim
+                        dtPrtTemp = oPrt.SelectReportTypeByProductID
+                        dtPrtMandatoryTemp = oPrt.SelectReportTypeByIsMandatoryProductID
+                        Dim drPrtMandatoryTemp As DataRow() = dtPrtMandatoryTemp.Select()
+                        For i As Integer = 0 To drPrtMandatoryTemp.Length - 1
+                            Dim rowMandatory As DataRow = drPrtMandatoryTemp(i)
+                            strReportTypeID = ProcessNull.GetString(rowMandatory("ReportTypeID"))
+                            oPr.ProjectID = txtProjectID.Text.Trim
+                            oPr.ReportTypeID = strReportTypeID.Trim
+                            oPr.UserIDInsert = MyBase.LoggedOnUserID
+                            oPr.UserIDPrepare = MyBase.LoggedOnUserID
+                            oPr.Insert()
+                        Next
+                        Dim drPrtTemp As DataRow() = dtPrtTemp.Select()
+                        For i As Integer = 0 To drPrtTemp.Length - 1
+                            Dim row As DataRow = drPrtTemp(i)
+                            strReportTypeID = ProcessNull.GetString(row("ReportTypeID"))
+                            oPr.ProjectID = txtProjectID.Text.Trim
+                            oPr.ReportTypeID = strReportTypeID.Trim
+                            oPr.UserIDInsert = MyBase.LoggedOnUserID
+                            oPr.UserIDPrepare = MyBase.LoggedOnUserID
+                            oPr.Insert()
+                        Next                        
+                        oPrt.Dispose()
+                        oPrt = Nothing
+                        oPr.Dispose()
+                        oPr = Nothing
+
                         SetDataGridProjectReportType()
                     End If                    
                 Else
-                    .Update()
+                    If .Update() Then
+                        Dim oPrt As New Common.BussinessRules.ProductReportType
+                        Dim oPr As New Common.BussinessRules.ProjectReportType
+                        Dim strReportTypeID As String = String.Empty
+                        Dim dtPrtTemp As New DataTable
+                        Dim dtPrtMandatoryTemp As New DataTable
+                        oPr.ProjectID = txtProjectID.Text.Trim
+                        oPr.DeleteByProjectID()
+                        oPrt.ProductID = txtProductID.Text.Trim
+                        dtPrtTemp = oPrt.SelectReportTypeByProductID
+                        dtPrtMandatoryTemp = oPrt.SelectReportTypeByIsMandatoryProductID
+                        Dim drPrtMandatoryTemp As DataRow() = dtPrtMandatoryTemp.Select()
+                        For i As Integer = 0 To drPrtMandatoryTemp.Length - 1
+                            Dim rowMandatory As DataRow = drPrtMandatoryTemp(i)
+                            strReportTypeID = ProcessNull.GetString(rowMandatory("ReportTypeID"))
+                            oPr.ProjectID = txtProjectID.Text.Trim
+                            oPr.ReportTypeID = strReportTypeID.Trim
+                            oPr.UserIDInsert = MyBase.LoggedOnUserID
+                            oPr.UserIDPrepare = MyBase.LoggedOnUserID
+                            oPr.Insert()
+                        Next
+                        Dim drPrtTemp As DataRow() = dtPrtTemp.Select()
+                        For i As Integer = 0 To drPrtTemp.Length - 1
+                            Dim row As DataRow = drPrtTemp(i)
+                            strReportTypeID = ProcessNull.GetString(row("ReportTypeID"))
+                            oPr.ProjectID = txtProjectID.Text.Trim
+                            oPr.ReportTypeID = strReportTypeID.Trim
+                            oPr.UserIDInsert = MyBase.LoggedOnUserID
+                            oPr.UserIDPrepare = MyBase.LoggedOnUserID
+                            oPr.Insert()
+                        Next
+                        oPrt.Dispose()
+                        oPrt = Nothing
+                        oPr.Dispose()
+                        oPr = Nothing
+
+                        SetDataGridProjectReportType()
+                    End If
                 End If
             End With
             oProjectHd.Dispose()
@@ -641,6 +803,7 @@ Namespace Raven.Web.Secure
                 .ProjectID = txtProjectID.Text.Trim
                 .ResourceID = txtResourceID.Text.Trim
                 .ResourceRoleSCode = ddlResourceRole.SelectedValue.Trim
+                .ResourceSignatureID = ddlResourceSignature.SelectedValue.Trim
                 .UserIDInsert = MyBase.LoggedOnUserID.Trim
                 .UserIDUpdate = MyBase.LoggedOnUserID.Trim
                 .Insert()
@@ -675,6 +838,64 @@ Namespace Raven.Web.Secure
 
             SetDataGridProjectDetail()
             commonFunction.Focus(Me, txtDescription.ClientID)
+        End Sub
+
+        Private Sub _attachFile()
+            If txtProjectID.Text.Trim.Length = 0 Then Exit Sub
+
+            If txtFileUrl.Value.Trim.Length > 0 Then
+                Dim fileExt As String, fileName As String
+                Dim br As New Common.BussinessRules.ProjectFile
+                With br
+                    fileExt = Path.GetExtension(txtFileUrl.Value.Trim)
+                    fileName = txtProjectFileName.Text.Trim + fileExt.Trim
+                    .projectFileID = txtProjectFileID.Text.Trim
+                    Dim Pathdb As New Common.SystemParameter
+                    Dim fNotNew As Boolean = False
+                    Dim nmFile As String
+                    Try
+                        If .SelectOne.Rows.Count > 0 Then
+                            fNotNew = True
+                        Else
+                            fNotNew = False
+                        End If
+                        .projectID = txtProjectID.Text.Trim
+                        .fileName = fileName.Trim
+                        .fileNo = txtProjectFileNo.Text.Trim
+                        .fileExtension = fileExt.Trim                        
+                        .isShared = chkIsShared.Checked
+                        .description = txtProjectFileDescription.Text.Trim
+                        .UserIDInsert = MyBase.LoggedOnUserID.Trim
+                        .UserIDUpdate = MyBase.LoggedOnUserID.Trim
+
+                        '// validate if the file exist
+                        nmFile = Pathdb.GetValue("AttachFileUrl").ToString + fileName
+                        If txtFileUrl.Value.Trim.Length > 0 Then
+                            If File.Exists(nmFile) Then
+                                File.Delete(nmFile)
+                            End If
+                            txtFileUrl.PostedFile.SaveAs(nmFile)
+                            If fNotNew Then
+                                If .Update() Then
+                                    PrepareScreenProjectFile()
+                                    SetDataGridProjectFile()
+                                End If
+                            Else
+                                If .Insert() Then                                    
+                                    PrepareScreenProjectFile()
+                                    SetDataGridProjectFile()
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        commonFunction.MsgBox(Me, "Upload file failed.")
+                        Exit Sub
+                    End Try
+                End With
+            Else
+                commonFunction.MsgBox(Me, "No file choosen.")
+                Exit Sub
+            End If
         End Sub
 #End Region
 

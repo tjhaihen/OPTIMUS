@@ -12,13 +12,13 @@ Namespace Raven.Common.BussinessRules
 
 #Region " Class Member Declarations "
         Private _projectID, _customerID, _siteID, _projectCode, _projectName, _workOrderNo, _workLocation, _jobDescription As String
-        Private _prioritySCode, _serviceName, _assetNo, _model, _serialNo, _manufacturer As String
+        Private _prioritySCode, _productID, _serviceName, _assetNo, _model, _serialNo, _manufacturer As String
         Private _userIDinsert, _userIDupdate As String
         Private _workOrderDate, _requiredDate, _startDate, _endDate, _expiredDate, _insertDate, _updateDate As DateTime
 
         Private _toDepartment, _reference, _note, _customerPIC, _companyToProvide, _customerToProvide As String
         Private _workLocationDescription, _termsAndConditions As String
-        Private _requestedBy, _ackBy, _preparedBy, _checkedBy, _approvedBy As String
+        Private _requestedBy, _ackBy, _preparedBy, _checkedBy, _approvedBy As String        
 
         Private _isNoExpiredDate As Boolean
         Private _isProposed, _isApproval, _isDone As Boolean
@@ -42,7 +42,7 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "INSERT INTO ProjectHd " + _
                                         "(projectID, customerID, siteID, projectCode, projectName, workOrderNo, " + _
                                         "workOrderDate, workLocation, jobDescription, requiredDate, startDate, endDate, " + _
-                                        "expiredDate, isNoExpiredDate, prioritySCode, serviceName, assetNo, model, serialNo, manufacturer, " + _
+                                        "expiredDate, isNoExpiredDate, prioritySCode, productID, serviceName, assetNo, model, serialNo, manufacturer, " + _
                                         "workLocationDescription, termsAndConditions, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate, " + _
                                         "toDepartment, reference, note, customerPIC, companyToProvide, customerToProvide, " + _
@@ -51,7 +51,7 @@ Namespace Raven.Common.BussinessRules
                                         "VALUES " + _
                                         "(@projectID, @customerID, @siteID, @projectCode, @projectName, @workOrderNo, " + _
                                         "@workOrderDate, @workLocation, @jobDescription, @requiredDate, @startDate, @endDate, " + _
-                                        "@expiredDate, @isNoExpiredDate, @prioritySCode, @serviceName, @assetNo, @model, @serialNo, @manufacturer, " + _
+                                        "@expiredDate, @isNoExpiredDate, @prioritySCode, @productID, @serviceName, @assetNo, @model, @serialNo, @manufacturer, " + _
                                         "@workLocationDescription, @termsAndConditions, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE(), " + _
                                         "@toDepartment, @reference, @note, @customerPIC, @companyToProvide, @customerToProvide, " + _
@@ -61,7 +61,7 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.Connection = _mainConnection
 
             Dim strProjectID As String = ID.GenerateIDNumber("ProjectHd", "ProjectID")
-            Dim strProjectCode As String = ID.GenerateIDNumber("ProjectHd", "ProjectCode", Common.Constants.IDPrefix.WorkRequestPrefix, "", "Y")
+            Dim strProjectCode As String = ID.GenerateIDNumber("ProjectHd", "ProjectCode", Common.Constants.IDPrefix.WorkRequestPrefix, "", "Y")            
 
             Try
                 cmdToExecute.Parameters.AddWithValue("@projectID", strProjectID)
@@ -79,6 +79,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)
                 cmdToExecute.Parameters.AddWithValue("@isNoExpiredDate", _isNoExpiredDate)
                 cmdToExecute.Parameters.AddWithValue("@prioritySCode", _prioritySCode)
+                cmdToExecute.Parameters.AddWithValue("@productID", _productID)
                 cmdToExecute.Parameters.AddWithValue("@serviceName", _serviceName)
                 cmdToExecute.Parameters.AddWithValue("@assetNo", _assetNo)
                 cmdToExecute.Parameters.AddWithValue("@model", _model)
@@ -124,8 +125,8 @@ Namespace Raven.Common.BussinessRules
                                         "SET customerID=@customerID, siteID=@siteID, projectCode=@projectCode, " + _
                                         "projectName=@projectName, workOrderNo=@workOrderNo, workOrderDate=@workOrderDate, " + _
                                         "workLocation=@workLocation, jobDescription=@jobDescription, requiredDate=@requiredDate, " + _
-                                        "expiredDate=@expiredDate, isNoExpiredDate=@isNoExpiredDate, prioritySCode=@prioritySCode, serviceName=@serviceName, " + _
-                                        "assetNo=@assetNo, model=@model, serialNo=@serialNo, manufacturer=@manufacturer, " + _
+                                        "expiredDate=@expiredDate, isNoExpiredDate=@isNoExpiredDate, prioritySCode=@prioritySCode, productID=@productID, " + _
+                                        "serviceName=@serviceName, assetNo=@assetNo, model=@model, serialNo=@serialNo, manufacturer=@manufacturer, " + _
                                         "startDate=@startDate, endDate=@endDate, userIDupdate=@userIDupdate, updateDate=GETDATE(), " + _
                                         "toDepartment=@toDepartment, reference=@reference, note=@note, customerPIC=@customerPIC, " + _
                                         "companyToProvide=@companyToProvide, customerToProvide=@customerToProvide, " + _
@@ -153,6 +154,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)
                 cmdToExecute.Parameters.AddWithValue("@isNoExpiredDate", _isNoExpiredDate)
                 cmdToExecute.Parameters.AddWithValue("@prioritySCode", _prioritySCode)
+                cmdToExecute.Parameters.AddWithValue("@productID", _productID)
                 cmdToExecute.Parameters.AddWithValue("@serviceName", _serviceName)
                 cmdToExecute.Parameters.AddWithValue("@assetNo", _assetNo)
                 cmdToExecute.Parameters.AddWithValue("@model", _model)
@@ -253,6 +255,7 @@ Namespace Raven.Common.BussinessRules
                     _expiredDate = CType(toReturn.Rows(0)("expiredDate"), DateTime)
                     _isNoExpiredDate = CType(toReturn.Rows(0)("isNoExpiredDate"), Boolean)
                     _prioritySCode = CType(toReturn.Rows(0)("prioritySCode"), String)
+                    _productID = CType(toReturn.Rows(0)("productID"), String)
                     _serviceName = CType(toReturn.Rows(0)("serviceName"), String)
                     _assetNo = CType(toReturn.Rows(0)("assetNo"), String)
                     _model = CType(toReturn.Rows(0)("model"), String)
@@ -763,6 +766,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _prioritySCode = Value
+            End Set
+        End Property
+
+        Public Property [productID]() As String
+            Get
+                Return _productID
+            End Get
+            Set(ByVal Value As String)
+                _productID = Value
             End Set
         End Property
 

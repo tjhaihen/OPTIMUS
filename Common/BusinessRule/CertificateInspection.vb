@@ -12,8 +12,9 @@ Namespace Raven.Common.BussinessRules
 
 #Region " Class Member Declarations "
         Private _certificateInspectionID, _projectID, _certificateNo, _owner, _userLabel, _location, _description, _notes As String
-        Private _serialNo, _maxGrossWeightR, _loadTest, _duration, _specification, _examination, _result As String
+        Private _serialNo, _maxGrossWeightR, _loadTest, _duration, _specification, _examination, _result, _actualLoadTestUOM As String
         Private _Pic1, _Pic2, _Pic3 As SqlBinary
+        Private _actualLoadTest As Decimal
         Private _certificateDate, _inspectionDate, _expiredDate, _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
@@ -32,11 +33,13 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "INSERT INTO CertificateInspection " + _
                                         "(certificateInspectionID, projectID, certificateNo, owner, userLabel, location, description, " + _
                                         "serialNo, maxGrossWeightR, loadTest, duration, specification, examination, result, notes, " + _
+                                        "actualLoadTest, actualLoadTestUOM, " + _
                                         "certificateDate, inspectionDate, expiredDate, insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
                                         "(@certificateInspectionID, @projectID, @certificateNo, @owner, @userLabel, @location, @description, " + _
                                         "@serialNo, @maxGrossWeightR, @loadTest, @duration, @specification, @examination, @result, @notes, " + _
+                                        "@actualLoadTest, @actualLoadTestUOM, " + _
                                         "@certificateDate, @inspectionDate, @expiredDate, GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate)"
             cmdToExecute.CommandType = CommandType.Text
@@ -63,6 +66,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@certificateDate", _certificateDate)
                 cmdToExecute.Parameters.AddWithValue("@inspectionDate", _inspectionDate)
                 cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)
+                cmdToExecute.Parameters.AddWithValue("@actualLoadTest", _actualLoadTest)
+                cmdToExecute.Parameters.AddWithValue("@actualLoadTestUOM", _actualLoadTestUOM)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -90,6 +95,7 @@ Namespace Raven.Common.BussinessRules
                                         "serialNo=@serialNo, maxGrossWeightR=@maxGrossWeightR, " + _
                                         "loadTest=@loadTest, duration=@duration, " + _
                                         "specification=@specification, examination=@examination, " + _
+                                        "actualLoadTest=@actualLoadTest, actualLoadTestUOM=@actualLoadTestUOM, " + _
                                         "result=@result, notes=@notes, certificateDate=@certificateDate, " + _
                                         "inspectionDate=@inspectionDate, expiredDate=@expiredDate, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
@@ -115,7 +121,9 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@notes", _notes)
                 cmdToExecute.Parameters.AddWithValue("@certificateDate", _certificateDate)
                 cmdToExecute.Parameters.AddWithValue("@inspectionDate", _inspectionDate)
-                cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)                
+                cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)
+                cmdToExecute.Parameters.AddWithValue("@actualLoadTest", _actualLoadTest)
+                cmdToExecute.Parameters.AddWithValue("@actualLoadTestUOM", _actualLoadTestUOM)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
@@ -203,6 +211,8 @@ Namespace Raven.Common.BussinessRules
                     _Pic1 = CType(toReturn.Rows(0)("Pic1"), Byte())
                     _Pic2 = CType(toReturn.Rows(0)("Pic2"), Byte())
                     _Pic3 = CType(toReturn.Rows(0)("Pic3"), Byte())
+                    _actualLoadTest = CType(toReturn.Rows(0)("actualLoadTest"), Decimal)
+                    _actualLoadTestUOM = CType(toReturn.Rows(0)("actualLoadTestUOM"), String)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -519,6 +529,24 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As SqlBinary)
                 _Pic3 = Value
+            End Set
+        End Property
+
+        Public Property [actualLoadTest]() As Decimal
+            Get
+                Return _actualLoadTest
+            End Get
+            Set(ByVal Value As Decimal)
+                _actualLoadTest = Value
+            End Set
+        End Property
+
+        Public Property [actualLoadTestUOM]() As String
+            Get
+                Return _actualLoadTestUOM
+            End Get
+            Set(ByVal Value As String)
+                _actualLoadTestUOM = Value
             End Set
         End Property
 

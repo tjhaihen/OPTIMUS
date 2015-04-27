@@ -236,6 +236,13 @@ Namespace Raven.Web
                 Case "CaptionTemplate"
                     Dim oTbl As New Common.BussinessRules.CaptionTemplateHd
                     tblToApply = oTbl.SelectAll()
+                Case "CommonCodeGroup"
+                    Dim oTbl As New Common.BussinessRules.CommonCode
+                    tblToApply = oTbl.SelectGroupCodeByIsSystem(False)
+                Case "ResourceSignature"
+                    Dim oTbl As New Common.BussinessRules.ResourceSignature
+                    oTbl.resourceID = keyField.Trim
+                    tblToApply = oTbl.SelectByResourceID()
                 Case Else
                     Dim oTbl As New Common.BussinessRules.CommonCode
                     oTbl.GroupCode = keyField.Trim
@@ -243,16 +250,15 @@ Namespace Raven.Web
             End Select
 
             With ddl
-                Dim rgRows As DataRow() = tblToApply.Select()
+                .Items.Clear()
 
+                Dim rgRows As DataRow() = tblToApply.Select()
                 If rgRows.Length > 0 Then
                     Dim i As Integer = 1
                     Dim _strBlankText As String = String.Empty
                     Dim _strBlankValue As String = String.Empty
                     Dim _strText As String = String.Empty
                     Dim _strValue As String = String.Empty
-
-                    .Items.Clear()
 
                     If isIncludeBlank Then
                         If Len(strBlankText.Trim) > 0 Then
@@ -283,6 +289,12 @@ Namespace Raven.Web
                             Case "CaptionTemplate"
                                 _strText = Common.ProcessNull.GetString(rgRows(i - 1)("CaptionTemplateName"))
                                 _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("CaptionTemplateHdID"))
+                            Case "CommonCodeGroup"
+                                _strText = Common.ProcessNull.GetString(rgRows(i - 1)("GroupCode"))
+                                _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("GroupCode"))
+                            Case "ResourceSignature"
+                                _strText = Common.ProcessNull.GetString(rgRows(i - 1)("Description"))
+                                _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("ResourceSignatureID"))
                             Case Else
                                 _strText = Common.ProcessNull.GetString(rgRows(i - 1)("Caption"))
                                 _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("Value"))

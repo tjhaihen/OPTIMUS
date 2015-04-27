@@ -125,6 +125,39 @@ Namespace Raven.Common.BussinessRules
             End Try
         End Function
 
+        Public Function SelectReportTypeByIsMandatoryProductID() As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "SELECT pm.*, (SELECT ReportTypeName FROM ReportType WHERE ReportTypeID=pm.ReportTypeID) AS ReportTypeName FROM ProductReportType pm " + _
+                                        "INNER JOIN ReportType rt ON pm.ReportTypeID=rt.ReportTypeID " + _
+                                        "WHERE rt.isMandatory=1 AND pm.ReportTypeID NOT IN (SELECT ReportTypeID FROM ProductReportType WHERE ProductID=@productID) ORDER BY pm.ReportTypeID"
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("ReportTypeByIsMandatoryProductID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@ProductID", _productID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                Return toReturn
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                Throw New Exception(ex.Message)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+        End Function
+
         Public Function SelectReportTypeByProductIDWithNoProductID(ByVal _projectID As String) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "SELECT pm.*, rt.ReportTypeCode, rt.ReportTypeName AS ReportTypeName, rt.PanelID FROM ProductReportType pm " + _

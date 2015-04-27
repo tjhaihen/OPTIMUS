@@ -264,6 +264,85 @@
                                     </tr>
                                     <tr>
                                         <td>
+                                            <table width="100%">
+                                                <tr class="rheaderexpable">
+                                                    <td align="left" valign="middle">
+                                                        <img style="cursor: pointer" onclick="javascript:if (divAddRemoveReport.style.display == '') {divAddRemoveReport.style.display = 'none'; this.src='/pureravensLib/images/add.png'; } else { divAddRemoveReport.style.display = ''; this.src='/pureravensLib/images/add.png';}"
+                                                            alt="Add/Remove" src="/pureravensLib/images/add.png" align="absmiddle">
+                                                        Add/Remove Report
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div id="divAddRemoveReport" style="overflow: auto; width: 100%; display: none;">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:Button ID="btnAddReportType" runat="server" text="Add" width="100%" CssClass="sbttn" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:DataGrid ID="grdReportTypeAdd" runat="server" BorderWidth="0" GridLines="None"
+                                                                Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                                AutoGenerateColumns="false">
+                                                                <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                <itemstyle cssclass="gridItemStyle" />
+                                                                <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                <columns>
+                                                                    <asp:TemplateColumn runat="server" ItemStyle-Width="30">
+                                                                        <ItemTemplate>
+                                                                            <asp:CheckBox ID="_chkSelect" runat="server"></asp:CheckBox>
+                                                                        </ItemTemplate>
+                                                                    </asp:TemplateColumn>
+                                                                    <asp:TemplateColumn runat="server" HeaderText="Report Type">
+                                                                        <ItemTemplate>
+                                                                            <asp:Label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ReportTypeID") %>'
+                                                                                ID="_lblReportTypeID" Visible="false" />
+                                                                            <%# DataBinder.Eval(Container.DataItem, "reportTypeName")%>
+                                                                        </ItemTemplate>
+                                                                    </asp:TemplateColumn>
+                                                                </columns>
+                                                            </asp:DataGrid>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:Button ID="btnRemoveReportType" runat="server" text="Remove" width="100%" CssClass="sbttn" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:DataGrid ID="grdReportTypeRemove" runat="server" BorderWidth="0" GridLines="None"
+                                                                Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                                AutoGenerateColumns="false">
+                                                                <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                <itemstyle cssclass="gridItemStyle" />
+                                                                <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                <columns>
+                                                                    <asp:TemplateColumn runat="server" ItemStyle-Width="30">
+                                                                        <ItemTemplate>
+                                                                            <asp:CheckBox ID="_chkSelect" runat="server"></asp:CheckBox>
+                                                                        </ItemTemplate>
+                                                                    </asp:TemplateColumn>
+                                                                    <asp:TemplateColumn runat="server" HeaderText="Report Type">
+                                                                        <ItemTemplate>
+                                                                            <asp:Label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ProjectReportTypeID") %>'
+                                                                                ID="_lblProjectReportTypeID" Visible="false" />
+                                                                            <%# DataBinder.Eval(Container.DataItem, "reportTypeName")%>
+                                                                        </ItemTemplate>
+                                                                    </asp:TemplateColumn>
+                                                                </columns>
+                                                            </asp:DataGrid>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <asp:DataGrid ID="grdReportTypeByProject" runat="server" BorderWidth="0" GridLines="None"
                                                 Width="100%" CellPadding="2" CellSpacing="2" ShowHeader="false" ShowFooter="false"
                                                 AutoGenerateColumns="false">
@@ -318,6 +397,77 @@
                                                 <Module:ProjectBanner ID="ProjectBanner" runat="server" />
                                             </td>
                                         </tr>
+                                        <asp:Panel ID="pnlProjectFile" runat="server">
+                                            <tr>
+                                                <td>
+                                                    <table width="100%">
+                                                        <tr class="message">
+                                                            <td align="left" valign="middle">
+                                                                <img style="cursor: pointer" onclick="javascript:if (divMessage.style.display == '') {divMessage.style.display = 'none'; this.src='/pureravensLib/images/information.png'; } else { divMessage.style.display = ''; this.src='/pureravensLib/images/information.png';}"
+                                                                    alt="Show/Hide Message" src="/pureravensLib/images/information.png" align="absmiddle">
+                                                                This project has shared attachment(s)
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <div id="divMessage" style="overflow: auto; width: 100%; display: none;">
+                                                        <table width="100%">
+                                                            <tr>
+                                                                <td>
+                                                                    <asp:DataGrid ID="grdSharedProjectFile" runat="server" BorderWidth="0" GridLines="None"
+                                                                        Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                                        AutoGenerateColumns="false">
+                                                                        <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                        <itemstyle cssclass="gridItemStyle" />
+                                                                        <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                        <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                        <columns>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="" HeaderStyle-HorizontalAlign="Left"
+                                                                                HeaderStyle-Width="26" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="26">
+                                                                                <ItemTemplate>
+                                                                                    <asp:Label ID="_lblProjectFileID" runat="server" visible="false" Text='<%# DataBinder.Eval(Container.DataItem, "projectFileID") %>' />                                                                                                                                                
+                                                                                    <a href='<%# DataBinder.Eval(Container.DataItem, "fileUrl") %>' target="_blank">
+                                                                                        <img src="/pureravensLib/images/look.png" border="0" align="middle" alt='<%# DataBinder.Eval(Container.DataItem, "fileName") %>' />
+                                                                                    </a>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="File No." HeaderStyle-HorizontalAlign="Left"
+                                                                                HeaderStyle-Width="200" ItemStyle-Width="200" ItemStyle-HorizontalAlign="Left">
+                                                                                <ItemTemplate>
+                                                                                    <%# DataBinder.Eval(Container.DataItem, "fileNo") %>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="File Name" HeaderStyle-HorizontalAlign="Left"
+                                                                                ItemStyle-HorizontalAlign="Left">
+                                                                                <ItemTemplate>
+                                                                                    <table>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "fileName") %>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="txtweak">
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "description") %>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="Type" HeaderStyle-HorizontalAlign="Left"
+                                                                                HeaderStyle-Width="150" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150">
+                                                                                <ItemTemplate>
+                                                                                    <%# DataBinder.Eval(Container.DataItem, "fileExtension") %>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                        </columns>
+                                                                    </asp:DataGrid>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </asp:Panel>
                                         <tr>
                                             <td valign="top">
                                                 <Module:CSSToolbar ID="CSSToolbar" runat="server"></Module:CSSToolbar>
@@ -1305,6 +1455,22 @@
                                                                                 </asp:TextBox>
                                                                             </td>
                                                                         </tr>
+                                                                        <tr>
+                                                                            <td colspan="4" class="Heading1">
+                                                                                Result
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="4" class="hseparator" style="width: 100%;">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="4">
+                                                                                <asp:TextBox ID="SR_txtResult" runat="server" Width="100%" TextMode="MultiLine" Height="100"
+                                                                                    Style="font-family: Segoe UI, Arial, tahoma">
+                                                                                </asp:TextBox>
+                                                                            </td>
+                                                                        </tr>
                                                                     </asp:Panel>
                                                                     <asp:Panel ID="SR_pnlNotTubular" runat="server">
                                                                         <tr>
@@ -1314,24 +1480,131 @@
                                                                                 </asp:TextBox>
                                                                             </td>
                                                                         </tr>
+                                                                        <tr>
+                                                                            <td colspan="3" class="Heading1">
+                                                                                Result
+                                                                            </td>
+                                                                            <td class="right">
+                                                                                <asp:Button id="SR_btnSaveServiceReportDt" runat="server" text="Add" CssClass="sbttn" />
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="4" class="hseparator" style="width: 100%;">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="width: 100px;" class="right">
+                                                                                Name
+                                                                            </td>
+                                                                            <td>
+                                                                                <asp:TextBox ID="SR_txtServiceReportDtID" runat="server" Width="300" Visible="False">
+                                                                                </asp:TextBox>
+                                                                                <asp:TextBox ID="SR_txtNTName" runat="server" Width="300">
+                                                                                </asp:TextBox>
+                                                                            </td>
+                                                                            <td style="width: 100px;" class="right">
+                                                                                Serial No.
+                                                                            </td>
+                                                                            <td>
+                                                                                <asp:TextBox ID="SR_txtNTSerialNo" runat="server" Width="300">
+                                                                                </asp:TextBox>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="width: 100px;" class="right">
+                                                                                Qty
+                                                                            </td>
+                                                                            <td>
+                                                                                <asp:TextBox ID="SR_txtNTQty" runat="server" Width="300" class="right">
+                                                                                </asp:TextBox>
+                                                                            </td>
+                                                                            <td style="width: 100px;" class="right">
+                                                                                U.O.M.
+                                                                            </td>
+                                                                            <td>
+                                                                                <asp:TextBox ID="SR_txtNTUOM" runat="server" Width="300">
+                                                                                </asp:TextBox>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="width: 100px;" class="right">
+                                                                                Dimension
+                                                                            </td>
+                                                                            <td>
+                                                                                <asp:TextBox ID="SR_txtNTDimension" runat="server" Width="300">
+                                                                                </asp:TextBox>
+                                                                            </td>
+                                                                            <td style="width: 100px;" class="right">
+                                                                                Result
+                                                                            </td>
+                                                                            <td>
+                                                                                <asp:TextBox ID="SR_txtNTResult" runat="server" Width="300">
+                                                                                </asp:TextBox>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="4">
+                                                                                <asp:DataGrid ID="SR_grdServiceReportDt" runat="server" BorderWidth="0" GridLines="None"
+                                                                                    Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                                                    AutoGenerateColumns="false">
+                                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                                    <itemstyle cssclass="gridItemStyle" />
+                                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                                    <columns>
+                                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="50">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:ImageButton ID="_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
+                                                                                                    ImageAlign="AbsMiddle" CommandName="Edit" CausesValidation="false" />
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="Name">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:Label ID="SR_lblServiceReportDtID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "serviceReportDtID") %>' Visible="false"></asp:Label>
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "ntName")%>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="Serial No.">
+                                                                                            <ItemTemplate>
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "ntSerialNo")%>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="Qty">
+                                                                                            <ItemTemplate>
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "ntQty")%>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="U.O.M.">
+                                                                                            <ItemTemplate>
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "ntUOM")%>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="Dimension">
+                                                                                            <ItemTemplate>
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "ntDimension")%>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" HeaderText="Result">
+                                                                                            <ItemTemplate>
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "ntResult")%>
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="50">
+                                                                                            <ItemTemplate>
+                                                                                                <asp:ImageButton ID="_ibtnDelete" runat="server" ImageUrl="/PureravensLib/images/delete.png"
+                                                                                                    ImageAlign="AbsMiddle" CommandName="Delete" CausesValidation="false" />
+                                                                                            </ItemTemplate>
+                                                                                        </asp:TemplateColumn>
+                                                                                    </columns>
+                                                                                </asp:DataGrid>
+                                                                            </td>
+                                                                        </tr>
                                                                     </asp:Panel>
-                                                                    <tr>
-                                                                        <td colspan="4" class="Heading1">
-                                                                            Result
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="4" class="hseparator" style="width: 100%;">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="4">
-                                                                            <asp:TextBox ID="SR_txtResult" runat="server" Width="100%" TextMode="MultiLine" Height="100"
-                                                                                Style="font-family: Segoe UI, Arial, tahoma">
-                                                                            </asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
                                                                 </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="hseparator" style="width: 100%;">
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -3045,6 +3318,27 @@
                                                                     </asp:Panel>
                                                                     <tr>
                                                                         <td class="heading1" colspan="4">
+                                                                            Image
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="hseparator" colspan="4" style="width: 100%;">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="4">
+                                                                            <asp:RadioButtonList ID="TVI_rbtnlImage" runat="server" RepeatDirection="Horizontal"
+                                                                                AutoPostBack="True">
+                                                                            </asp:RadioButtonList>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="4" class="center">
+                                                                            <asp:Image ID="TVI_imgFilePic" runat="server" Width="160" />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="heading1" colspan="4">
                                                                             Examine in Accordance with
                                                                         </td>
                                                                     </tr>
@@ -3101,20 +3395,6 @@
                                                                     </asp:Panel>
                                                                     <tr>
                                                                         <td class="hseparator" colspan="4" style="width: 100%;">
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="width: 100px;" class="right" valign="top">
-                                                                            Image
-                                                                        </td>
-                                                                        <td valign="top">
-                                                                            <asp:DropDownList ID="TVI_ddlImage" runat="server" width="200">
-                                                                            </asp:DropDownList>
-                                                                        </td>
-                                                                        <td style="width: 100px;" class="right" valign="top">
-                                                                        </td>
-                                                                        <td valign="top">
-                                                                            <asp:Image ID="imgPicTVI" runat="server" Width="160" />
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -3275,8 +3555,7 @@
                                                                             VBI
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtVBI" runat="server" Width="200">
-                                                                            </asp:TextBox>
+                                                                            <asp:DropDownList ID="IT_ddlVBI" runat="server" width="200"></asp:DropDownList>                                                                            
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle right" style="width: 100px;">
                                                                             RWT
@@ -3317,12 +3596,10 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td style="width: 99px;">
-                                                                                        <asp:TextBox ID="IT_txtVTIPin" runat="server" CssClass="txtSmallText" Width="100%">
-                                                                                        </asp:TextBox>
+                                                                                        <asp:DropDownList ID="IT_ddlVTIPin" runat="server" width="200"></asp:DropDownList>                                                                                        
                                                                                     </td>
                                                                                     <td style="width: 99px;">
-                                                                                        <asp:TextBox ID="IT_txtVTIBox" runat="server" CssClass="txtSmallText" Width="100%">
-                                                                                        </asp:TextBox>
+                                                                                        <asp:DropDownList ID="IT_ddlVTIBox" runat="server" width="200"></asp:DropDownList>                                                                                        
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -3331,8 +3608,7 @@
                                                                             FLD
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="IT_txtFLD" runat="server" Width="100">
-                                                                            </asp:TextBox>
+                                                                            <asp:DropDownList ID="IT_ddlFLD" runat="server" width="200"></asp:DropDownList>                                                                            
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -4835,8 +5111,13 @@
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
+                                                                            Actual Load Test
                                                                         </td>
                                                                         <td>
+                                                                            <asp:TextBox ID="COI_txtActualLoadTest" runat="server" Width="148" CssClass="right">
+                                                                            </asp:TextBox>
+                                                                            <asp:TextBox ID="COI_txtActualLoadTestUOM" runat="server" Width="148" Text="KG">
+                                                                            </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -4889,7 +5170,7 @@
                                                                                             Width="100" /><br />
                                                                                         <asp:Image ID="COI_imgPic2" runat="server" Width="200" />
                                                                                     </td>
-                                                                                    <td>
+                                                                                    <td style="display: none;">
                                                                                         <input id="COI_ImageFilePic3" type="file" runat="server" autopostback="True" name="COI_ImageFilePic3"
                                                                                             class="imguploader" style="width: 200;" />
                                                                                         <asp:Button ID="COI_btnUploadPic3" runat="server" Text="Upload Pic-3" CssClass="sbttn"
@@ -4918,13 +5199,7 @@
                                                                                 <asp:ImageButton ID="COI_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
                                                                                     ImageAlign="AbsMiddle" CommandName="Edit" CausesValidation="false" />
                                                                             </ItemTemplate>
-                                                                        </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="30">
-                                                                            <ItemTemplate>
-                                                                                <asp:ImageButton ID="COI_ibtnDelete" runat="server" ImageUrl="/PureravensLib/images/delete.png"
-                                                                                    ImageAlign="AbsMiddle" CommandName="Delete" CausesValidation="false" />
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateColumn>
+                                                                        </asp:TemplateColumn>                                                                        
                                                                         <asp:TemplateColumn runat="server" HeaderText="Certificate No.">
                                                                             <ItemTemplate>
                                                                                 <asp:Label ID="COI_lblCertificateOfInspectionID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "certificateInspectionID") %>'
@@ -4947,9 +5222,21 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "serialNo") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Actual Load Test">
+                                                                            <ItemTemplate>
+                                                                                <%# DataBinder.Eval(Container.DataItem, "actualLoadTest") %>&nbsp;
+                                                                                <%# DataBinder.Eval(Container.DataItem, "actualLoadTestUOM") %>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
                                                                         <asp:TemplateColumn runat="server" HeaderText="Result">
                                                                             <ItemTemplate>
                                                                                 <%# DataBinder.Eval(Container.DataItem, "result") %>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="30">
+                                                                            <ItemTemplate>
+                                                                                <asp:ImageButton ID="COI_ibtnDelete" runat="server" ImageUrl="/PureravensLib/images/delete.png"
+                                                                                    ImageAlign="AbsMiddle" CommandName="Delete" CausesValidation="false" />
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
                                                                     </columns>

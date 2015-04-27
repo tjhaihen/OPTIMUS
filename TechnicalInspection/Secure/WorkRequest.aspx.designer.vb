@@ -285,6 +285,51 @@ Namespace Raven.Web.Secure
         Protected WithEvents chkIsNoExpiredDate As Global.System.Web.UI.WebControls.CheckBox
 
         '''<summary>
+        '''txtProductID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProductID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtProductCode control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProductCode As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''btnSearchProduct control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnSearchProduct As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''rfvProductCode control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents rfvProductCode As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+        '''<summary>
+        '''txtProductName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProductName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''txtWorkRequestReference control.
         '''</summary>
         '''<remarks>
@@ -564,6 +609,15 @@ Namespace Raven.Web.Secure
         Protected WithEvents btnSearchResource As Global.System.Web.UI.WebControls.Button
 
         '''<summary>
+        '''ddlResourceSignature control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ddlResourceSignature As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
         '''ddlResourceRole control.
         '''</summary>
         '''<remarks>
@@ -652,6 +706,87 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents grdProjectReportType As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''txtProjectFileID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProjectFileID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtFileUrl control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtFileUrl As Global.System.Web.UI.HtmlControls.HtmlInputFile
+
+        '''<summary>
+        '''revFileUrl control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents revFileUrl As Global.System.Web.UI.WebControls.RegularExpressionValidator
+
+        '''<summary>
+        '''txtProjectFileDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProjectFileDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtProjectFileName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProjectFileName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''chkIsShared control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents chkIsShared As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''txtProjectFileNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProjectFileNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''btnAttachProjectFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnAttachProjectFile As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''grdProjectFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdProjectFile As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
         '''mdlCopyRight control.

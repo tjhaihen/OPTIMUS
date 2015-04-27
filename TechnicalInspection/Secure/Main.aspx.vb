@@ -80,7 +80,10 @@ Namespace Raven.Web
             ddlMySite_SelectedIndexChanged(Nothing, Nothing)
             ProjectBanner.ProjectID = txtProjectID.Text.Trim
             ProjectBanner.GetProjectInformation()
-            SetDataGridReportTypeByProject()            
+            SetDataGridReportTypeByProject()
+            SetDataGridReportTypeInProject()
+            SetDataGridReportTypeNotInProject()
+            SetDataGridProjectFile()
             lblReportTypeName.Text = String.Empty
             lblReportTypePanelID.Text = String.Empty
             SetPanelVisibility(lblReportTypePanelID.Text.Trim)
@@ -93,6 +96,20 @@ Namespace Raven.Web
         Private Sub btnWorkRequestListFilter_Click(sender As Object, e As System.EventArgs) Handles btnWorkRequestListFilter.Click
             SetDataGrid(pnlAdministratorScreen.ID)
             commonFunction.Focus(Me, txtWorkRequestListFilter.ClientID)
+        End Sub
+
+        Private Sub btnAddReportType_Click(sender As Object, e As System.EventArgs) Handles btnAddReportType.Click
+            _updateProjectReportType()
+            SetDataGridReportTypeByProject()
+            SetDataGridReportTypeInProject()
+            SetDataGridReportTypeNotInProject()
+        End Sub
+
+        Private Sub btnRemoveReportType_Click(sender As Object, e As System.EventArgs) Handles btnRemoveReportType.Click
+            _deleteProjectReportType()
+            SetDataGridReportTypeByProject()
+            SetDataGridReportTypeInProject()
+            SetDataGridReportTypeNotInProject()
         End Sub
 
         Private Sub grdReportTypeByProject_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdReportTypeByProject.ItemCommand
@@ -130,7 +147,10 @@ Namespace Raven.Web
                     ddlMySite_SelectedIndexChanged(Nothing, Nothing)
                     ProjectBanner.ProjectID = txtProjectID.Text.Trim
                     ProjectBanner.GetProjectInformation()
-                    SetDataGridReportTypeByProject()                    
+                    SetDataGridReportTypeByProject()
+                    SetDataGridReportTypeInProject()
+                    SetDataGridReportTypeNotInProject()
+                    SetDataGridProjectFile()
                     lblReportTypeName.Text = String.Empty
                     lblReportTypePanelID.Text = String.Empty
                     SetPanelVisibility(lblReportTypePanelID.Text.Trim)
@@ -361,7 +381,26 @@ Namespace Raven.Web
                     Dim _SR_lblServiceReportID As Label = CType(e.Item.FindControl("SR_lblServiceReportID"), Label)
                     SR_txtServiceReportID.Text = _SR_lblServiceReportID.Text.Trim
                     _open(Common.Constants.ReportTypePanelID.ServiceReport_PanelID)
+                    SetDataGrid(Common.Constants.ReportTypePanelID.ServiceReport_PanelID)
             End Select
+        End Sub
+
+        Private Sub SR_grdServiceReportDt_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles SR_grdServiceReportDt.ItemCommand
+            Select Case e.CommandName
+                Case "Edit"
+                    Dim _SR_lblServiceReportDtID As Label = CType(e.Item.FindControl("SR_lblServiceReportDtID"), Label)
+                    SR_txtServiceReportDtID.Text = _SR_lblServiceReportDtID.Text.Trim
+                    _openServiceReportDt()
+                Case "Delete"
+                    Dim _SR_lblServiceReportDtID As Label = CType(e.Item.FindControl("SR_lblServiceReportDtID"), Label)
+                    SR_txtServiceReportDtID.Text = _SR_lblServiceReportDtID.Text.Trim
+                    _deleteServiceReportDt()
+                    SetDataGrid(Common.Constants.ReportTypePanelID.ServiceReport_PanelID)
+            End Select
+        End Sub
+
+        Private Sub SR_btnSaveServiceReportDt_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles SR_btnSaveServiceReportDt.Click
+            _updateServiceReportDt()
         End Sub
 #End Region
 
@@ -605,6 +644,15 @@ Namespace Raven.Web
 
         Private Sub TVI_ddlTVIType_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles TVI_ddlTVIType.SelectedIndexChanged
             PrepareScreen(Common.Constants.ReportTypePanelID.ThoroughVisualInspectionReport_PanelID, False, True)
+        End Sub
+
+        Private Sub TVI_rbtnlImage_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles TVI_rbtnlImage.SelectedIndexChanged
+            Select Case TVI_ddlTVIType.SelectedValue.Trim
+                Case Common.Constants.ReportTypeCodeThoroughVisualType.Sling
+                    TVI_imgFilePic.ImageUrl = GetPic(Common.Constants.GetImageType.GetImage_CommonCodeFilePic.Trim, Common.Constants.GroupCode.TVISlingPic_SCode.Trim + "|" + TVI_rbtnlImage.SelectedValue.Trim)
+                Case Common.Constants.ReportTypeCodeThoroughVisualType.Shackle
+                    TVI_imgFilePic.ImageUrl = GetPic(Common.Constants.GetImageType.GetImage_CommonCodeFilePic.Trim, Common.Constants.GroupCode.TVIShacklePic_SCode.Trim + "|" + TVI_rbtnlImage.SelectedValue.Trim)
+            End Select
         End Sub
 #End Region
 
@@ -985,6 +1033,41 @@ Namespace Raven.Web
             oPRT = Nothing
         End Sub
 
+        Private Sub SetDataGridReportTypeInProject()
+            Dim oPRT As New Common.BussinessRules.ProjectReportType
+            oPRT.ProjectID = txtProjectID.Text.Trim
+            grdReportTypeRemove.DataSource = oPRT.GetReportTypeByProjectID
+            grdReportTypeRemove.DataBind()
+            oPRT.Dispose()
+            oPRT = Nothing
+        End Sub
+
+        Private Sub SetDataGridReportTypeNotInProject()
+            Dim oPRT As New Common.BussinessRules.ProjectReportType
+            oPRT.ProjectID = txtProjectID.Text.Trim
+            grdReportTypeAdd.DataSource = oPRT.SelectReportTypeNotInProjectReportTypeByProjectID
+            grdReportTypeAdd.DataBind()
+            oPRT.Dispose()
+            oPRT = Nothing
+        End Sub
+
+        Private Sub SetDataGridProjectFile()
+            Dim br As New Common.BussinessRules.ProjectFile
+            Dim dt As New DataTable
+            With br
+                .projectID = txtProjectID.Text.Trim
+                dt = .GetFileByProjectID(True)
+            End With
+
+            grdSharedProjectFile.DataSource = dt.DefaultView
+            grdSharedProjectFile.DataBind()
+
+            br.Dispose()
+            br = Nothing
+
+            pnlProjectFile.Visible = dt.Rows.Count > 0
+        End Sub
+
         Private Sub SetDataGrid(ByVal _VisiblePanelID As String)
             Select Case _VisiblePanelID
                 Case pnlAdministratorScreen.ID
@@ -1060,6 +1143,15 @@ Namespace Raven.Web
                     SR_grdServiceReport.DataBind()
                     oBR.Dispose()
                     oBR = Nothing
+
+                    If SR_pnlNotTubular.Visible Then
+                        Dim oPDT As New Common.BussinessRules.ServiceReportDt
+                        oPDT.serviceReportID = SR_txtServiceReportID.Text.Trim
+                        SR_grdServiceReportDt.DataSource = oPDT.SelectByServiceReportID
+                        SR_grdServiceReportDt.DataBind()
+                        oPDT.Dispose()
+                        oPDT = Nothing
+                    End If
                 Case Common.Constants.ReportTypePanelID.CertificateOfInspection_PanelID
                     Dim oBR As New Common.BussinessRules.CertificateInspection
                     oBR.projectID = txtProjectID.Text.Trim
@@ -1169,6 +1261,10 @@ Namespace Raven.Web
             commonFunction.SetDDL_Table(TVI_ddlTVIType, "CommonCode", Common.Constants.GroupCode.ThoroughVisualType_SCode)
             commonFunction.SetDDL_Table(IT_ddlTallyType, "CommonCode", Common.Constants.GroupCode.InspectionTallyType_SCode)
             commonFunction.SetDDL_Table(BA_ddlOfficialReportType, "CommonCode", Common.Constants.GroupCode.OfficialReportType_SCode)
+            commonFunction.SetDDL_Table(IT_ddlVBI, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
+            commonFunction.SetDDL_Table(IT_ddlVTIPin, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
+            commonFunction.SetDDL_Table(IT_ddlVTIBox, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
+            commonFunction.SetDDL_Table(IT_ddlFLD, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
         End Sub
 
         Private Sub SetRadioButtonListItems()
@@ -1176,6 +1272,12 @@ Namespace Raven.Web
             commonFunction.SetRBTNL_Table(MPI_rbtnlCoil, "CommonCode", Common.Constants.GroupCode.MPICoil_SCode)
             commonFunction.SetRBTNL_Table(MPI_rbtnlFluorescent, "CommonCode", Common.Constants.GroupCode.MPIFluorescent_SCode)
             commonFunction.SetRBTNL_Table(MPI_rbtnlContrastBW, "CommonCode", Common.Constants.GroupCode.MPIContrastBW_SCode)
+            Select Case TVI_ddlTVIType.SelectedValue.Trim
+                Case Common.Constants.ReportTypeCodeThoroughVisualType.Sling
+                    commonFunction.SetRBTNL_Table(TVI_rbtnlImage, "CommonCode", Common.Constants.GroupCode.TVISlingPic_SCode)
+                Case Common.Constants.ReportTypeCodeThoroughVisualType.Shackle
+                    commonFunction.SetRBTNL_Table(TVI_rbtnlImage, "CommonCode", Common.Constants.GroupCode.TVIShacklePic_SCode)
+            End Select            
         End Sub
 
         Private Sub PrepareScreen(ByVal _VisiblePanelID As String, ByVal _isAfterInsert As Boolean, Optional ByVal _isNew As Boolean = True)
@@ -1547,6 +1649,14 @@ Namespace Raven.Web
                     SR_txtMaterialDescription.Text = String.Empty
                     SR_txtResult.Text = String.Empty
 
+                    SR_txtServiceReportDtID.Text = String.Empty
+                    SR_txtNTName.Text = String.Empty
+                    SR_txtNTSerialNo.Text = String.Empty
+                    SR_txtNTQty.Text = "0"
+                    SR_txtNTUOM.Text = String.Empty
+                    SR_txtNTDimension.Text = String.Empty
+                    SR_txtNTResult.Text = String.Empty
+
                     commonFunction.SetDDL_Table(SR_ddlServiceReportFor, "CommonCode", Common.Constants.GroupCode.ServiceReportFor_SCode)
 
                     Select Case lblReportTypeCode.Text.Trim
@@ -1602,6 +1712,8 @@ Namespace Raven.Web
                     COI_imgPic1.ImageUrl = UrlBase + "/secure/GetImage.aspx?imgType=COI-1&cn=" + COI_txtCertificateInspectionID.Text.Trim
                     COI_imgPic2.ImageUrl = UrlBase + "/secure/GetImage.aspx?imgType=COI-2&cn=" + COI_txtCertificateInspectionID.Text.Trim
                     COI_imgPic3.ImageUrl = UrlBase + "/secure/GetImage.aspx?imgType=COI-3&cn=" + COI_txtCertificateInspectionID.Text.Trim
+                    COI_txtActualLoadTest.Text = "0"
+                    COI_txtActualLoadTestUOM.Text = "KG"
 
                 Case Common.Constants.ReportTypePanelID.MPIReport_PanelID
                     If _isAfterInsert = False Then
@@ -1811,11 +1923,15 @@ Namespace Raven.Web
                                     TVI_lblWLLSWLCaption.Text = "SWL"
                                     TVI_lblDimensionDiameterCaption.Text = "Dimension"
                                     TVI_pnlLength.Visible = True
+                                    commonFunction.SetRBTNL_Table(TVI_rbtnlImage, "CommonCode", Common.Constants.GroupCode.TVISlingPic_SCode)
+                                    TVI_imgFilePic.ImageUrl = GetPic(Common.Constants.GetImageType.GetImage_CommonCodeFilePic.Trim, Common.Constants.GroupCode.TVISlingPic_SCode.Trim + "|" + TVI_rbtnlImage.SelectedValue.Trim)
                                 Case Common.Constants.ReportTypeCodeThoroughVisualType.Shackle
                                     TVI_lblWLLSWLCaption.Text = "WLL"
                                     TVI_lblDimensionDiameterCaption.Text = "Diameter"
                                     TVI_pnlLength.Visible = False
-                            End Select
+                                    commonFunction.SetRBTNL_Table(TVI_rbtnlImage, "CommonCode", Common.Constants.GroupCode.TVIShacklePic_SCode)
+                                    TVI_imgFilePic.ImageUrl = GetPic(Common.Constants.GetImageType.GetImage_CommonCodeFilePic.Trim, Common.Constants.GroupCode.TVISlingPic_SCode.Trim + "|" + TVI_rbtnlImage.SelectedValue.Trim)
+                            End Select                            
                         End If
                     End If
 
@@ -1842,11 +1958,11 @@ Namespace Raven.Web
                         If _isNew Then
                             IT_txtPipeNo.Text = String.Empty
                             IT_txtPipeLength.Text = String.Empty
-                            IT_txtVBI.Text = String.Empty
+                            IT_ddlVBI.SelectedIndex = 0
                             IT_txtRWT.Text = String.Empty
-                            IT_txtVTIPin.Text = String.Empty
-                            IT_txtVTIBox.Text = String.Empty
-                            IT_txtFLD.Text = String.Empty
+                            IT_ddlVTIPin.SelectedIndex = 0
+                            IT_ddlVTIBox.SelectedIndex = 0
+                            IT_ddlFLD.SelectedIndex = 0
                             IT_txtFinalClass.Text = String.Empty
                             IT_txtInternalExternalCleaning.Text = String.Empty
                             IT_txtInternalExternalCoating.Text = String.Empty
@@ -1943,6 +2059,11 @@ Namespace Raven.Web
             End Select
         End Sub
 
+        Private Function GetPic(ByVal imgType As String, ByVal ID As String) As String
+            Dim strURL As String = String.Empty
+            strURL = UrlBase + "/secure/GetImage.aspx?imgType=" + imgType.Trim + "&cn=" + ID.Trim
+            Return strURL.Trim
+        End Function
 #End Region
 
 #Region " C,R,U,D "
@@ -2271,6 +2392,8 @@ Namespace Raven.Web
                             COI_imgPic1.ImageUrl = GetPic_COI(1, COI_txtCertificateInspectionID.Text.Trim)
                             COI_imgPic2.ImageUrl = GetPic_COI(2, COI_txtCertificateInspectionID.Text.Trim)
                             COI_imgPic3.ImageUrl = GetPic_COI(3, COI_txtCertificateInspectionID.Text.Trim)
+                            COI_txtActualLoadTest.Text = .actualLoadTest.ToString.Trim
+                            COI_txtActualLoadTestUOM.Text = .actualLoadTestUOM.Trim
                         Else
                             PrepareScreen(_VisiblePanelID, False)
                         End If
@@ -2510,6 +2633,12 @@ Namespace Raven.Web
                             TVI_txtTVIHdID.Text = .tviHdID.Trim
                             TVI_txtReportNo.Text = .reportNo.Trim
                             commonFunction.SelectListItem(TVI_ddlTVIType, .tviTypeSCode.Trim)
+                            Select Case TVI_ddlTVIType.SelectedValue.Trim
+                                Case Common.Constants.ReportTypeCodeThoroughVisualType.Sling
+                                    commonFunction.SetRBTNL_Table(TVI_rbtnlImage, "CommonCode", Common.Constants.GroupCode.TVISlingPic_SCode)
+                                Case Common.Constants.ReportTypeCodeThoroughVisualType.Shackle
+                                    commonFunction.SetRBTNL_Table(TVI_rbtnlImage, "CommonCode", Common.Constants.GroupCode.TVIShacklePic_SCode)
+                            End Select
                             TVI_calReportDate.selectedDate = .reportDate
                             txtProjectID.Text = .projectID.Trim
                             TVI_txtDescription.Text = .Description.Trim
@@ -2521,7 +2650,14 @@ Namespace Raven.Web
                             TVI_txtDefectFound.Text = .DefectFound.Trim
                             TVI_txtExamineWith.Text = .ExamineWith.Trim
                             TVI_txtResult.Text = .Result.Trim
-                            TVI_txtNote.Text = .Note.Trim
+                            TVI_txtNote.Text = .Note.Trim                            
+                            If .TVIImageSCode.Trim.Length > 0 Then TVI_rbtnlImage.SelectedValue = .TVIImageSCode.Trim
+                            Select Case TVI_ddlTVIType.SelectedValue.Trim
+                                Case Common.Constants.ReportTypeCodeThoroughVisualType.Sling
+                                    TVI_imgFilePic.ImageUrl = GetPic(Common.Constants.GetImageType.GetImage_CommonCodeFilePic.Trim, Common.Constants.GroupCode.TVISlingPic_SCode.Trim + "|" + TVI_rbtnlImage.SelectedValue.Trim)
+                                Case Common.Constants.ReportTypeCodeThoroughVisualType.Shackle
+                                    TVI_imgFilePic.ImageUrl = GetPic(Common.Constants.GetImageType.GetImage_CommonCodeFilePic.Trim, Common.Constants.GroupCode.TVIShacklePic_SCode.Trim + "|" + TVI_rbtnlImage.SelectedValue.Trim)
+                            End Select
                             TVI_calNextInspectionDate.selectedDate = .NextInspectionDate
                             commonFunction.Focus(Me, TVI_txtDescription.ClientID)
                         Else
@@ -2567,11 +2703,11 @@ Namespace Raven.Web
                         If .SelectOne.Rows.Count > 0 Then
                             IT_txtPipeNo.Text = .pipeNo.Trim
                             IT_txtPipeLength.Text = .pipeLength.Trim
-                            IT_txtVBI.Text = .VBI.Trim
+                            commonFunction.SelectListItem(IT_ddlVBI, .VBI.Trim)
                             IT_txtRWT.Text = .RWT.Trim
-                            IT_txtVTIPin.Text = .VTIPin.Trim
-                            IT_txtVTIBox.Text = .VTIBox.Trim
-                            IT_txtFLD.Text = .FLD.Trim
+                            commonFunction.SelectListItem(IT_ddlVTIPin, .VTIPin.Trim)
+                            commonFunction.SelectListItem(IT_ddlVTIBox, .VTIBox.Trim)
+                            commonFunction.SelectListItem(IT_ddlFLD, .FLD.Trim)                            
                             IT_txtFinalClass.Text = .finalClass.Trim
                             IT_txtInternalExternalCleaning.Text = .intExtCleaning.Trim
                             IT_txtInternalExternalCoating.Text = .intExtCoating.Trim
@@ -3379,6 +3515,7 @@ Namespace Raven.Web
                     SetDataGrid(_VisiblePanelID.Trim)
 
                 Case Common.Constants.ReportTypePanelID.ServiceReport_PanelID
+                    Dim isSucceed As Boolean = False
                     Dim oBR As New Common.BussinessRules.ServiceReport
                     With oBR
                         .serviceReportID = SR_txtServiceReportID.Text.Trim
@@ -3406,11 +3543,51 @@ Namespace Raven.Web
                         .userIDupdate = MyBase.LoggedOnUserID
 
                         If isNew Then
-                            If .Insert() Then SR_txtServiceReportID.Text = .serviceReportID.Trim
-                            PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, True)
+                            If .Insert() Then
+                                isSucceed = True
+                                SR_txtServiceReportID.Text = .serviceReportID.Trim
+                                If SR_pnlNotTubular.Visible = False Then PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, True)
+                            End If
                         Else
-                            .Update()
-                            PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, False)
+                            If .Update() Then
+                                isSucceed = True
+                                If SR_pnlNotTubular.Visible = False Then PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, False)
+                            End If
+                        End If
+
+                        If isSucceed And SR_pnlNotTubular.Visible Then
+                            Dim oSRDt As New Common.BussinessRules.ServiceReportDt
+                            With oSRDt
+                                .serviceReportDtID = SR_txtServiceReportDtID.Text.Trim
+                                If .SelectOne.Rows.Count = 0 Then
+                                    isNew = True
+                                Else
+                                    isNew = False
+                                End If
+                                .serviceReportID = SR_txtServiceReportID.Text.Trim
+                                .ntName = SR_txtNTName.Text.Trim
+                                .ntSerialNo = SR_txtNTSerialNo.Text.Trim
+                                .ntQty = CDec(IIf(IsNumeric(SR_txtNTQty.Text.Trim), SR_txtNTQty.Text.Trim, "0").ToString.Trim)
+                                .ntUOM = SR_txtNTUOM.Text.Trim
+                                .ntDimension = SR_txtNTDimension.Text.Trim
+                                .ntResult = SR_txtNTResult.Text.Trim
+                                .userIDinsert = MyBase.LoggedOnUserID.Trim
+                                .userIDupdate = MyBase.LoggedOnUserID.Trim
+
+                                If isNew Then
+                                    If .Insert() Then
+                                        SR_txtServiceReportDtID.Text = String.Empty
+                                        commonFunction.Focus(Me, SR_txtNTName.ClientID)
+                                    End If
+                                Else
+                                    If .Update() Then
+                                        SR_txtServiceReportDtID.Text = String.Empty
+                                        commonFunction.Focus(Me, SR_txtNTName.ClientID)
+                                    End If
+                                End If
+                            End With
+                            oSRDt.Dispose()
+                            oSRDt = Nothing
                         End If
                     End With
                     oBR.Dispose()
@@ -3444,6 +3621,8 @@ Namespace Raven.Web
                         .inspectionDate = COI_caInspectionDate.selectedDate
                         .expiredDate = COI_calExpiredDate.selectedDate
                         .notes = COI_txtNotes.Text.Trim
+                        .actualLoadTest = CDec(IIf(IsNumeric(COI_txtActualLoadTest.Text.Trim), COI_txtActualLoadTest.Text.Trim, 0))
+                        .actualLoadTestUOM = COI_txtActualLoadTestUOM.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
                         If isNew Then
@@ -3763,6 +3942,7 @@ Namespace Raven.Web
                         .ExamineWith = TVI_txtExamineWith.Text.Trim
                         .Result = TVI_txtResult.Text.Trim
                         .Note = TVI_txtNote.Text.Trim
+                        .TVIImageSCode = TVI_rbtnlImage.SelectedValue.Trim
                         .NextInspectionDate = TVI_calNextInspectionDate.selectedDate
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
@@ -3827,7 +4007,7 @@ Namespace Raven.Web
                             .InspectionTallyHdID = IT_txtInspectionTallyHdID.Text.Trim
                             .pipeNo = IT_txtPipeNo.Text.Trim
                             .pipeLength = IT_txtPipeLength.Text.Trim
-                            .VBI = IT_txtVBI.Text.Trim
+                            .VBI = IT_ddlVBI.SelectedValue.Trim
                             .RWT = IT_txtRWT.Text.Trim
                             .isCCUYellow = (IT_rdblCCU.SelectedValue = "Y")
                             .isCCUBlue = (IT_rdblCCU.SelectedValue = "B")
@@ -3836,9 +4016,9 @@ Namespace Raven.Web
                             .isCCNWhite = (IT_rdblCCN.SelectedValue = "W")
                             .isCCNYellow = (IT_rdblCCN.SelectedValue = "Y")
                             .isCCNRed = (IT_rdblCCN.SelectedValue = "R")
-                            .VTIPin = IT_txtVTIPin.Text.Trim
-                            .VTIBox = IT_txtVTIBox.Text.Trim
-                            .FLD = IT_txtFLD.Text.Trim
+                            .VTIPin = IT_ddlVTIPin.SelectedValue.Trim
+                            .VTIBox = IT_ddlVTIBox.SelectedValue.Trim
+                            .FLD = IT_ddlFLD.SelectedValue.Trim
                             .finalClass = IT_txtFinalClass.Text.Trim
                             .intExtCleaning = IT_txtInternalExternalCleaning.Text.Trim
                             .intExtCoating = IT_txtInternalExternalCoating.Text.Trim
@@ -4005,6 +4185,49 @@ Namespace Raven.Web
                     oBr = Nothing
             End Select
         End Sub
+
+#Region " C,R,U,D for Project Report Type "
+        Private Sub _updateProjectReportType()
+            If txtProjectCode.Text.Trim.Length = 0 Then
+                commonFunction.MsgBox(Me, "Please select Project first.")
+                Exit Sub
+            End If
+
+            Dim oPr As New Common.BussinessRules.ProjectReportType
+            With oPr
+                For Each item As DataGridItem In grdReportTypeAdd.Items
+                    Dim _chkSelect As CheckBox = CType(item.FindControl("_chkSelect"), CheckBox)
+                    Dim _lblReportTypeID As Label = CType(item.FindControl("_lblReportTypeID"), Label)
+                    .ProjectID = txtProjectID.Text.Trim
+                    .ReportTypeID = _lblReportTypeID.Text.Trim
+                    .UserIDInsert = MyBase.LoggedOnUserID
+                    .UserIDPrepare = MyBase.LoggedOnUserID
+                    If _chkSelect.Checked Then .Insert()
+                Next
+            End With
+            oPr.Dispose()
+            oPr = Nothing
+        End Sub
+
+        Private Sub _deleteProjectReportType()
+            If txtProjectCode.Text.Trim.Length = 0 Then
+                commonFunction.MsgBox(Me, "Please select Project first.")
+                Exit Sub
+            End If
+
+            Dim oPr As New Common.BussinessRules.ProjectReportType
+            With oPr
+                For Each item As DataGridItem In grdReportTypeRemove.Items
+                    Dim _chkSelect As CheckBox = CType(item.FindControl("_chkSelect"), CheckBox)
+                    Dim _lblProjectReportTypeID As Label = CType(item.FindControl("_lblProjectReportTypeID"), Label)
+                    .ProjectReportTypeID = _lblProjectReportTypeID.Text.Trim
+                    If _chkSelect.Checked Then .Delete()
+                Next
+            End With
+            oPr.Dispose()
+            oPr = Nothing
+        End Sub
+#End Region
 
 #Region " C,R,U,D for Drill Pipe Inspection Report "
         Private Sub _openInspectionSpec()
@@ -4471,6 +4694,82 @@ Namespace Raven.Web
             End Select
             Return strURL.Trim
         End Function
+#End Region
+
+#Region " C,R,U,D for Service Report "
+        Private Sub _openServiceReportDt()
+            Dim oSRDt As New Common.BussinessRules.ServiceReportDt
+            With oSRDt
+                .serviceReportDtID = SR_txtServiceReportDtID.Text.Trim
+                If .SelectOne.Rows.Count > 0 Then
+                    SR_txtNTName.Text = .ntName.Trim
+                    SR_txtNTSerialNo.Text = .ntSerialNo.Trim
+                    SR_txtNTQty.Text = .ntQty.ToString.Trim
+                    SR_txtNTUOM.Text = .ntUOM.Trim
+                    SR_txtNTDimension.Text = .ntDimension.Trim
+                    SR_txtNTResult.Text = .ntResult.Trim
+                Else
+                    SR_txtNTName.Text = String.Empty
+                    SR_txtNTSerialNo.Text = String.Empty
+                    SR_txtNTQty.Text = "0"
+                    SR_txtNTUOM.Text = String.Empty
+                    SR_txtNTDimension.Text = String.Empty
+                    SR_txtNTResult.Text = String.Empty
+                End If
+            End With
+            oSRDt.Dispose()
+            oSRDt = Nothing
+        End Sub
+
+        Private Sub _updateServiceReportDt()
+            Dim isNew As Boolean = False
+            Dim oSRDt As New Common.BussinessRules.ServiceReportDt
+            With oSRDt
+                .serviceReportDtID = SR_txtServiceReportDtID.Text.Trim
+                If .SelectOne.Rows.Count = 0 Then
+                    isNew = True
+                Else
+                    isNew = False
+                End If
+                .serviceReportID = SR_txtServiceReportID.Text.Trim
+                .ntName = SR_txtNTName.Text.Trim
+                .ntSerialNo = SR_txtNTSerialNo.Text.Trim
+                .ntQty = CDec(IIf(IsNumeric(SR_txtNTQty.Text.Trim), SR_txtNTQty.Text.Trim, "0").ToString.Trim)
+                .ntUOM = SR_txtNTUOM.Text.Trim
+                .ntDimension = SR_txtNTDimension.Text.Trim
+                .ntResult = SR_txtNTResult.Text.Trim
+                .userIDinsert = MyBase.LoggedOnUserID.Trim
+                .userIDupdate = MyBase.LoggedOnUserID.Trim
+
+                If isNew Then
+                    If .Insert() Then
+                        SR_txtServiceReportDtID.Text = String.Empty
+                        commonFunction.Focus(Me, SR_txtNTName.ClientID)
+                    End If
+                Else
+                    If .Update() Then
+                        SR_txtServiceReportDtID.Text = String.Empty
+                        commonFunction.Focus(Me, SR_txtNTName.ClientID)
+                    End If
+                End If
+            End With
+            oSRDt.Dispose()
+            oSRDt = Nothing
+
+            SetDataGrid(Common.Constants.ReportTypePanelID.ServiceReport_PanelID)
+        End Sub
+
+        Private Sub _deleteServiceReportDt()
+            Dim oSRDt As New Common.BussinessRules.ServiceReportDt
+            With oSRDt
+                .serviceReportDtID = SR_txtServiceReportDtID.Text.Trim
+                If .Delete() Then
+                    commonFunction.Focus(Me, SR_txtNTName.ClientID)
+                End If
+            End With
+            oSRDt.Dispose()
+            oSRDt = Nothing
+        End Sub
 #End Region
 #End Region
 

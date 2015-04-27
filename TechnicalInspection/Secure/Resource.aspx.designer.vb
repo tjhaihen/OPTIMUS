@@ -339,6 +339,15 @@ Namespace Raven.Web.Secure
         Protected WithEvents txtUrl As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''txtResourceSignatureID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtResourceSignatureID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''ImageFilePicSignature control.
         '''</summary>
         '''<remarks>
@@ -357,6 +366,24 @@ Namespace Raven.Web.Secure
         Protected WithEvents btnUploadPicSignature As Global.System.Web.UI.WebControls.Button
 
         '''<summary>
+        '''txtResourceSignatureDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtResourceSignatureDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''rfvResourceSignatureDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents rfvResourceSignatureDescription As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+        '''<summary>
         '''imgPicSignature control.
         '''</summary>
         '''<remarks>
@@ -364,6 +391,15 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents imgPicSignature As Global.System.Web.UI.WebControls.Image
+
+        '''<summary>
+        '''grdResourceSignature control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdResourceSignature As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
         '''grdResource control.

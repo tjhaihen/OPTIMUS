@@ -75,6 +75,20 @@ Namespace Raven.Web
                         If br.SelectOne.Rows.Count > 0 Then
                             Response.BinaryWrite(br.SignaturePic.Value)
                         End If
+                    Case "ResourceSignature"
+                        Dim br As New Common.BussinessRules.ResourceSignature
+                        br.resourceSignatureID = strID.Trim
+                        If br.SelectOne.Rows.Count > 0 Then
+                            Response.BinaryWrite(br.SignaturePic.Value)
+                        End If
+                    Case "CommonCodeFilePic"
+                        Dim arrID() As String = strID.Split(CChar("|"))
+                        Dim br As New Common.BussinessRules.CommonCode
+                        br.GroupCode = arrID(0).Trim
+                        br.Code = arrID(1).Trim
+                        If br.SelectOne.Rows.Count > 0 Then
+                            Response.BinaryWrite(br.picFile.Value)
+                        End If
                 End Select
             End If
         End Sub

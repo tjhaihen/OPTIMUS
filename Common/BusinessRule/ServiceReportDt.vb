@@ -7,13 +7,12 @@ Imports System.Data.SqlClient
 Imports Raven.Common
 
 Namespace Raven.Common.BussinessRules
-    Public Class CommonCode
+    Public Class ServiceReportDt
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _code, _groupCode, _caption, _value As String
-        Private _isDefault, _isActive, _isSystem As Boolean
-        Private _picFile As SqlBinary
+        Private _serviceReportDtID, _serviceReportID, _ntName, _ntSerialNo, _ntUOM, _ntDimension, _ntResult As String
+        Private _ntQty As Decimal
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate As DateTime
 #End Region
@@ -29,26 +28,28 @@ Namespace Raven.Common.BussinessRules
 #Region " C,R,U,D "
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "INSERT INTO CommonCode " + _
-                                        "(code, groupCode, caption, value, " + _
-                                        "isDefault, isActive, isSystem, picFile, " + _
+            cmdToExecute.CommandText = "INSERT INTO ServiceReportDt " + _
+                                        "(serviceReportDtID, serviceReportID, ntName, ntSerialNo, ntQty, ntUOM, " + _
+                                        "ntDimension, ntResult,  " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
-                                        "(@code, @groupCode, @caption, @value, " + _
-                                        "@isDefault, @isActive, @isSystem, @picFile, " + _
+                                        "(@serviceReportDtID, @serviceReportID, @ntName, @ntSerialNo, @ntQty, @ntUOM, " + _
+                                        "@ntDimension, @ntResult,  " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
+            Dim strID As String = ID.GenerateIDNumber("ServiceReportDt", "serviceReportDtID")
+
             Try
-                cmdToExecute.Parameters.AddWithValue("@code", _code)
-                cmdToExecute.Parameters.AddWithValue("@groupCode", _groupCode)
-                cmdToExecute.Parameters.AddWithValue("@caption", _caption)
-                cmdToExecute.Parameters.AddWithValue("@value", _value)
-                cmdToExecute.Parameters.AddWithValue("@isDefault", _isDefault)
-                cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)
-                cmdToExecute.Parameters.AddWithValue("@isSystem", _isSystem)
-                cmdToExecute.Parameters.AddWithValue("@picFile", _picFile)
+                cmdToExecute.Parameters.AddWithValue("@serviceReportDtID", strID)
+                cmdToExecute.Parameters.AddWithValue("@serviceReportID", _serviceReportID)
+                cmdToExecute.Parameters.AddWithValue("@ntName", _ntName)
+                cmdToExecute.Parameters.AddWithValue("@ntSerialNo", _ntSerialNo)
+                cmdToExecute.Parameters.AddWithValue("@ntQty", _ntQty)
+                cmdToExecute.Parameters.AddWithValue("@ntUOM", _ntUOM)
+                cmdToExecute.Parameters.AddWithValue("@ntDimension", _ntDimension)
+                cmdToExecute.Parameters.AddWithValue("@ntResult", _ntResult)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -58,6 +59,7 @@ Namespace Raven.Common.BussinessRules
                 ' // Execute Query
                 cmdToExecute.ExecuteNonQuery()
 
+                _serviceReportDtID = strID
                 Return True
             Catch ex As Exception
                 ExceptionManager.Publish(ex)
@@ -69,25 +71,24 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Update() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "UPDATE CommonCode " + _
-                                        "SET caption=@caption, value=@value, " + _
-                                        "isDefault=@isDefault, isActive=@isActive, isSystem=@isSystem, " + _
-                                        "picFile=@picFile, " + _
+            cmdToExecute.CommandText = "UPDATE ServiceReportDt " + _
+                                        "SET ntName=@ntName, ntSerialNo=@ntSerialNo, " + _
+                                        "ntQty=@ntQty, ntUOM=@ntUOM, ntDimension=@ntDimension, " + _
+                                        "ntResult=@ntResult, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
-                                        "WHERE code=@code and groupCode=@groupCode"
+                                        "WHERE serviceReportDtID=@serviceReportDtID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@code", _code)
-                cmdToExecute.Parameters.AddWithValue("@groupCode", _groupCode)
-                cmdToExecute.Parameters.AddWithValue("@caption", _caption)
-                cmdToExecute.Parameters.AddWithValue("@value", _value)
-                cmdToExecute.Parameters.AddWithValue("@isDefault", _isDefault)
-                cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)
-                cmdToExecute.Parameters.AddWithValue("@isSystem", _isSystem)
-                cmdToExecute.Parameters.AddWithValue("@picFile", _picFile)
+                cmdToExecute.Parameters.AddWithValue("@serviceReportDtID", _serviceReportDtID)                
+                cmdToExecute.Parameters.AddWithValue("@ntName", _ntName)
+                cmdToExecute.Parameters.AddWithValue("@ntSerialNo", _ntSerialNo)
+                cmdToExecute.Parameters.AddWithValue("@ntQty", _ntQty)
+                cmdToExecute.Parameters.AddWithValue("@ntUOM", _ntUOM)
+                cmdToExecute.Parameters.AddWithValue("@ntDimension", _ntDimension)
+                cmdToExecute.Parameters.AddWithValue("@ntResult", _ntResult)                
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -107,10 +108,10 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectAll() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM CommonCode"
+            cmdToExecute.CommandText = "SELECT * FROM ServiceReportDt"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("CommonCode")
+            Dim toReturn As DataTable = New DataTable("ServiceReportDt")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
@@ -136,17 +137,16 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectOne(Optional ByVal recStatus As RavenRecStatus = RavenRecStatus.CurrentRecord) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM CommonCode WHERE code=@code AND groupCode=@groupCode"
+            cmdToExecute.CommandText = "SELECT * FROM ServiceReportDt WHERE serviceReportDtID=@serviceReportDtID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("CommonCode")
+            Dim toReturn As DataTable = New DataTable("ServiceReportDt")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@code", _code)
-                cmdToExecute.Parameters.AddWithValue("@groupCode", _groupCode)
+                cmdToExecute.Parameters.AddWithValue("@serviceReportDtID", _serviceReportDtID)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -155,21 +155,19 @@ Namespace Raven.Common.BussinessRules
                 adapter.Fill(toReturn)
 
                 If toReturn.Rows.Count > 0 Then
-                    _code = CType(toReturn.Rows(0)("code"), String)
-                    _groupCode = CType(toReturn.Rows(0)("groupCode"), String)
-                    _caption = CType(toReturn.Rows(0)("caption"), String)
-                    _value = CType(toReturn.Rows(0)("value"), String)
-                    _isDefault = CType(toReturn.Rows(0)("isDefault"), Boolean)
-                    _isActive = CType(toReturn.Rows(0)("isActive"), Boolean)
-                    _isSystem = CType(toReturn.Rows(0)("isSystem"), Boolean)
-                    If Not IsDBNull(toReturn.Rows(0)("picFile")) Then
-                        _picFile = CType(toReturn.Rows(0)("picFile"), Byte())
-                    End If
+                    _serviceReportDtID = CType(toReturn.Rows(0)("serviceReportDtID"), String)
+                    _serviceReportID = CType(toReturn.Rows(0)("serviceReportID"), String)
+                    _ntName = CType(toReturn.Rows(0)("ntName"), String)
+                    _ntSerialNo = CType(toReturn.Rows(0)("ntSerialNo"), String)
+                    _ntQty = CType(toReturn.Rows(0)("ntQty"), Decimal)
+                    _ntUOM = CType(toReturn.Rows(0)("ntUOM"), String)
+                    _ntDimension = CType(toReturn.Rows(0)("ntDimension"), String)
+                    _ntResult = CType(toReturn.Rows(0)("ntResult"), String)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
                     _updateDate = CType(toReturn.Rows(0)("updateDate"), DateTime)
-                End If                
+                End If
             Catch ex As Exception
                 ' // some error occured. Bubble it to caller and encapsulate Exception object
                 ExceptionManager.Publish(ex)
@@ -185,15 +183,14 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Delete() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "DELETE FROM CommonCode " + _
-                                        "WHERE code=@code AND groupCode=@groupCode"
+            cmdToExecute.CommandText = "DELETE FROM ServiceReportDt " + _
+                                        "WHERE serviceReportDtID=@serviceReportDtID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@code", _code)
-                cmdToExecute.Parameters.AddWithValue("@groupCode", _groupCode)
+                cmdToExecute.Parameters.AddWithValue("@serviceReportDtID", _serviceReportDtID)
 
                 ' // Open Connection
                 _mainConnection.Open()
@@ -211,19 +208,20 @@ Namespace Raven.Common.BussinessRules
         End Function
 #End Region
 
-#Region " Custom "
-        Public Function SelectByGroupCode() As DataTable
+#Region " Custom Function "
+        Public Function SelectByServiceReportID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM CommonCode WHERE groupCode=@groupCode ORDER BY Code"
+            cmdToExecute.CommandText = "SELECT sr.* " +
+                                        "FROM ServiceReportDt sr WHERE sr.serviceReportID=@serviceReportID"
             cmdToExecute.CommandType = CommandType.Text
 
-            Dim toReturn As DataTable = New DataTable("SelectByGroupCode")
+            Dim toReturn As DataTable = New DataTable("ServiceReportDt")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@groupCode", _groupCode)
+                cmdToExecute.Parameters.AddWithValue("@serviceReportID", _serviceReportID)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -241,141 +239,79 @@ Namespace Raven.Common.BussinessRules
             End Try
 
             Return toReturn
-        End Function
-
-        Public Function SelectGroupCodeByIsSystem(ByVal isSystem As Boolean) As DataTable
-            Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT DISTINCT GroupCode FROM CommonCode WHERE isSystem=@isSystem"
-            cmdToExecute.CommandType = CommandType.Text
-
-            Dim toReturn As DataTable = New DataTable("SelectGroupCodeByIsSystem")
-            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
-
-            cmdToExecute.Connection = _mainConnection
-
-            Try
-                cmdToExecute.Parameters.AddWithValue("@isSystem", IsSystem)
-
-                ' // Open connection.
-                _mainConnection.Open()
-
-                ' // Execute query.
-                adapter.Fill(toReturn)
-            Catch ex As Exception
-                ' // some error occured. Bubble it to caller and encapsulate Exception object
-                ExceptionManager.Publish(ex)
-            Finally
-                ' // Close connection.
-                _mainConnection.Close()
-                cmdToExecute.Dispose()
-                adapter.Dispose()
-            End Try
-
-            Return toReturn
-        End Function
-
-        Public Function UpdatePic() As Boolean
-            Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "UPDATE CommonCode " + _
-                                        "SET picFile=@picFile, " + _
-                                        "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
-                                        "WHERE groupCode=@groupCode AND code=@code"
-            cmdToExecute.CommandType = CommandType.Text
-
-            cmdToExecute.Connection = _mainConnection
-
-            Try
-                cmdToExecute.Parameters.AddWithValue("@groupCode", _groupCode)
-                cmdToExecute.Parameters.AddWithValue("@code", _code)
-                cmdToExecute.Parameters.AddWithValue("@picFile", _picFile)
-                cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
-
-                ' // Open Connection
-                _mainConnection.Open()
-
-                ' // Execute Query
-                cmdToExecute.ExecuteNonQuery()
-
-                Return True
-            Catch ex As Exception
-                ExceptionManager.Publish(ex)
-            Finally
-                _mainConnection.Close()
-                cmdToExecute.Dispose()
-            End Try
         End Function
 #End Region
 
 #Region " Class Property Declarations "
-        Public Property [Code]() As String
+        Public Property [serviceReportDtID]() As String
             Get
-                Return _code
+                Return _serviceReportDtID
             End Get
             Set(ByVal Value As String)
-                _code = Value
+                _serviceReportDtID = Value
             End Set
         End Property
 
-        Public Property [GroupCode]() As String
+        Public Property [serviceReportID]() As String
             Get
-                Return _groupCode
+                Return _serviceReportID
             End Get
             Set(ByVal Value As String)
-                _groupCode = Value
+                _serviceReportID = Value
             End Set
         End Property
 
-        Public Property [Caption]() As String
+        Public Property [ntName]() As String
             Get
-                Return _caption
+                Return _ntName
             End Get
             Set(ByVal Value As String)
-                _caption = Value
+                _ntName = Value
             End Set
         End Property
 
-        Public Property [Value]() As String
+        Public Property [ntSerialNo]() As String
             Get
-                Return _value
+                Return _ntSerialNo
             End Get
             Set(ByVal Value As String)
-                _value = Value
+                _ntSerialNo = Value
             End Set
         End Property
 
-        Public Property [IsDefault]() As Boolean
+        Public Property [ntQty]() As Decimal
             Get
-                Return _isDefault
+                Return _ntQty
             End Get
-            Set(ByVal Value As Boolean)
-                _isDefault = Value
+            Set(ByVal Value As Decimal)
+                _ntQty = Value
             End Set
         End Property
 
-        Public Property [IsActive]() As Boolean
+        Public Property [ntUOM]() As String
             Get
-                Return _isActive
+                Return _ntUOM
             End Get
-            Set(ByVal Value As Boolean)
-                _isActive = Value
+            Set(ByVal Value As String)
+                _ntUOM = Value
             End Set
         End Property
 
-        Public Property [IsSystem]() As Boolean
+        Public Property [ntDimension]() As String
             Get
-                Return _isSystem
+                Return _ntDimension
             End Get
-            Set(ByVal Value As Boolean)
-                _isSystem = Value
+            Set(ByVal Value As String)
+                _ntDimension = Value
             End Set
         End Property
 
-        Public Property [picFile]() As SqlBinary
+        Public Property [ntResult]() As String
             Get
-                Return _picFile
+                Return _ntResult
             End Get
-            Set(ByVal Value As SqlBinary)
-                _picFile = Value
+            Set(ByVal Value As String)
+                _ntResult = Value
             End Set
         End Property
 

@@ -54,6 +54,7 @@ Namespace Raven.Web.Secure
 
         Private Sub btnUploadPicSignature_Click(sender As Object, e As System.EventArgs) Handles btnUploadPicSignature.Click
             UploadPic()
+            SetDataGridResourceSignature()
         End Sub
 
         Private Sub grdResource_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdResource.ItemCommand
@@ -62,6 +63,28 @@ Namespace Raven.Web.Secure
                     txtResourceCode.Text = CType(e.Item.FindControl("_lblResourceCode"), Label).Text.Trim
                     _Open(BussinessRules.RavenRecStatus.CurrentRecord)
             End Select
+        End Sub
+
+        Private Sub grdResourceSignature_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdResourceSignature.ItemCommand
+            Select Case e.CommandName
+                Case "Edit"
+                    txtResourceSignatureID.Text = CType(e.Item.FindControl("_lblResourceSignatureID"), Label).Text.Trim
+                    _openResourceSignature()
+                    SetDataGridResourceSignature()
+                Case "Delete"
+                    txtResourceSignatureID.Text = CType(e.Item.FindControl("_lblResourceSignatureID"), Label).Text.Trim
+                    _deleteResourceSignature()
+            End Select
+        End Sub
+
+        Private Sub grdResourceSignature_ItemCreated(sender As Object, e As System.Web.UI.WebControls.DataGridItemEventArgs) Handles grdResourceSignature.ItemCreated
+            If e.Item.ItemType = ListItemType.Item Or e.Item.ItemType = ListItemType.AlternatingItem Then
+                Dim drv As DataRowView = CType(e.Item.DataItem, DataRowView)
+                Dim _imgPicSignature As Image = CType(e.Item.FindControl("_imgPicSignature"), Image)
+                If Not drv Is Nothing Then
+                    _imgPicSignature.ImageUrl = GetPic(CType(drv("resourceSignatureID"), String))
+                End If
+            End If
         End Sub
 #End Region
 
@@ -120,6 +143,14 @@ Namespace Raven.Web.Secure
             End If
 
             prepareScreenPerson()
+            prepareScreenResourceSinature()
+            SetDataGridResourceSignature()
+        End Sub
+
+        Private Sub prepareScreenResourceSinature()
+            txtResourceSignatureID.Text = String.Empty
+            txtResourceSignatureDescription.Text = String.Empty
+            imgPicSignature.ImageUrl = GetPic(txtResourceSignatureID.Text.Trim)
         End Sub
 
         Private Sub prepareScreenPerson()
@@ -152,6 +183,15 @@ Namespace Raven.Web.Secure
             oRsrc.Dispose()
             oRsrc = Nothing
         End Sub
+
+        Private Sub SetDataGridResourceSignature()
+            Dim oRsrc As New Common.BussinessRules.ResourceSignature
+            oRsrc.resourceID = txtResourceID.Text.Trim
+            grdResourceSignature.DataSource = oRsrc.SelectByResourceID
+            grdResourceSignature.DataBind()
+            oRsrc.Dispose()
+            oRsrc = Nothing
+        End Sub
 #End Region
 
 #Region " C,R,U,D "
@@ -171,6 +211,7 @@ Namespace Raven.Web.Secure
                     calWorkingSDate.selectedDate = .workingSDate
                     calWorkingEDate.selectedDate = .workingEDate
                     chkIsActive.Checked = .isActive
+                    SetDataGridResourceSignature()
                 Else
                     prepareScreen(False)
                 End If
@@ -202,8 +243,7 @@ Namespace Raven.Web.Secure
                     txtMobile.Text = .Mobile.Trim
                     txtFax.Text = .Fax.Trim
                     txtEmail.Text = .Email.Trim
-                    txtUrl.Text = .Url.Trim
-                    imgPicSignature.ImageUrl = GetPic(txtPersonID.Text.Trim)
+                    txtUrl.Text = .Url.Trim                    
                 Else
                     prepareScreenPerson()
                 End If
@@ -227,6 +267,21 @@ Namespace Raven.Web.Secure
             oUser = Nothing
         End Sub
 
+        Private Sub _openResourceSignature()
+            Dim oRS As New Common.BussinessRules.ResourceSignature
+            With oRS
+                .resourceSignatureID = txtResourceSignatureID.Text.Trim
+                If .SelectOne.Rows.Count > 0 Then
+                    txtResourceSignatureDescription.Text = .description.Trim
+                    imgPicSignature.ImageUrl = GetPic(txtResourceSignatureID.Text.Trim)
+                Else
+                    prepareScreenResourceSinature()
+                End If
+            End With
+            oRS.Dispose()
+            oRS = Nothing
+        End Sub
+
         Private Sub _delete()
             Dim oPerson As New Common.BussinessRules.Person
             oPerson.PersonID = txtPersonID.Text.Trim
@@ -242,6 +297,16 @@ Namespace Raven.Web.Secure
             oPerson.Dispose()
             oPerson = Nothing
             SetDataGridResource()
+        End Sub
+
+        Private Sub _deleteResourceSignature()
+            Dim oRS As New Common.BussinessRules.ResourceSignature
+            oRS.resourceSignatureID = txtResourceSignatureID.Text.Trim
+            If oRS.Delete() Then
+                SetDataGridResourceSignature()
+            End If
+            oRS.Dispose()
+            oRS = Nothing            
         End Sub
 
         Private Sub _update()
@@ -267,15 +332,21 @@ Namespace Raven.Web.Secure
                 .userIDinsert = MyBase.LoggedOnUserID
                 .userIDupdate = MyBase.LoggedOnUserID
                 If isNew Then
-                    If .Insert() Then txtResourceID.Text = .resourceID
+                    If .Insert() Then
+                        txtResourceID.Text = .resourceID
+                        If ImageFilePicSignature.PostedFile.FileName.Trim.Length > 0 Then UploadPic()
+                    End If
                 Else
-                    .Update()
+                    If .Update() Then
+                        If txtResourceSignatureID.Text.Trim.Length > 0 Then UploadPic()
+                    End If
                 End If
             End With
             oRsrc.Dispose()
             oRsrc = Nothing
             prepareScreen(True)
             SetDataGridResource()
+            SetDataGridResourceSignature()
         End Sub
 
         Private Sub _updatePerson()
@@ -351,18 +422,26 @@ Namespace Raven.Web.Secure
             fs.Read(b, 0, CInt(fs.Length))
             fs.Close()
 
-            Dim br As New Common.BussinessRules.Person
-            Dim fnotnew As Boolean = False
+            Dim br As New Common.BussinessRules.ResourceSignature
+            Dim isNew As Boolean = False
 
             With br
-                .PersonID = txtPersonID.Text.Trim
-                fnotnew = (.SelectOne.Rows.Count > 0)
-                .SignaturePic = New SqlBinary(b)
+                .resourceSignatureID = txtResourceSignatureID.Text.Trim
+                isNew = (.SelectOne.Rows.Count = 0)
+                .signaturePic = New SqlBinary(b)
+                .resourceID = txtResourceID.Text.Trim
+                .description = txtResourceSignatureDescription.Text.Trim
+                .userIDinsert = MyBase.LoggedOnUserID.Trim
                 .userIDupdate = MyBase.LoggedOnUserID.Trim
 
-                If fnotnew Then
-                    .UpdatePic()
-                    imgPicSignature.ImageUrl = GetPic(txtPersonID.Text.Trim)
+                If isNew Then
+                    If .Insert() Then
+                        txtResourceSignatureID.Text = .resourceSignatureID.Trim
+                    End If                    
+                Else
+                    If .Update() Then
+                        imgPicSignature.ImageUrl = GetPic(txtResourceSignatureID.Text.Trim)
+                    End If                    
                 End If
             End With
             br.Dispose()
@@ -373,10 +452,11 @@ Namespace Raven.Web.Secure
 
         Private Function GetPic(ByVal ID As String) As String
             Dim strURL As String = String.Empty
-            strURL = UrlBase + "/secure/GetImage.aspx?imgType=PersonSignature&cn=" + ID.Trim
+            strURL = UrlBase + "/secure/GetImage.aspx?imgType=ResourceSignature&cn=" + ID.Trim
             Return strURL.Trim
         End Function
 #End Region
+
     End Class
 
 End Namespace

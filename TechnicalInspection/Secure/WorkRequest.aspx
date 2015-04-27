@@ -208,7 +208,7 @@
                                                         <asp:TextBox ID="txtCustomerCode" Width="266" MaxLength="15" runat="server" AutoPostBack="True" />
                                                         <asp:Button ID="btnSearchCustomer" runat="server" Text="..." Width="30" CausesValidation="false" />
                                                         <asp:RequiredFieldValidator ID="rfvCustomerCode" runat="server" ControlToValidate="txtCustomerCode"
-                                                            ErrorMessage="Customer Code" Display="dynamic" Text="*">																
+                                                            ErrorMessage="Customer Code" Display="dynamic" Text="*">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td style="width: 150px;" class="right">
@@ -233,6 +233,36 @@
                                                     <td>
                                                         <Module:Calendar ID="calExpiredDate" runat="server" DontResetDate="true" />
                                                         <asp:CheckBox ID="chkIsNoExpiredDate" runat="server" Text="No Expired Date" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;" class="right">
+                                                        Product Code
+                                                    </td>
+                                                    <td style="width: 500px;">
+                                                        <asp:TextBox ID="txtProductID" Width="300" runat="server" AutoPostBack="True" Visible="false" />
+                                                        <asp:TextBox ID="txtProductCode" Width="266" MaxLength="15" runat="server" AutoPostBack="True" />
+                                                        <asp:Button ID="btnSearchProduct" runat="server" Text="..." Width="30" CausesValidation="false" />
+                                                        <asp:RequiredFieldValidator ID="rfvProductCode" runat="server" ControlToValidate="txtProductCode"
+                                                            ErrorMessage="Product Code" Display="dynamic" Text="*">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 150px;" class="right">
+                                                        Product Name
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtProductName" Width="300" MaxLength="500" runat="server" ReadOnly="true"
+                                                            CssClass="txtReadOnly" />
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                    </td>
+                                                    <td>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -283,20 +313,26 @@
                                                             </tr>
                                                             <tr>
                                                                 <td valign="top" class="center">
-                                                                    <asp:TextBox ID="txtProjectDtID" runat="server" Width="100%" Visible="false"></asp:TextBox>
-                                                                    <asp:TextBox ID="txtDescription" runat="server" Width="100%"></asp:TextBox>
+                                                                    <asp:TextBox ID="txtProjectDtID" runat="server" Width="100%" Visible="false">
+                                                                    </asp:TextBox>
+                                                                    <asp:TextBox ID="txtDescription" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td valign="top" class="center">
-                                                                    <asp:TextBox ID="txtReferenceNo" runat="server" Width="100%" MaxLength="50"></asp:TextBox>
+                                                                    <asp:TextBox ID="txtReferenceNo" runat="server" Width="100%" MaxLength="50">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td valign="top" class="center">
-                                                                    <asp:TextBox ID="txtQty" runat="server" Width="100%" CssClass="right"></asp:TextBox>
+                                                                    <asp:TextBox ID="txtQty" runat="server" Width="100%" CssClass="right">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td valign="top" class="center">
-                                                                    <asp:TextBox ID="txtUOM" runat="server" Width="100%" MaxLength="50"></asp:TextBox>
+                                                                    <asp:TextBox ID="txtUOM" runat="server" Width="100%" MaxLength="50">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td valign="top" class="center">
-                                                                    <asp:TextBox ID="txtDescriptionDetail" runat="server" Width="100%" Height="50" TextMode="MultiLine"></asp:TextBox>
+                                                                    <asp:TextBox ID="txtDescriptionDetail" runat="server" Width="100%" Height="50" TextMode="MultiLine">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td valign="top">
                                                                     <asp:Button ID="btnAddDetail" runat="server" Text="Add" CssClass="sbttn" Width="100" />
@@ -310,11 +346,11 @@
                                                         <asp:DataGrid ID="grdProjectDetail" runat="server" BorderWidth="0" GridLines="None"
                                                             Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                             AutoGenerateColumns="false">
-                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                            <ItemStyle CssClass="gridItemStyle" />
-                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                            <Columns>
+                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                            <itemstyle cssclass="gridItemStyle" />
+                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                            <columns>
                                                                 <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                     <ItemTemplate>
                                                                         <asp:ImageButton ID="_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -350,7 +386,7 @@
                                                                             TextMode="MultiLine" Width="100%" Text='<%# DataBinder.Eval(Container.DataItem, "descriptionDetail") %>'></asp:TextBox>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </Columns>
+                                                            </columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                 </tr>
@@ -591,8 +627,11 @@
                                                         <asp:Button ID="btnSearchResource" runat="server" Text="..." Width="30" CausesValidation="false" />
                                                     </td>
                                                     <td style="width: 150px;" class="right">
+                                                        Resource Signature
                                                     </td>
                                                     <td>
+                                                        <asp:DropDownList ID="ddlResourceSignature" runat="server" Width="300">
+                                                        </asp:DropDownList>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -633,11 +672,11 @@
                                                         <asp:DataGrid ID="grdProjectResource" runat="server" BorderWidth="0" GridLines="None"
                                                             Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                             AutoGenerateColumns="false">
-                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                            <ItemStyle CssClass="gridItemStyle" />
-                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                            <Columns>
+                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                            <itemstyle cssclass="gridItemStyle" />
+                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                            <columns>
                                                                 <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                     <ItemTemplate>
                                                                         <asp:ImageButton ID="_ibtnDelete" runat="server" ImageUrl="/PureravensLib/images/delete.png"
@@ -660,7 +699,12 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "resourceJobTitle") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </Columns>
+                                                                <asp:TemplateColumn runat="server" HeaderText="Signature Description">
+                                                                    <ItemTemplate>
+                                                                        <%# DataBinder.Eval(Container.DataItem, "signatureDescription") %>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                            </columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                 </tr>
@@ -681,11 +725,11 @@
                                                                     <asp:DataGrid ID="grdReportType" runat="server" BorderWidth="0" GridLines="None"
                                                                         Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                         AutoGenerateColumns="false">
-                                                                        <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                        <ItemStyle CssClass="gridItemStyle" />
-                                                                        <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                        <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                        <Columns>
+                                                                        <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                        <itemstyle cssclass="gridItemStyle" />
+                                                                        <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                        <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                        <columns>
                                                                             <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                                 <ItemTemplate>
                                                                                     <asp:CheckBox ID="chkSelect" runat="server" />
@@ -698,7 +742,7 @@
                                                                                     <%# DataBinder.Eval(Container.DataItem, "ReportTypeName") %>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateColumn>
-                                                                        </Columns>
+                                                                        </columns>
                                                                     </asp:DataGrid>
                                                                 </td>
                                                                 <td valign="top" class="center">
@@ -716,11 +760,11 @@
                                                                     <asp:DataGrid ID="grdProjectReportType" runat="server" BorderWidth="0" GridLines="None"
                                                                         Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                         AutoGenerateColumns="false">
-                                                                        <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                                        <ItemStyle CssClass="gridItemStyle" />
-                                                                        <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                                        <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                                        <Columns>
+                                                                        <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                                        <itemstyle cssclass="gridItemStyle" />
+                                                                        <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                                        <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                                        <columns>
                                                                             <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                                 <ItemTemplate>
                                                                                     <asp:CheckBox ID="chkSelect" runat="server" />
@@ -733,11 +777,160 @@
                                                                                     <%# DataBinder.Eval(Container.DataItem, "ReportTypeName") %>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateColumn>
-                                                                        </Columns>
+                                                                        </columns>
                                                                     </asp:DataGrid>
                                                                 </td>
                                                             </tr>
                                                         </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="Heading1" colspan="4">
+                                                        Project File
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="hseparator" colspan="4">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="right">
+                                                        Choose File
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtProjectFileID" Width="300" MaxLength="500" runat="server" Visible="false">
+                                                        </asp:TextBox>
+                                                        <input id="txtFileUrl" type="file" name="txtFileUrl" runat="server" class="imguploader"
+                                                            style="width: 300px;">
+                                                        <asp:RegularExpressionValidator ID="revFileUrl" runat="server" Enabled="false" Visible="false"
+                                                            ControlToValidate="txtFileUrl" ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))
+																+(.jpg|.JPG|.bmp|.BMP|.png|.PNG|.gif|.GIF|)$" ErrorMessage="File should be one of these types (.jpg|.jpeg|.jfif|.jpe|.tif|.tiff|.bmp|.dib|.png|.gif|)">
+                                                        </asp:RegularExpressionValidator>
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Description
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtProjectFileDescription" Width="300" MaxLength="500" runat="server">
+                                                        </asp:TextBox>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="right">
+                                                        File Name
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtProjectFileName" Width="300" MaxLength="500" runat="server">
+                                                        </asp:TextBox>
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                        Is Shared?
+                                                    </td>
+                                                    <td>
+                                                        <asp:CheckBox ID="chkIsShared" runat="server">
+                                                        </asp:CheckBox>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="right">
+                                                        File No.
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtProjectFileNo" Width="300" MaxLength="500" runat="server">
+                                                        </asp:TextBox>
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <asp:Button ID="btnAttachProjectFile" runat="server" Text="Attach" CssClass="sbttn"
+                                                            Width="100" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <asp:DataGrid ID="grdProjectFile" runat="server" BorderWidth="0" GridLines="None"
+                                                            Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                            AutoGenerateColumns="false">
+                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
+                                                            <itemstyle cssclass="gridItemStyle" />
+                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
+                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
+                                                            <columns>
+                                                                <asp:TemplateColumn runat="server" HeaderText="" HeaderStyle-HorizontalAlign="Left"
+                                                                    HeaderStyle-Width="26" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="26">
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="_lblProjectFileID" runat="server" visible="false" Text='<%# DataBinder.Eval(Container.DataItem, "projectFileID") %>' />                                                                                                                                                
+                                                                        <a href='<%# DataBinder.Eval(Container.DataItem, "fileUrl") %>' target="_blank">
+                                                                            <img src="/pureravensLib/images/look.png" border="0" align="middle" alt='<%# DataBinder.Eval(Container.DataItem, "fileName") %>' />
+                                                                        </a>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                                <asp:TemplateColumn runat="server" HeaderText="File No." HeaderStyle-HorizontalAlign="Left"
+                                                                    HeaderStyle-Width="200" ItemStyle-Width="200" ItemStyle-HorizontalAlign="Left">
+                                                                    <ItemTemplate>
+                                                                        <%# DataBinder.Eval(Container.DataItem, "fileNo") %>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                                <asp:TemplateColumn runat="server" HeaderText="File Name" HeaderStyle-HorizontalAlign="Left"
+                                                                    ItemStyle-HorizontalAlign="Left">
+                                                                    <ItemTemplate>
+                                                                        <table>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <%# DataBinder.Eval(Container.DataItem, "fileName") %>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="txtweak">
+                                                                                    <%# DataBinder.Eval(Container.DataItem, "description") %>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                                <asp:TemplateColumn runat="server" HeaderText="Type" HeaderStyle-HorizontalAlign="Left"
+                                                                    HeaderStyle-Width="150" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150">
+                                                                    <ItemTemplate>
+                                                                        <%# DataBinder.Eval(Container.DataItem, "fileExtension") %>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                                <asp:TemplateColumn runat="server" HeaderText="Is Shared?" HeaderStyle-HorizontalAlign="Center"
+                                                                    ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="100" FooterStyle-Width="100">
+                                                                    <ItemTemplate>
+                                                                        <asp:CheckBox runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "isShared") %>'
+                                                                            ID="_lblStatus" Enabled="false" />
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                                <asp:TemplateColumn runat="server" HeaderText="Attached By" HeaderStyle-Width="100" FooterStyle-Width="100">
+                                                                    <ItemTemplate>
+                                                                        <table>
+                                                                            <tr>
+                                                                                <td class="txtweak">
+                                                                                    <%# DataBinder.Eval(Container.DataItem, "userName") %>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="txtweak">
+                                                                                    <%# Format(DataBinder.Eval(Container.DataItem, "insertDate"), "dd-MMM-yyyy HH:mm") %>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                                <asp:TemplateColumn runat="server" HeaderText="" HeaderStyle-HorizontalAlign="Left"
+                                                                    HeaderStyle-Width="30" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="30">
+                                                                    <ItemTemplate>
+                                                                        <asp:ImageButton ID="_ibtnDelete" runat="server" CommandName="Delete" ImageUrl="/pureravensLib/images/delete.png"></asp:ImageButton>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                            </columns>
+                                                        </asp:DataGrid>
                                                     </td>
                                                 </tr>
                                             </table>

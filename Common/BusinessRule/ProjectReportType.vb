@@ -135,6 +135,34 @@ Namespace Raven.Common.BussinessRules
             End Try
         End Function
 
+        Public Function DeleteByProjectID() As Boolean
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+
+            cmdToExecute.CommandText = "DELETE FROM ProjectReportType WHERE ProjectID=@ProjectID"
+            cmdToExecute.CommandType = CommandType.Text
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@projectID", _projectID)
+
+                ' //Open Connection
+                _mainConnection.Open()
+
+                ' //Execute Query
+                cmdToExecute.ExecuteNonQuery()
+
+                Return True
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+            End Try
+        End Function
+
         Public Function GetReportTypeByProjectID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand()
             cmdToExecute.CommandText = "sp_ReportTypeByProjectID"

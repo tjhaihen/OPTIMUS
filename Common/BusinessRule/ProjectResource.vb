@@ -10,7 +10,7 @@ Namespace Raven.Common.BussinessRules
 
 #Region " Class Member Declarations "
 
-        Private _projectResourceID, _projectID, _resourceID, _resourceRoleSCode, _resourceRoleName As String
+        Private _projectResourceID, _projectID, _resourceID, _resourceRoleSCode, _resourceRoleName, _resourceSignatureID As String
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate As DateTime
 
@@ -30,9 +30,9 @@ Namespace Raven.Common.BussinessRules
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
 
-            cmdToExecute.CommandText = "INSERT INTO ProjectResource (ProjectResourceID, ProjectID, ResourceID, ResourceRoleSCode, " & _
+            cmdToExecute.CommandText = "INSERT INTO ProjectResource (ProjectResourceID, ProjectID, ResourceID, ResourceRoleSCode, ResourceSignatureID, " & _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " & _
-                                        "VALUES (@ProjectResourceID, @ProjectID, @ResourceID, @ResourceRoleSCode, " & _
+                                        "VALUES (@ProjectResourceID, @ProjectID, @ResourceID, @ResourceRoleSCode, @ResourceSignatureID, " & _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
 
@@ -46,6 +46,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@ProjectID", _projectID)
                 cmdToExecute.Parameters.AddWithValue("@ResourceID", _resourceID)
                 cmdToExecute.Parameters.AddWithValue("@ResourceRoleSCode", _resourceRoleSCode)
+                cmdToExecute.Parameters.AddWithValue("@resourceSignatureID", _resourceSignatureID)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -103,10 +104,12 @@ Namespace Raven.Common.BussinessRules
                     "r.resourceCode, r.personID, p.firstName, p.middleName, p.lastName, " + _
                     "RTRIM(RTRIM(p.firstName)+' '+RTRIM(p.middleName)+' '+RTRIM(p.lastName)) AS resourceName, " + _
                     "(SELECT caption FROM CommonCode WHERE groupCode='" + Common.Constants.GroupCode.ResourceType_SCode + "' " + _
-                        "AND value=pr.resourceRoleSCode) AS resourceRoleName, r.resourceJobTitle " + _
+                        "AND value=pr.resourceRoleSCode) AS resourceRoleName, r.resourceJobTitle, " + _
+                    "rs.signaturePic, rs.description AS signatureDescription " + _
                     "FROM ProjectResource pr " + _
                     "INNER JOIN [Resource] r ON pr.resourceID=r.resourceID " + _
                     "INNER JOIN [Person] p ON r.personID=p.personID " + _
+                    "LEFT JOIN [ResourceSignature] rs ON pr.resourceSignatureID=rs.resourceSignatureID " + _
                     "WHERE pr.projectID=@ProjectID"
             cmdToExecute.CommandType = CommandType.Text
             Dim toReturn As DataTable = New DataTable("GetResourceByProjectID")
@@ -171,6 +174,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _resourceRoleSCode = Value
+            End Set
+        End Property
+
+        Public Property [ResourceSignatureID]() As String
+            Get
+                Return _resourceSignatureID
+            End Get
+            Set(ByVal Value As String)
+                _resourceSignatureID = Value
             End Set
         End Property
 
