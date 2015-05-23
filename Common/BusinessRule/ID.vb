@@ -115,7 +115,7 @@ Namespace Raven.Common.BussinessRules
             Return strNewID
         End Function
 
-        Public Shared Function GetFieldValue(ByVal TableName As String, ByVal ParamField As String, ByVal ParamValue As String, ByVal ValueField As String) As String
+        Public Shared Function GetFieldValue_BAK(ByVal TableName As String, ByVal ParamField As String, ByVal ParamValue As String, ByVal ValueField As String) As String
             Dim cmdToExecute As SqlCommand = New SqlCommand
             Dim _mainConnection As SqlConnection = New SqlConnection(SysConfig.ConnectionString)
 
@@ -137,7 +137,62 @@ Namespace Raven.Common.BussinessRules
                 adapter.Fill(toReturn)
 
                 If toReturn.Rows.Count > 0 Then
-                    strToReturn = CType(Common.ProcessNull.GetString(toReturn.Rows(0)(ValueField)), String)                
+                    strToReturn = CType(Common.ProcessNull.GetString(toReturn.Rows(0)(ValueField)), String)
+                End If
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return strToReturn
+        End Function
+
+        Public Shared Function GetFieldValue(ByVal TableName As String, ByVal ParamField As String, ByVal ParamValue As String, ByVal ValueField As String) As String
+            Dim strCommand As String = String.Empty
+            Dim strArrSeparator As String = Constants.ArrSeparator.DefaultArrSeparator
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            Dim _mainConnection As SqlConnection = New SqlConnection(SysConfig.ConnectionString)
+
+            If ParamField.Contains(strArrSeparator) And ParamValue.Contains(strArrSeparator) Then
+                Dim arrParamField() As String = ParamField.Split(strArrSeparator)
+                Dim arrParamValue() As String = ParamValue.Split(strArrSeparator)
+                Dim strCommandParam As String = String.Empty
+                For i As Integer = 0 To arrParamField.Length - 1
+                    If i = 0 Then
+                        strCommandParam += " WHERE "
+                    Else
+                        strCommandParam += " AND "
+                    End If
+                    strCommandParam += "[" + arrParamField(i) + "] = '" + arrParamValue(i) + "'"
+                Next
+                strCommand = "SELECT TOP 1 [" + ValueField + "] FROM [" + TableName + "]" + strCommandParam
+            Else
+                strCommand = "SELECT TOP 1 [" + ValueField + "] FROM [" + TableName + "] WHERE [" + ParamField + "]='" + ParamValue + "'"
+            End If
+
+            cmdToExecute.CommandText = strCommand.Trim
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("GetFieldValue")
+            Dim strToReturn As String = String.Empty
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                If toReturn.Rows.Count > 0 Then
+                    strToReturn = CType(Common.ProcessNull.GetString(toReturn.Rows(0)(ValueField)), String)
                 End If
             Catch ex As Exception
                 ' // some error occured. Bubble it to caller and encapsulate Exception object

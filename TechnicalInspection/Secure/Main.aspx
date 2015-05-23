@@ -1362,8 +1362,13 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="4">
-                                                                            <asp:TextBox ID="SR_txtTypeOfInspection" runat="server" Width="100%" TextMode="MultiLine"
+                                                                        <td colspan="2">
+                                                                            <asp:TextBox ID="SR_txtTypeOfInspectionCol1" runat="server" Width="100%" TextMode="MultiLine"
+                                                                                Height="100" Style="font-family: Segoe UI, Arial, tahoma">
+                                                                            </asp:TextBox>
+                                                                        </td>
+                                                                        <td colspan="2">
+                                                                            <asp:TextBox ID="SR_txtTypeOfInspectionCol2" runat="server" Width="100%" TextMode="MultiLine"
                                                                                 Height="100" Style="font-family: Segoe UI, Arial, tahoma">
                                                                             </asp:TextBox>
                                                                         </td>
@@ -2432,19 +2437,19 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td colspan="2">
-                                                                            <asp:TextBox ID="DP_txtSize" runat="server" Width="100%">
+                                                                            <asp:TextBox ID="DP_txtSize" runat="server" Width="100%" AutoPostBack="true">
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td colspan="2">
-                                                                            <asp:TextBox ID="DP_txtWeight" runat="server" Width="100%">
+                                                                            <asp:TextBox ID="DP_txtWeight" runat="server" Width="100%" AutoPostBack="true">
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td colspan="3">
-                                                                            <asp:TextBox ID="DP_txtGrade" runat="server" Width="100%">
+                                                                            <asp:TextBox ID="DP_txtGrade" runat="server" Width="100%" AutoPostBack="true">
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td colspan="3">
-                                                                            <asp:TextBox ID="DP_txtConnection" runat="server" Width="100%">
+                                                                            <asp:TextBox ID="DP_txtConnection" runat="server" Width="100%" AutoPostBack="true">
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td colspan="3">
@@ -2500,20 +2505,23 @@
                                                                         <td style="width: 40px;" class="gridAlternatingItemStyle center">
                                                                             Min. Seal
                                                                         </td>
-                                                                        <td style="width: 100px;" class="gridAlternatingItemStyle center">
-                                                                            Min. Tong Space P/B
+                                                                        <td style="width: 50px;" class="gridAlternatingItemStyle center">
+                                                                            Min. Tong Space Pin
+                                                                        </td>
+                                                                        <td style="width: 50px;" class="gridAlternatingItemStyle center">
+                                                                            Min. Tong Space Box
                                                                         </td>
                                                                         <td style="width: 40px;" class="gridAlternatingItemStyle center">
                                                                             Max. QC
                                                                         </td>
                                                                         <td style="width: 40px;" class="gridAlternatingItemStyle center">
-                                                                            Bevel Dia
+                                                                            Max Bevel Dia
                                                                         </td>
                                                                         <td style="width: 80px;" class="gridAlternatingItemStyle center">
                                                                             Min. QC Depth
                                                                         </td>
                                                                         <td style="width: 80px;" class="gridAlternatingItemStyle center">
-                                                                            Max. Length Pin
+                                                                            Max. Pin Length
                                                                         </td>
                                                                         <td style="width: 80px;" class="gridAlternatingItemStyle center">
                                                                             Max. Pin Neck
@@ -2561,7 +2569,11 @@
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_Class2_txtMinTongSpacePB" runat="server" Width="100%">
+                                                                            <asp:TextBox ID="DP_Class2_txtMinTongSpacePin" runat="server" Width="100%">
+                                                                            </asp:TextBox>
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="DP_Class2_txtMinTongSpaceBox" runat="server" Width="100%">
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td>

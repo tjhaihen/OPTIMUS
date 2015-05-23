@@ -969,13 +969,22 @@ Namespace Raven.Web
         Protected WithEvents SR_calServiceReportDate As Global.Raven.Web.Calendar
 
         '''<summary>
-        '''SR_txtTypeOfInspection control.
+        '''SR_txtTypeOfInspectionCol1 control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents SR_txtTypeOfInspection As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents SR_txtTypeOfInspectionCol1 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''SR_txtTypeOfInspectionCol2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents SR_txtTypeOfInspectionCol2 As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''SR_pnlTubular control.
@@ -2094,13 +2103,22 @@ Namespace Raven.Web
         Protected WithEvents DP_Class2_txtMinSeal As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''DP_Class2_txtMinTongSpacePB control.
+        '''DP_Class2_txtMinTongSpacePin control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DP_Class2_txtMinTongSpacePB As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DP_Class2_txtMinTongSpacePin As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_Class2_txtMinTongSpaceBox control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_Class2_txtMinTongSpaceBox As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''DP_Class2_txtMaxQC control.

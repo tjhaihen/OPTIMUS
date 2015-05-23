@@ -45,10 +45,34 @@ Namespace Raven.Web.Secure
             commonFunction.Focus(Me, txtInspectionSpecificationName.ClientID)
         End Sub
 
+        Private Sub txtSize_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtSize.TextChanged
+            _open(BussinessRules.RavenRecStatus.CurrentRecord)
+            commonFunction.Focus(Me, txtConnection.ClientID)
+        End Sub
+
+        Private Sub txtConnection_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtConnection.TextChanged
+            _open(BussinessRules.RavenRecStatus.CurrentRecord)
+            commonFunction.Focus(Me, txtWeight.ClientID)
+        End Sub
+
+        Private Sub txtWeight_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtWeight.TextChanged
+            _open(BussinessRules.RavenRecStatus.CurrentRecord)
+            commonFunction.Focus(Me, txtGrade.ClientID)
+        End Sub
+
+        Private Sub txtGrade_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtGrade.TextChanged
+            _open(BussinessRules.RavenRecStatus.CurrentRecord)
+            commonFunction.Focus(Me, txtRange.ClientID)
+        End Sub
+
         Private Sub grdInspectionSpec_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdInspectionSpec.ItemCommand
             Select Case e.CommandName
                 Case "Edit"
                     txtInspectionSpecificationCode.Text = CType(e.Item.FindControl("_lblInspectionSpecCode"), Label).Text.Trim
+                    txtSize.Text = CType(e.Item.FindControl("_lblSize"), Label).Text.Trim
+                    txtConnection.Text = CType(e.Item.FindControl("_lblConnection"), Label).Text.Trim
+                    txtWeight.Text = CType(e.Item.FindControl("_lblWeight"), Label).Text.Trim
+                    txtGrade.Text = CType(e.Item.FindControl("_lblGrade"), Label).Text.Trim
                     _open(BussinessRules.RavenRecStatus.CurrentRecord)
             End Select
         End Sub
@@ -86,41 +110,11 @@ Namespace Raven.Web.Secure
         End Function
 
         Private Sub prepareScreen(ByVal isNew As Boolean)
-            txtInspectionSpecificationID.Text = String.Empty
-            txtInspectionSpecificationName.Text = String.Empty
-            chkIsActive.Checked = True
             If isNew Then
-                txtInspectionSpecificationCode.Text = String.Empty
-                commonFunction.Focus(Me, txtInspectionSpecificationCode.ClientID)
-            Else
-                commonFunction.Focus(Me, txtInspectionSpecificationName.ClientID)
+                txtInspectionSpecificationID.Text = String.Empty
+                commonFunction.Focus(Me, txtInspectionSpecificationCode.ClientID)            
             End If
-            txtSize.Text = String.Empty
-            txtWeight.Text = String.Empty
-            txtConnection.Text = String.Empty
-            txtGrade.Text = String.Empty
-            txtRange.Text = String.Empty
-            txtNominalWidth.Text = String.Empty
-            txtMinODPremium.Text = String.Empty
-            txtMinShoulderPremium.Text = String.Empty
-            txtMaxIDPremium.Text = String.Empty
-            txtMinSealPremium.Text = String.Empty
-            txtMinWallPremium.Text = String.Empty
-            txtMinBevelDiaPremium.Text = String.Empty
-            txtMinODClass2.Text = String.Empty
-            txtMaxIDClass2.Text = String.Empty
-            txtMinShoulderClass2.Text = String.Empty
-            txtMinSealClass2.Text = String.Empty
-            txtMinWallClass2.Text = String.Empty
-            txtMinTongSpacePinClass2.Text = String.Empty
-            txtMinTongSpaceBoxClass2.Text = String.Empty
-            txtMaxLengthPinClass2.Text = String.Empty
-            txtMinQCDepthClass2.Text = String.Empty
-            txtMaxQCClass2.Text = String.Empty
-            txtMaxPinNeckClass2.Text = String.Empty
-            txtBevelDiaClass2.Text = String.Empty
-            txtMaxBevelDiaClass2.Text = String.Empty
-            txtMaxCBoreClass2.Text = String.Empty
+            chkIsActive.Checked = True
         End Sub
 
         Private Sub SetDataGridInspectionSpec()
@@ -137,11 +131,20 @@ Namespace Raven.Web.Secure
         Private Sub _open(ByVal RecStatus As BussinessRules.RavenRecStatus)
             Dim oIS As New Common.BussinessRules.InspectionSpec
             With oIS
-                txtInspectionSpecificationID.Text = Common.BussinessRules.ID.GetFieldValue("InspectionSpec", "InspectionSpecCode", txtInspectionSpecificationCode.Text.Trim, "InspectionSpecID")
+                txtInspectionSpecificationID.Text = Common.BussinessRules.ID.GetFieldValue("InspectionSpec", _
+                    "InspectionSpecCode|Size|Connection|Weight|Grade", _
+                    txtInspectionSpecificationCode.Text.Trim + "|" + txtSize.Text.Trim + "|" + txtConnection.Text.Trim + "|" + _
+                    txtWeight.Text.Trim + "|" + txtGrade.Text.Trim, "InspectionSpecID")
                 .inspectionSpecID = txtInspectionSpecificationID.Text.Trim
                 If .SelectOne.Rows.Count > 0 Then
                     txtInspectionSpecificationCode.Text = .inspectionSpecCode.Trim
                     txtInspectionSpecificationName.Text = .inspectionSpecName.Trim
+                    txtSize.Text = .size.Trim
+                    txtConnection.Text = .connection.Trim
+                    txtWeight.Text = .weight.Trim
+                    txtGrade.Text = .grade.Trim
+                    txtRange.Text = .range.Trim
+                    txtNominalWidth.Text = .nominalWT.Trim
                     txtMinODPremium.Text = .minODpremium.Trim
                     txtMinShoulderPremium.Text = .minShldrpremium.Trim
                     txtMaxIDPremium.Text = .maxIDpremium.Trim

@@ -99,31 +99,31 @@
                                         <td valign="top">
                                             <table width="100%">
                                                 <tr>
-                                                    <td style="width: 150px;" class="right">
+                                                    <td style="width: 150px; font-weight: bold;" class="right">
                                                         Size
                                                     </td>
                                                     <td style="width: 500px;">
-                                                        <asp:TextBox ID="txtSize" Width="300" MaxLength="50" runat="server" />
+                                                        <asp:TextBox ID="txtSize" Width="300" MaxLength="50" runat="server" AutoPostBack="true" />
                                                     </td>
-                                                    <td style="width: 150px;" class="right">
+                                                    <td style="width: 150px; font-weight: bold;" class="right">
                                                         Connection
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txtConnection" Width="300" MaxLength="50" runat="server" />
+                                                        <asp:TextBox ID="txtConnection" Width="300" MaxLength="50" runat="server" AutoPostBack="true" />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="right">
+                                                    <td class="right" style="font-weight: bold;">
                                                         Weight
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txtWeight" Width="300" MaxLength="50" runat="server" />
+                                                        <asp:TextBox ID="txtWeight" Width="300" MaxLength="50" runat="server" AutoPostBack="true" />
                                                     </td>
-                                                    <td class="right">
+                                                    <td class="right" style="font-weight: bold;">
                                                         Grade
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txtGrade" Width="300" MaxLength="50" runat="server" />
+                                                        <asp:TextBox ID="txtGrade" Width="300" MaxLength="50" runat="server" AutoPostBack="true" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -270,7 +270,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="right">
-                                                        Max. Length Pin                                                        
+                                                        Max. Pin Length
                                                     </td>
                                                     <td>
                                                         <asp:TextBox ID="txtMaxLengthPinClass2" Width="300" MaxLength="50" runat="server" />                                                        
@@ -341,22 +341,26 @@
                                                     </asp:TemplateColumn>
                                                     <asp:TemplateColumn runat="server" HeaderText="Size">
                                                         <ItemTemplate>
-                                                            <%# DataBinder.Eval(Container.DataItem, "size")%>
+                                                            <asp:Label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "size")%>'
+                                                                ID="_lblSize" />
                                                         </ItemTemplate>
                                                     </asp:TemplateColumn>
                                                     <asp:TemplateColumn runat="server" HeaderText="Weight">
                                                         <ItemTemplate>
-                                                            <%# DataBinder.Eval(Container.DataItem, "weight")%>
+                                                            <asp:Label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "weight")%>'
+                                                                ID="_lblWeight" />
                                                         </ItemTemplate>
                                                     </asp:TemplateColumn>
                                                     <asp:TemplateColumn runat="server" HeaderText="Connection">
                                                         <ItemTemplate>
-                                                            <%# DataBinder.Eval(Container.DataItem, "connection")%>
+                                                            <asp:Label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "connection")%>'
+                                                                ID="_lblConnection" />
                                                         </ItemTemplate>
                                                     </asp:TemplateColumn>
                                                     <asp:TemplateColumn runat="server" HeaderText="Grade">
                                                         <ItemTemplate>
-                                                            <%# DataBinder.Eval(Container.DataItem, "grade")%>
+                                                            <asp:Label runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "grade")%>'
+                                                                ID="_lblGrade" />
                                                         </ItemTemplate>
                                                     </asp:TemplateColumn>
                                                     <asp:TemplateColumn runat="server" HeaderText="Is Active?">

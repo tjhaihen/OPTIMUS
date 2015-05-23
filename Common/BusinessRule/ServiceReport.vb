@@ -11,7 +11,7 @@ Namespace Raven.Common.BussinessRules
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _serviceReportID, _projectID, _serviceReportForSCode, _typeOfInspection, _result, _mdManufacturer As String
+        Private _serviceReportID, _projectID, _serviceReportForSCode, _typeOfInspection, _typeOfInspectionCol2, _result, _mdManufacturer As String
         Private _mdTypeOfPipe, _mdPipeOD, _mdPipeGrade, _mdPipeWeight, _mdThreadConnection, _mdRange, _mdTotalInspected, _mdTotalAccepted As String
         Private _mdNotes, _userIDinsert, _userIDupdate As String
         Private _serviceReportDate, _insertDate, _updateDate As DateTime
@@ -29,12 +29,12 @@ Namespace Raven.Common.BussinessRules
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO ServiceReport " + _
-                                        "(serviceReportID, projectID, serviceReportForSCode, serviceReportDate, typeOfInspection, " + _
+                                        "(serviceReportID, projectID, serviceReportForSCode, serviceReportDate, typeOfInspection, typeOfInspectionCol2, " + _
                                         "mdManufacturer, mdTypeOfPipe, mdPipeOD, mdPipeGrade, mdPipeWeight, mdThreadConnection,  " + _
                                         "mdRange, mdTotalInspected, mdTotalAccepted, mdNotes, result,  " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
-                                        "(@serviceReportID, @projectID, @serviceReportForSCode, @serviceReportDate, @typeOfInspection, " + _
+                                        "(@serviceReportID, @projectID, @serviceReportForSCode, @serviceReportDate, @typeOfInspection, @typeOfInspectionCol2, " + _
                                         "@mdManufacturer, @mdTypeOfPipe, @mdPipeOD, @mdPipeGrade, @mdPipeWeight, @mdThreadConnection,  " + _
                                         "@mdRange, @mdTotalInspected, @mdTotalAccepted, @mdNotes, @result,  " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
@@ -49,6 +49,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@serviceReportForSCode", _serviceReportForSCode)
                 cmdToExecute.Parameters.AddWithValue("@serviceReportDate", _serviceReportDate)
                 cmdToExecute.Parameters.AddWithValue("@typeOfInspection", _typeOfInspection)
+                cmdToExecute.Parameters.AddWithValue("@typeOfInspectionCol2", _typeOfInspectionCol2)
                 cmdToExecute.Parameters.AddWithValue("@mdManufacturer", _mdManufacturer)
                 cmdToExecute.Parameters.AddWithValue("@mdTypeOfPipe", _mdTypeOfPipe)
                 cmdToExecute.Parameters.AddWithValue("@mdPipeOD", _mdPipeOD)
@@ -83,7 +84,7 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "UPDATE ServiceReport " + _
                                         "SET serviceReportForSCode=@serviceReportForSCode, serviceReportDate=@serviceReportDate, " + _
-                                        "typeOfInspection=@typeOfInspection, mdManufacturer=@mdManufacturer, mdTypeOfPipe=@mdTypeOfPipe, " + _
+                                        "typeOfInspection=@typeOfInspection, typeOfInspectionCol2=@typeOfInspectionCol2, mdManufacturer=@mdManufacturer, mdTypeOfPipe=@mdTypeOfPipe, " + _
                                         "mdPipeOD=@mdPipeOD, mdPipeGrade=@mdPipeGrade, mdPipeWeight=@mdPipeWeight, mdThreadConnection=@mdThreadConnection, " + _
                                         "mdRange=@mdRange, mdTotalInspected=@mdTotalInspected, mdTotalAccepted=@mdTotalAccepted, mdNotes=@mdNotes, result=@result, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
@@ -98,6 +99,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@serviceReportForSCode", _serviceReportForSCode)
                 cmdToExecute.Parameters.AddWithValue("@serviceReportDate", _serviceReportDate)
                 cmdToExecute.Parameters.AddWithValue("@typeOfInspection", _typeOfInspection)
+                cmdToExecute.Parameters.AddWithValue("@typeOfInspectionCol2", _typeOfInspectionCol2)
                 cmdToExecute.Parameters.AddWithValue("@mdManufacturer", _mdManufacturer)
                 cmdToExecute.Parameters.AddWithValue("@mdTypeOfPipe", _mdTypeOfPipe)
                 cmdToExecute.Parameters.AddWithValue("@mdPipeOD", _mdPipeOD)
@@ -180,6 +182,7 @@ Namespace Raven.Common.BussinessRules
                     _serviceReportForSCode = CType(toReturn.Rows(0)("serviceReportForSCode"), String)
                     _serviceReportDate = CType(toReturn.Rows(0)("serviceReportDate"), DateTime)
                     _typeOfInspection = CType(toReturn.Rows(0)("typeOfInspection"), String)
+                    _typeOfInspectionCol2 = CType(toReturn.Rows(0)("typeOfInspectionCol2"), String)
                     _mdManufacturer = CType(toReturn.Rows(0)("mdManufacturer"), String)
                     _mdTypeOfPipe = CType(toReturn.Rows(0)("mdTypeOfPipe"), String)
                     _mdPipeOD = CType(toReturn.Rows(0)("mdPipeOD"), String)
@@ -349,6 +352,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _typeOfInspection = Value
+            End Set
+        End Property
+
+        Public Property [typeOfInspectionCol2]() As String
+            Get
+                Return _typeOfInspectionCol2
+            End Get
+            Set(ByVal Value As String)
+                _typeOfInspectionCol2 = Value
             End Set
         End Property
 

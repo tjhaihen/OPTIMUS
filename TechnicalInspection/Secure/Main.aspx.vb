@@ -323,8 +323,40 @@ Namespace Raven.Web
 
 #Region " Drill Pipe Inspection Report "
         Private Sub DP_txtSpecificationCode_TextChanged(sender As Object, e As System.EventArgs) Handles DP_txtSpecificationCode.TextChanged
-            DP_txtSpecificationID.Text = Common.BussinessRules.ID.GetFieldValue("InspectionSpec", "inspectionSpecCode", DP_txtSpecificationCode.Text.Trim, "inspectionSpecID")
-            _openInspectionSpec()
+            'DP_txtSpecificationID.Text = Common.BussinessRules.ID.GetFieldValue("InspectionSpec", "inspectionSpecCode", DP_txtSpecificationCode.Text.Trim, "inspectionSpecID")
+            _openInspectionSpec(DP_txtSpecificationCode.Text.Trim)
+        End Sub
+
+        Private Sub DP_txtSize_TextChanged(sender As Object, e As System.EventArgs) Handles DP_txtSize.TextChanged
+            DP_txtSpecificationID.Text = Common.BussinessRules.ID.GetFieldValue("InspectionSpec", _
+                    "InspectionSpecCode|Size|Connection|Weight|Grade", _
+                    DP_txtSpecificationCode.Text.Trim + "|" + DP_txtSize.Text.Trim + "|" + DP_txtConnection.Text.Trim + "|" + _
+                    DP_txtWeight.Text.Trim + "|" + DP_txtGrade.Text.Trim, "InspectionSpecID")
+            _openInspectionSpec(DP_txtSpecificationID.Text.Trim)
+        End Sub
+
+        Private Sub DP_txtConnection_TextChanged(sender As Object, e As System.EventArgs) Handles DP_txtConnection.TextChanged
+            DP_txtSpecificationID.Text = Common.BussinessRules.ID.GetFieldValue("InspectionSpec", _
+                    "InspectionSpecCode|Size|Connection|Weight|Grade", _
+                    DP_txtSpecificationCode.Text.Trim + "|" + DP_txtSize.Text.Trim + "|" + DP_txtConnection.Text.Trim + "|" + _
+                    DP_txtWeight.Text.Trim + "|" + DP_txtGrade.Text.Trim, "InspectionSpecID")
+            _openInspectionSpec(DP_txtSpecificationID.Text.Trim)
+        End Sub
+
+        Private Sub DP_txtWeight_TextChanged(sender As Object, e As System.EventArgs) Handles DP_txtWeight.TextChanged
+            DP_txtSpecificationID.Text = Common.BussinessRules.ID.GetFieldValue("InspectionSpec", _
+                    "InspectionSpecCode|Size|Connection|Weight|Grade", _
+                    DP_txtSpecificationCode.Text.Trim + "|" + DP_txtSize.Text.Trim + "|" + DP_txtConnection.Text.Trim + "|" + _
+                    DP_txtWeight.Text.Trim + "|" + DP_txtGrade.Text.Trim, "InspectionSpecID")
+            _openInspectionSpec(DP_txtSpecificationID.Text.Trim)
+        End Sub
+
+        Private Sub DP_txtGrade_TextChanged(sender As Object, e As System.EventArgs) Handles DP_txtGrade.TextChanged
+            DP_txtSpecificationID.Text = Common.BussinessRules.ID.GetFieldValue("InspectionSpec", _
+                    "InspectionSpecCode|Size|Connection|Weight|Grade", _
+                    DP_txtSpecificationCode.Text.Trim + "|" + DP_txtSize.Text.Trim + "|" + DP_txtConnection.Text.Trim + "|" + _
+                    DP_txtWeight.Text.Trim + "|" + DP_txtGrade.Text.Trim, "InspectionSpecID")
+            _openInspectionSpec(DP_txtSpecificationID.Text.Trim)
         End Sub
 
         Private Sub DP_txtDrillPipeReportHdID_TextChanged(sender As Object, e As System.EventArgs) Handles DP_txtDrillPipeReportHdID.TextChanged
@@ -404,7 +436,7 @@ Namespace Raven.Web
         End Sub
 #End Region
 
-#Region " Certificate of Inspection "
+#Region " Certificate of Inspection (Certificate of Load/Pull Testing "
         Private Sub COI_grdCertificateInspection_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles COI_grdCertificateInspection.ItemCommand
             Select Case e.CommandName
                 Case "Edit"
@@ -750,6 +782,11 @@ Namespace Raven.Web
                         _update(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID)
                     End If
                     If pnlDrillPipeInspectionReport.Visible Then
+                        If DP_txtSpecificationID.Text = String.Empty Then
+                            If _insertInspectionSpec() Then
+                                commonFunction.MsgBox(Me, "Inspection Specification inserted to database.")
+                            End If
+                        End If
                         _update(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID)
                     End If
                     If pnlInspectionReport.Visible Then
@@ -1460,7 +1497,8 @@ Namespace Raven.Web
                         DP_Class2_txtMinWall.Text = String.Empty
                         DP_Class2_txtMinShoulder.Text = String.Empty
                         DP_Class2_txtMinSeal.Text = String.Empty
-                        DP_Class2_txtMinTongSpacePB.Text = String.Empty
+                        DP_Class2_txtMinTongSpacePin.Text = String.Empty
+                        DP_Class2_txtMinTongSpaceBox.Text = String.Empty
                         DP_Class2_txtMaxQC.Text = String.Empty
                         DP_Class2_txtBevelDia.Text = String.Empty
                         DP_Class2_txtMinQCDepth.Text = String.Empty
@@ -1636,7 +1674,8 @@ Namespace Raven.Web
                     SR_txtServiceReportID.Text = String.Empty
                     SR_ddlServiceReportFor.SelectedIndex = 0
                     SR_calServiceReportDate.selectedDate = Date.Today
-                    SR_txtTypeOfInspection.Text = String.Empty
+                    SR_txtTypeOfInspectionCol1.Text = String.Empty
+                    SR_txtTypeOfInspectionCol2.Text = String.Empty
                     SR_txtManufacturer.Text = String.Empty
                     SR_txtTypeOfPipe.Text = String.Empty
                     SR_txtPipeOD.Text = String.Empty
@@ -1661,29 +1700,65 @@ Namespace Raven.Web
 
                     Select Case lblReportTypeCode.Text.Trim
                         Case Common.Constants.ReportTypeCode.ServiceReportMPIDPI
-                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
-                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterLoadTest).Enabled = False
-                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforePullTest).Enabled = False
-                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterPullTest).Enabled = False
+                            'SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
+                            'SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterLoadTest).Enabled = False
+                            'SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforePullTest).Enabled = False
+                            'SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterPullTest).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Tubular).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.HWDP).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.DrillCollar).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.RotaryShoulder).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI
                             SR_pnlTubular.Visible = False
                             SR_pnlNotTubular.Visible = True
                         Case Common.Constants.ReportTypeCode.ServiceReportMPILoadPullTest
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Tubular).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.HWDP).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.DrillCollar).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.RotaryShoulder).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest
                             SR_pnlTubular.Visible = False
                             SR_pnlNotTubular.Visible = True
-                        Case Common.Constants.ReportTypeCode.ServiceReportTubular
+                        Case Common.Constants.ReportTypeCode.ServiceReportTubular1
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterLoadTest).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforePullTest).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterPullTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.HWDP).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.DrillCollar).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.RotaryShoulder).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.Tubular
                             SR_pnlTubular.Visible = True
                             SR_pnlNotTubular.Visible = False
+                        Case Common.Constants.ReportTypeCode.ServiceReportTubular2
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterLoadTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforePullTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterPullTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Tubular).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
+                            SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.HWDP
+                            SR_pnlTubular.Visible = False
+                            SR_pnlNotTubular.Visible = True
+                        Case Common.Constants.ReportTypeCode.ServiceReportHardbanding
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterLoadTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforePullTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterPullTest).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Tubular).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.HWDP).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.DrillCollar).Enabled = False
+                            SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.RotaryShoulder).Enabled = False
+                            SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding
+                            SR_pnlTubular.Visible = False
+                            SR_pnlNotTubular.Visible = True
                     End Select
 
                     commonFunction.Focus(Me, SR_ddlServiceReportFor.ClientID)
@@ -2204,7 +2279,7 @@ Namespace Raven.Web
                             DP_ddlCaptionTemplate.SelectedValue = .captionTemplateHdID.Trim
                             _openCaptionTemplateDrillPipe()
                             DP_txtSpecificationID.Text = .inspectionSpecID.Trim
-                            _openInspectionSpec()
+                            _openInspectionSpec(DP_txtSpecificationID.Text.Trim)
                             isNew = False
                         Else
                             PrepareScreen(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID, False)
@@ -2348,7 +2423,8 @@ Namespace Raven.Web
                             commonFunction.SelectListItem(SR_ddlServiceReportFor, .serviceReportForSCode.Trim)
                             SR_calServiceReportDate.selectedDate = .serviceReportDate
                             txtProjectID.Text = .projectID.Trim
-                            SR_txtTypeOfInspection.Text = .typeOfInspection.Trim
+                            SR_txtTypeOfInspectionCol1.Text = .typeOfInspection.Trim
+                            SR_txtTypeOfInspectionCol2.Text = .typeOfInspectionCol2.Trim
                             SR_txtManufacturer.Text = .mdManufacturer.Trim
                             SR_txtTypeOfPipe.Text = .mdTypeOfPipe.Trim
                             SR_txtPipeOD.Text = .mdPipeOD.Trim
@@ -3527,7 +3603,8 @@ Namespace Raven.Web
                         .serviceReportForSCode = SR_ddlServiceReportFor.SelectedValue.Trim
                         .serviceReportDate = SR_calServiceReportDate.selectedDate
                         .projectID = txtProjectID.Text.Trim
-                        .typeOfInspection = SR_txtTypeOfInspection.Text.Trim
+                        .typeOfInspection = SR_txtTypeOfInspectionCol1.Text.Trim
+                        .typeOfInspectionCol2 = SR_txtTypeOfInspectionCol2.Text.Trim
                         .mdManufacturer = SR_txtManufacturer.Text.Trim
                         .mdTypeOfPipe = SR_txtTypeOfPipe.Text.Trim
                         .mdPipeOD = SR_txtPipeOD.Text.Trim
@@ -4230,13 +4307,20 @@ Namespace Raven.Web
 #End Region
 
 #Region " C,R,U,D for Drill Pipe Inspection Report "
-        Private Sub _openInspectionSpec()
+        Private Sub _openInspectionSpec(ByVal _inspectionSpecID As String)
             Dim oIS As New Common.BussinessRules.InspectionSpec
             With oIS
-                .inspectionSpecID = DP_txtSpecificationID.Text.Trim
+                .inspectionSpecID = _inspectionSpecID.Trim
                 If .SelectOne.Rows.Count > 0 Then
+                    DP_txtSpecificationID.Text = .inspectionSpecID.Trim
                     DP_txtSpecificationCode.Text = .inspectionSpecCode.Trim
                     DP_txtSpecificationName.Text = .inspectionSpecName.Trim
+                    DP_txtSize.Text = .size.Trim
+                    DP_txtConnection.Text = .connection.Trim
+                    DP_txtWeight.Text = .weight.Trim
+                    DP_txtGrade.Text = .grade.Trim
+                    DP_txtRange.Text = .range.Trim
+                    DP_txtNominalWT.Text = .nominalWT.Trim
                     DP_Premium_txtMinOD.Text = .minODpremium.Trim
                     DP_Premium_txtMaxID.Text = .maxIDpremium.Trim
                     DP_Premium_txtMinWall.Text = .minWallpremium.Trim
@@ -4247,43 +4331,103 @@ Namespace Raven.Web
                     DP_Class2_txtMinWall.Text = .minWallclass2.Trim
                     DP_Class2_txtMinShoulder.Text = .minShldrclass2.Trim
                     DP_Class2_txtMinSeal.Text = .minSealclass2.Trim
-                    DP_Class2_txtMinTongSpacePB.Text = .minTongSpacePinclass2.Trim
+                    DP_Class2_txtMinTongSpacePin.Text = .minTongSpacePinclass2.Trim
+                    DP_Class2_txtMinTongSpaceBox.Text = .minTongSpaceBoxclass2.Trim
                     DP_Class2_txtMaxQC.Text = .maxQCclass2.Trim
-                    DP_Class2_txtBevelDia.Text = .minBevelDiaclass2.Trim
+                    DP_Class2_txtBevelDia.Text = .maxBevelDiaclass2.Trim
                     DP_Class2_txtMinQCDepth.Text = .minQCDepthclass2.Trim
                     DP_Class2_txtMaxLengthPin.Text = .maxLengthPinclass2.Trim
                     DP_Class2_txtMaxPinNeck.Text = .maxPinNeckclass2.Trim
                 Else
                     DP_txtSpecificationID.Text = String.Empty
-                    DP_txtSpecificationCode.Text = String.Empty
-                    DP_txtSpecificationName.Text = String.Empty
-                    DP_txtSize.Text = String.Empty
-                    DP_txtWeight.Text = String.Empty
-                    DP_txtGrade.Text = String.Empty
-                    DP_txtConnection.Text = String.Empty
-                    DP_txtRange.Text = String.Empty
-                    DP_txtNominalWT.Text = String.Empty
-                    DP_Premium_txtMinOD.Text = String.Empty
-                    DP_Premium_txtMaxID.Text = String.Empty
-                    DP_Premium_txtMinWall.Text = String.Empty
-                    DP_Premium_txtMinShoulder.Text = String.Empty
-                    DP_Premium_txtMinSeal.Text = String.Empty
-                    DP_Class2_txtMinOD.Text = String.Empty
-                    DP_Class2_txtMaxID.Text = String.Empty
-                    DP_Class2_txtMinWall.Text = String.Empty
-                    DP_Class2_txtMinShoulder.Text = String.Empty
-                    DP_Class2_txtMinSeal.Text = String.Empty
-                    DP_Class2_txtMinTongSpacePB.Text = String.Empty
-                    DP_Class2_txtMaxQC.Text = String.Empty
-                    DP_Class2_txtBevelDia.Text = String.Empty
-                    DP_Class2_txtMinQCDepth.Text = String.Empty
-                    DP_Class2_txtMaxLengthPin.Text = String.Empty
-                    DP_Class2_txtMaxPinNeck.Text = String.Empty
+                    'DP_txtSpecificationCode.Text = String.Empty
+                    'DP_txtSpecificationName.Text = String.Empty
+                    'DP_txtSize.Text = String.Empty
+                    'DP_txtWeight.Text = String.Empty
+                    'DP_txtGrade.Text = String.Empty
+                    'DP_txtConnection.Text = String.Empty
+                    'DP_txtRange.Text = String.Empty
+                    'DP_txtNominalWT.Text = String.Empty
+                    'DP_Premium_txtMinOD.Text = String.Empty
+                    'DP_Premium_txtMaxID.Text = String.Empty
+                    'DP_Premium_txtMinWall.Text = String.Empty
+                    'DP_Premium_txtMinShoulder.Text = String.Empty
+                    'DP_Premium_txtMinSeal.Text = String.Empty
+                    'DP_Class2_txtMinOD.Text = String.Empty
+                    'DP_Class2_txtMaxID.Text = String.Empty
+                    'DP_Class2_txtMinWall.Text = String.Empty
+                    'DP_Class2_txtMinShoulder.Text = String.Empty
+                    'DP_Class2_txtMinSeal.Text = String.Empty
+                    'DP_Class2_txtMinTongSpacePin.Text = String.Empty
+                    'DP_Class2_txtMinTongSpaceBox.Text = String.Empty
+                    'DP_Class2_txtMaxQC.Text = String.Empty
+                    'DP_Class2_txtBevelDia.Text = String.Empty
+                    'DP_Class2_txtMinQCDepth.Text = String.Empty
+                    'DP_Class2_txtMaxLengthPin.Text = String.Empty
+                    'DP_Class2_txtMaxPinNeck.Text = String.Empty
                 End If
             End With
             oIS.Dispose()
             oIS = Nothing
         End Sub
+
+        Private Function _insertInspectionSpec() As Boolean
+            Dim b As Boolean = False
+            Dim isNew As Boolean = True
+
+            Dim oIS As New Common.BussinessRules.InspectionSpec
+            With oIS
+                .inspectionSpecID = DP_txtSpecificationID.Text.Trim
+                If .SelectOne.Rows.Count > 0 Then
+                    isNew = False
+                Else
+                    isNew = True
+                End If
+                .inspectionSpecCode = DP_txtSpecificationCode.Text.Trim
+                .inspectionSpecName = DP_txtSpecificationName.Text.Trim
+                .size = DP_txtSize.Text.Trim
+                .weight = DP_txtWeight.Text.Trim
+                .connection = DP_txtConnection.Text.Trim
+                .grade = DP_txtGrade.Text.Trim
+                .range = DP_txtRange.Text.Trim
+                .nominalWT = DP_txtNominalWT.Text.Trim
+                .minODpremium = DP_Premium_txtMinOD.Text.Trim
+                .minShldrpremium = DP_Premium_txtMinShoulder.Text.Trim
+                .maxIDpremium = DP_Premium_txtMaxID.Text.Trim
+                .minShldrpremium = DP_Premium_txtMinShoulder.Text.Trim
+                .minWallpremium = DP_Premium_txtMinWall.Text.Trim
+                .minSealpremium = DP_Premium_txtMinSeal.Text.Trim
+                .minBevelDiapremium = String.Empty
+                .minODclass2 = DP_Class2_txtMinOD.Text.Trim
+                .maxIDclass2 = DP_Class2_txtMaxID.Text.Trim
+                .minShldrclass2 = DP_Class2_txtMinShoulder.Text.Trim
+                .minSealclass2 = DP_Class2_txtMinSeal.Text.Trim
+                .minWallclass2 = DP_Class2_txtMinWall.Text.Trim
+                .minTongSpacePinclass2 = DP_Class2_txtMinTongSpacePin.Text.Trim
+                .minTongSpaceBoxclass2 = DP_Class2_txtMinTongSpaceBox.Text.Trim
+                .maxLengthPinclass2 = DP_Class2_txtMaxLengthPin.Text.Trim
+                .maxPinNeckclass2 = DP_Class2_txtMaxPinNeck.Text.Trim
+                .minQCDepthclass2 = DP_Class2_txtMinQCDepth.Text.Trim
+                .maxQCclass2 = DP_Class2_txtMaxQC.Text.Trim
+                .minBevelDiaclass2 = String.Empty
+                .maxBevelDiaclass2 = DP_Class2_txtBevelDia.Text.Trim
+                .maxCBoreclass2 = String.Empty
+                .isActive = True
+                .userIDinsert = MyBase.LoggedOnUserID
+                .userIDupdate = MyBase.LoggedOnUserID
+                If isNew Then
+                    If .Insert() Then
+                        DP_txtSpecificationID.Text = .inspectionSpecID
+                        b = True
+                    Else
+                        b = False
+                    End If
+                End If
+            End With
+            oIS.Dispose()
+            oIS = Nothing
+            Return b
+        End Function
 
         Private Sub _openCaptionTemplateDrillPipe()
             Dim oCap As New Common.BussinessRules.CaptionTemplateDt

@@ -29,6 +29,10 @@
             Public Const InspectionTallyRemark_SCode As String = "ITRREMARK"
         End Class
 
+        Public NotInheritable Class ArrSeparator
+            Public Const DefaultArrSeparator As String = "|"            
+        End Class
+
         Public NotInheritable Class FormatString
             Public Const FORMAT_DATE As String = "dd-MM-yyyy"
             Public Const FORMAT_TIME As String = "HH:mm"
@@ -108,8 +112,10 @@
             Public Const DrillPipeInspectionReport As String = "DPI"
             Public Const ThroughVisualInspectionReport As String = "TVI"
             Public Const ServiceReportMPIDPI As String = "SRMPIDPI"
-            Public Const ServiceReportMPILoadPullTest As String = "SRMPILPT"
-            Public Const ServiceReportTubular As String = "SRT"            
+            Public Const ServiceReportMPILoadPullTest As String = "SRMPILPT"            
+            Public Const ServiceReportTubular1 As String = "SRT"
+            Public Const ServiceReportTubular2 As String = "SRT2"
+            Public Const ServiceReportHardbanding As String = "SRHB"
             Public Const InspectionTallyReport As String = "ITR"
             Public Const UTSpotCheck As String = "UTS"
             Public Const RotaryShoulderConnectionReport As String = "RSC"
@@ -133,6 +139,10 @@
             Public Const MPIBeforePullTest As String = "MPIBPT"
             Public Const MPIAfterPullTest As String = "MPIAPT"
             Public Const Tubular As String = "TUB"
+            Public Const HWDP As String = "HWDP"
+            Public Const DrillCollar As String = "DC"
+            Public Const RotaryShoulder As String = "RSC"
+            Public Const Hardbanding As String = "HB"
         End Class
 
         Public NotInheritable Class ReportTypeCodeMPIType
