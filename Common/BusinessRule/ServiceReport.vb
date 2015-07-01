@@ -214,8 +214,8 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function Delete() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "DELETE FROM ServiceReport " + _
-                                        "WHERE serviceReportID=@serviceReportID"
+            cmdToExecute.CommandText = "DELETE FROM ServiceReportDt WHERE serviceReportID=@serviceReportID " + _
+                                        "DELETE FROM ServiceReport WHERE serviceReportID=@serviceReportID"
             cmdToExecute.CommandType = CommandType.Text
 
             cmdToExecute.Connection = _mainConnection

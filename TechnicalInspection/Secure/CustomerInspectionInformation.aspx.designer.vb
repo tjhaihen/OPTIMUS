@@ -114,6 +114,87 @@ Namespace Raven.Web.Secure
         Protected WithEvents rmpInspectionInformation As Global.Telerik.Web.UI.RadMultiPage
 
         '''<summary>
+        '''pvInspectionByWorkRequest control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvInspectionByWorkRequest As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
+        '''ddlInformationType control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ddlInformationType As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''pnlHistoryCaption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlHistoryCaption As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''pnlDueCaption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlDueCaption As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''pnlHistory control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlHistory As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''txtLast control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtLast As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''pnlDue control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlDue As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''txtDueIn control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtDueIn As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''grdCustomerInspection control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdCustomerInspection As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
         '''pvInformationDashboard control.
         '''</summary>
         '''<remarks>
@@ -121,6 +202,69 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents pvInformationDashboard As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
+        '''ddlInformationTypeSOI control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ddlInformationTypeSOI As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''pnlPeriod control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlPeriod As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''ddlPeriod control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ddlPeriod As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''pnlCustomPeriod control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlCustomPeriod As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''calStartDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents calStartDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''calEndDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents calEndDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''pnlInspectionTotalSummary control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlInspectionTotalSummary As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
         '''lblTotalWorkOrder control.
@@ -157,6 +301,15 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents lblTotalItemRejected As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''pnlDueToExpired control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlDueToExpired As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
         '''txtItemDueToExpiredInspectionInDay control.
@@ -202,87 +355,6 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents grdInspectionBySerialIDNo As Global.System.Web.UI.WebControls.DataGrid
-
-        '''<summary>
-        '''pvInspectionByWorkRequest control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents pvInspectionByWorkRequest As Global.Telerik.Web.UI.RadPageView
-
-        '''<summary>
-        '''ddlInformationType control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents ddlInformationType As Global.System.Web.UI.WebControls.DropDownList
-
-        '''<summary>
-        '''pnlDueCaption control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents pnlDueCaption As Global.System.Web.UI.WebControls.Panel
-
-        '''<summary>
-        '''pnlHistoryCaption control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents pnlHistoryCaption As Global.System.Web.UI.WebControls.Panel
-
-        '''<summary>
-        '''pnlDue control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents pnlDue As Global.System.Web.UI.WebControls.Panel
-
-        '''<summary>
-        '''txtDueIn control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtDueIn As Global.System.Web.UI.WebControls.TextBox
-
-        '''<summary>
-        '''pnlHistory control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents pnlHistory As Global.System.Web.UI.WebControls.Panel
-
-        '''<summary>
-        '''txtLast control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtLast As Global.System.Web.UI.WebControls.TextBox
-
-        '''<summary>
-        '''grdCustomerInspection control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents grdCustomerInspection As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
         '''mdlCopyRight control.

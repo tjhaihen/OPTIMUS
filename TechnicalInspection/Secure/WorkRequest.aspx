@@ -282,7 +282,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="heading1" colspan="4">
-                                                        Job Description / Scope of Work
+                                                        Job Description/Scope Of Work
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -306,7 +306,7 @@
                                                                     UOM
                                                                 </td>
                                                                 <td style="width: 350px;" class="center">
-                                                                    Detail Description
+                                                                    Scope Of Work
                                                                 </td>
                                                                 <td>
                                                                 </td>
@@ -392,7 +392,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="heading1" colspan="4">
-                                                        Job Description / Scope of Work (Additional)
+                                                        Type Of Inspection
                                                     </td>
                                                 </tr>
                                                 <tr>

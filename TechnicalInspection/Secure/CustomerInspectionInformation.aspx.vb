@@ -64,28 +64,70 @@ Namespace Raven.Web.Secure
             End Select
         End Sub
 
-        Private Sub grdCustomerInspection_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdCustomerInspection.ItemCommand
-            Select Case e.CommandName
-                Case "Process"
-                    Dim _lblProjectCode As Label = CType(e.Item.FindControl("_lblProjectCode"), Label)
-                    Response.Redirect(PageBase.UrlBase + "/Secure/Main.aspx?isc=True&pid=" + _lblProjectCode.Text.Trim)
+        Private Sub ddlInformationTypeSOI_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ddlInformationTypeSOI.SelectedIndexChanged
+            Select Case ddlInformationTypeSOI.SelectedValue.Trim
+                Case "Due"
+                    pnlDueToExpired.Visible = True
+                    pnlPeriod.Visible = False
+                    pnlInspectionTotalSummary.Visible = False
+                    txtItemDueToExpiredInspectionInDay.Text = "30"
+                Case "History"
+                    pnlDueToExpired.Visible = False
+                    pnlPeriod.Visible = True
+                    pnlInspectionTotalSummary.Visible = True
+                    ddlPeriod.SelectedIndex = 0
+                    ddlPeriod_SelectedIndexChanged(Nothing, Nothing)
             End Select
         End Sub
 
-        Private Sub grdCustomerInspection_ItemCreated(sender As Object, e As System.Web.UI.WebControls.DataGridItemEventArgs) Handles grdCustomerInspection.ItemCreated
-            If e.Item.ItemType = ListItemType.Item Or e.Item.ItemType = ListItemType.AlternatingItem Then
-                Dim x As DataRowView = CType(e.Item.DataItem, DataRowView)
-                If Not x Is Nothing Then
-                    Dim dr As DataRow = x.Row
-                    If Not dr Is Nothing Then
-                        Dim strOverdue As String = CType(dr("IsOverDue"), String)
-                        If strOverdue = "Overdue" Then
-                            e.Item.ForeColor = System.Drawing.Color.Red
-                        End If
-                    End If
-                End If
-            End If
+        Private Sub ddlPeriod_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ddlPeriod.SelectedIndexChanged
+            Select Case ddlPeriod.SelectedValue.Trim
+                Case "ThisMonth"
+                    pnlCustomPeriod.Visible = False
+                    calStartDate.selectedDate = DateSerial(Date.Today.Year, Date.Today.Month, 1)
+                    calEndDate.selectedDate = DateSerial(Date.Today.Year, Date.Today.Month + 1, 1 - 1)
+                Case "LastMonth"
+                    pnlCustomPeriod.Visible = False
+                    calStartDate.selectedDate = DateSerial(Date.Today.Year, Date.Today.Month - 1, 1)
+                    calEndDate.selectedDate = DateSerial(Date.Today.Year, Date.Today.Month - 1 + 1, 1 - 1)
+                Case "ThisYear"
+                    pnlCustomPeriod.Visible = False
+                    calStartDate.selectedDate = DateSerial(Date.Today.Year, 1, 1)
+                    calEndDate.selectedDate = DateSerial(Date.Today.Year, 12 + 1, 1 - 1)
+                Case "LastYear"
+                    pnlCustomPeriod.Visible = False
+                    calStartDate.selectedDate = DateSerial(Date.Today.Year - 1, 1, 1)
+                    calEndDate.selectedDate = DateSerial(Date.Today.Year - 1, 12 + 1, 1 - 1)
+                Case Else
+                    pnlCustomPeriod.Visible = True
+                    calStartDate.selectedDate = Date.Today
+                    calEndDate.selectedDate = Date.Today
+            End Select
         End Sub
+
+        Private Sub grdCustomerInspection_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdCustomerInspection.ItemCommand
+            Select Case e.CommandName
+                Case "Preview"
+                    Dim _lblProjectID As Label = CType(e.Item.FindControl("_lblProjectID"), Label)
+                    Response.Write("<script language=javascript>window.open('" + PageBase.UrlBase + "/Secure/CustomerInspectionInformationDetail.aspx?isc=True&pid=" + _lblProjectID.Text.Trim + "','CustomerViewDetail','status=no,resizable=yes,toolbar=no,menubar=no,location=no;')</script>")
+                    'Response.Redirect(PageBase.UrlBase + "/Secure/Main.aspx?isc=True&pid=" + _lblProjectCode.Text.Trim)
+            End Select
+        End Sub
+
+        'Private Sub grdCustomerInspection_ItemCreated(sender As Object, e As System.Web.UI.WebControls.DataGridItemEventArgs) Handles grdCustomerInspection.ItemCreated
+        '    If e.Item.ItemType = ListItemType.Item Or e.Item.ItemType = ListItemType.AlternatingItem Then
+        '        Dim x As DataRowView = CType(e.Item.DataItem, DataRowView)
+        '        If Not x Is Nothing Then
+        '            Dim dr As DataRow = x.Row
+        '            If Not dr Is Nothing Then
+        '                Dim strOverdue As String = CType(dr("IsOverDue"), String)
+        '                If strOverdue = "Overdue" Then
+        '                    e.Item.ForeColor = System.Drawing.Color.Red
+        '                End If
+        '            End If
+        '        End If
+        '    End If
+        'End Sub
 #End Region
 
 
@@ -119,7 +161,7 @@ Namespace Raven.Web.Secure
         End Function
 
         Private Sub prepareDDL()
-            
+            commonFunction.SetDDL_Period(ddlPeriod)
         End Sub
 
         Private Sub prepareScreen(ByVal isNew As Boolean)
@@ -149,6 +191,13 @@ Namespace Raven.Web.Secure
             End With
             oUC.Dispose()
             oUC = Nothing
+
+            ddlInformationTypeSOI.SelectedIndex = 0
+            ddlInformationTypeSOI_SelectedIndexChanged(Nothing, Nothing)
+            ddlPeriod.SelectedIndex = 0
+            pnlCustomPeriod.Visible = False
+            calStartDate.selectedDate = DateSerial(Date.Today.Year, Date.Today.Month, 1)
+            calEndDate.selectedDate = DateSerial(Date.Today.Year, Date.Today.Month + 1, 1 - 1)
         End Sub
 
         Private Sub SetDataGridCustomerInspectionInformation()
@@ -175,8 +224,8 @@ Namespace Raven.Web.Secure
             Dim dtItemDueToExpiredInspection As New DataTable
             Dim dtInspectionSerialIDNo As New DataTable
             With oProject
-                dtTotalInspectionByCustomer = .GetTotalInspectionByCustomer(txtCustomerID.Text.Trim)
-                dtItemDueToExpiredInspection = .GetListOfItemDueToExpiredInspectionByCustomer(txtCustomerID.Text.Trim, CInt(txtItemDueToExpiredInspectionInDay.Text.Trim))
+                dtTotalInspectionByCustomer = .GetTotalInspectionByCustomer(txtCustomerID.Text.Trim, calStartDate.selectedDate, calEndDate.selectedDate)
+                dtItemDueToExpiredInspection = .GetListOfItemDueToExpiredInspectionByCustomer(txtCustomerID.Text.Trim, ddlInformationTypeSOI.SelectedValue.Trim, CInt(txtItemDueToExpiredInspectionInDay.Text.Trim), calStartDate.selectedDate, calEndDate.selectedDate)
                 dtInspectionSerialIDNo = .GetListOfInspectionByCustomerIDSerialIDNo(txtCustomerID.Text.Trim, txtSerialNo.Text.Trim)
 
                 If dtTotalInspectionByCustomer.Rows.Count > 0 Then
@@ -190,15 +239,16 @@ Namespace Raven.Web.Secure
                     lblTotalItemAccepted.Text = "0"
                     lblTotalItemRejected.Text = "0"
                 End If
-            End With
-            oProject.Dispose()
-            oProject = Nothing
+            End With            
 
             grdItemDueToExpiredInspection.DataSource = dtItemDueToExpiredInspection
             grdItemDueToExpiredInspection.DataBind()
 
             grdInspectionBySerialIDNo.DataSource = dtInspectionSerialIDNo
             grdInspectionBySerialIDNo.DataBind()
+
+            oProject.Dispose()
+            oProject = Nothing
         End Sub
 
         Private Sub _openCustomer(ByVal _customerID As String)

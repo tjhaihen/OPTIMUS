@@ -405,7 +405,7 @@ Namespace Raven.Common.BussinessRules
             Return toReturn
         End Function
 
-        Public Function GetTotalInspectionByCustomer(ByVal strCustomerID As String) As DataTable
+        Public Function GetTotalInspectionByCustomer(ByVal strCustomerID As String, ByVal startDate As Date, ByVal endDate As Date) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "sp_GetTotalInspectionByCustomerID"
             cmdToExecute.CommandType = CommandType.StoredProcedure
@@ -416,7 +416,9 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.Connection = _mainConnection
 
             Try
-                cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)                
+                cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
+                cmdToExecute.Parameters.AddWithValue("@startDate", startDate)
+                cmdToExecute.Parameters.AddWithValue("@endDate", endDate)
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -448,19 +450,30 @@ Namespace Raven.Common.BussinessRules
             Return toReturn
         End Function
 
-        Public Function GetListOfItemDueToExpiredInspectionByCustomer(ByVal strCustomerID As String, ByVal intValue As Integer) As DataTable
+        Public Function GetListOfItemDueToExpiredInspectionByCustomer(ByVal strCustomerID As String, ByVal strInformationType As String, ByVal intValue As Integer, ByVal startDate As Date, ByVal endDate As Date) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "sp_GetListOfItemDueToExpiredInspectionByCustomerID"
+            Select Case strInformationType
+                Case "Due"
+                    cmdToExecute.CommandText = "sp_GetListOfItemDueToExpiredInspectionByCustomerID"
+                Case Else
+                    cmdToExecute.CommandText = "sp_GetListOfItemInspectionByCustomerID"
+            End Select
             cmdToExecute.CommandType = CommandType.StoredProcedure
 
-            Dim toReturn As DataTable = New DataTable("sp_GetListOfItemDueToExpiredInspectionByCustomerID")
+            Dim toReturn As DataTable = New DataTable("sp_GetListOfItemInspectionByCustomerID")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
 
             cmdToExecute.Connection = _mainConnection
 
             Try
                 cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
-                cmdToExecute.Parameters.AddWithValue("@value", intValue)
+                Select Case strInformationType
+                    Case "Due"
+                        cmdToExecute.Parameters.AddWithValue("@value", intValue)
+                    Case Else
+                        cmdToExecute.Parameters.AddWithValue("@startDate", startDate)
+                        cmdToExecute.Parameters.AddWithValue("@endDate", endDate)
+                End Select                
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -512,7 +525,7 @@ Namespace Raven.Common.BussinessRules
             Return toReturn
         End Function
 
-        Public Function GetWorkRequestListByStatus(ByVal doneStatus As String, Optional ByVal searchText As String = "", Optional ByVal intValue As Integer = 50) As DataTable
+        Public Function GetWorkRequestListByStatus(ByVal doneStatus As String, Optional ByVal searchText As String = "", Optional ByVal intValue As Integer = 50, Optional ByVal strCustomerID As String = "") As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "sp_WorkRequest"
             cmdToExecute.CommandType = CommandType.StoredProcedure
@@ -526,6 +539,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@doneStatus", doneStatus)
                 cmdToExecute.Parameters.AddWithValue("@searchText", searchText)
                 cmdToExecute.Parameters.AddWithValue("@value", intValue)
+                cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
 
                 ' // Open connection.
                 _mainConnection.Open()

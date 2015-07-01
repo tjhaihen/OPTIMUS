@@ -27,6 +27,7 @@
             Public Const TVIShacklePic_SCode As String = "SHACKLEPIC"
             Public Const TVISlingPic_SCode As String = "SLINGPIC"
             Public Const InspectionTallyRemark_SCode As String = "ITRREMARK"
+            Public Const PinBoxCaption_SCode As String = "INSPRPTDTCAP"
         End Class
 
         Public NotInheritable Class ArrSeparator

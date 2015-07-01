@@ -52,14 +52,17 @@ Namespace Raven.Web
                 ReadQueryString()
 
                 If chkIsCustomer.Checked = False Then
-                    If MyBase.LoggedOnProfileID.Trim <> Common.Methods.GetSettingParameter("INSPProfileID") Then
+                    If MyBase.LoggedOnProfileID.Trim = Common.Methods.GetSettingParameter("INSPProfileID") Then
+                        pnlAdministratorScreen.Visible = False
+                        pnlInspectorScreen.Visible = True
+                    ElseIf MyBase.LoggedOnProfileID.Trim = Common.Methods.GetSettingParameter("CUSTProfileID") Then
+                        pnlAdministratorScreen.Visible = False
+                        pnlInspectorScreen.Visible = False
+                    Else
                         pnlAdministratorScreen.Visible = True
                         pnlInspectorScreen.Visible = False
                         SetDataGrid(pnlAdministratorScreen.ID)
-                        commonFunction.Focus(Me, txtWorkRequestListFilter.ClientID)
-                    Else
-                        pnlAdministratorScreen.Visible = False
-                        pnlInspectorScreen.Visible = True
+                        commonFunction.Focus(Me, txtWorkRequestListFilter.ClientID)                        
                     End If
                 Else
                     pnlAdministratorScreen.Visible = False
@@ -413,6 +416,11 @@ Namespace Raven.Web
                     Dim _SR_lblServiceReportID As Label = CType(e.Item.FindControl("SR_lblServiceReportID"), Label)
                     SR_txtServiceReportID.Text = _SR_lblServiceReportID.Text.Trim
                     _open(Common.Constants.ReportTypePanelID.ServiceReport_PanelID)
+                    SetDataGrid(Common.Constants.ReportTypePanelID.ServiceReport_PanelID)
+                Case "Delete"
+                    Dim _SR_lblServiceReportID As Label = CType(e.Item.FindControl("SR_lblServiceReportID"), Label)
+                    SR_txtServiceReportID.Text = _SR_lblServiceReportID.Text.Trim                    
+                    _delete(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, SR_txtServiceReportID.Text.Trim)
                     SetDataGrid(Common.Constants.ReportTypePanelID.ServiceReport_PanelID)
             End Select
         End Sub
@@ -1181,14 +1189,12 @@ Namespace Raven.Web
                     oBR.Dispose()
                     oBR = Nothing
 
-                    If SR_pnlNotTubular.Visible Then
-                        Dim oPDT As New Common.BussinessRules.ServiceReportDt
-                        oPDT.serviceReportID = SR_txtServiceReportID.Text.Trim
-                        SR_grdServiceReportDt.DataSource = oPDT.SelectByServiceReportID
-                        SR_grdServiceReportDt.DataBind()
-                        oPDT.Dispose()
-                        oPDT = Nothing
-                    End If
+                    Dim oPDT As New Common.BussinessRules.ServiceReportDt
+                    oPDT.serviceReportID = SR_txtServiceReportID.Text.Trim
+                    SR_grdServiceReportDt.DataSource = oPDT.SelectByServiceReportID
+                    SR_grdServiceReportDt.DataBind()
+                    oPDT.Dispose()
+                    oPDT = Nothing
                 Case Common.Constants.ReportTypePanelID.CertificateOfInspection_PanelID
                     Dim oBR As New Common.BussinessRules.CertificateInspection
                     oBR.projectID = txtProjectID.Text.Trim
@@ -1295,6 +1301,12 @@ Namespace Raven.Web
             commonFunction.SetDDL_Table(UTSC_ddlUTSpotType, "CommonCode", Common.Constants.GroupCode.UTSpotType_SCode)
             commonFunction.SetDDL_Table(UTSA_ddlUTSpotType, "CommonCode", Common.Constants.GroupCode.UTSpotAreaType_SCode)
             commonFunction.SetDDL_Table(INS_ddlInspectionReportType, "CommonCode", Common.Constants.GroupCode.InspectionReportType_SCode)
+            commonFunction.SetDDL_Table(INS_ddlConnectionPinCaption, "CommonCode", Common.Constants.GroupCode.PinBoxCaption_SCode)
+            commonFunction.SetDDL_Table(INS_ddlConnectionBoxCaption, "CommonCode", Common.Constants.GroupCode.PinBoxCaption_SCode)
+            commonFunction.SetDDL_Table(INS_ddlThreadLengthPinCaption, "CommonCode", Common.Constants.GroupCode.PinBoxCaption_SCode)
+            commonFunction.SetDDL_Table(INS_ddlThreadLengthBoxCaption, "CommonCode", Common.Constants.GroupCode.PinBoxCaption_SCode)
+            commonFunction.SetDDL_Table(INS_ddlConditionPinCaption, "CommonCode", Common.Constants.GroupCode.PinBoxCaption_SCode)
+            commonFunction.SetDDL_Table(INS_ddlConditionBoxCaption, "CommonCode", Common.Constants.GroupCode.PinBoxCaption_SCode)
             commonFunction.SetDDL_Table(TVI_ddlTVIType, "CommonCode", Common.Constants.GroupCode.ThoroughVisualType_SCode)
             commonFunction.SetDDL_Table(IT_ddlTallyType, "CommonCode", Common.Constants.GroupCode.InspectionTallyType_SCode)
             commonFunction.SetDDL_Table(BA_ddlOfficialReportType, "CommonCode", Common.Constants.GroupCode.OfficialReportType_SCode)
@@ -1496,14 +1508,21 @@ Namespace Raven.Web
                         DP_Class2_txtMaxID.Text = String.Empty
                         DP_Class2_txtMinWall.Text = String.Empty
                         DP_Class2_txtMinShoulder.Text = String.Empty
-                        DP_Class2_txtMinSeal.Text = String.Empty
                         DP_Class2_txtMinTongSpacePin.Text = String.Empty
                         DP_Class2_txtMinTongSpaceBox.Text = String.Empty
-                        DP_Class2_txtMaxQC.Text = String.Empty
-                        DP_Class2_txtBevelDia.Text = String.Empty
-                        DP_Class2_txtMinQCDepth.Text = String.Empty
+                        DP_Class2_txtMinCBoreDepth.Text = String.Empty
                         DP_Class2_txtMaxLengthPin.Text = String.Empty
                         DP_Class2_txtMaxPinNeck.Text = String.Empty
+                        DP_Class2_txtMinBevelDia.Text = String.Empty
+                        DP_Class2_txtMaxBevelDia.Text = String.Empty
+                        DP_Class2_txtMaxCBoreDia.Text = String.Empty
+                        DP_Class2_txtPinConnLength.Text = String.Empty
+                        DP_Class2_txtMinPinCylDia.Text = String.Empty
+                        DP_Class2_txtMaxPinCylDia.Text = String.Empty
+                        DP_Class2_txtMinPinNoseDia.Text = String.Empty
+                        DP_Class2_txtMaxPinNoseDia.Text = String.Empty
+                        DP_Class2_txtMinBoxLength.Text = String.Empty
+                        DP_Class2_txtMaxPinBaseLength.Text = String.Empty
                     End If
 
                     If _isAfterInsert Then
@@ -1555,6 +1574,8 @@ Namespace Raven.Web
                         DP_txtPin009Value.Text = String.Empty
                         DP_txtPin010Value.Text = String.Empty
                         DP_txtPin011Value.Text = String.Empty
+                        DP_txtPin012Value.Text = String.Empty
+                        DP_txtPin013Value.Text = String.Empty
                         DP_txtBox001Value.Text = String.Empty
                         DP_txtBox002Value.Text = String.Empty
                         DP_txtBox003Value.Text = String.Empty
@@ -1577,6 +1598,9 @@ Namespace Raven.Web
                         INS_txtInspectionReportHdID.Text = String.Empty
                         INS_txtReportNo.Text = String.Empty
                         INS_calReportDate.selectedDate = Date.Today
+                        INS_txtDescriptionHd.Text = String.Empty
+                        INS_txtNotes.Text = String.Empty
+                        INS_txtCustomerPICName.Text = String.Empty
                     End If
 
                     If _isAfterInsert Then
@@ -1597,8 +1621,6 @@ Namespace Raven.Web
                         INS_txtConnectionODBox.Text = String.Empty
                         INS_txtElevatorGrooveDiaPin.Text = String.Empty
                         INS_txtElevatorGrooveDepthPin.Text = String.Empty
-                        INS_txtElevatorGrooveDiaBox.Text = String.Empty
-                        INS_txtElevatorGrooveDepthBox.Text = String.Empty
                         INS_txtBBackRGrooveDiaPin.Text = String.Empty
                         INS_txtBBackRGrooveLengthPin.Text = String.Empty
                         INS_txtBBackRGrooveDiaBox.Text = String.Empty
@@ -1606,15 +1628,13 @@ Namespace Raven.Web
                         INS_txtBevelDiameterPin.Text = String.Empty
                         INS_txtBevelDiameterBox.Text = String.Empty
                         INS_txtThreadLengthPin.Text = String.Empty
-                        INS_txtThreadLengthBox.Text = String.Empty
-                        INS_txtCounterBoreDiaPin.Text = String.Empty
-                        INS_txtCounterBoreDepthPin.Text = String.Empty
+                        INS_txtThreadLengthBox.Text = "-"
+                        INS_txtCounterBoreDiaPin.Text = "-"
+                        INS_txtCounterBoreDepthPin.Text = "-"
                         INS_txtCounterBoreDiaBox.Text = String.Empty
                         INS_txtCounterBoreDepthBox.Text = String.Empty
                         INS_txtCenterPadDiaPin.Text = String.Empty
                         INS_txtCenterPadDepthPin.Text = String.Empty
-                        INS_txtCenterPadDiaBox.Text = String.Empty
-                        INS_txtCenterPadDepthBox.Text = String.Empty
                         INS_txtTongSpacePin.Text = String.Empty
                         INS_txtTongSpaceBox.Text = String.Empty
                         INS_txtConditionPin.Text = String.Empty
@@ -1625,6 +1645,12 @@ Namespace Raven.Web
                         INS_txtHBPin.Text = String.Empty
                         INS_txtHBBox.Text = String.Empty
                         INS_txtHBCenterPad.Text = String.Empty
+                        INS_ddlConnectionPinCaption.SelectedIndex = 1
+                        INS_ddlConnectionBoxCaption.SelectedIndex = 0
+                        INS_ddlThreadLengthPinCaption.SelectedIndex = 1
+                        INS_ddlThreadLengthBoxCaption.SelectedIndex = 0
+                        INS_ddlConditionPinCaption.SelectedIndex = 1
+                        INS_ddlConditionBoxCaption.SelectedIndex = 0
                         commonFunction.Focus(Me, INS_txtReportNo.ClientID)
                     End If
                     commonFunction.SetDDL_Table(INS_ddlInspectionReportType, "CommonCode", Common.Constants.GroupCode.InspectionReportType_SCode)
@@ -1711,7 +1737,7 @@ Namespace Raven.Web
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI
                             SR_pnlTubular.Visible = False
-                            SR_pnlNotTubular.Visible = True
+                            'SR_pnlNotTubular.Visible = True
                         Case Common.Constants.ReportTypeCode.ServiceReportMPILoadPullTest
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Tubular).Enabled = False
@@ -1721,7 +1747,7 @@ Namespace Raven.Web
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest
                             SR_pnlTubular.Visible = False
-                            SR_pnlNotTubular.Visible = True
+                            'SR_pnlNotTubular.Visible = True
                         Case Common.Constants.ReportTypeCode.ServiceReportTubular1
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
@@ -1734,7 +1760,7 @@ Namespace Raven.Web
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.Tubular
                             SR_pnlTubular.Visible = True
-                            SR_pnlNotTubular.Visible = False
+                            'SR_pnlNotTubular.Visible = False
                         Case Common.Constants.ReportTypeCode.ServiceReportTubular2
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
@@ -1745,7 +1771,7 @@ Namespace Raven.Web
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.HWDP
                             SR_pnlTubular.Visible = False
-                            SR_pnlNotTubular.Visible = True
+                            'SR_pnlNotTubular.Visible = True
                         Case Common.Constants.ReportTypeCode.ServiceReportHardbanding
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
@@ -1758,7 +1784,7 @@ Namespace Raven.Web
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.RotaryShoulder).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding
                             SR_pnlTubular.Visible = False
-                            SR_pnlNotTubular.Visible = True
+                            'SR_pnlNotTubular.Visible = True
                     End Select
 
                     commonFunction.Focus(Me, SR_ddlServiceReportFor.ClientID)
@@ -2322,6 +2348,8 @@ Namespace Raven.Web
                             DP_txtPin009Value.Text = .pin009Value.Trim
                             DP_txtPin010Value.Text = .pin010Value.Trim
                             DP_txtPin011Value.Text = .pin011Value.Trim
+                            DP_txtPin012Value.Text = .pin012Value.Trim
+                            DP_txtPin013Value.Text = .pin013Value.Trim
                             DP_txtBox001Value.Text = .box001Value.Trim
                             DP_txtBox002Value.Text = .box002Value.Trim
                             DP_txtBox003Value.Text = .box003Value.Trim
@@ -2356,6 +2384,9 @@ Namespace Raven.Web
                             INS_chkDIM.Checked = .isDimensional
                             INS_chkBLC.Checked = .isBlacklightConnection
                             INS_chkVBI.Checked = .isVisualBodyInspection
+                            INS_txtDescriptionHd.Text = .description.Trim
+                            INS_txtNotes.Text = .notes.Trim
+                            INS_txtCustomerPICName.Text = .customerPICName.Trim
                             isNew = False
                         Else
                             PrepareScreen(Common.Constants.ReportTypePanelID.InspectionReport_PanelID, False)
@@ -2379,8 +2410,6 @@ Namespace Raven.Web
                             INS_txtConnectionODBox.Text = .connectionODBox.Trim
                             INS_txtElevatorGrooveDiaPin.Text = .elevatorGrooveDiaPin.Trim
                             INS_txtElevatorGrooveDepthPin.Text = .elevatorGrooveDepthPin.Trim
-                            INS_txtElevatorGrooveDiaBox.Text = .elevatorGrooveDiaBox.Trim
-                            INS_txtElevatorGrooveDepthBox.Text = .elevatorGrooveDepthBox.Trim
                             INS_txtBBackRGrooveDiaPin.Text = .BBackRGrooveDiaPin.Trim
                             INS_txtBBackRGrooveLengthPin.Text = .BBackRGrooveLengthPin.Trim
                             INS_txtBBackRGrooveDiaBox.Text = .BBackRGrooveDiaBox.Trim
@@ -2395,8 +2424,6 @@ Namespace Raven.Web
                             INS_txtCounterBoreDepthBox.Text = .counterBoreDepthBox.Trim
                             INS_txtCenterPadDiaPin.Text = .centerPadDiaPin.Trim
                             INS_txtCenterPadDepthPin.Text = .centerPadDepthPin.Trim
-                            INS_txtCenterPadDiaBox.Text = .centerPadDiaBox.Trim
-                            INS_txtCenterPadDepthBox.Text = .centerPadDepthBox.Trim
                             INS_txtTongSpacePin.Text = .tongSpacePin.Trim
                             INS_txtTongSpaceBox.Text = .tongSpaceBox.Trim
                             INS_txtConditionPin.Text = .conditionPin.Trim
@@ -2407,6 +2434,12 @@ Namespace Raven.Web
                             INS_txtHBPin.Text = .HBPin.Trim
                             INS_txtHBBox.Text = .HBBox.Trim
                             INS_txtHBCenterPad.Text = .HBCenterPad.Trim
+                            INS_ddlConnectionPinCaption.SelectedValue = .ConnectionPinSCode.Trim
+                            INS_ddlConnectionBoxCaption.SelectedValue = .ConnectionBoxSCode.Trim
+                            INS_ddlThreadLengthPinCaption.SelectedValue = .ThreadLengthPinSCode.Trim
+                            INS_ddlThreadLengthBoxCaption.SelectedValue = .ThreadLengthBoxSCode.Trim
+                            INS_ddlConditionPinCaption.SelectedValue = .ConditionPinSCode.Trim
+                            INS_ddlConditionBoxCaption.SelectedValue = .ConditionBoxSCode.Trim
                         Else
                             PrepareScreen(Common.Constants.ReportTypePanelID.InspectionReport_PanelID, False, isNew)
                         End If
@@ -2857,7 +2890,7 @@ Namespace Raven.Web
 
             Select Case _VisiblePanelID
                 Case Common.Constants.ReportTypePanelID.SummaryOfInspection_PanelID
-                    Dim oBR As New Common.BussinessRules.SummaryOfInspection
+                    Dim oBR As New Common.BussinessRules.SummaryOfInspection                    
                     If SOI_rbtnlInputMethod.SelectedValue.Trim = "Entry" Then
                         With oBR
                             .projectID = txtProjectID.Text.Trim
@@ -2887,6 +2920,15 @@ Namespace Raven.Web
                             .detailReportSection = ""
                             .examDate = SOI_calExamDate.selectedDate
                             .expireDate = SOI_calExpiredDate.selectedDate
+                            .inspectorName = SOI_txtInspectorName.Text.Trim
+                            .reportNo_1 = SOI_txtReportNo_1.Text.Trim
+                            .isDS1CAT3to5 = SOI_chkIsDS1CAT3to5.Checked
+                            .isDS1CAT4 = SOI_chkIsDS1CAT4.Checked
+                            .isAPISPEC7 = SOI_chkIsAPISPEC7.Checked
+                            .isAPIRP7G = SOI_chkIsAPIRP7G.Checked
+                            .isHardbanding = SOI_chkIsHardbanding.Checked
+                            .isIntExtCleaning = SOI_chkIsIntExtCleaning.Checked
+                            .isUTSlipUpsetArea = SOI_chkIsUTSlipUpsetArea.Checked
                             .userIDinsert = MyBase.LoggedOnUserID
                             .userIDupdate = MyBase.LoggedOnUserID
 
@@ -2980,18 +3022,6 @@ Namespace Raven.Web
                                         .sequenceNo = CType(DtSet.Tables(0).Rows(iRecCount)(0), String)
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(1)) Is System.DBNull.Value Then
-                                        .descriptionOfEquipment = String.Empty
-                                    Else
-                                        .descriptionOfEquipment = CType(DtSet.Tables(0).Rows(iRecCount)(1), String)
-                                    End If
-
-                                    If (DtSet.Tables(0).Rows(iRecCount)(2)) Is System.DBNull.Value Then
-                                        .serialIDNo = String.Empty
-                                    Else
-                                        .serialIDNo = CType(DtSet.Tables(0).Rows(iRecCount)(2), String)
-                                    End If
-
                                     If (DtSet.Tables(0).Rows(iRecCount)(3)) Is System.DBNull.Value Then
                                         .location = String.Empty
                                     Else
@@ -2999,53 +3029,78 @@ Namespace Raven.Web
                                     End If
 
                                     If (DtSet.Tables(0).Rows(iRecCount)(4)) Is System.DBNull.Value Then
-                                        .manufacture = String.Empty
+                                        .inspectorName = String.Empty
                                     Else
-                                        .manufacture = CType(DtSet.Tables(0).Rows(iRecCount)(4), String)
-                                    End If
-
-                                    If (DtSet.Tables(0).Rows(iRecCount)(5)) Is System.DBNull.Value Then
-                                        .SWL_WWL_MGW = String.Empty
-                                    Else
-                                        .SWL_WWL_MGW = CType(DtSet.Tables(0).Rows(iRecCount)(5), String)
+                                        .inspectorName = CType(DtSet.Tables(0).Rows(iRecCount)(4), String)
                                     End If
 
                                     If (DtSet.Tables(0).Rows(iRecCount)(6)) Is System.DBNull.Value Then
-                                        .dimensional = String.Empty
+                                        .reportNo_1 = String.Empty
                                     Else
-                                        .dimensional = CType(DtSet.Tables(0).Rows(iRecCount)(6), String)
+                                        .reportNo_1 = CType(DtSet.Tables(0).Rows(iRecCount)(6), String)
                                     End If
 
                                     If (DtSet.Tables(0).Rows(iRecCount)(7)) Is System.DBNull.Value Then
-                                        .defectFound = String.Empty
+                                        .descriptionOfEquipment = String.Empty
                                     Else
-                                        .defectFound = CType(DtSet.Tables(0).Rows(iRecCount)(7), String)
+                                        .descriptionOfEquipment = CType(DtSet.Tables(0).Rows(iRecCount)(7), String)
                                     End If
 
                                     If (DtSet.Tables(0).Rows(iRecCount)(8)) Is System.DBNull.Value Then
-                                        .result = String.Empty
+                                        .dimensional = String.Empty
                                     Else
-                                        .result = CType(DtSet.Tables(0).Rows(iRecCount)(8), String)
+                                        .dimensional = CType(DtSet.Tables(0).Rows(iRecCount)(8), String)
                                     End If
 
                                     If (DtSet.Tables(0).Rows(iRecCount)(9)) Is System.DBNull.Value Then
+                                        .serialIDNo = String.Empty
+                                    Else
+                                        .serialIDNo = CType(DtSet.Tables(0).Rows(iRecCount)(9), String)
+                                    End If
+
+                                    If (DtSet.Tables(0).Rows(iRecCount)(10)) Is System.DBNull.Value Then
+                                        .manufacture = String.Empty
+                                    Else
+                                        .manufacture = CType(DtSet.Tables(0).Rows(iRecCount)(10), String)
+                                    End If
+
+                                    If (DtSet.Tables(0).Rows(iRecCount)(11)) Is System.DBNull.Value Then
+                                        .SWL_WWL_MGW = String.Empty
+                                    Else
+                                        .SWL_WWL_MGW = CType(DtSet.Tables(0).Rows(iRecCount)(11), String)
+                                    End If
+
+                                    If (DtSet.Tables(0).Rows(iRecCount)(12)) Is System.DBNull.Value Then
+                                        .result = String.Empty
+                                    Else
+                                        .result = CType(DtSet.Tables(0).Rows(iRecCount)(12), String)
+                                    End If
+
+                                    If (DtSet.Tables(0).Rows(iRecCount)(13)) Is System.DBNull.Value Then
+                                        .defectFound = String.Empty
+                                    Else
+                                        .defectFound = CType(DtSet.Tables(0).Rows(iRecCount)(13), String)
+                                    End If
+
+                                    If (DtSet.Tables(0).Rows(iRecCount)(14)) Is System.DBNull.Value Then
                                         Throw New Exception("Kolom Exam_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: dd-MM-yyyy.")
                                     Else
                                         Dim strDate As String
-                                        strDate = CType(DtSet.Tables(0).Rows(iRecCount)(9), String)
+                                        strDate = CType(DtSet.Tables(0).Rows(iRecCount)(14), String)
 
                                         Try
                                             .examDate = DateSerial(Convert.ToInt32(strDate.Substring(6, 4)), Convert.ToInt32(strDate.Substring(3, 2)), Convert.ToInt32(strDate.Substring(0, 2)))
+                                            '.examDate = DateSerial(Convert.ToInt32(strDate.Substring(6, 4)), Convert.ToInt32(strDate.Substring(3, 2)), Convert.ToInt32(strDate.Substring(0, 2)))
                                         Catch
                                             Throw New Exception("Kolom Exam_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: dd-MM-yyyy.")
                                         End Try
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(10)) Is System.DBNull.Value Then
+                                    If (DtSet.Tables(0).Rows(iRecCount)(15)) Is System.DBNull.Value Then
                                         Throw New Exception("Kolom Expire_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: dd-MM-yyyy.")
                                     Else
                                         Dim strDate As String
-                                        strDate = CType(DtSet.Tables(0).Rows(iRecCount)(10), String)
+                                        strDate = CType(DtSet.Tables(0).Rows(iRecCount)(15), String)
 
                                         Try
                                             .expireDate = DateSerial(Convert.ToInt32(strDate.Substring(6, 4)), Convert.ToInt32(strDate.Substring(3, 2)), Convert.ToInt32(strDate.Substring(0, 2)))
@@ -3054,61 +3109,104 @@ Namespace Raven.Web
                                         End Try
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(11)) Is System.DBNull.Value Then
+                                    If (DtSet.Tables(0).Rows(iRecCount)(16)) Is System.DBNull.Value Then
                                         .reportNo = String.Empty
                                     Else
-                                        .reportNo = CType(DtSet.Tables(0).Rows(iRecCount)(11), String)
+                                        .reportNo = CType(DtSet.Tables(0).Rows(iRecCount)(16), String)
                                     End If
 
                                     .typeOfInspectionSCode = String.Empty
+                                    .isToiV = False
+                                    .isToiN = False
+                                    .isToiT = False
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(12)) Is System.DBNull.Value Then
-                                        .isToiV = False
+                                    If (DtSet.Tables(0).Rows(iRecCount)(17)) Is System.DBNull.Value Then
+                                        .isDS1CAT3to5 = False
                                     Else
-                                        If CType(DtSet.Tables(0).Rows(iRecCount)(12), String) = "Yes" Then
-                                            .isToiV = True
+                                        If CType(DtSet.Tables(0).Rows(iRecCount)(17), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(17), String) = "V" Then
+                                            .isDS1CAT3to5 = True
                                         Else
-                                            .isToiV = False
+                                            .isDS1CAT3to5 = False
                                         End If
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(13)) Is System.DBNull.Value Then
-                                        .isToiN = False
+                                    If (DtSet.Tables(0).Rows(iRecCount)(18)) Is System.DBNull.Value Then
+                                        .isDS1CAT4 = False
                                     Else
-                                        If CType(DtSet.Tables(0).Rows(iRecCount)(13), String) = "Yes" Then
-                                            .isToiN = True
+                                        If CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "V" Then
+                                            .isDS1CAT4 = True
                                         Else
-                                            .isToiN = False
+                                            .isDS1CAT4 = False
                                         End If
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(14)) Is System.DBNull.Value Then
-                                        .isToiT = False
+                                    If (DtSet.Tables(0).Rows(iRecCount)(19)) Is System.DBNull.Value Then
+                                        .isAPISPEC7 = False
                                     Else
-                                        If CType(DtSet.Tables(0).Rows(iRecCount)(14), String) = "Yes" Then
-                                            .isToiT = True
+                                        If CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "V" Then
+                                            .isAPISPEC7 = True
                                         Else
-                                            .isToiT = False
+                                            .isAPISPEC7 = False
                                         End If
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(15)) Is System.DBNull.Value Then
+                                    If (DtSet.Tables(0).Rows(iRecCount)(20)) Is System.DBNull.Value Then
+                                        .isAPIRP7G = False
+                                    Else
+                                        If CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "V" Then
+                                            .isAPIRP7G = True
+                                        Else
+                                            .isAPIRP7G = False
+                                        End If
+                                    End If
+
+                                    If (DtSet.Tables(0).Rows(iRecCount)(21)) Is System.DBNull.Value Then
+                                        .isHardbanding = False
+                                    Else
+                                        If CType(DtSet.Tables(0).Rows(iRecCount)(21), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(21), String) = "V" Then
+                                            .isHardbanding = True
+                                        Else
+                                            .isHardbanding = False
+                                        End If
+                                    End If
+
+                                    If (DtSet.Tables(0).Rows(iRecCount)(22)) Is System.DBNull.Value Then
+                                        .isIntExtCleaning = False
+                                    Else
+                                        If CType(DtSet.Tables(0).Rows(iRecCount)(22), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(22), String) = "V" Then
+                                            .isIntExtCleaning = True
+                                        Else
+                                            .isIntExtCleaning = False
+                                        End If
+                                    End If
+
+                                    If (DtSet.Tables(0).Rows(iRecCount)(23)) Is System.DBNull.Value Then
+                                        .isUTSlipUpsetArea = False
+                                    Else
+                                        If CType(DtSet.Tables(0).Rows(iRecCount)(23), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(23), String) = "V" Then
+                                            .isUTSlipUpsetArea = True
+                                        Else
+                                            .isUTSlipUpsetArea = False
+                                        End If
+                                    End If
+
+                                    If (DtSet.Tables(0).Rows(iRecCount)(24)) Is System.DBNull.Value Then
                                         .interval = String.Empty
                                     Else
-                                        .interval = CType(DtSet.Tables(0).Rows(iRecCount)(15), String)
+                                        .interval = CType(DtSet.Tables(0).Rows(iRecCount)(24), String)
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(16)) Is System.DBNull.Value Then
+                                    If (DtSet.Tables(0).Rows(iRecCount)(25)) Is System.DBNull.Value Then
                                         .remarks = String.Empty
                                     Else
-                                        .remarks = CType(DtSet.Tables(0).Rows(iRecCount)(16), String)
+                                        .remarks = CType(DtSet.Tables(0).Rows(iRecCount)(25), String)
                                     End If
 
                                     .detailReportSection = ""
                                     .userIDinsert = MyBase.LoggedOnUserID
                                     .userIDupdate = MyBase.LoggedOnUserID
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(17)) Is System.DBNull.Value Then
+                                    If (DtSet.Tables(0).Rows(iRecCount)(26)) Is System.DBNull.Value Then
                                         .fileName = String.Empty
                                         .fileExtension = String.Empty
                                     Else
@@ -3447,6 +3545,8 @@ Namespace Raven.Web
                         .pin009CaptionID = DP_lblPin009Caption.ToolTip.Trim
                         .pin010CaptionID = DP_lblPin010Caption.ToolTip.Trim
                         .pin011CaptionID = DP_lblPin011Caption.ToolTip.Trim
+                        .pin012CaptionID = DP_lblPin012Caption.ToolTip.Trim
+                        .pin013CaptionID = DP_lblPin013Caption.ToolTip.Trim
                         .pin001Value = DP_txtPin001Value.Text.Trim
                         .pin002Value = DP_txtPin002Value.Text.Trim
                         .pin003Value = DP_txtPin003Value.Text.Trim
@@ -3458,6 +3558,8 @@ Namespace Raven.Web
                         .pin009Value = DP_txtPin009Value.Text.Trim
                         .pin010Value = DP_txtPin010Value.Text.Trim
                         .pin011Value = DP_txtPin011Value.Text.Trim
+                        .pin012Value = DP_txtPin012Value.Text.Trim
+                        .pin013Value = DP_txtPin013Value.Text.Trim
                         .box001CaptionID = DP_lblBox001Caption.ToolTip.Trim
                         .box002CaptionID = DP_lblBox002Caption.ToolTip.Trim
                         .box003CaptionID = DP_lblBox003Caption.ToolTip.Trim
@@ -3516,6 +3618,9 @@ Namespace Raven.Web
                         .isDimensional = INS_chkDIM.Checked
                         .isBlacklightConnection = INS_chkBLC.Checked
                         .isVisualBodyInspection = INS_chkVBI.Checked
+                        .description = INS_txtDescriptionHd.Text.Trim
+                        .notes = INS_txtNotes.Text.Trim
+                        .customerPICName = INS_txtCustomerPICName.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
                         If isNew Then
@@ -3547,8 +3652,8 @@ Namespace Raven.Web
                             .connectionODBox = INS_txtConnectionODBox.Text.Trim
                             .elevatorGrooveDiaPin = INS_txtElevatorGrooveDiaPin.Text.Trim
                             .elevatorGrooveDepthPin = INS_txtElevatorGrooveDepthPin.Text.Trim
-                            .elevatorGrooveDiaBox = INS_txtElevatorGrooveDiaBox.Text.Trim
-                            .elevatorGrooveDepthBox = INS_txtElevatorGrooveDepthBox.Text.Trim
+                            .elevatorGrooveDiaBox = String.Empty
+                            .elevatorGrooveDepthBox = String.Empty
                             .BBackRGrooveDiaPin = INS_txtBBackRGrooveDiaPin.Text.Trim
                             .BBackRGrooveLengthPin = INS_txtBBackRGrooveLengthPin.Text.Trim
                             .BBackRGrooveDiaBox = INS_txtBBackRGrooveDiaBox.Text.Trim
@@ -3563,8 +3668,8 @@ Namespace Raven.Web
                             .counterBoreDepthBox = INS_txtCounterBoreDepthBox.Text.Trim
                             .centerPadDiaPin = INS_txtCenterPadDiaPin.Text.Trim
                             .centerPadDepthPin = INS_txtCenterPadDepthPin.Text.Trim
-                            .centerPadDiaBox = INS_txtCenterPadDiaBox.Text.Trim
-                            .centerPadDepthBox = INS_txtCenterPadDepthBox.Text.Trim
+                            .centerPadDiaBox = String.Empty
+                            .centerPadDepthBox = String.Empty
                             .tongSpacePin = INS_txtTongSpacePin.Text.Trim
                             .tongSpaceBox = INS_txtTongSpaceBox.Text.Trim
                             .conditionPin = INS_txtConditionPin.Text.Trim
@@ -3575,6 +3680,12 @@ Namespace Raven.Web
                             .HBPin = INS_txtHBPin.Text.Trim
                             .HBBox = INS_txtHBBox.Text.Trim
                             .HBCenterPad = INS_txtHBCenterPad.Text.Trim
+                            .ConnectionPinSCode = INS_ddlConnectionPinCaption.SelectedValue.Trim
+                            .ConnectionBoxSCode = INS_ddlConnectionBoxCaption.SelectedValue.Trim
+                            .ThreadLengthPinSCode = INS_ddlThreadLengthPinCaption.SelectedValue.Trim
+                            .ThreadLengthBoxSCode = INS_ddlThreadLengthBoxCaption.SelectedValue.Trim
+                            .ConditionPinSCode = INS_ddlConditionPinCaption.SelectedValue.Trim
+                            .ConditionBoxSCode = INS_ddlConditionBoxCaption.SelectedValue.Trim
                             .userIDinsert = MyBase.LoggedOnUserID
                             .userIDupdate = MyBase.LoggedOnUserID
                             If isNew Then
@@ -3623,16 +3734,18 @@ Namespace Raven.Web
                             If .Insert() Then
                                 isSucceed = True
                                 SR_txtServiceReportID.Text = .serviceReportID.Trim
-                                If SR_pnlNotTubular.Visible = False Then PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, True)
+                                PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, True)
+                                'If SR_pnlNotTubular.Visible = False Then PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, True)
                             End If
                         Else
                             If .Update() Then
                                 isSucceed = True
-                                If SR_pnlNotTubular.Visible = False Then PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, False)
+                                PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, True)
+                                'If SR_pnlNotTubular.Visible = False Then PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, False)
                             End If
                         End If
 
-                        If isSucceed And SR_pnlNotTubular.Visible Then
+                        If isSucceed Then
                             Dim oSRDt As New Common.BussinessRules.ServiceReportDt
                             With oSRDt
                                 .serviceReportDtID = SR_txtServiceReportDtID.Text.Trim
@@ -4260,6 +4373,15 @@ Namespace Raven.Web
                     End With
                     oBr.Dispose()
                     oBr = Nothing
+
+                Case Common.Constants.ReportTypePanelID.ServiceReport_PanelID
+                    Dim oBr As New Common.BussinessRules.ServiceReport
+                    With oBr
+                        .serviceReportID = _IDtoDelete.Trim
+                        .Delete()
+                    End With
+                    oBr.Dispose()
+                    oBr = Nothing
             End Select
         End Sub
 
@@ -4330,14 +4452,21 @@ Namespace Raven.Web
                     DP_Class2_txtMaxID.Text = .maxIDclass2.Trim
                     DP_Class2_txtMinWall.Text = .minWallclass2.Trim
                     DP_Class2_txtMinShoulder.Text = .minShldrclass2.Trim
-                    DP_Class2_txtMinSeal.Text = .minSealclass2.Trim
+                    DP_Class2_txtMinCBoreDepth.Text = .minCBoreDepthClass2.Trim
                     DP_Class2_txtMinTongSpacePin.Text = .minTongSpacePinclass2.Trim
                     DP_Class2_txtMinTongSpaceBox.Text = .minTongSpaceBoxclass2.Trim
-                    DP_Class2_txtMaxQC.Text = .maxQCclass2.Trim
-                    DP_Class2_txtBevelDia.Text = .maxBevelDiaclass2.Trim
-                    DP_Class2_txtMinQCDepth.Text = .minQCDepthclass2.Trim
+                    DP_Class2_txtPinConnLength.Text = .pinConnectionLengthclass2.Trim
                     DP_Class2_txtMaxLengthPin.Text = .maxLengthPinclass2.Trim
                     DP_Class2_txtMaxPinNeck.Text = .maxPinNeckclass2.Trim
+                    DP_Class2_txtMaxCBoreDia.Text = .maxCBoreclass2.Trim
+                    DP_Class2_txtMinBevelDia.Text = .minBevelDiaclass2.Trim
+                    DP_Class2_txtMaxBevelDia.Text = .maxBevelDiaclass2.Trim
+                    DP_Class2_txtMinPinCylDia.Text = .minPinCylDiaclass2.Trim
+                    DP_Class2_txtMaxPinCylDia.Text = .maxPinCylDiaclass2.Trim
+                    DP_Class2_txtMinPinNoseDia.Text = .minPinNoseDiaclass2.Trim
+                    DP_Class2_txtMaxPinNoseDia.Text = .maxPinNoseDiaclass2.Trim
+                    DP_Class2_txtMinBoxLength.Text = .minBoxLengthclass2.Trim
+                    DP_Class2_txtMaxPinBaseLength.Text = .maxPinBaseLengthclass2.Trim
                 Else
                     DP_txtSpecificationID.Text = String.Empty
                     'DP_txtSpecificationCode.Text = String.Empty
@@ -4401,17 +4530,25 @@ Namespace Raven.Web
                 .minODclass2 = DP_Class2_txtMinOD.Text.Trim
                 .maxIDclass2 = DP_Class2_txtMaxID.Text.Trim
                 .minShldrclass2 = DP_Class2_txtMinShoulder.Text.Trim
-                .minSealclass2 = DP_Class2_txtMinSeal.Text.Trim
+                .minSealclass2 = String.Empty
+                .minCBoreDepthClass2 = DP_Class2_txtMinCBoreDepth.Text.Trim
                 .minWallclass2 = DP_Class2_txtMinWall.Text.Trim
                 .minTongSpacePinclass2 = DP_Class2_txtMinTongSpacePin.Text.Trim
                 .minTongSpaceBoxclass2 = DP_Class2_txtMinTongSpaceBox.Text.Trim
+                .minQCDepthclass2 = String.Empty
                 .maxLengthPinclass2 = DP_Class2_txtMaxLengthPin.Text.Trim
+                .maxQCclass2 = String.Empty
                 .maxPinNeckclass2 = DP_Class2_txtMaxPinNeck.Text.Trim
-                .minQCDepthclass2 = DP_Class2_txtMinQCDepth.Text.Trim
-                .maxQCclass2 = DP_Class2_txtMaxQC.Text.Trim
-                .minBevelDiaclass2 = String.Empty
-                .maxBevelDiaclass2 = DP_Class2_txtBevelDia.Text.Trim
-                .maxCBoreclass2 = String.Empty
+                .minBevelDiaclass2 = DP_Class2_txtMinBevelDia.Text.Trim
+                .maxBevelDiaclass2 = DP_Class2_txtMaxBevelDia.Text.Trim
+                .pinConnectionLengthclass2 = DP_Class2_txtPinConnLength.Text.Trim
+                .maxCBoreclass2 = DP_Class2_txtMaxCBoreDia.Text.Trim                
+                .minPinCylDiaclass2 = DP_Class2_txtMinPinCylDia.Text.Trim
+                .maxPinCylDiaclass2 = DP_Class2_txtMaxPinCylDia.Text.Trim
+                .minPinNoseDiaclass2 = DP_Class2_txtMinPinNoseDia.Text.Trim
+                .maxPinNoseDiaclass2 = DP_Class2_txtMaxPinNoseDia.Text.Trim
+                .minBoxLengthclass2 = DP_Class2_txtMinBoxLength.Text.Trim
+                .maxPinBaseLengthclass2 = DP_Class2_txtMaxPinBaseLength.Text.Trim
                 .isActive = True
                 .userIDinsert = MyBase.LoggedOnUserID
                 .userIDupdate = MyBase.LoggedOnUserID
@@ -4631,6 +4768,26 @@ Namespace Raven.Web
                 Else
                     DP_lblPin011Caption.Text = String.Empty
                     DP_lblPin011Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "012"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin012Caption.Text = .captionName
+                    DP_lblPin012Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin012Caption.Text = String.Empty
+                    DP_lblPin012Caption.ToolTip = String.Empty
+                End If
+
+                .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
+                .sequenceNo = "013"
+                If .SelectForCaptionLabel.Rows.Count > 0 Then
+                    DP_lblPin013Caption.Text = .captionName
+                    DP_lblPin013Caption.ToolTip = .captionID
+                Else
+                    DP_lblPin013Caption.Text = String.Empty
+                    DP_lblPin013Caption.ToolTip = String.Empty
                 End If
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn

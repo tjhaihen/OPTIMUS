@@ -14,7 +14,9 @@ Namespace Raven.Common.BussinessRules
         Private _summaryOfInspectionID, _projectID, _sequenceNo, _descriptionOfEquipment, _serialIDNo, _location, _manufacture, _SWL_WWL_MGW, _
             _dimensional, _defectFound, _result, _reportNo, _typeOfInspectionSCode, _interval, _remarks, _detailReportSection, _
             _userIDinsert, _userIDupdate, _approvalBy, _fileName, _fileExtension As String
+        Private _inspectorName, _reportNo_1 As String
         Private _isToiV, _isToiN, _isToiT, _isApproval As Boolean
+        Private _isDS1CAT3to5, _isDS1CAT4, _isAPISPEC7, _isAPIRP7G, _isHardbanding, _isIntExtCleaning, _isUTSlipUpsetArea As Boolean
         Private _examDate, _expireDate, _insertDate, _updateDate, _approvalDate As DateTime
         
 #End Region
@@ -35,12 +37,16 @@ Namespace Raven.Common.BussinessRules
                                         "manufacture, SWL_WWL_MGW, dimensional, defectFound, result, reportNo,  " + _
                                         "typeOfInspectionSCode, isToiV, isToiN, isToiT, interval, remarks, detailReportSection,  " + _
                                         "examDate, expireDate, fileName, fileExtension, " + _
+                                        "inspectorName, reportNo_1, " + _
+                                        "isDS1CAT3to5, isDS1CAT4, isAPISPEC7, isAPIRP7G, isHardbanding, isIntExtCleaning, isUTSlipUpsetArea, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@summaryOfInspectionID, @projectID, @sequenceNo, @descriptionOfEquipment, @serialIDNo, @location, " + _
                                         "@manufacture, @SWL_WWL_MGW, @dimensional, @defectFound, @result, @reportNo,  " + _
                                         "@typeOfInspectionSCode, @isToiV, @isToiN, @isToiT, @interval, @remarks, @detailReportSection,  " + _
                                         "@examDate, @expireDate, @fileName, @fileExtension, " + _
+                                        "@inspectorName, @reportNo_1, " + _
+                                        "@isDS1CAT3to5, @isDS1CAT4, @isAPISPEC7, @isAPIRP7G, @isHardbanding, @isIntExtCleaning, @isUTSlipUpsetArea, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -71,6 +77,15 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@expireDate", _expireDate)
                 cmdToExecute.Parameters.AddWithValue("@fileName", _fileName)
                 cmdToExecute.Parameters.AddWithValue("@fileExtension", _fileExtension)
+                cmdToExecute.Parameters.AddWithValue("@inspectorName", _inspectorName)
+                cmdToExecute.Parameters.AddWithValue("@reportNo_1", _reportNo_1)
+                cmdToExecute.Parameters.AddWithValue("@isDS1CAT3to5", _isDS1CAT3to5)
+                cmdToExecute.Parameters.AddWithValue("@isDS1CAT4", _isDS1CAT4)
+                cmdToExecute.Parameters.AddWithValue("@isAPISPEC7", _isAPISPEC7)
+                cmdToExecute.Parameters.AddWithValue("@isAPIRP7G", _isAPIRP7G)
+                cmdToExecute.Parameters.AddWithValue("@isHardbanding", _isHardbanding)
+                cmdToExecute.Parameters.AddWithValue("@isIntExtCleaning", _isIntExtCleaning)
+                cmdToExecute.Parameters.AddWithValue("@isUTSlipUpsetArea", _isUTSlipUpsetArea)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -100,6 +115,9 @@ Namespace Raven.Common.BussinessRules
                                         "interval=@interval, remarks=@remarks, detailReportSection=@detailReportSection, " + _
                                         "examDate=@examDate, expireDate=@expireDate, " + _
                                         "fileName=@fileName, fileExtension=@fileExtension, " + _
+                                        "inspectorName=@inspectorName, reportNo_1=@reportNo_1, isDS1CAT3to5=@isDS1CAT3to5, " + _
+                                        "isDS1CAT4=@isDS1CAT4, isAPISPEC7=@isAPISPEC7, isAPIRP7G=@isAPIRP7G, " + _
+                                        "isHardbanding=@isHardbanding, isIntExtCleaning=@isIntExtCleaning, isUTSlipUpsetArea=@isUTSlipUpsetArea, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE summaryOfInspectionID=@summaryOfInspectionID"
             cmdToExecute.CommandType = CommandType.Text
@@ -130,6 +148,15 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@expireDate", _expireDate)
                 cmdToExecute.Parameters.AddWithValue("@fileName", _fileName)
                 cmdToExecute.Parameters.AddWithValue("@fileExtension", _fileExtension)
+                cmdToExecute.Parameters.AddWithValue("@inspectorName", _inspectorName)
+                cmdToExecute.Parameters.AddWithValue("@reportNo_1", _reportNo_1)
+                cmdToExecute.Parameters.AddWithValue("@isDS1CAT3to5", _isDS1CAT3to5)
+                cmdToExecute.Parameters.AddWithValue("@isDS1CAT4", _isDS1CAT4)
+                cmdToExecute.Parameters.AddWithValue("@isAPISPEC7", _isAPISPEC7)
+                cmdToExecute.Parameters.AddWithValue("@isAPIRP7G", _isAPIRP7G)
+                cmdToExecute.Parameters.AddWithValue("@isHardbanding", _isHardbanding)
+                cmdToExecute.Parameters.AddWithValue("@isIntExtCleaning", _isIntExtCleaning)
+                cmdToExecute.Parameters.AddWithValue("@isUTSlipUpsetArea", _isUTSlipUpsetArea)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -226,6 +253,15 @@ Namespace Raven.Common.BussinessRules
                     _approvalDate = CType(ProcessNull.GetDateTime(toReturn.Rows(0)("approvalDate")), DateTime)
                     _fileName = CType(toReturn.Rows(0)("fileName"), String)
                     _fileExtension = CType(toReturn.Rows(0)("fileExtension"), String)
+                    _inspectorName = CType(toReturn.Rows(0)("inspectorName"), String)
+                    _reportNo_1 = CType(toReturn.Rows(0)("reportNo_1"), String)
+                    _isDS1CAT3to5 = CType(toReturn.Rows(0)("isDS1CAT3to5"), Boolean)
+                    _isDS1CAT4 = CType(toReturn.Rows(0)("isDS1CAT4"), Boolean)
+                    _isAPISPEC7 = CType(toReturn.Rows(0)("isAPISPEC7"), Boolean)
+                    _isAPIRP7G = CType(toReturn.Rows(0)("isAPIRP7G"), Boolean)
+                    _isHardbanding = CType(toReturn.Rows(0)("isHardbanding"), Boolean)
+                    _isIntExtCleaning = CType(toReturn.Rows(0)("isIntExtCleaning"), Boolean)
+                    _isUTSlipUpsetArea = CType(toReturn.Rows(0)("isUTSlipUpsetArea"), Boolean)
                 End If
             Catch ex As Exception
                 ' // some error occured. Bubble it to caller and encapsulate Exception object
@@ -609,6 +645,87 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _fileExtension = Value
+            End Set
+        End Property
+
+        Public Property [inspectorName]() As String
+            Get
+                Return _inspectorName
+            End Get
+            Set(ByVal Value As String)
+                _inspectorName = Value
+            End Set
+        End Property
+
+        Public Property [reportNo_1]() As String
+            Get
+                Return _reportNo_1
+            End Get
+            Set(ByVal Value As String)
+                _reportNo_1 = Value
+            End Set
+        End Property
+
+        Public Property [isDS1CAT3to5]() As Boolean
+            Get
+                Return _isDS1CAT3to5
+            End Get
+            Set(ByVal Value As Boolean)
+                _isDS1CAT3to5 = Value
+            End Set
+        End Property
+
+        Public Property [isDS1CAT4]() As Boolean
+            Get
+                Return _isDS1CAT4
+            End Get
+            Set(ByVal Value As Boolean)
+                _isDS1CAT4 = Value
+            End Set
+        End Property
+
+        Public Property [isAPISPEC7]() As Boolean
+            Get
+                Return _isAPISPEC7
+            End Get
+            Set(ByVal Value As Boolean)
+                _isAPISPEC7 = Value
+            End Set
+        End Property
+
+        Public Property [isAPIRP7G]() As Boolean
+            Get
+                Return _isAPIRP7G
+            End Get
+            Set(ByVal Value As Boolean)
+                _isAPIRP7G = Value
+            End Set
+        End Property
+
+        Public Property [isHardbanding]() As Boolean
+            Get
+                Return _isHardbanding
+            End Get
+            Set(ByVal Value As Boolean)
+                _isHardbanding = Value
+            End Set
+        End Property
+
+        Public Property [isIntExtCleaning]() As Boolean
+            Get
+                Return _isIntExtCleaning
+            End Get
+            Set(ByVal Value As Boolean)
+                _isIntExtCleaning = Value
+            End Set
+        End Property
+
+        Public Property [isUTSlipUpsetArea]() As Boolean
+            Get
+                Return _isUTSlipUpsetArea
+            End Get
+            Set(ByVal Value As Boolean)
+                _isUTSlipUpsetArea = Value
             End Set
         End Property
 #End Region

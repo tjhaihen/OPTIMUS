@@ -19,6 +19,8 @@ Namespace Raven.Common.BussinessRules
         Private _centerPadDiaPin, _centerPadDiaBox, _centerPadDepthPin, _centerPadDepthBox As String
         Private _tongSpacePin, _tongSpaceBox, _conditionPin, _conditionBox, _BSR, _remarksPin, _remarksBox As String
         Private _HBPin, _HBBox, _HBCenterPad As String
+        Private _connectionPinSCode, _connectionBoxSCode, _threadLengthPinSCode, _threadLengthBoxSCode As String
+        Private _conditionPinSCode, _conditionBoxSCode As String
         Private _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
 #End Region
@@ -42,6 +44,8 @@ Namespace Raven.Common.BussinessRules
                                         "threadLengthPin, threadLengthBox, counterBoreDiaPin, counterBoreDiaBox, counterBoreDepthPin, counterBoreDepthBox, " + _
                                         "centerPadDiaPin, centerPadDiaBox, centerPadDepthPin, centerPadDepthBox, " + _
                                         "tongSpacePin, tongSpaceBox, conditionPin, conditionBox, BSR, remarksPin, remarksBox, " + _
+                                        "connectionPinSCode, connectionBoxSCode, threadLengthPinSCode, threadLengthBoxSCode, " + _
+                                        "conditionPinSCode, conditionBoxSCode, " + _
                                         "HBPin, HBBox, HBCenterPad, " + _
                                         "insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
@@ -53,6 +57,8 @@ Namespace Raven.Common.BussinessRules
                                         "@threadLengthPin, @threadLengthBox, @counterBoreDiaPin, @counterBoreDiaBox, @counterBoreDepthPin, @counterBoreDepthBox, " + _
                                         "@centerPadDiaPin, @centerPadDiaBox, @centerPadDepthPin, @centerPadDepthBox, " + _
                                         "@tongSpacePin, @tongSpaceBox, @conditionPin, @conditionBox, @BSR, @remarksPin, @remarksBox, " + _
+                                        "@connectionPinSCode, @connectionBoxSCode, @threadLengthPinSCode, @threadLengthBoxSCode, " + _
+                                        "@conditionPinSCode, @conditionBoxSCode, " + _
                                         "@HBPin, @HBBox, @HBCenterPad, " + _
                                         "GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate)"
@@ -102,6 +108,12 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@HBPin", _HBPin)
                 cmdToExecute.Parameters.AddWithValue("@HBBox", _HBBox)
                 cmdToExecute.Parameters.AddWithValue("@HBCenterPad", _HBCenterPad)
+                cmdToExecute.Parameters.AddWithValue("@connectionPinSCode", _connectionPinSCode)
+                cmdToExecute.Parameters.AddWithValue("@connectionBoxSCode", _connectionBoxSCode)
+                cmdToExecute.Parameters.AddWithValue("@threadLengthPinSCode", _threadLengthPinSCode)
+                cmdToExecute.Parameters.AddWithValue("@threadLengthBoxSCode", _threadLengthBoxSCode)
+                cmdToExecute.Parameters.AddWithValue("@conditionPinSCode", _conditionPinSCode)
+                cmdToExecute.Parameters.AddWithValue("@conditionBoxSCode", _conditionBoxSCode)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDInsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
@@ -136,6 +148,9 @@ Namespace Raven.Common.BussinessRules
                                         "tongSpacePin=@tongSpacePin, tongSpaceBox=@tongSpaceBox, conditionPin=@conditionPin, " + _
                                         "conditionBox=@conditionBox, BSR=@BSR, remarksPin=@remarksPin, remarksBox=@remarksBox, " + _
                                         "HBPin=@HBPin, HBBox=@HBBox, HBCenterPad=@HBCenterPad, " + _
+                                        "connectionPinSCode=@connectionPinSCode, connectionBoxSCode=@connectionBoxSCode, " + _
+                                        "threadLengthPinSCode=@threadLengthPinSCode, threadLengthBoxSCode=@threadLengthBoxSCode, " + _
+                                        "conditionPinSCode=@conditionPinSCode, conditionBoxSCode=@conditionBoxSCode, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE inspectionReportDtID=@inspectionReportDtID"
             cmdToExecute.CommandType = CommandType.Text
@@ -182,6 +197,12 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@HBPin", _HBPin)
                 cmdToExecute.Parameters.AddWithValue("@HBBox", _HBBox)
                 cmdToExecute.Parameters.AddWithValue("@HBCenterPad", _HBCenterPad)
+                cmdToExecute.Parameters.AddWithValue("@connectionPinSCode", _connectionPinSCode)
+                cmdToExecute.Parameters.AddWithValue("@connectionBoxSCode", _connectionBoxSCode)
+                cmdToExecute.Parameters.AddWithValue("@threadLengthPinSCode", _threadLengthPinSCode)
+                cmdToExecute.Parameters.AddWithValue("@threadLengthBoxSCode", _threadLengthBoxSCode)
+                cmdToExecute.Parameters.AddWithValue("@conditionPinSCode", _conditionPinSCode)
+                cmdToExecute.Parameters.AddWithValue("@conditionBoxSCode", _conditionBoxSCode)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
@@ -288,6 +309,12 @@ Namespace Raven.Common.BussinessRules
                     _HBPin = CType(toReturn.Rows(0)("HBPin"), String)
                     _HBBox = CType(toReturn.Rows(0)("HBBox"), String)
                     _HBCenterPad = CType(toReturn.Rows(0)("HBCenterPad"), String)
+                    _connectionPinSCode = CType(toReturn.Rows(0)("connectionPinSCode"), String)
+                    _connectionBoxSCode = CType(toReturn.Rows(0)("connectionBoxSCode"), String)
+                    _threadLengthPinSCode = CType(toReturn.Rows(0)("threadLengthPinSCode"), String)
+                    _threadLengthBoxSCode = CType(toReturn.Rows(0)("threadLengthBoxSCode"), String)
+                    _conditionPinSCode = CType(toReturn.Rows(0)("conditionPinSCode"), String)
+                    _conditionBoxSCode = CType(toReturn.Rows(0)("conditionBoxSCode"), String)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -725,6 +752,60 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _HBCenterPad = Value
+            End Set
+        End Property
+
+        Public Property [ConnectionPinSCode]() As String
+            Get
+                Return _connectionPinSCode
+            End Get
+            Set(ByVal Value As String)
+                _connectionPinSCode = Value
+            End Set
+        End Property
+
+        Public Property [ConnectionBoxSCode]() As String
+            Get
+                Return _connectionBoxSCode
+            End Get
+            Set(ByVal Value As String)
+                _connectionBoxSCode = Value
+            End Set
+        End Property
+
+        Public Property [ThreadLengthPinSCode]() As String
+            Get
+                Return _threadLengthPinSCode
+            End Get
+            Set(ByVal Value As String)
+                _threadLengthPinSCode = Value
+            End Set
+        End Property
+
+        Public Property [ThreadLengthBoxSCode]() As String
+            Get
+                Return _threadLengthBoxSCode
+            End Get
+            Set(ByVal Value As String)
+                _threadLengthBoxSCode = Value
+            End Set
+        End Property
+
+        Public Property [ConditionPinSCode]() As String
+            Get
+                Return _conditionPinSCode
+            End Get
+            Set(ByVal Value As String)
+                _conditionPinSCode = Value
+            End Set
+        End Property
+
+        Public Property [ConditionBoxSCode]() As String
+            Get
+                Return _conditionBoxSCode
+            End Get
+            Set(ByVal Value As String)
+                _conditionBoxSCode = Value
             End Set
         End Property
 

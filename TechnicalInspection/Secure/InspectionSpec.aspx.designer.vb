@@ -249,13 +249,13 @@ Namespace Raven.Web.Secure
         Protected WithEvents txtMinWallClass2 As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''txtMinSealClass2 control.
+        '''txtMaxBevelDiaClass2 control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents txtMinSealClass2 As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents txtMaxBevelDiaClass2 As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''txtMinTongSpacePinClass2 control.
@@ -321,13 +321,85 @@ Namespace Raven.Web.Secure
         Protected WithEvents txtMaxCBoreClass2 As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''txtMaxBevelDiaClass2 control.
+        '''txtMinSealClass2 control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents txtMaxBevelDiaClass2 As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents txtMinSealClass2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtMinCBoreDepthClass2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtMinCBoreDepthClass2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtPinConnectionLengthClass2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtPinConnectionLengthClass2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtMinPinCylDiaClass2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtMinPinCylDiaClass2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtMinPinNoseDiaClass2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtMinPinNoseDiaClass2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtMaxPinCylDiaClass2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtMaxPinCylDiaClass2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtMaxPinNoseDiaClass2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtMaxPinNoseDiaClass2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtMinBoxLengthClass2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtMinBoxLengthClass2 As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtMaxPinBaseLengthClass2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtMaxPinBaseLengthClass2 As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''grdInspectionSpec control.

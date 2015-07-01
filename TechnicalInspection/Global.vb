@@ -305,7 +305,6 @@ Namespace Raven.Web
                 Else
                     .Items.Add(New ListItem(strBlankText.Trim, strBlankValue.Trim))
                 End If
-
             End With
         End Sub
 
@@ -338,6 +337,59 @@ Namespace Raven.Web
                     Do While i <= rgRows.Length
                         _strText = Common.ProcessNull.GetString(rgRows(i - 1)("YearName"))
                         _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("YearCode"))
+                        .Items.Add(New ListItem(_strText.Trim, _strValue.Trim))
+                        i += 1
+                    Loop
+                Else
+                    .Items.Add(New ListItem("", ""))
+                End If
+
+            End With
+        End Sub
+
+        Public Shared Sub SetDDL_Period(ByVal ddl As DropDownList)
+            Dim tblToApply As DataTable
+
+            Dim tblYear As New DataTable
+            With tblYear
+                .Columns.Add("PeriodCode", System.Type.GetType("System.String"))
+                .Columns.Add("PeriodName", System.Type.GetType("System.String"))
+            End With
+            Dim newRow1 As DataRow = tblYear.NewRow
+            newRow1("PeriodCode") = "ThisMonth"
+            newRow1("PeriodName") = "This Month"
+            tblYear.Rows.Add(newRow1)
+            Dim newRow2 As DataRow = tblYear.NewRow
+            newRow2("PeriodCode") = "LastMonth"
+            newRow2("PeriodName") = "Last Month"
+            tblYear.Rows.Add(newRow2)
+            Dim newRow3 As DataRow = tblYear.NewRow
+            newRow3("PeriodCode") = "ThisYear"
+            newRow3("PeriodName") = "This Year"
+            tblYear.Rows.Add(newRow3)
+            Dim newRow4 As DataRow = tblYear.NewRow
+            newRow4("PeriodCode") = "LastYear"
+            newRow4("PeriodName") = "Last Year"
+            tblYear.Rows.Add(newRow4)
+            Dim newRow5 As DataRow = tblYear.NewRow
+            newRow5("PeriodCode") = "Custom"
+            newRow5("PeriodName") = "Custom"
+            tblYear.Rows.Add(newRow5)
+            tblToApply = tblYear
+
+            With ddl
+                Dim rgRows As DataRow() = tblToApply.Select()
+
+                If rgRows.Length > 0 Then
+                    Dim i As Integer = 1
+                    Dim _strText As String = String.Empty
+                    Dim _strValue As String = String.Empty
+
+                    .Items.Clear()
+
+                    Do While i <= rgRows.Length
+                        _strText = Common.ProcessNull.GetString(rgRows(i - 1)("PeriodName"))
+                        _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("PeriodCode"))
                         .Items.Add(New ListItem(_strText.Trim, _strValue.Trim))
                         i += 1
                     Loop

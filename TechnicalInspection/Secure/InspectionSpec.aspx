@@ -248,11 +248,11 @@
                                                         <asp:TextBox ID="txtMinWallClass2" Width="300" MaxLength="50" runat="server" />
                                                     </td>
                                                     <td class="right">
-                                                        Min. Seal
+                                                        Max. Bevel Diameter
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txtMinSealClass2" Width="300" MaxLength="50" runat="server" />
-                                                    </td>
+                                                        <asp:TextBox ID="txtMaxBevelDiaClass2" Width="300" MaxLength="50" runat="server" />
+                                                    </td>                                                    
                                                 </tr>
                                                 <tr>
                                                     <td class="right">
@@ -298,16 +298,72 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="right">
-                                                        Max C. Bore
+                                                        Max C. Bore Dia
                                                     </td>
                                                     <td>
                                                         <asp:TextBox ID="txtMaxCBoreClass2" Width="300" MaxLength="50" runat="server" />
                                                     </td>
                                                     <td class="right">
-                                                        Max. Bevel Diameter
+                                                        Min. Seal
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txtMaxBevelDiaClass2" Width="300" MaxLength="50" runat="server" />
+                                                        <asp:TextBox ID="txtMinSealClass2" Width="300" MaxLength="50" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="right">
+                                                        Min C. Bore Depth
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtMinCBoreDepthClass2" Width="300" MaxLength="50" runat="server" />
+                                                    </td>
+                                                    <td class="right">
+                                                        Pin Connection Length
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtPinConnectionLengthClass2" Width="300" MaxLength="50" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="right">
+                                                        Min Pin Cyl. Dia
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtMinPinCylDiaClass2" Width="300" MaxLength="50" runat="server" />
+                                                    </td>
+                                                    <td class="right">
+                                                        Min Pin Nose Dia
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtMinPinNoseDiaClass2" Width="300" MaxLength="50" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="right">
+                                                        Max Pin Cyl. Dia
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtMaxPinCylDiaClass2" Width="300" MaxLength="50" runat="server" />
+                                                    </td>
+                                                    <td class="right">
+                                                        Max Pin Nose Dia
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtMaxPinNoseDiaClass2" Width="300" MaxLength="50" runat="server" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="right">
+                                                        Min Box Length
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtMinBoxLengthClass2" Width="300" MaxLength="50" runat="server" />
+                                                    </td>
+                                                    <td class="right">
+                                                        Max Pin Base Length
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtMaxPinBaseLengthClass2" Width="300" MaxLength="50" runat="server" />
                                                     </td>
                                                 </tr>
                                             </table>

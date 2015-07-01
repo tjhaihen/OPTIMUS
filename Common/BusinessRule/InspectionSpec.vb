@@ -17,6 +17,8 @@ Namespace Raven.Common.BussinessRules
         Private _minODclass2, _maxIDclass2, _minWallclass2, _minShldrclass2, _minSealclass2, _minTongSpacePinclass2, _minTongSpaceBoxclass2, _
                     _minQCDepthclass2, _maxQCclass2, _minBevelDiaclass2, _maxBevelDiaclass2, _maxLengthPinclass2, _
                     _maxPinNeckclass2, _maxCBoreclass2 As String
+        Private _minCBoreDepthClass2, _pinConnectionLengthclass2, _minPinCylDiaclass2, _maxPinCylDiaclass2, _
+                _minPinNoseDiaclass2, _maxPinNoseDiaclass2, _minBoxLengthclass2, _maxPinBaseLengthclass2 As String
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate As DateTime
         Private _isActive As Boolean
@@ -39,16 +41,20 @@ Namespace Raven.Common.BussinessRules
                                         "size, weight, connection, grade, range, nominalWT, " + _
                                         "minODclass2, maxIDclass2, minWallclass2, minShldrclass2, minSealclass2, " + _
                                         "minTongSpacePinclass2, minTongSpaceBoxclass2, minQCDepthclass2, maxQCclass2, " + _
-                                        "minbevelDiaclass2, maxbevelDiaclass2, maxLengthPinclass2, maxPinNeckclass2, " + _
-                                        "maxCBoreclass2, isActive, userIDinsert, userIDupdate, insertDate, updateDate) " + _
+                                        "minbevelDiaclass2, maxbevelDiaclass2, maxLengthPinclass2, maxPinNeckclass2, maxCBoreclass2, " + _
+                                        "minCBoreDepthclass2, pinConnectionLengthclass2, minPinCylDiaclass2, maxPinCylDiaclass2, " + _
+                                        "minPinNoseDiaclass2, maxPinNoseDiaclass2, minBoxLengthclass2, maxPinBaseLengthclass2, " + _
+                                        "isActive, userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@inspectionSpecID, @inspectionSpecCode, @inspectionSpecName, @minODpremium, @maxIDpremium, " + _
                                         "@minWallpremium, @minShldrpremium, @minSealpremium, @minBevelDiapremium, " + _
                                         "@size, @weight, @connection, @grade, @range, @nominalWT, " + _
                                         "@minODclass2, @maxIDclass2, @minWallclass2, @minShldrclass2, @minSealclass2, " + _
                                         "@minTongSpacePinclass2, @minTongSpaceBoxclass2, @minQCDepthclass2, @maxQCclass2, " + _
-                                        "@minbevelDiaclass2, @maxbevelDiaclass2, @maxLengthPinclass2, @maxPinNeckclass2, " + _
-                                        "@maxCBoreclass2, @isActive, @userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
+                                        "@minbevelDiaclass2, @maxbevelDiaclass2, @maxLengthPinclass2, @maxPinNeckclass2, @maxCBoreclass2, " + _
+                                        "@minCBoreDepthclass2, @pinConnectionLengthclass2, @minPinCylDiaclass2, @maxPinCylDiaclass2, " + _
+                                        "@minPinNoseDiaclass2, @maxPinNoseDiaclass2, @minBoxLengthclass2, @maxPinBaseLengthclass2, " + _
+                                        "@isActive, @userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
@@ -84,6 +90,14 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@maxLengthPinclass2", _maxLengthPinclass2)
                 cmdToExecute.Parameters.AddWithValue("@maxPinNeckclass2", _maxPinNeckclass2)
                 cmdToExecute.Parameters.AddWithValue("@maxCBoreclass2", _maxCBoreclass2)
+                cmdToExecute.Parameters.AddWithValue("@minCBoreDepthClass2", _minCBoreDepthClass2)
+                cmdToExecute.Parameters.AddWithValue("@pinConnectionLengthclass2", _pinConnectionLengthclass2)
+                cmdToExecute.Parameters.AddWithValue("@minPinCylDiaclass2", _minPinCylDiaclass2)
+                cmdToExecute.Parameters.AddWithValue("@maxPinCylDiaclass2", _maxPinCylDiaclass2)
+                cmdToExecute.Parameters.AddWithValue("@minPinNoseDiaclass2", _minPinNoseDiaclass2)
+                cmdToExecute.Parameters.AddWithValue("@maxPinNoseDiaclass2", _maxPinNoseDiaclass2)
+                cmdToExecute.Parameters.AddWithValue("@minBoxLengthclass2", _minBoxLengthclass2)
+                cmdToExecute.Parameters.AddWithValue("@maxPinBaseLengthclass2", _maxPinBaseLengthclass2)
                 cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
@@ -114,6 +128,10 @@ Namespace Raven.Common.BussinessRules
                                         "minTongSpacePinclass2=@minTongSpacePinclass2, minTongSpaceBoxclass2=@minTongSpaceBoxclass2, minQCDepthclass2=@minQCDepthclass2, " + _
                                         "maxQCclass2=@maxQCclass2, minBevelDiaclass2=@minBevelDiaclass2, maxBevelDiaclass2=@maxBevelDiaclass2, " + _
                                         "maxLengthPinclass2=@maxLengthPinclass2, maxPinNeckclass2=@maxPinNeckclass2, maxCBoreclass2=@maxCBoreclass2, " + _
+                                        "minCBoreDepthClass2=@minCBoreDepthClass2, pinConnectionLengthclass2=@pinConnectionLengthclass2, " + _
+                                        "minPinCylDiaclass2=@minPinCylDiaclass2, maxPinCylDiaclass2=@maxPinCylDiaclass2, " + _
+                                        "minPinNoseDiaclass2=@minPinNoseDiaclass2, maxPinNoseDiaclass2=@maxPinNoseDiaclass2, " + _
+                                        "minBoxLengthclass2=@minBoxLengthclass2, maxPinBaseLengthclass2=@maxPinBaseLengthclass2, " + _
                                         "isActive=@isActive, userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE inspectionSpecID=@inspectionSpecID"
             cmdToExecute.CommandType = CommandType.Text
@@ -150,7 +168,15 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@maxLengthPinclass2", _maxLengthPinclass2)
                 cmdToExecute.Parameters.AddWithValue("@maxPinNeckclass2", _maxPinNeckclass2)
                 cmdToExecute.Parameters.AddWithValue("@maxCBoreclass2", _maxCBoreclass2)
-                cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)                
+                cmdToExecute.Parameters.AddWithValue("@minCBoreDepthClass2", _minCBoreDepthClass2)
+                cmdToExecute.Parameters.AddWithValue("@pinConnectionLengthclass2", _pinConnectionLengthclass2)
+                cmdToExecute.Parameters.AddWithValue("@minPinCylDiaclass2", _minPinCylDiaclass2)
+                cmdToExecute.Parameters.AddWithValue("@maxPinCylDiaclass2", _maxPinCylDiaclass2)
+                cmdToExecute.Parameters.AddWithValue("@minPinNoseDiaclass2", _minPinNoseDiaclass2)
+                cmdToExecute.Parameters.AddWithValue("@maxPinNoseDiaclass2", _maxPinNoseDiaclass2)
+                cmdToExecute.Parameters.AddWithValue("@minBoxLengthclass2", _minBoxLengthclass2)
+                cmdToExecute.Parameters.AddWithValue("@maxPinBaseLengthclass2", _maxPinBaseLengthclass2)
+                cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -246,6 +272,14 @@ Namespace Raven.Common.BussinessRules
                     _maxLengthPinclass2 = CType(toReturn.Rows(0)("maxLengthPinclass2"), String)
                     _maxPinNeckclass2 = CType(toReturn.Rows(0)("maxPinNeckclass2"), String)
                     _maxCBoreclass2 = CType(toReturn.Rows(0)("maxCBoreclass2"), String)
+                    _minCBoreDepthClass2 = CType(toReturn.Rows(0)("minCBoreDepthClass2"), String)
+                    _pinConnectionLengthclass2 = CType(toReturn.Rows(0)("pinConnectionLengthclass2"), String)
+                    _minPinCylDiaclass2 = CType(toReturn.Rows(0)("minPinCylDiaclass2"), String)
+                    _maxPinCylDiaclass2 = CType(toReturn.Rows(0)("maxPinCylDiaclass2"), String)
+                    _minPinNoseDiaclass2 = CType(toReturn.Rows(0)("minPinNoseDiaclass2"), String)
+                    _maxPinNoseDiaclass2 = CType(toReturn.Rows(0)("maxPinNoseDiaclass2"), String)
+                    _minBoxLengthclass2 = CType(toReturn.Rows(0)("minBoxLengthclass2"), String)
+                    _maxPinBaseLengthclass2 = CType(toReturn.Rows(0)("maxPinBaseLengthclass2"), String)
                     _isActive = CType(toReturn.Rows(0)("isActive"), Boolean)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
@@ -342,6 +376,14 @@ Namespace Raven.Common.BussinessRules
                     _maxLengthPinclass2 = CType(toReturn.Rows(0)("maxLengthPinclass2"), String)
                     _maxPinNeckclass2 = CType(toReturn.Rows(0)("maxPinNeckclass2"), String)
                     _maxCBoreclass2 = CType(toReturn.Rows(0)("maxCBoreclass2"), String)
+                    _minCBoreDepthClass2 = CType(toReturn.Rows(0)("minCBoreDepthClass2"), String)
+                    _pinConnectionLengthclass2 = CType(toReturn.Rows(0)("pinConnectionLengthclass2"), String)
+                    _minPinCylDiaclass2 = CType(toReturn.Rows(0)("minPinCylDiaclass2"), String)
+                    _maxPinCylDiaclass2 = CType(toReturn.Rows(0)("maxPinCylDiaclass2"), String)
+                    _minPinNoseDiaclass2 = CType(toReturn.Rows(0)("minPinNoseDiaclass2"), String)
+                    _maxPinNoseDiaclass2 = CType(toReturn.Rows(0)("maxPinNoseDiaclass2"), String)
+                    _minBoxLengthclass2 = CType(toReturn.Rows(0)("minBoxLengthclass2"), String)
+                    _maxPinBaseLengthclass2 = CType(toReturn.Rows(0)("maxPinBaseLengthclass2"), String)
                     _isActive = CType(toReturn.Rows(0)("isActive"), Boolean)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
@@ -621,6 +663,78 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _maxCBoreclass2 = Value
+            End Set
+        End Property
+
+        Public Property [minCBoreDepthClass2]() As String
+            Get
+                Return _minCBoreDepthClass2
+            End Get
+            Set(ByVal Value As String)
+                _minCBoreDepthClass2 = Value
+            End Set
+        End Property
+
+        Public Property [pinConnectionLengthclass2]() As String
+            Get
+                Return _pinConnectionLengthclass2
+            End Get
+            Set(ByVal Value As String)
+                _pinConnectionLengthclass2 = Value
+            End Set
+        End Property
+
+        Public Property [minPinCylDiaclass2]() As String
+            Get
+                Return _minPinCylDiaclass2
+            End Get
+            Set(ByVal Value As String)
+                _minPinCylDiaclass2 = Value
+            End Set
+        End Property
+
+        Public Property [maxPinCylDiaclass2]() As String
+            Get
+                Return _maxPinCylDiaclass2
+            End Get
+            Set(ByVal Value As String)
+                _maxPinCylDiaclass2 = Value
+            End Set
+        End Property
+
+        Public Property [minPinNoseDiaclass2]() As String
+            Get
+                Return _minPinNoseDiaclass2
+            End Get
+            Set(ByVal Value As String)
+                _minPinNoseDiaclass2 = Value
+            End Set
+        End Property
+
+        Public Property [maxPinNoseDiaclass2]() As String
+            Get
+                Return _maxPinNoseDiaclass2
+            End Get
+            Set(ByVal Value As String)
+                _maxPinNoseDiaclass2 = Value
+            End Set
+        End Property
+
+        Public Property [minBoxLengthclass2]() As String
+            Get
+                Return _minBoxLengthclass2
+            End Get
+            Set(ByVal Value As String)
+                _minBoxLengthclass2 = Value
+            End Set
+        End Property
+
+        Public Property [maxPinBaseLengthclass2]() As String
+            Get
+                Return _maxPinBaseLengthclass2
+            End Get
+            Set(ByVal Value As String)
+                _maxPinBaseLengthclass2 = Value
             End Set
         End Property
 

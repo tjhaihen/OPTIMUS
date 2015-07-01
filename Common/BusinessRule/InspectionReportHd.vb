@@ -12,6 +12,7 @@ Namespace Raven.Common.BussinessRules
 
 #Region " Class Member Declarations "
         Private _inspectionReportHdID, _projectID, _reportNo, _inspectionReportTypeSCode As String
+        Private _description, _notes, _customerPICName As String
         Private _isMPI, _isVisualThread, _isDimensional, _isBlacklightConnection, _isVisualBodyInspection As Boolean
         Private _reportDate, _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
@@ -32,12 +33,14 @@ Namespace Raven.Common.BussinessRules
                                         "(inspectionReportHdID, projectID, reportNo, reportDate, " + _
                                         "inspectionReportTypeSCode, isMPI, isVisualThread, isDimensional, " + _
                                         "isBlacklightConnection, isVisualBodyInspection, " + _
+                                        "description, notes, customerPICName, " + _
                                         "insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
                                         "(@inspectionReportHdID, @projectID, @reportNo, @reportDate, " + _
                                         "@inspectionReportTypeSCode, @isMPI, @isVisualThread, @isDimensional, " + _
                                         "@isBlacklightConnection, @isVisualBodyInspection, " + _
+                                        "@description, @notes, @customerPICName, " + _
                                         "GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate)"
             cmdToExecute.CommandType = CommandType.Text
@@ -56,6 +59,9 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@isDimensional", _isDimensional)
                 cmdToExecute.Parameters.AddWithValue("@isBlacklightConnection", _isBlacklightConnection)
                 cmdToExecute.Parameters.AddWithValue("@isVisualBodyInspection", _isVisualBodyInspection)
+                cmdToExecute.Parameters.AddWithValue("@description", _description)
+                cmdToExecute.Parameters.AddWithValue("@notes", _notes)
+                cmdToExecute.Parameters.AddWithValue("@customerPICName", _customerPICName)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDInsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
@@ -82,6 +88,7 @@ Namespace Raven.Common.BussinessRules
                                         "inspectionReportTypeSCode=@inspectionReportTypeSCode, isMPI=@isMPI, " + _
                                         "isVisualThread=@isVisualThread, isDimensional=@isDimensional, " + _
                                         "isBlacklightConnection=@isBlacklightConnection, isVisualBodyInspection=@isVisualBodyInspection, " + _
+                                        "description=@description, notes=@notes, customerPICName=@customerPICName, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE inspectionReportHdID=@inspectionReportHdID"
             cmdToExecute.CommandType = CommandType.Text
@@ -99,6 +106,9 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@isDimensional", _isDimensional)
                 cmdToExecute.Parameters.AddWithValue("@isBlacklightConnection", _isBlacklightConnection)
                 cmdToExecute.Parameters.AddWithValue("@isVisualBodyInspection", _isVisualBodyInspection)
+                cmdToExecute.Parameters.AddWithValue("@description", _description)
+                cmdToExecute.Parameters.AddWithValue("@notes", _notes)
+                cmdToExecute.Parameters.AddWithValue("@customerPICName", _customerPICName)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
 
                 ' // Open Connection
@@ -175,6 +185,9 @@ Namespace Raven.Common.BussinessRules
                     _isDimensional = CType(toReturn.Rows(0)("isDimensional"), Boolean)
                     _isBlacklightConnection = CType(toReturn.Rows(0)("isBlacklightConnection"), Boolean)
                     _isVisualBodyInspection = CType(toReturn.Rows(0)("isVisualBodyInspection"), Boolean)
+                    _description = CType(toReturn.Rows(0)("description"), String)
+                    _notes = CType(toReturn.Rows(0)("notes"), String)
+                    _customerPICName = CType(toReturn.Rows(0)("customerPICName"), String)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -342,6 +355,33 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As Boolean)
                 _isVisualBodyInspection = Value
+            End Set
+        End Property
+
+        Public Property [description]() As String
+            Get
+                Return _description
+            End Get
+            Set(ByVal Value As String)
+                _description = Value
+            End Set
+        End Property
+
+        Public Property [notes]() As String
+            Get
+                Return _notes
+            End Get
+            Set(ByVal Value As String)
+                _notes = Value
+            End Set
+        End Property
+
+        Public Property [customerPICName]() As String
+            Get
+                Return _customerPICName
+            End Get
+            Set(ByVal Value As String)
+                _customerPICName = Value
             End Set
         End Property
 

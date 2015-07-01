@@ -165,7 +165,15 @@ Namespace Raven.Web.Secure
                     txtBevelDiaClass2.Text = .minBevelDiaclass2.Trim
                     txtMaxBevelDiaClass2.Text = .maxBevelDiaclass2.Trim
                     txtMaxCBoreClass2.Text = .maxCBoreclass2.Trim
-                    chkIsActive.Checked = .IsActive
+                    txtMinCBoreDepthClass2.Text = .minCBoreDepthClass2.Trim
+                    txtPinConnectionLengthClass2.Text = .pinConnectionLengthclass2.Trim
+                    txtMinPinCylDiaClass2.Text = .minPinCylDiaclass2.Trim
+                    txtMaxPinCylDiaClass2.Text = .maxPinCylDiaclass2.Trim
+                    txtMinPinNoseDiaClass2.Text = .minPinNoseDiaclass2.Trim
+                    txtMaxPinNoseDiaClass2.Text = .maxPinNoseDiaclass2.Trim
+                    txtMinBoxLengthClass2.Text = .minBoxLengthclass2.Trim
+                    txtMaxPinBaseLengthClass2.Text = .maxPinBaseLengthclass2.Trim
+                    chkIsActive.Checked = .isActive
                 Else
                     prepareScreen(False)
                 End If
@@ -225,7 +233,15 @@ Namespace Raven.Web.Secure
                 .minBevelDiaclass2 = txtBevelDiaClass2.Text.Trim
                 .maxBevelDiaclass2 = txtMaxBevelDiaClass2.Text.Trim
                 .maxCBoreclass2 = txtMaxCBoreClass2.Text.Trim
-                .IsActive = chkIsActive.Checked
+                .minCBoreDepthClass2 = txtMinCBoreDepthClass2.Text.Trim
+                .pinConnectionLengthclass2 = txtPinConnectionLengthClass2.Text.Trim
+                .minPinCylDiaclass2 = txtMinPinCylDiaClass2.Text.Trim
+                .maxPinCylDiaclass2 = txtMaxPinCylDiaClass2.Text.Trim
+                .minPinNoseDiaclass2 = txtMinPinNoseDiaClass2.Text.Trim
+                .maxPinNoseDiaclass2 = txtMaxPinNoseDiaClass2.Text.Trim
+                .minBoxLengthclass2 = txtMinBoxLengthClass2.Text.Trim
+                .maxPinBaseLengthclass2 = txtMaxPinBaseLengthClass2.Text.Trim
+                .isActive = chkIsActive.Checked
                 .userIDinsert = MyBase.LoggedOnUserID
                 .userIDupdate = MyBase.LoggedOnUserID
                 If isNew Then

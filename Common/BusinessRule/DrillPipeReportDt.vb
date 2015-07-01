@@ -17,9 +17,10 @@ Namespace Raven.Common.BussinessRules
         Private _bod001Value, _bod002Value, _bod003Value, _bod004Value, _bod005Value, _bod006Value, _bod007Value, _bod008Value, _
                     _bod009Value As String
         Private _pin001CaptionID, _pin002CaptionID, _pin003CaptionID, _pin004CaptionID, _pin005CaptionID, _pin006CaptionID, _
-                    _pin007CaptionID, _pin008CaptionID, _pin009CaptionID, _pin010CaptionID, _pin011CaptionID As String
+                    _pin007CaptionID, _pin008CaptionID, _pin009CaptionID, _pin010CaptionID, _pin011CaptionID, _
+                    _pin012CaptionID, _pin013CaptionID As String
         Private _pin001Value, _pin002Value, _pin003Value, _pin004Value, _pin005Value, _pin006Value, _pin007Value, _pin008Value, _
-                    _pin009Value, _pin010Value, _pin011Value As String        
+                    _pin009Value, _pin010Value, _pin011Value, _pin012Value, _pin013Value As String
         Private _box001CaptionID, _box002CaptionID, _box003CaptionID, _box004CaptionID, _box005CaptionID, _box006CaptionID, _
                     _box007CaptionID, _box008CaptionID, _box009CaptionID, _box010CaptionID, _box011CaptionID As String
         Private _box001Value, _box002Value, _box003Value, _box004Value, _box005Value, _box006Value, _box007Value, _box008Value, _
@@ -47,9 +48,9 @@ Namespace Raven.Common.BussinessRules
                                         "bod001Value, bod002Value, bod003Value, bod004Value, bod005Value, bod006Value, " + _
                                         "bod007Value, bod008Value, bod009Value, " + _
                                         "pin001CaptionID, pin002CaptionID, pin003CaptionID, pin004CaptionID, pin005CaptionID, pin006CaptionID, " + _
-                                        "pin007CaptionID, pin008CaptionID, pin009CaptionID, pin010CaptionID, pin011CaptionID, " + _
+                                        "pin007CaptionID, pin008CaptionID, pin009CaptionID, pin010CaptionID, pin011CaptionID, pin012CaptionID, pin013CaptionID, " + _
                                         "pin001Value, pin002Value, pin003Value, pin004Value, pin005Value, pin006Value, " + _
-                                        "pin007Value, pin008Value, pin009Value, pin010Value, pin011Value, " + _
+                                        "pin007Value, pin008Value, pin009Value, pin010Value, pin011Value, pin012Value, pin013Value, " + _
                                         "box001CaptionID, box002CaptionID, box003CaptionID, box004CaptionID, box005CaptionID, box006CaptionID, " + _
                                         "box007CaptionID, box008CaptionID, box009CaptionID, box010CaptionID, box011CaptionID, " + _
                                         "box001Value, box002Value, box003Value, box004Value, box005Value, box006Value, " + _
@@ -63,9 +64,9 @@ Namespace Raven.Common.BussinessRules
                                         "@bod001Value, @bod002Value, @bod003Value, @bod004Value, @bod005Value, @bod006Value, " + _
                                         "@bod007Value, @bod008Value, @bod009Value, " + _
                                         "@pin001CaptionID, @pin002CaptionID, @pin003CaptionID, @pin004CaptionID, @pin005CaptionID, @pin006CaptionID, " + _
-                                        "@pin007CaptionID, @pin008CaptionID, @pin009CaptionID, @pin010CaptionID, @pin011CaptionID, " + _
+                                        "@pin007CaptionID, @pin008CaptionID, @pin009CaptionID, @pin010CaptionID, @pin011CaptionID, @pin012CaptionID, @pin013CaptionID, " + _
                                         "@pin001Value, @pin002Value, @pin003Value, @pin004Value, @pin005Value, @pin006Value, " + _
-                                        "@pin007Value, @pin008Value, @pin009Value, @pin010Value, @pin011Value, " + _
+                                        "@pin007Value, @pin008Value, @pin009Value, @pin010Value, @pin011Value, @pin012Value, @pin013Value, " + _
                                         "@box001CaptionID, @box002CaptionID, @box003CaptionID, @box004CaptionID, @box005CaptionID, @box006CaptionID, " + _
                                         "@box007CaptionID, @box008CaptionID, @box009CaptionID, @box010CaptionID, @box011CaptionID, " + _
                                         "@box001Value, @box002Value, @box003Value, @box004Value, @box005Value, @box006Value, " + _
@@ -112,6 +113,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@pin009CaptionID", _pin009CaptionID)
                 cmdToExecute.Parameters.AddWithValue("@pin010CaptionID", _pin010CaptionID)
                 cmdToExecute.Parameters.AddWithValue("@pin011CaptionID", _pin011CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin012CaptionID", _pin012CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin013CaptionID", _pin013CaptionID)
                 cmdToExecute.Parameters.AddWithValue("@pin001Value", _pin001Value)
                 cmdToExecute.Parameters.AddWithValue("@pin002Value", _pin002Value)
                 cmdToExecute.Parameters.AddWithValue("@pin003Value", _pin003Value)
@@ -123,6 +126,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@pin009Value", _pin009Value)
                 cmdToExecute.Parameters.AddWithValue("@pin010Value", _pin010Value)
                 cmdToExecute.Parameters.AddWithValue("@pin011Value", _pin011Value)
+                cmdToExecute.Parameters.AddWithValue("@pin012Value", _pin012Value)
+                cmdToExecute.Parameters.AddWithValue("@pin013Value", _pin013Value)
                 cmdToExecute.Parameters.AddWithValue("@box001CaptionID", _box001CaptionID)
                 cmdToExecute.Parameters.AddWithValue("@box002CaptionID", _box002CaptionID)
                 cmdToExecute.Parameters.AddWithValue("@box003CaptionID", _box003CaptionID)
@@ -180,10 +185,12 @@ Namespace Raven.Common.BussinessRules
                                         "pin004CaptionID=@pin004CaptionID, pin005CaptionID=@pin005CaptionID, pin006CaptionID=@pin006CaptionID, " + _
                                         "pin007CaptionID=@pin007CaptionID, pin008CaptionID=@pin008CaptionID, pin009CaptionID=@pin009CaptionID, " + _
                                         "pin010CaptionID=@pin010CaptionID, pin011CaptionID=@pin011CaptionID, " + _
+                                        "pin012CaptionID=@pin012CaptionID, pin013CaptionID=@pin013CaptionID, " + _
                                         "pin001Value=@pin001Value, pin002Value=@pin002Value, pin003Value=@pin003Value, " + _
                                         "pin004Value=@pin004Value, pin005Value=@pin005Value, pin006Value=@pin006Value, " + _
                                         "pin007Value=@pin007Value, pin008Value=@pin008Value, pin009Value=@pin009Value, " + _
                                         "pin010Value=@pin010Value, pin011Value=@pin011Value, " + _
+                                        "pin012Value=@pin012Value, pin013Value=@pin013Value, " + _
                                         "box001CaptionID=@box001CaptionID, box002CaptionID=@box002CaptionID, box003CaptionID=@box003CaptionID, " + _
                                         "box004CaptionID=@box004CaptionID, box005CaptionID=@box005CaptionID, box006CaptionID=@box006CaptionID, " + _
                                         "box007CaptionID=@box007CaptionID, box008CaptionID=@box008CaptionID, box009CaptionID=@box009CaptionID, " + _
@@ -233,6 +240,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@pin009CaptionID", _pin009CaptionID)
                 cmdToExecute.Parameters.AddWithValue("@pin010CaptionID", _pin010CaptionID)
                 cmdToExecute.Parameters.AddWithValue("@pin011CaptionID", _pin011CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin012CaptionID", _pin012CaptionID)
+                cmdToExecute.Parameters.AddWithValue("@pin013CaptionID", _pin013CaptionID)
                 cmdToExecute.Parameters.AddWithValue("@pin001Value", _pin001Value)
                 cmdToExecute.Parameters.AddWithValue("@pin002Value", _pin002Value)
                 cmdToExecute.Parameters.AddWithValue("@pin003Value", _pin003Value)
@@ -244,6 +253,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@pin009Value", _pin009Value)
                 cmdToExecute.Parameters.AddWithValue("@pin010Value", _pin010Value)
                 cmdToExecute.Parameters.AddWithValue("@pin011Value", _pin011Value)
+                cmdToExecute.Parameters.AddWithValue("@pin012Value", _pin012Value)
+                cmdToExecute.Parameters.AddWithValue("@pin013Value", _pin013Value)
                 cmdToExecute.Parameters.AddWithValue("@box001CaptionID", _box001CaptionID)
                 cmdToExecute.Parameters.AddWithValue("@box002CaptionID", _box002CaptionID)
                 cmdToExecute.Parameters.AddWithValue("@box003CaptionID", _box003CaptionID)
@@ -368,6 +379,8 @@ Namespace Raven.Common.BussinessRules
                     _pin009CaptionID = CType(toReturn.Rows(0)("pin009CaptionID"), String)
                     _pin010CaptionID = CType(toReturn.Rows(0)("pin010CaptionID"), String)
                     _pin011CaptionID = CType(toReturn.Rows(0)("pin011CaptionID"), String)
+                    _pin012CaptionID = CType(toReturn.Rows(0)("pin012CaptionID"), String)
+                    _pin013CaptionID = CType(toReturn.Rows(0)("pin013CaptionID"), String)
                     _pin001Value = CType(toReturn.Rows(0)("pin001Value"), String)
                     _pin002Value = CType(toReturn.Rows(0)("pin002Value"), String)
                     _pin003Value = CType(toReturn.Rows(0)("pin003Value"), String)
@@ -379,6 +392,8 @@ Namespace Raven.Common.BussinessRules
                     _pin009Value = CType(toReturn.Rows(0)("pin009Value"), String)
                     _pin010Value = CType(toReturn.Rows(0)("pin010Value"), String)
                     _pin011Value = CType(toReturn.Rows(0)("pin011Value"), String)
+                    _pin012Value = CType(toReturn.Rows(0)("pin012Value"), String)
+                    _pin013Value = CType(toReturn.Rows(0)("pin013Value"), String)
                     _box001CaptionID = CType(toReturn.Rows(0)("box001CaptionID"), String)
                     _box002CaptionID = CType(toReturn.Rows(0)("box002CaptionID"), String)
                     _box003CaptionID = CType(toReturn.Rows(0)("box003CaptionID"), String)
@@ -788,6 +803,24 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
+        Public Property [pin012CaptionID]() As String
+            Get
+                Return _pin012CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _pin012CaptionID = Value
+            End Set
+        End Property
+
+        Public Property [pin013CaptionID]() As String
+            Get
+                Return _pin013CaptionID
+            End Get
+            Set(ByVal Value As String)
+                _pin013CaptionID = Value
+            End Set
+        End Property
+
         Public Property [pin001Value]() As String
             Get
                 Return _pin001Value
@@ -884,6 +917,24 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _pin011Value = Value
+            End Set
+        End Property
+
+        Public Property [pin012Value]() As String
+            Get
+                Return _pin012Value
+            End Get
+            Set(ByVal Value As String)
+                _pin012Value = Value
+            End Set
+        End Property
+
+        Public Property [pin013Value]() As String
+            Get
+                Return _pin013Value
+            End Get
+            Set(ByVal Value As String)
+                _pin013Value = Value
             End Set
         End Property
 
