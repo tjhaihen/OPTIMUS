@@ -28,6 +28,7 @@
             Public Const TVISlingPic_SCode As String = "SLINGPIC"
             Public Const InspectionTallyRemark_SCode As String = "ITRREMARK"
             Public Const PinBoxCaption_SCode As String = "INSPRPTDTCAP"
+            Public Const COIType_SCode As String = "COITYPE"
         End Class
 
         Public NotInheritable Class ArrSeparator
@@ -172,6 +173,11 @@
         Public NotInheritable Class OfficialReportType
             Public Const OfficialReportStart As String = "STR"
             Public Const OfficialReportEnd As String = "END"
+        End Class
+
+        Public NotInheritable Class CertificateOfInspectionType
+            Public Const COILoadTest As String = "LT"
+            Public Const COIPullTest As String = "PT"
         End Class
 
         Public NotInheritable Class GetImageType

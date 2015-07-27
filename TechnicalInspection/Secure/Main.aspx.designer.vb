@@ -258,6 +258,24 @@ Namespace Raven.Web
         Protected WithEvents lblReportTypePanelID As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
+        '''lblReportTypeID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblReportTypeID As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''chkIsHasAttachment control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents chkIsHasAttachment As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
         '''pnlCheckListCompletionReport control.
         '''</summary>
         '''<remarks>
@@ -996,6 +1014,15 @@ Namespace Raven.Web
         Protected WithEvents DIR_txtQty As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''DIR_txtUOM control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DIR_txtUOM As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''DIR_txtResult control.
         '''</summary>
         '''<remarks>
@@ -1455,13 +1482,13 @@ Namespace Raven.Web
         Protected WithEvents MPI_txtMaterial As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''MPI_txtApplication control.
+        '''MPI_txtCleaner control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_txtApplication As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents MPI_txtCleaner As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''MPI_txtSurfaceCondition control.
@@ -1473,13 +1500,13 @@ Namespace Raven.Web
         Protected WithEvents MPI_txtSurfaceCondition As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''MPI_txtContrast control.
+        '''MPI_txtPenetrant control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_txtContrast As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents MPI_txtPenetrant As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''MPI_txtMetalSurfaceTemp control.
@@ -1491,13 +1518,13 @@ Namespace Raven.Web
         Protected WithEvents MPI_txtMetalSurfaceTemp As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''MPI_txtMagneticParticle control.
+        '''MPI_txtDeveloper control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_txtMagneticParticle As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents MPI_txtDeveloper As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''MPI_txtMaterialThickness control.
@@ -1509,13 +1536,13 @@ Namespace Raven.Web
         Protected WithEvents MPI_txtMaterialThickness As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''MPI_txtCleaner control.
+        '''MPI_txtContrast control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_txtCleaner As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents MPI_txtContrast As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''MPI_txtSetCalibration control.
@@ -1527,13 +1554,13 @@ Namespace Raven.Web
         Protected WithEvents MPI_txtSetCalibration As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''MPI_txtPenetrant control.
+        '''MPI_txtMagneticParticle control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_txtPenetrant As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents MPI_txtMagneticParticle As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''MPI_txtPoleSpacing control.
@@ -1545,13 +1572,13 @@ Namespace Raven.Web
         Protected WithEvents MPI_txtPoleSpacing As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''MPI_txtDeveloper control.
+        '''MPI_txtApplication control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents MPI_txtDeveloper As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents MPI_txtApplication As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''MPI_rbtnlYoke control.
@@ -1570,6 +1597,24 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents MPI_rbtnlCoil As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''MPI_rbtnlEqpYoke control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlEqpYoke As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''MPI_rbtnlEqpCoil control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlEqpCoil As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
         '''MPI_rbtnlRods control.
@@ -1626,6 +1671,24 @@ Namespace Raven.Web
         Protected WithEvents MPI_txtBlacklightSerialNo As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''MPI_rbtnlMagPermanent control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlMagPermanent As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''MPI_rbtnlMagActive control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlMagActive As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
         '''MPI_rbtnlFluorescent control.
         '''</summary>
         '''<remarks>
@@ -1644,6 +1707,51 @@ Namespace Raven.Web
         Protected WithEvents MPI_rbtnlContrastBW As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
+        '''MPI_rbtnlSysWet control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlSysWet As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''MPI_rbtnlSysDry control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlSysDry As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''MPI_rbtnlSysDye control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlSysDye As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''MPI_rbtnlSysFluorescent control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlSysFluorescent As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''MPI_rbtnlSysContrastBW control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlSysContrastBW As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
         '''MPI_rbtnlDyePenetrant control.
         '''</summary>
         '''<remarks>
@@ -1651,24 +1759,6 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents MPI_rbtnlDyePenetrant As Global.System.Web.UI.WebControls.RadioButtonList
-
-        '''<summary>
-        '''MPI_rbtnlWireBrush control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents MPI_rbtnlWireBrush As Global.System.Web.UI.WebControls.RadioButtonList
-
-        '''<summary>
-        '''MPI_rbtnlBlastCleaning control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents MPI_rbtnlBlastCleaning As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
         '''MPI_rbtnlGrinding control.
@@ -1687,6 +1777,24 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents MPI_rbtnlMachining As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''MPI_rbtnlBlastCleaning control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlBlastCleaning As Global.System.Web.UI.WebControls.RadioButtonList
+
+        '''<summary>
+        '''MPI_rbtnlWireBrush control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_rbtnlWireBrush As Global.System.Web.UI.WebControls.RadioButtonList
 
         '''<summary>
         '''MPI_txtInspectionResult control.
@@ -4542,6 +4650,15 @@ Namespace Raven.Web
         Protected WithEvents pnlCertificateInspection As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
+        '''COI_ddlCOIType control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_ddlCOIType As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
         '''COI_txtCertificateInspectionID control.
         '''</summary>
         '''<remarks>
@@ -4623,6 +4740,42 @@ Namespace Raven.Web
         Protected WithEvents COI_txtMaxGossWeightR As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''COI_pnlPullTest control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_pnlPullTest As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''COI_txtSize control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_txtSize As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''COI_txtSWL control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_txtSWL As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''COI_lblLoadPullTestCaption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_lblLoadPullTestCaption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
         '''COI_txtLoadTest control.
         '''</summary>
         '''<remarks>
@@ -4666,6 +4819,15 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents COI_txtResult As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''COI_lblActualTestCaption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents COI_lblActualTestCaption As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
         '''COI_txtActualLoadTest control.

@@ -25,7 +25,7 @@ Namespace Raven.Common.BussinessRules
         Private _proposedBy, _approvalBy, _doneBy, _warehousePIC As String
         Private _proposedDate, _approvalDate, _doneDate As DateTime
 
-        Private _totalWorkOrder, _totalItemInspected, _totalItemAccepted, _totalItemRejected As Decimal
+        Private _totalWorkOrder, _totalItemInspected, _totalItemAccepted, _totalItemNeedRepair, _totalItemRejected As Decimal
 #End Region
 
         Public Sub New()
@@ -430,11 +430,13 @@ Namespace Raven.Common.BussinessRules
                     _totalWorkOrder = CType(toReturn.Rows(0)("TotalWorkOrder"), Decimal)
                     _totalItemInspected = CType(toReturn.Rows(0)("TotalItemInspected"), Decimal)
                     _totalItemAccepted = CType(toReturn.Rows(0)("TotalItemAccepted"), Decimal)
+                    _totalItemNeedRepair = CType(toReturn.Rows(0)("totalItemNeedRepair"), Decimal)
                     _totalItemRejected = CType(toReturn.Rows(0)("TotalItemRejected"), Decimal)
                 Else
                     _totalWorkOrder = 0
                     _totalItemInspected = 0
                     _totalItemAccepted = 0
+                    _totalItemNeedRepair = 0
                     _totalItemRejected = 0
                 End If
             Catch ex As Exception
@@ -1105,6 +1107,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As Decimal)
                 _totalItemAccepted = Value
+            End Set
+        End Property
+
+        Public Property [totalItemNeedRepair]() As Decimal
+            Get
+                Return _totalItemNeedRepair
+            End Get
+            Set(ByVal Value As Decimal)
+                _totalItemNeedRepair = Value
             End Set
         End Property
 

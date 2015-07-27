@@ -335,10 +335,10 @@
                                                                                             </table>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <table class="projectbanner" cellspacing="1" cellpadding="2" width="150">
+                                                                                            <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #058ACD;">
                                                                                                 <tr>
                                                                                                     <td class="center">
-                                                                                                        TOTAL ITEM INSPECTED
+                                                                                                        TOTAL INSPECTED
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 <tr>
@@ -352,7 +352,7 @@
                                                                                             <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #009900;">
                                                                                                 <tr>
                                                                                                     <td class="center">
-                                                                                                        TOTAL ITEM ACCEPTED
+                                                                                                        TOTAL ACCEPTED
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 <tr>
@@ -363,10 +363,24 @@
                                                                                             </table>
                                                                                         </td>
                                                                                         <td>
+                                                                                            <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #EF8E19;">
+                                                                                                <tr>
+                                                                                                    <td class="center">
+                                                                                                        TOTAL NEED REPAIR
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td class="gridItemStyle center" style="height: 50; font-size: 16pt;">
+                                                                                                        <asp:Label ID="lblTotalItemNeedRepair" runat="server"></asp:Label>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                        <td>
                                                                                             <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #FF0000;">
                                                                                                 <tr>
                                                                                                     <td class="center">
-                                                                                                        TOTAL ITEM REJECTED
+                                                                                                        TOTAL REJECTED
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 <tr>

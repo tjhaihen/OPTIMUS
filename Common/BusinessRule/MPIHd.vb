@@ -17,6 +17,8 @@ Namespace Raven.Common.BussinessRules
         Private _developer, _yokeSCode, _coilSCode, _fluorescentSCode, _contrastBWSCode, _inspectionResult, _notes As String
         Private _ACIsASME, _ACIsAPISpec, _ACIsDS1, _ACIsOther, _isBlacklight, _isRods, _isDyePenetrant, _isWireBrush As Boolean
         Private _isBlastCleaning, _isGrinding, _isMachining As Boolean
+        Private _isEqpYoke, _isEqpCoil, _isEqpRods, _isEqpBlacklight, _isMagPermanent, _isMagActive As Boolean
+        Private _isSysWet, _isSysDry, _isSysDye, _isSysFluorescent, _isSysContrastBW, _isSysDyePenetrant As Boolean
         Private _ACASMEDescription, _ACAPISpecDescription, _ACDS1Description As String
         Private _yokeSerialNo, _coilSerialNo, _rodsSerialNo, _blacklightSerialNo As String
         Private _reportDate, _expiredDate As DateTime
@@ -44,6 +46,8 @@ Namespace Raven.Common.BussinessRules
                                         "ACASMEDescription, ACAPISpecDescription, ACDS1Description, ACOtherDescription, " + _
                                         "ACIsASME, ACIsAPISpec, ACIsDS1, ACIsOther, isBlacklight, isRods, isDyePenetrant, isWireBrush, " + _
                                         "isBlastCleaning, isGrinding, isMachining, " + _
+                                        "isEqpYoke, isEqpCoil, isEqpRods, isEqpBlacklight, isMagPermanent, isMagActive, " + _
+                                        "isSysWet, isSysDry, isSysDye, isSysFluorescent, isSysContrastBW, isSysDyePenetrant, " + _
                                         "reportDate, expiredDate, insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
@@ -55,6 +59,8 @@ Namespace Raven.Common.BussinessRules
                                         "@ACASMEDescription, @ACAPISpecDescription, @ACDS1Description, @ACOtherDescription, " + _
                                         "@ACIsASME, @ACIsAPISpec, @ACIsDS1, @ACIsOther, @isBlacklight, @isRods, @isDyePenetrant, @isWireBrush, " + _
                                         "@isBlastCleaning, @isGrinding, @isMachining, " + _
+                                        "@isEqpYoke, @isEqpCoil, @isEqpRods, @isEqpBlacklight, @isMagPermanent, @isMagActive, " + _
+                                        "@isSysWet, @isSysDry, @isSysDye, @isSysFluorescent, @isSysContrastBW, @isSysDyePenetrant, " + _
                                         "@reportDate, @expiredDate, GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate) "
             cmdToExecute.CommandType = CommandType.Text
@@ -109,6 +115,18 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@isBlastCleaning", _isBlastCleaning)
                 cmdToExecute.Parameters.AddWithValue("@isGrinding", _isGrinding)
                 cmdToExecute.Parameters.AddWithValue("@isMachining", _isMachining)
+                cmdToExecute.Parameters.AddWithValue("@isEqpYoke", _isEqpYoke)
+                cmdToExecute.Parameters.AddWithValue("@isEqpCoil", _isEqpCoil)
+                cmdToExecute.Parameters.AddWithValue("@isEqpRods", _isEqpRods)
+                cmdToExecute.Parameters.AddWithValue("@isEqpBlacklight", _isEqpBlacklight)
+                cmdToExecute.Parameters.AddWithValue("@isMagPermanent", _isMagPermanent)
+                cmdToExecute.Parameters.AddWithValue("@isMagActive", _isMagActive)
+                cmdToExecute.Parameters.AddWithValue("@isSysWet", _isSysWet)
+                cmdToExecute.Parameters.AddWithValue("@isSysDry", _isSysDry)
+                cmdToExecute.Parameters.AddWithValue("@isSysDye", _isSysDye)
+                cmdToExecute.Parameters.AddWithValue("@isSysFluorescent", _isSysFluorescent)
+                cmdToExecute.Parameters.AddWithValue("@isSysContrastBW", _isSysContrastBW)
+                cmdToExecute.Parameters.AddWithValue("@isSysDyePenetrant", _isSysDyePenetrant)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
                 cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
@@ -142,6 +160,8 @@ Namespace Raven.Common.BussinessRules
                                         "ACASMEDescription=@ACASMEDescription, ACAPISpecDescription=@ACAPISpecDescription, ACDS1Description=@ACDS1Description, ACOtherDescription=@ACOtherDescription, " + _
                                         "ACIsASME=@ACIsASME, ACIsAPISpec=@ACIsAPISpec, ACIsDS1=@ACIsDS1, ACIsOther=@ACIsOther, isBlacklight=@isBlacklight, isRods=@isRods, isDyePenetrant=@isDyePenetrant, isWireBrush=@isWireBrush, " + _
                                         "isBlastCleaning=@isBlastCleaning, isGrinding=@isGrinding, isMachining=@isMachining, " + _
+                                        "isEqpYoke=@isEqpYoke, isEqpCoil=@isEqpCoil, isEqpRods=@isEqpRods, isEqpBlacklight=@isEqpBlacklight, isMagPermanent=@isMagPermanent, isMagActive=@isMagActive, " + _
+                                        "isSysWet=@isSysWet, isSysDry=@isSysDry, isSysDye=@isSysDye, isSysFluorescent=@isSysFluorescent, isSysContrastBW=@isSysContrastBW, isSysDyePenetrant=@isSysDyePenetrant, " + _
                                         "reportDate=@reportDate, expiredDate=@expiredDate, updateDate=GETDATE(), userIDUpdate=@userIDUpdate " + _
                                         "WHERE MPIHdID=@MPIHdID"
             cmdToExecute.CommandType = CommandType.Text
@@ -193,6 +213,18 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@isBlastCleaning", _isBlastCleaning)
                 cmdToExecute.Parameters.AddWithValue("@isGrinding", _isGrinding)
                 cmdToExecute.Parameters.AddWithValue("@isMachining", _isMachining)
+                cmdToExecute.Parameters.AddWithValue("@isEqpYoke", _isEqpYoke)
+                cmdToExecute.Parameters.AddWithValue("@isEqpCoil", _isEqpCoil)
+                cmdToExecute.Parameters.AddWithValue("@isEqpRods", _isEqpRods)
+                cmdToExecute.Parameters.AddWithValue("@isEqpBlacklight", _isEqpBlacklight)
+                cmdToExecute.Parameters.AddWithValue("@isMagPermanent", _isMagPermanent)
+                cmdToExecute.Parameters.AddWithValue("@isMagActive", _isMagActive)
+                cmdToExecute.Parameters.AddWithValue("@isSysWet", _isSysWet)
+                cmdToExecute.Parameters.AddWithValue("@isSysDry", _isSysDry)
+                cmdToExecute.Parameters.AddWithValue("@isSysDye", _isSysDye)
+                cmdToExecute.Parameters.AddWithValue("@isSysFluorescent", _isSysFluorescent)
+                cmdToExecute.Parameters.AddWithValue("@isSysContrastBW", _isSysContrastBW)
+                cmdToExecute.Parameters.AddWithValue("@isSysDyePenetrant", _isSysDyePenetrant)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
                 cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)                
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
@@ -308,6 +340,18 @@ Namespace Raven.Common.BussinessRules
                     _isBlastCleaning = CType(toReturn.Rows(0)("isBlastCleaning"), Boolean)
                     _isGrinding = CType(toReturn.Rows(0)("isGrinding"), Boolean)
                     _isMachining = CType(toReturn.Rows(0)("isMachining"), Boolean)
+                    _isEqpYoke = CType(toReturn.Rows(0)("isEqpYoke"), Boolean)
+                    _isEqpCoil = CType(toReturn.Rows(0)("isEqpCoil"), Boolean)
+                    _isEqpRods = CType(toReturn.Rows(0)("isEqpRods"), Boolean)
+                    _isEqpBlacklight = CType(toReturn.Rows(0)("isEqpBlacklight"), Boolean)
+                    _isMagPermanent = CType(toReturn.Rows(0)("isMagPermanent"), Boolean)
+                    _isMagActive = CType(toReturn.Rows(0)("isMagActive"), Boolean)
+                    _isSysWet = CType(toReturn.Rows(0)("isSysWet"), Boolean)
+                    _isSysDry = CType(toReturn.Rows(0)("isSysDry"), Boolean)
+                    _isSysDye = CType(toReturn.Rows(0)("isSysDye"), Boolean)
+                    _isSysFluorescent = CType(toReturn.Rows(0)("isSysFluorescent"), Boolean)
+                    _isSysContrastBW = CType(toReturn.Rows(0)("isSysContrastBW"), Boolean)
+                    _isSysDyePenetrant = CType(toReturn.Rows(0)("isSysDyePenetrant"), Boolean)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -800,7 +844,115 @@ Namespace Raven.Common.BussinessRules
             Set(ByVal Value As Boolean)
                 _isMachining = Value
             End Set
-        End Property                     
+        End Property
+
+        Public Property [isEqpYoke]() As Boolean
+            Get
+                Return _isEqpYoke
+            End Get
+            Set(ByVal Value As Boolean)
+                _isEqpYoke = Value
+            End Set
+        End Property
+
+        Public Property [isEqpCoil]() As Boolean
+            Get
+                Return _isEqpCoil
+            End Get
+            Set(ByVal Value As Boolean)
+                _isEqpCoil = Value
+            End Set
+        End Property
+
+        Public Property [isEqpRods]() As Boolean
+            Get
+                Return _isEqpRods
+            End Get
+            Set(ByVal Value As Boolean)
+                _isEqpRods = Value
+            End Set
+        End Property
+
+        Public Property [isEqpBlacklight]() As Boolean
+            Get
+                Return _isEqpBlacklight
+            End Get
+            Set(ByVal Value As Boolean)
+                _isEqpBlacklight = Value
+            End Set
+        End Property
+
+        Public Property [isMagPermanent]() As Boolean
+            Get
+                Return _isMagPermanent
+            End Get
+            Set(ByVal Value As Boolean)
+                _isMagPermanent = Value
+            End Set
+        End Property
+
+        Public Property [isMagActive]() As Boolean
+            Get
+                Return _isMagActive
+            End Get
+            Set(ByVal Value As Boolean)
+                _isMagActive = Value
+            End Set
+        End Property
+
+        Public Property [isSysWet]() As Boolean
+            Get
+                Return _isSysWet
+            End Get
+            Set(ByVal Value As Boolean)
+                _isSysWet = Value
+            End Set
+        End Property
+
+        Public Property [isSysDry]() As Boolean
+            Get
+                Return _isSysDry
+            End Get
+            Set(ByVal Value As Boolean)
+                _isSysDry = Value
+            End Set
+        End Property
+
+        Public Property [isSysDye]() As Boolean
+            Get
+                Return _isSysDye
+            End Get
+            Set(ByVal Value As Boolean)
+                _isSysDye = Value
+            End Set
+        End Property
+
+        Public Property [isSysFluorescent]() As Boolean
+            Get
+                Return _isSysFluorescent
+            End Get
+            Set(ByVal Value As Boolean)
+                _isSysFluorescent = Value
+            End Set
+        End Property
+
+        Public Property [isSysContrastBW]() As Boolean
+            Get
+                Return _isSysContrastBW
+            End Get
+            Set(ByVal Value As Boolean)
+                _isSysContrastBW = Value
+            End Set
+        End Property
+
+        Public Property [isSysDyePenetrant]() As Boolean
+            Get
+                Return _isSysDyePenetrant
+            End Get
+            Set(ByVal Value As Boolean)
+                _isSysDyePenetrant = Value
+            End Set
+        End Property
 
         Public Property [reportDate]() As DateTime
             Get

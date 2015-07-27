@@ -39,12 +39,13 @@ Namespace Raven.Web
 
 #Region " Control Events "
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+            SetToolbarVisibleButton()
+
             'Put user code to initialize the page here
             If Not Me.IsPostBack Then
                 commonFunction.SetDDL_Table(ddlMySite, "UserSite", MyBase.LoggedOnUserID)
-                btnSearchProject.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("SiteProject", txtProjectCode.ClientID, ddlMySite.SelectedValue.Trim))                
+                btnSearchProject.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("SiteProject", txtProjectCode.ClientID, ddlMySite.SelectedValue.Trim))
 
-                SetToolbarVisibleButton()
                 SetDropDownListItems()
                 SetRadioButtonListItems()
                 SetPanelVisibility("")
@@ -62,7 +63,7 @@ Namespace Raven.Web
                         pnlAdministratorScreen.Visible = True
                         pnlInspectorScreen.Visible = False
                         SetDataGrid(pnlAdministratorScreen.ID)
-                        commonFunction.Focus(Me, txtWorkRequestListFilter.ClientID)                        
+                        commonFunction.Focus(Me, txtWorkRequestListFilter.ClientID)
                     End If
                 Else
                     pnlAdministratorScreen.Visible = False
@@ -120,12 +121,16 @@ Namespace Raven.Web
                 Case "SelectReportType"
                     Dim _lblReportTypeID As Label = CType(e.Item.FindControl("_lblReportTypeID"), Label)
                     Dim _lbtnReportTypeID As LinkButton = CType(e.Item.FindControl("_lbtnReportTypeID"), LinkButton)
+                    Dim _chkIsHasAttachment As CheckBox = CType(e.Item.FindControl("_chkIsHasAttachment"), CheckBox)
                     lblReportTypeCode.Text = _lblReportTypeID.ToolTip.Trim
                     lblReportTypeName.Text = _lbtnReportTypeID.Text.Trim
                     lblReportTypePanelID.Text = _lbtnReportTypeID.ToolTip.Trim
+                    lblReportTypeID.Text = _lblReportTypeID.Text.Trim
+                    chkIsHasAttachment.Checked = _chkIsHasAttachment.Checked
                     SetPanelVisibility(lblReportTypePanelID.Text.Trim)
-                    PrepareScreen(lblReportTypePanelID.Text.Trim, False)
+                    PrepareScreen(lblReportTypePanelID.Text.Trim, False, True)
                     SetDataGrid(lblReportTypePanelID.Text.Trim)
+                    SetToolbarVisibleButton()
             End Select
         End Sub
 
@@ -445,6 +450,21 @@ Namespace Raven.Web
 #End Region
 
 #Region " Certificate of Inspection (Certificate of Load/Pull Testing "
+        Private Sub COI_ddlCOIType_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles COI_ddlCOIType.SelectedIndexChanged
+            Select Case COI_ddlCOIType.SelectedValue.Trim
+                Case Common.Constants.CertificateOfInspectionType.COILoadTest
+                    COI_lblLoadPullTestCaption.Text = "Load Test"
+                    COI_lblActualTestCaption.Text = "Actual Load Test"
+                    COI_txtSize.Text = String.Empty
+                    COI_txtSWL.Text = String.Empty
+                    COI_pnlPullTest.Visible = False
+                Case Else
+                    COI_lblLoadPullTestCaption.Text = "Pull Test"
+                    COI_lblActualTestCaption.Text = "Actual Pull Test"
+                    COI_pnlPullTest.Visible = True
+            End Select
+        End Sub
+
         Private Sub COI_grdCertificateInspection_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles COI_grdCertificateInspection.ItemCommand
             Select Case e.CommandName
                 Case "Edit"
@@ -768,6 +788,7 @@ Namespace Raven.Web
                 .VisibleButton(CSSToolbarItem.tidPrint) = True
                 .VisibleButton(CSSToolbarItem.tidPrevious) = False
                 .VisibleButton(CSSToolbarItem.tidNext) = False
+                .VisibleButton(CSSToolbarItem.tidAttach) = chkIsHasAttachment.Checked
             End With
         End Sub
 
@@ -1036,6 +1057,68 @@ Namespace Raven.Web
                         PrepareScreen(Common.Constants.ReportTypePanelID.SummaryOfInspection_PanelID, False, True)
                         SetDataGrid(Common.Constants.ReportTypePanelID.SummaryOfInspection_PanelID)
                     End If
+
+                Case CSSToolbarItem.tidAttach
+                    Dim strReportHdID As String = String.Empty
+                    Dim strReportNo As String = String.Empty
+
+                    If pnlDailyProgressReport.Visible Then
+                        strReportHdID = DPR_txtDailyReportHdID.Text.Trim
+                        strReportNo = String.Empty
+                    End If
+
+                    If pnlDailyProgressReportMPI.Visible Then
+                        strReportHdID = DIR_txtDailyReportHdID.Text.Trim
+                        strReportNo = String.Empty
+                    End If
+
+                    If pnlDrillPipeInspectionReport.Visible Then
+                        strReportHdID = DP_txtDrillPipeReportHdID.Text.Trim
+                        strReportNo = DP_txtReportNo.Text.Trim
+                    End If
+
+                    If pnlInspectionReport.Visible Then
+                        strReportHdID = INS_txtInspectionReportHdID.Text.Trim
+                        strReportNo = INS_txtReportNo.Text.Trim
+                    End If
+
+                    If pnlCertificateInspection.Visible Then
+                        strReportHdID = COI_txtCertificateInspectionID.Text.Trim
+                        strReportNo = COI_txtCertificateNo.Text.Trim
+                    End If
+
+                    If pnlMPIReport.Visible Then
+                        strReportHdID = MPI_txtMPIHdID.Text.Trim
+                        strReportNo = MPI_txtReportNo.Text.Trim
+                    End If
+
+                    If pnlUTSpotCheck.Visible Then
+                        strReportHdID = UTSC_txtUTSpotCheckHdID.Text.Trim
+                        strReportNo = UTSC_txtReportNo.Text.Trim
+                    End If
+
+                    If pnlUTSpotArea.Visible Then
+                        strReportHdID = UTSA_txtUTSpotCheckHdID.Text.Trim
+                        strReportNo = UTSA_txtReportNo.Text.Trim
+                    End If
+
+                    If pnlHardnessTestReport.Visible Then
+                        strReportHdID = HT_txtHardnessTestHdID.Text.Trim
+                        strReportNo = HT_txtReportNo.Text.Trim
+                    End If
+
+                    If pnlThoroughVisualInspectionReport.Visible Then
+                        strReportHdID = TVI_txtTVIHdID.Text.Trim
+                        strReportNo = TVI_txtReportNo.Text.Trim
+                    End If
+
+                    If pnlInspectionTallyReport.Visible Then
+                        strReportHdID = IT_txtInspectionTallyHdID.Text.Trim
+                        strReportNo = IT_txtReportNo.Text.Trim
+                    End If
+
+                    Response.Write("<script language=javascript>window.open('" + PageBase.UrlBase + "/Secure/ReportImage.aspx?reportTypeID=" + lblReportTypeID.Text.Trim + "&reportHdID=" + strReportHdID.Trim + "&reportNo=" + strReportNo.Trim + "','ReportImage','status=no,resizable=yes,toolbar=no,menubar=no,location=no;')</script>")
+
             End Select
         End Sub
 #End Region
@@ -1314,6 +1397,7 @@ Namespace Raven.Web
             commonFunction.SetDDL_Table(IT_ddlVTIPin, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
             commonFunction.SetDDL_Table(IT_ddlVTIBox, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
             commonFunction.SetDDL_Table(IT_ddlFLD, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
+            commonFunction.SetDDL_Table(COI_ddlCOIType, "CommonCode", Common.Constants.GroupCode.COIType_SCode)
         End Sub
 
         Private Sub SetRadioButtonListItems()
@@ -1330,6 +1414,8 @@ Namespace Raven.Web
         End Sub
 
         Private Sub PrepareScreen(ByVal _VisiblePanelID As String, ByVal _isAfterInsert As Boolean, Optional ByVal _isNew As Boolean = True)
+            CSSToolbar.VisibleButton(CSSToolbarItem.tidAttach) = chkIsHasAttachment.Checked
+
             Select Case _VisiblePanelID
                 Case Common.Constants.ReportTypePanelID.SummaryOfInspection_PanelID
                     If _isAfterInsert Then
@@ -1440,7 +1526,7 @@ Namespace Raven.Web
                     DPR_txtQtyCumulative.Text = "0"
                     DPR_txtUOMCurrent.Text = Common.Constants.UOM.DailyProgressReportDefaultUOM.Trim
                     DPR_txtUOMPrevious.Text = Common.Constants.UOM.DailyProgressReportDefaultUOM.Trim
-                    DPR_txtUOMCumulative.Text = Common.Constants.UOM.DailyProgressReportDefaultUOM.Trim                    
+                    DPR_txtUOMCumulative.Text = Common.Constants.UOM.DailyProgressReportDefaultUOM.Trim
 
                 Case Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID
                     DIR_btnSearchDailyReportHd.Attributes.Remove("onclick")
@@ -1476,10 +1562,11 @@ Namespace Raven.Web
                     End If
 
                     DIR_txtDailyReportDtID.Text = String.Empty
-                    DIR_txtDescription.Text = String.Empty
-                    DIR_ddlWeatherCondition.SelectedIndex = 0
-                    DIR_txtQty.Text = "0"
-                    DIR_txtResult.Text = String.Empty
+                    'DIR_txtDescription.Text = String.Empty
+                    'DIR_ddlWeatherCondition.SelectedIndex = 0
+                    'DIR_txtQty.Text = "0"
+                    'DIR_txtUOM.Text = String.Empty
+                    'DIR_txtResult.Text = String.Empty
 
                 Case Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID
                     DP_btnSearchDrillPipeReport.Attributes.Remove("onclick")
@@ -1604,7 +1691,7 @@ Namespace Raven.Web
                     End If
 
                     If _isAfterInsert Then
-                        commonFunction.Focus(Me, INS_txtDescription.ClientID)                    
+                        commonFunction.Focus(Me, INS_txtDescription.ClientID)
                     End If
 
                     INS_txtInspectionReportDTID.Text = String.Empty
@@ -1793,6 +1880,8 @@ Namespace Raven.Web
                     SetDataGridProjectDetail(Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID)
 
                 Case Common.Constants.ReportTypePanelID.CertificateOfInspection_PanelID
+                    COI_ddlCOIType.SelectedIndex = 0
+                    COI_ddlCOIType_SelectedIndexChanged(Nothing, Nothing)
                     COI_txtCertificateInspectionID.Text = String.Empty
                     COI_calCertificateDate.selectedDate = Date.Today
                     COI_caInspectionDate.selectedDate = Date.Today
@@ -1810,6 +1899,8 @@ Namespace Raven.Web
                     COI_txtExamination.Text = String.Empty
                     COI_txtResult.Text = String.Empty
                     COI_txtNotes.Text = String.Empty
+                    COI_txtSize.Text = String.Empty
+                    COI_txtSWL.Text = String.Empty
                     COI_imgPic1.ImageUrl = UrlBase + "/secure/GetImage.aspx?imgType=COI-1&cn=" + COI_txtCertificateInspectionID.Text.Trim
                     COI_imgPic2.ImageUrl = UrlBase + "/secure/GetImage.aspx?imgType=COI-2&cn=" + COI_txtCertificateInspectionID.Text.Trim
                     COI_imgPic3.ImageUrl = UrlBase + "/secure/GetImage.aspx?imgType=COI-3&cn=" + COI_txtCertificateInspectionID.Text.Trim
@@ -1867,6 +1958,15 @@ Namespace Raven.Web
                         MPI_rbtnlBlastCleaning.SelectedValue = "No"
                         MPI_rbtnlGrinding.SelectedValue = "No"
                         MPI_rbtnlMachining.SelectedValue = "No"
+                        MPI_rbtnlEqpYoke.SelectedValue = "No"
+                        MPI_rbtnlEqpCoil.SelectedValue = "No"
+                        MPI_rbtnlMagPermanent.SelectedValue = "No"
+                        MPI_rbtnlMagActive.SelectedValue = "No"
+                        MPI_rbtnlSysWet.SelectedValue = "No"
+                        MPI_rbtnlSysDry.SelectedValue = "No"
+                        MPI_rbtnlSysDye.SelectedValue = "No"
+                        MPI_rbtnlSysFluorescent.SelectedValue = "No"
+                        MPI_rbtnlSysContrastBW.SelectedValue = "No"
                         MPI_txtInspectionResult.Text = String.Empty
                         MPI_txtNotes.Text = String.Empty
                         MPI_txtYokeSerialNo.Text = String.Empty
@@ -1920,7 +2020,7 @@ Namespace Raven.Web
                             UTSC_txtHardnessTest2.Text = "0"
                             UTSC_txtHardnessTest3.Text = "0"
                             UTSC_txtHardnessTest4.Text = "0"
-                            UTSC_txtRemark.Text = String.Empty                            
+                            UTSC_txtRemark.Text = String.Empty
                         End If
                     End If
 
@@ -2032,7 +2132,7 @@ Namespace Raven.Web
                                     TVI_pnlLength.Visible = False
                                     commonFunction.SetRBTNL_Table(TVI_rbtnlImage, "CommonCode", Common.Constants.GroupCode.TVIShacklePic_SCode)
                                     TVI_imgFilePic.ImageUrl = GetPic(Common.Constants.GetImageType.GetImage_CommonCodeFilePic.Trim, Common.Constants.GroupCode.TVISlingPic_SCode.Trim + "|" + TVI_rbtnlImage.SelectedValue.Trim)
-                            End Select                            
+                            End Select
                         End If
                     End If
 
@@ -2067,7 +2167,7 @@ Namespace Raven.Web
                             IT_txtFinalClass.Text = String.Empty
                             IT_txtInternalExternalCleaning.Text = String.Empty
                             IT_txtInternalExternalCoating.Text = String.Empty
-                            IT_txtRemark.Text = String.Empty                            
+                            IT_txtRemark.Text = String.Empty
                             commonFunction.Focus(Me, IT_txtPipeNo.ClientID)
                         Else
                             If Len(IT_txtPipeNo.Text.Trim) > 0 Then
@@ -2157,6 +2257,7 @@ Namespace Raven.Web
                 Case Else
                     CSSToolbar.VisibleButton(CSSToolbarItem.tidApprove) = False
                     CSSToolbar.VisibleButton(CSSToolbarItem.tidPrint) = True
+                    CSSToolbar.VisibleButton(CSSToolbarItem.tidAttach) = chkIsHasAttachment.Checked
             End Select
         End Sub
 
@@ -2279,6 +2380,7 @@ Namespace Raven.Web
                             DIR_txtDescription.Text = .description.Trim
                             commonFunction.SelectListItem(DIR_ddlWeatherCondition, .weatherConditionSCode.Trim)
                             DIR_txtQty.Text = CStr(.currentQty)
+                            DIR_txtUOM.Text = .currentUOM.Trim
                             DIR_txtResult.Text = .result.Trim
                         Else
                             PrepareScreen(_VisiblePanelID.Trim, False, isNew)
@@ -2482,6 +2584,8 @@ Namespace Raven.Web
                     With oBR
                         .certificateInspectionID = COI_txtCertificateInspectionID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
+                            COI_ddlCOIType.SelectedValue = .COITypeSCode.Trim
+                            COI_ddlCOIType_SelectedIndexChanged(Nothing, Nothing)
                             COI_txtCertificateNo.Text = .certificateNo.Trim
                             COI_calCertificateDate.selectedDate = .certificateDate
                             COI_txtOwner.Text = .owner.Trim
@@ -2496,6 +2600,8 @@ Namespace Raven.Web
                             COI_txtExamination.Text = .examination.Trim
                             COI_txtResult.Text = .result.Trim
                             COI_txtNotes.Text = .notes.Trim
+                            COI_txtSize.Text = .size.Trim
+                            COI_txtSWL.Text = .swl.Trim
                             COI_caInspectionDate.selectedDate = .inspectionDate
                             COI_calExpiredDate.selectedDate = .expiredDate
                             COI_imgPic1.ImageUrl = GetPic_COI(1, COI_txtCertificateInspectionID.Text.Trim)
@@ -2547,32 +2653,67 @@ Namespace Raven.Web
                             MPI_txtDeveloper.Text = .developer.Trim
                             MPI_rbtnlYoke.SelectedValue = .yokeSCode.Trim
                             MPI_rbtnlCoil.SelectedValue = .coilSCode.Trim
-                            If .isRods Then
+                            MPI_rbtnlFluorescent.SelectedValue = .fluorescentSCode.Trim
+                            MPI_rbtnlContrastBW.SelectedValue = .contrastBWSCode.Trim
+                            If .isEqpYoke Then
+                                MPI_rbtnlEqpYoke.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlEqpYoke.SelectedValue = "No"
+                            End If
+                            If .isEqpCoil Then
+                                MPI_rbtnlEqpCoil.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlEqpCoil.SelectedValue = "No"
+                            End If
+                            If .isEqpRods Then
                                 MPI_rbtnlRods.SelectedValue = "Yes"
                             Else
                                 MPI_rbtnlRods.SelectedValue = "No"
                             End If
-                            If .isBlacklight Then
+                            If .isEqpBlacklight Then
                                 MPI_rbtnlBlacklight.SelectedValue = "Yes"
                             Else
                                 MPI_rbtnlBlacklight.SelectedValue = "No"
-                            End If                                                        
-                            MPI_rbtnlFluorescent.SelectedValue = .fluorescentSCode.Trim
-                            MPI_rbtnlContrastBW.SelectedValue = .contrastBWSCode.Trim
-                            If .isDyePenetrant Then
+                            End If
+                            If .isMagPermanent Then
+                                MPI_rbtnlMagPermanent.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlMagPermanent.SelectedValue = "No"
+                            End If
+                            If .isMagActive Then
+                                MPI_rbtnlMagActive.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlMagActive.SelectedValue = "No"
+                            End If
+                            If .isSysWet Then
+                                MPI_rbtnlSysWet.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlSysWet.SelectedValue = "No"
+                            End If
+                            If .isSysDry Then
+                                MPI_rbtnlSysDry.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlSysDry.SelectedValue = "No"
+                            End If
+                            If .isSysDye Then
+                                MPI_rbtnlSysDye.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlSysDye.SelectedValue = "No"
+                            End If
+                            If .isSysFluorescent Then
+                                MPI_rbtnlSysFluorescent.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlSysFluorescent.SelectedValue = "No"
+                            End If
+                            If .isSysContrastBW Then
+                                MPI_rbtnlSysContrastBW.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlSysContrastBW.SelectedValue = "No"
+                            End If
+                            If .isSysDyePenetrant Then
                                 MPI_rbtnlDyePenetrant.SelectedValue = "Yes"
                             Else
                                 MPI_rbtnlDyePenetrant.SelectedValue = "No"
-                            End If
-                            If .isWireBrush Then
-                                MPI_rbtnlWireBrush.SelectedValue = "Yes"
-                            Else
-                                MPI_rbtnlWireBrush.SelectedValue = "No"
-                            End If
-                            If .isBlastCleaning Then
-                                MPI_rbtnlBlastCleaning.SelectedValue = "Yes"
-                            Else
-                                MPI_rbtnlBlastCleaning.SelectedValue = "No"
                             End If
                             If .isGrinding Then
                                 MPI_rbtnlGrinding.SelectedValue = "Yes"
@@ -2584,6 +2725,17 @@ Namespace Raven.Web
                             Else
                                 MPI_rbtnlMachining.SelectedValue = "No"
                             End If
+                            If .isBlastCleaning Then
+                                MPI_rbtnlBlastCleaning.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlBlastCleaning.SelectedValue = "No"
+                            End If
+                            If .isWireBrush Then
+                                MPI_rbtnlWireBrush.SelectedValue = "Yes"
+                            Else
+                                MPI_rbtnlWireBrush.SelectedValue = "No"
+                            End If
+
                             MPI_txtYokeSerialNo.Text = .yokeSerialNo.Trim
                             MPI_txtCoilSerialNo.Text = .coilSerialNo.Trim
                             MPI_txtRodsSerialNo.Text = .rodsSerialNo.Trim
@@ -3089,8 +3241,11 @@ Namespace Raven.Web
                                         strDate = CType(DtSet.Tables(0).Rows(iRecCount)(14), String)
 
                                         Try
-                                            .examDate = DateSerial(Convert.ToInt32(strDate.Substring(6, 4)), Convert.ToInt32(strDate.Substring(3, 2)), Convert.ToInt32(strDate.Substring(0, 2)))
-                                            '.examDate = DateSerial(Convert.ToInt32(strDate.Substring(6, 4)), Convert.ToInt32(strDate.Substring(3, 2)), Convert.ToInt32(strDate.Substring(0, 2)))
+                                            If IsDate(strDate.Trim) Then
+                                                .examDate = CDate(strDate.Trim)
+                                            Else
+                                                .examDate = DateSerial(Convert.ToInt32(strDate.Substring(6, 4)), Convert.ToInt32(strDate.Substring(3, 2)), Convert.ToInt32(strDate.Substring(0, 2)))
+                                            End If                                            
                                         Catch
                                             Throw New Exception("Kolom Exam_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: dd-MM-yyyy.")
                                         End Try
@@ -3103,7 +3258,11 @@ Namespace Raven.Web
                                         strDate = CType(DtSet.Tables(0).Rows(iRecCount)(15), String)
 
                                         Try
-                                            .expireDate = DateSerial(Convert.ToInt32(strDate.Substring(6, 4)), Convert.ToInt32(strDate.Substring(3, 2)), Convert.ToInt32(strDate.Substring(0, 2)))
+                                            If IsDate(strDate.Trim) Then
+                                                .expireDate = CDate(strDate.Trim)
+                                            Else
+                                                .expireDate = DateSerial(Convert.ToInt32(strDate.Substring(6, 4)), Convert.ToInt32(strDate.Substring(3, 2)), Convert.ToInt32(strDate.Substring(0, 2)))
+                                            End If                                            
                                         Catch
                                             Throw New Exception("Kolom Expire_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: dd-MM-yyyy.")
                                         End Try
@@ -3206,40 +3365,43 @@ Namespace Raven.Web
                                     .userIDinsert = MyBase.LoggedOnUserID
                                     .userIDupdate = MyBase.LoggedOnUserID
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(26)) Is System.DBNull.Value Then
-                                        .fileName = String.Empty
-                                        .fileExtension = String.Empty
-                                    Else
-                                        Dim strFileURL As String = (DtSet.Tables(0).Rows(iRecCount)(17)).ToString.Trim
-                                        If strFileURL.Trim.Length > 0 Then
-                                            Dim fileExt As String, fileName As String
-                                            SOI_FileDetail.Value = strFileURL.Trim
-                                            fileExt = Path.GetExtension(SOI_FileDetail.Value.Trim)
-                                            fileName = Common.BussinessRules.ID.GenerateIDNumber("SummaryOfInspection", "summaryOfInspectionID") + fileExt.Trim
-                                            Dim Pathdb As String = Common.Methods.GetCommonCode("SOIDIR", "FILEDIR").Trim
-                                            Dim fNotNew As Boolean = False
-                                            Dim nmFile As String
-                                            Try
-                                                .fileName = fileName.Trim
-                                                .fileExtension = fileExt.Trim
+                                    .fileName = String.Empty
+                                    .fileExtension = String.Empty
 
-                                                '// validate if the file exist
-                                                nmFile = Pathdb + fileName
-                                                If txtFileUrl.Value.Trim.Length > 0 Then
-                                                    If File.Exists(nmFile) Then
-                                                        File.Delete(nmFile)
-                                                    End If
-                                                    SOI_FileDetail.PostedFile.SaveAs(nmFile)
-                                                End If
-                                            Catch ex As Exception
-                                                commonFunction.MsgBox(Me, "Upload File tidak berhasil.")
-                                                Exit Sub
-                                            End Try
-                                        Else
-                                            .fileName = String.Empty
-                                            .fileExtension = String.Empty
-                                        End If
-                                    End If
+                                    'If (DtSet.Tables(0).Rows(iRecCount)(26)) Is System.DBNull.Value Then
+                                    '    .fileName = String.Empty
+                                    '    .fileExtension = String.Empty
+                                    'Else
+                                    '    Dim strFileURL As String = (DtSet.Tables(0).Rows(iRecCount)(17)).ToString.Trim
+                                    '    If strFileURL.Trim.Length > 0 Then
+                                    '        Dim fileExt As String, fileName As String
+                                    '        SOI_FileDetail.Value = strFileURL.Trim
+                                    '        fileExt = Path.GetExtension(SOI_FileDetail.Value.Trim)
+                                    '        fileName = Common.BussinessRules.ID.GenerateIDNumber("SummaryOfInspection", "summaryOfInspectionID") + fileExt.Trim
+                                    '        Dim Pathdb As String = Common.Methods.GetCommonCode("SOIDIR", "FILEDIR").Trim
+                                    '        Dim fNotNew As Boolean = False
+                                    '        Dim nmFile As String
+                                    '        Try
+                                    '            .fileName = fileName.Trim
+                                    '            .fileExtension = fileExt.Trim
+
+                                    '            '// validate if the file exist
+                                    '            nmFile = Pathdb + fileName
+                                    '            If txtFileUrl.Value.Trim.Length > 0 Then
+                                    '                If File.Exists(nmFile) Then
+                                    '                    File.Delete(nmFile)
+                                    '                End If
+                                    '                SOI_FileDetail.PostedFile.SaveAs(nmFile)
+                                    '            End If
+                                    '        Catch ex As Exception
+                                    '            commonFunction.MsgBox(Me, "Upload File tidak berhasil.")
+                                    '            Exit Sub
+                                    '        End Try
+                                    '    Else
+                                    '        .fileName = String.Empty
+                                    '        .fileExtension = String.Empty
+                                    '    End If
+                                    'End If
 
                                     .Insert()
                                     iRecCount = iRecCount + 1
@@ -3457,6 +3619,10 @@ Namespace Raven.Web
                         .currentQty = CDec(DIR_txtQty.Text.Trim)
                         .beginningQty = 0D
                         .endingQty = 0D + .currentQty
+                        .currentUOM = DIR_txtUOM.Text.Trim
+                        .beginningUOM = String.Empty
+                        .endingUOM = String.Empty
+                        .materialDetail = String.Empty
                         .result = DIR_txtResult.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
@@ -3811,6 +3977,9 @@ Namespace Raven.Web
                         .inspectionDate = COI_caInspectionDate.selectedDate
                         .expiredDate = COI_calExpiredDate.selectedDate
                         .notes = COI_txtNotes.Text.Trim
+                        .COITypeSCode = COI_ddlCOIType.SelectedValue.Trim
+                        .size = COI_txtSize.Text
+                        .swl = COI_txtSWL.Text.Trim
                         .actualLoadTest = CDec(IIf(IsNumeric(COI_txtActualLoadTest.Text.Trim), COI_txtActualLoadTest.Text.Trim, 0))
                         .actualLoadTestUOM = COI_txtActualLoadTestUOM.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
@@ -3880,6 +4049,18 @@ Namespace Raven.Web
                         .isBlastCleaning = (MPI_rbtnlBlastCleaning.SelectedValue = "Yes")
                         .isGrinding = (MPI_rbtnlGrinding.SelectedValue = "Yes")
                         .isMachining = (MPI_rbtnlMachining.SelectedValue = "Yes")
+                        .isEqpYoke = (MPI_rbtnlEqpYoke.SelectedValue = "Yes")
+                        .isEqpCoil = (MPI_rbtnlEqpCoil.SelectedValue = "Yes")
+                        .isEqpRods = (MPI_rbtnlRods.SelectedValue = "Yes")
+                        .isEqpBlacklight = (MPI_rbtnlBlacklight.SelectedValue = "Yes")
+                        .isMagPermanent = (MPI_rbtnlMagPermanent.SelectedValue = "Yes")
+                        .isMagActive = (MPI_rbtnlMagActive.SelectedValue = "Yes")
+                        .isSysWet = (MPI_rbtnlSysWet.SelectedValue = "Yes")
+                        .isSysDry = (MPI_rbtnlSysDry.SelectedValue = "Yes")
+                        .isSysDye = (MPI_rbtnlSysDye.SelectedValue = "Yes")
+                        .isSysFluorescent = (MPI_rbtnlSysFluorescent.SelectedValue = "Yes")
+                        .isSysContrastBW = (MPI_rbtnlSysContrastBW.SelectedValue = "Yes")
+                        .isSysDyePenetrant = (MPI_rbtnlDyePenetrant.SelectedValue = "Yes")
                         .inspectionResult = MPI_txtInspectionResult.Text.Trim
                         .notes = MPI_txtNotes.Text.Trim
                         .yokeSerialNo = MPI_txtYokeSerialNo.Text.Trim

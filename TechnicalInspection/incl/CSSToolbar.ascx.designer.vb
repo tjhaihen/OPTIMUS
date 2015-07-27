@@ -213,6 +213,24 @@ Namespace Raven
         Protected WithEvents chkIsAllowPrint As Global.System.Web.UI.WebControls.CheckBox
 
         '''<summary>
+        '''TMpnlAttach control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TMpnlAttach As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''lbtnAttach control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lbtnAttach As Global.System.Web.UI.WebControls.LinkButton
+
+        '''<summary>
         '''TMPnlPrevious control.
         '''</summary>
         '''<remarks>

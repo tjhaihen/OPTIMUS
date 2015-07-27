@@ -232,11 +232,13 @@ Namespace Raven.Web.Secure
                     lblTotalWorkOrder.Text = .totalWorkOrder.ToString.Trim
                     lblTotalItemIspected.Text = .totalItemInspected.ToString.Trim
                     lblTotalItemAccepted.Text = .totalItemAccepted.ToString.Trim
+                    lblTotalItemNeedRepair.Text = .totalItemNeedRepair.ToString.Trim
                     lblTotalItemRejected.Text = .totalItemRejected.ToString.Trim
                 Else
                     lblTotalWorkOrder.Text = "0"
                     lblTotalItemIspected.Text = "0"
                     lblTotalItemAccepted.Text = "0"
+                    lblTotalItemNeedRepair.Text = "0"
                     lblTotalItemRejected.Text = "0"
                 End If
             End With            

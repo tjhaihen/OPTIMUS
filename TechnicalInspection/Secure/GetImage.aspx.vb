@@ -89,6 +89,12 @@ Namespace Raven.Web
                         If br.SelectOne.Rows.Count > 0 Then
                             Response.BinaryWrite(br.picFile.Value)
                         End If
+                    Case "ReportImage"
+                        Dim br As New Common.BussinessRules.ReportImage
+                        br.ReportImageID = strID.Trim
+                        If br.SelectOne.Rows.Count > 0 Then
+                            Response.BinaryWrite(br.reportpic.Value)
+                        End If
                 End Select
             End If
         End Sub

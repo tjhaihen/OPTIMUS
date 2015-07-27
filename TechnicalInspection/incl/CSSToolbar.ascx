@@ -51,6 +51,11 @@
                     <asp:CheckBox ID="chkIsAllowPrint" runat="server" Visible="false" />
                 </td>
             </asp:Panel>
+            <asp:Panel runat="server" ID="TMpnlAttach" Visible="false">
+                <td class="center padding-LR-5">
+                    <asp:LinkButton runat="server" ID="lbtnAttach" ToolTip="Propose" CausesValidation="false" Width="48"><img src="/PureravensLib/images/tbattach.png" alt="" border="0" /><br />Attach</asp:LinkButton>
+                </td>
+            </asp:Panel>
             <asp:Panel runat="server" ID="TMPnlPrevious">
                 <td class="center padding-LR-5">
                     <asp:LinkButton runat="server" ID="lbtnPrevious" ToolTip="Back" CausesValidation="false" Width="48"><img src="/PureravensLib/images/tbback.png" alt="" border="0" /><br />Back</asp:LinkButton>

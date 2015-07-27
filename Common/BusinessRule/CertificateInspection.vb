@@ -13,6 +13,7 @@ Namespace Raven.Common.BussinessRules
 #Region " Class Member Declarations "
         Private _certificateInspectionID, _projectID, _certificateNo, _owner, _userLabel, _location, _description, _notes As String
         Private _serialNo, _maxGrossWeightR, _loadTest, _duration, _specification, _examination, _result, _actualLoadTestUOM As String
+        Private _COITypeSCode, _size, _swl As String
         Private _Pic1, _Pic2, _Pic3 As SqlBinary
         Private _actualLoadTest As Decimal
         Private _certificateDate, _inspectionDate, _expiredDate, _insertDate, _updateDate As DateTime
@@ -33,13 +34,13 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "INSERT INTO CertificateInspection " + _
                                         "(certificateInspectionID, projectID, certificateNo, owner, userLabel, location, description, " + _
                                         "serialNo, maxGrossWeightR, loadTest, duration, specification, examination, result, notes, " + _
-                                        "actualLoadTest, actualLoadTestUOM, " + _
+                                        "actualLoadTest, actualLoadTestUOM, COITypeSCode, size, swl, " + _
                                         "certificateDate, inspectionDate, expiredDate, insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
                                         "(@certificateInspectionID, @projectID, @certificateNo, @owner, @userLabel, @location, @description, " + _
                                         "@serialNo, @maxGrossWeightR, @loadTest, @duration, @specification, @examination, @result, @notes, " + _
-                                        "@actualLoadTest, @actualLoadTestUOM, " + _
+                                        "@actualLoadTest, @actualLoadTestUOM, @COITypeSCode, @size, @swl, " + _
                                         "@certificateDate, @inspectionDate, @expiredDate, GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate)"
             cmdToExecute.CommandType = CommandType.Text
@@ -63,6 +64,9 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@examination", _examination)
                 cmdToExecute.Parameters.AddWithValue("@result", _result)
                 cmdToExecute.Parameters.AddWithValue("@notes", _notes)
+                cmdToExecute.Parameters.AddWithValue("@COITypeSCode", _COITypeSCode)
+                cmdToExecute.Parameters.AddWithValue("@size", _size)
+                cmdToExecute.Parameters.AddWithValue("@swl", _swl)
                 cmdToExecute.Parameters.AddWithValue("@certificateDate", _certificateDate)
                 cmdToExecute.Parameters.AddWithValue("@inspectionDate", _inspectionDate)
                 cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)
@@ -96,6 +100,7 @@ Namespace Raven.Common.BussinessRules
                                         "loadTest=@loadTest, duration=@duration, " + _
                                         "specification=@specification, examination=@examination, " + _
                                         "actualLoadTest=@actualLoadTest, actualLoadTestUOM=@actualLoadTestUOM, " + _
+                                        "COITypeSCode=@COITypeSCode, size=@size, swl=@swl, " + _
                                         "result=@result, notes=@notes, certificateDate=@certificateDate, " + _
                                         "inspectionDate=@inspectionDate, expiredDate=@expiredDate, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
@@ -119,6 +124,9 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@examination", _examination)
                 cmdToExecute.Parameters.AddWithValue("@result", _result)
                 cmdToExecute.Parameters.AddWithValue("@notes", _notes)
+                cmdToExecute.Parameters.AddWithValue("@COITypeSCode", _COITypeSCode)
+                cmdToExecute.Parameters.AddWithValue("@size", _size)
+                cmdToExecute.Parameters.AddWithValue("@swl", _swl)
                 cmdToExecute.Parameters.AddWithValue("@certificateDate", _certificateDate)
                 cmdToExecute.Parameters.AddWithValue("@inspectionDate", _inspectionDate)
                 cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)
@@ -205,6 +213,9 @@ Namespace Raven.Common.BussinessRules
                     _examination = CType(toReturn.Rows(0)("examination"), String)
                     _result = CType(toReturn.Rows(0)("result"), String)
                     _notes = CType(toReturn.Rows(0)("notes"), String)
+                    _COITypeSCode = CType(toReturn.Rows(0)("COITypeSCode"), String)
+                    _size = CType(toReturn.Rows(0)("size"), String)
+                    _swl = CType(toReturn.Rows(0)("swl"), String)
                     _certificateDate = CType(toReturn.Rows(0)("certificateDate"), DateTime)
                     _inspectionDate = CType(toReturn.Rows(0)("inspectionDate"), DateTime)
                     _expiredDate = CType(toReturn.Rows(0)("expiredDate"), DateTime)
@@ -475,6 +486,33 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _notes = Value
+            End Set
+        End Property
+
+        Public Property [COITypeSCode]() As String
+            Get
+                Return _COITypeSCode
+            End Get
+            Set(ByVal Value As String)
+                _COITypeSCode = Value
+            End Set
+        End Property
+
+        Public Property [size]() As String
+            Get
+                Return _size
+            End Get
+            Set(ByVal Value As String)
+                _size = Value
+            End Set
+        End Property
+
+        Public Property [swl]() As String
+            Get
+                Return _swl
+            End Get
+            Set(ByVal Value As String)
+                _swl = Value
             End Set
         End Property
 

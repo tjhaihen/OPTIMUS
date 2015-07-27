@@ -14,7 +14,7 @@ Namespace Raven.Common.BussinessRules
         Private _reportTypeID, _reportTypeCode, _parentreportTypeCode, _reportTypeName, _panelID, _sequence As String
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate, _effectiveDate As DateTime
-        Private _isActive, _isMandatory As Boolean
+        Private _isActive, _isMandatory, _isHasAttachment As Boolean
         Private _documentNo, _revisionNo As String
 #End Region
 
@@ -186,6 +186,7 @@ Namespace Raven.Common.BussinessRules
                     _isMandatory = CType(toReturn.Rows(0)("isMandatory"), Boolean)
                     _panelID = CType(toReturn.Rows(0)("panelID"), String)
                     _isActive = CType(toReturn.Rows(0)("isActive"), Boolean)
+                    _isHasAttachment = CType(toReturn.Rows(0)("isHasAttachment"), Boolean)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -328,6 +329,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As Boolean)
                 _isActive = Value
+            End Set
+        End Property
+
+        Public Property [isHasAttachment]() As Boolean
+            Get
+                Return _isHasAttachment
+            End Get
+            Set(ByVal Value As Boolean)
+                _isHasAttachment = Value
             End Set
         End Property
 

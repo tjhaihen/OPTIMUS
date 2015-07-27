@@ -376,6 +376,7 @@
                                                                             Visible="false" />
                                                                         <asp:LinkButton ID="_lbtnReportTypeID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ReportTypeName")%>'
                                                                             Width="100%" CommandName="SelectReportType" CssClass="txtnormallink" ToolTip='<%# DataBinder.Eval(Container.DataItem, "PanelID")%>' />
+                                                                        <asp:CheckBox ID="_chkIsHasAttachment" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "isHasAttachment")%>' Visible="false"></asp:CheckBox>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -478,6 +479,8 @@
                                                 <asp:Label ID="lblReportTypeCode" runat="server" Visible="false"></asp:Label>
                                                 <asp:Label ID="lblReportTypeName" runat="server"></asp:Label>
                                                 <asp:Label ID="lblReportTypePanelID" runat="server" Visible="false"></asp:Label>
+                                                <asp:Label ID="lblReportTypeID" runat="server" Visible="false"></asp:Label>
+                                                <asp:CheckBox ID="chkIsHasAttachment" runat="server" Visible="false"></asp:CheckBox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -1301,8 +1304,8 @@
                                                             <td class="gridAlternatingItemStyle center" style="width: 45%;">
                                                                 Description
                                                             </td>
-                                                            <td class="gridAlternatingItemStyle center" style="width: 100px;">
-                                                                Quantity
+                                                            <td class="gridAlternatingItemStyle center" style="width: 120px;">
+                                                                Quantity/UOM
                                                             </td>
                                                             <td class="gridAlternatingItemStyle center" style="width: 30%;">
                                                                 Result
@@ -1324,7 +1327,9 @@
                                                                 </asp:TextBox>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="DIR_txtQty" runat="server" Width="100%">
+                                                                <asp:TextBox ID="DIR_txtQty" runat="server" Width="70" CssClass="right">
+                                                                </asp:TextBox>
+                                                                <asp:TextBox ID="DIR_txtUOM" runat="server" Width="50">
                                                                 </asp:TextBox>
                                                             </td>
                                                             <td>
@@ -1368,6 +1373,8 @@
                                                                         <asp:TemplateColumn runat="server" HeaderText="Qty">
                                                                             <ItemTemplate>
                                                                                 <%# DataBinder.Eval(Container.DataItem, "currentQty") %>
+                                                                                &nbsp;
+                                                                                <%# DataBinder.Eval(Container.DataItem, "currentUOM") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
                                                                         <asp:TemplateColumn runat="server" HeaderText="Result">
@@ -1510,7 +1517,7 @@
                                                                                 <asp:TextBox ID="SR_txtTotalAccepted" runat="server" Width="300">
                                                                                 </asp:TextBox>
                                                                             </td>
-                                                                        </tr>                                                                        
+                                                                        </tr>
                                                                     </asp:Panel>
                                                                     <tr>
                                                                         <td colspan="4">
@@ -1712,7 +1719,7 @@
                                                                         <td class="right">
                                                                             MPI Report Type
                                                                         </td>
-                                                                        <td>
+                                                                        <td colspan="2">
                                                                             <asp:DropDownList ID="MPI_ddlMPIType" runat="server" Width="200" AutoPostBack="true">
                                                                             </asp:DropDownList>
                                                                         </td>
@@ -1725,7 +1732,7 @@
                                                                         <td class="right">
                                                                             Report No
                                                                         </td>
-                                                                        <td>
+                                                                        <td colspan="2">
                                                                             <asp:TextBox ID="MPI_txtMPIHdID" runat="server" Width="200" Visible="false">
                                                                             </asp:TextBox>
                                                                             <asp:TextBox ID="MPI_txtReportNo" runat="server" Width="200" AutoPostBack="true">
@@ -1743,7 +1750,7 @@
                                                                         <td class="right">
                                                                             Serial No
                                                                         </td>
-                                                                        <td>
+                                                                        <td colspan="2">
                                                                             <asp:TextBox ID="MPI_txtSerialNo" runat="server" Width="200">
                                                                             </asp:TextBox>
                                                                         </td>
@@ -1755,14 +1762,14 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="4" class="hseparator">
+                                                                        <td colspan="5" class="hseparator">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="right">
                                                                             Description
                                                                         </td>
-                                                                        <td>
+                                                                        <td colspan="2">
                                                                             <asp:TextBox ID="MPI_txtDescription" runat="server" Width="200">
                                                                             </asp:TextBox>
                                                                         </td>
@@ -1804,7 +1811,7 @@
                                                                         <td class="right">
                                                                             Quantity
                                                                         </td>
-                                                                        <td>
+                                                                        <td colspan="2">
                                                                             <asp:TextBox ID="MPI_txtQty" runat="server" Width="200">
                                                                             </asp:TextBox>
                                                                         </td>
@@ -1813,7 +1820,7 @@
                                                                         <td class="right">
                                                                             Dimension
                                                                         </td>
-                                                                        <td>
+                                                                        <td colspan="2">
                                                                             <asp:TextBox ID="MPI_txtDimension" runat="server" Width="200">
                                                                             </asp:TextBox>
                                                                         </td>
@@ -1822,69 +1829,21 @@
                                                                         <td class="right">
                                                                             Area Inspection
                                                                         </td>
-                                                                        <td>
+                                                                        <td colspan="2">
                                                                             <asp:TextBox ID="MPI_txtAreaInspection" runat="server" Width="200">
                                                                             </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="4" class="hseparator">
+                                                                        <td colspan="5" class="hseparator">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="right">
                                                                             Material
                                                                         </td>
-                                                                        <td>
+                                                                        <td colspan="2">
                                                                             <asp:TextBox ID="MPI_txtMaterial" runat="server" Width="200">
-                                                                            </asp:TextBox>
-                                                                        </td>
-                                                                        <td class="right">
-                                                                            Application
-                                                                        </td>
-                                                                        <td>
-                                                                            <asp:TextBox ID="MPI_txtApplication" runat="server" Width="200">
-                                                                            </asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="right">
-                                                                            Surface Condition
-                                                                        </td>
-                                                                        <td>
-                                                                            <asp:TextBox ID="MPI_txtSurfaceCondition" runat="server" Width="200">
-                                                                            </asp:TextBox>
-                                                                        </td>
-                                                                        <td class="right">
-                                                                            Contrast
-                                                                        </td>
-                                                                        <td>
-                                                                            <asp:TextBox ID="MPI_txtContrast" runat="server" Width="200">
-                                                                            </asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="right">
-                                                                            Metal Surface Temp.
-                                                                        </td>
-                                                                        <td>
-                                                                            <asp:TextBox ID="MPI_txtMetalSurfaceTemp" runat="server" Width="200">
-                                                                            </asp:TextBox>
-                                                                        </td>
-                                                                        <td class="right">
-                                                                            Magnetic Particle
-                                                                        </td>
-                                                                        <td>
-                                                                            <asp:TextBox ID="MPI_txtMagneticParticle" runat="server" Width="200">
-                                                                            </asp:TextBox>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="right">
-                                                                            Material Thickness
-                                                                        </td>
-                                                                        <td>
-                                                                            <asp:TextBox ID="MPI_txtMaterialThickness" runat="server" Width="200">
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td class="right">
@@ -1897,10 +1856,10 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="right">
-                                                                            Set Calibration
+                                                                            Surface Condition
                                                                         </td>
-                                                                        <td>
-                                                                            <asp:TextBox ID="MPI_txtSetCalibration" runat="server" Width="200">
+                                                                        <td colspan="2">
+                                                                            <asp:TextBox ID="MPI_txtSurfaceCondition" runat="server" Width="200">
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td class="right">
@@ -1913,10 +1872,10 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="right">
-                                                                            Pole Spacing
+                                                                            Metal Surface Temp.
                                                                         </td>
-                                                                        <td>
-                                                                            <asp:TextBox ID="MPI_txtPoleSpacing" runat="server" Width="200">
+                                                                        <td colspan="2">
+                                                                            <asp:TextBox ID="MPI_txtMetalSurfaceTemp" runat="server" Width="200">
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td class="right">
@@ -1928,11 +1887,62 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
+                                                                        <td class="right">
+                                                                            Material Thickness
+                                                                        </td>
+                                                                        <td colspan="2">
+                                                                            <asp:TextBox ID="MPI_txtMaterialThickness" runat="server" Width="200">
+                                                                            </asp:TextBox>
+                                                                        </td>
+                                                                        <td class="right">
+                                                                            Contrast
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="MPI_txtContrast" runat="server" Width="200">
+                                                                            </asp:TextBox>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="right">
+                                                                            Set Calibration
+                                                                        </td>
+                                                                        <td colspan="2">
+                                                                            <asp:TextBox ID="MPI_txtSetCalibration" runat="server" Width="200">
+                                                                            </asp:TextBox>
+                                                                        </td>
+                                                                        <td class="right">
+                                                                            Magnetic Particle
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="MPI_txtMagneticParticle" runat="server" Width="200">
+                                                                            </asp:TextBox>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="right">
+                                                                            Pole Spacing
+                                                                        </td>
+                                                                        <td colspan="2">
+                                                                            <asp:TextBox ID="MPI_txtPoleSpacing" runat="server" Width="200">
+                                                                            </asp:TextBox>
+                                                                        </td>
+                                                                        <td class="right">
+                                                                            Application
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:TextBox ID="MPI_txtApplication" runat="server" Width="200">
+                                                                            </asp:TextBox>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
                                                                         <td class="gridAlternatingItemStyle center">
-                                                                            Equipment - Mag Current
+                                                                            Equipment
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle center">
                                                                             Serial Number
+                                                                        </td>
+                                                                        <td class="gridAlternatingItemStyle center">
+                                                                            Mag Current
                                                                         </td>
                                                                         <td class="gridAlternatingItemStyle center">
                                                                             System
@@ -1944,7 +1954,7 @@
                                                                     <tr>
                                                                         <td valign="top">
                                                                             <table>
-                                                                                <tr>
+                                                                                <tr style="display: none;">
                                                                                     <td class="right">
                                                                                         Yoke
                                                                                     </td>
@@ -1953,12 +1963,38 @@
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
-                                                                                <tr>
+                                                                                <tr style="display: none;">
                                                                                     <td class="right">
                                                                                         Coil
                                                                                     </td>
                                                                                     <td>
                                                                                         <asp:RadioButtonList ID="MPI_rbtnlCoil" runat="server" RepeatDirection="Horizontal">
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        Yoke
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlEqpYoke" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        Coil
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlEqpCoil" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
@@ -2022,6 +2058,36 @@
                                                                             <table>
                                                                                 <tr>
                                                                                     <td class="right">
+                                                                                        Permanent
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlMagPermanent" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        Active
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlMagActive" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                        <td valign="top">
+                                                                            <table>
+                                                                                <tr style="display: none;">
+                                                                                    <td class="right">
                                                                                         Fluorescent
                                                                                     </td>
                                                                                     <td>
@@ -2029,7 +2095,7 @@
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
-                                                                                <tr>
+                                                                                <tr style="display: none;">
                                                                                     <td class="right">
                                                                                         Contrast B/W
                                                                                     </td>
@@ -2039,7 +2105,72 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
+                                                                                    <td class="right">
+                                                                                        Wet
+                                                                                    </td>
                                                                                     <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlSysWet" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        Dry
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlSysDry" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        Dye
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlSysDye" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        Fluorescent
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlSysFluorescent" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        Contrast B/W
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlSysContrastBW" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
                                                                                         Dye Penetrant
                                                                                     </td>
                                                                                     <td>
@@ -2053,34 +2184,8 @@
                                                                                 </tr>
                                                                             </table>
                                                                         </td>
-                                                                        <td>
+                                                                        <td valign="top">
                                                                             <table>
-                                                                                <tr>
-                                                                                    <td class="right">
-                                                                                        Wire Brush
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:RadioButtonList ID="MPI_rbtnlWireBrush" runat="server" RepeatDirection="Horizontal">
-                                                                                            <asp:ListItem Text="Yes" Value="Yes">
-                                                                                            </asp:ListItem>
-                                                                                            <asp:ListItem Text="No" Value="No">
-                                                                                            </asp:ListItem>
-                                                                                        </asp:RadioButtonList>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td class="right">
-                                                                                        Blast Cleaning
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:RadioButtonList ID="MPI_rbtnlBlastCleaning" runat="server" RepeatDirection="Horizontal">
-                                                                                            <asp:ListItem Text="Yes" Value="Yes">
-                                                                                            </asp:ListItem>
-                                                                                            <asp:ListItem Text="No" Value="No">
-                                                                                            </asp:ListItem>
-                                                                                        </asp:RadioButtonList>
-                                                                                    </td>
-                                                                                </tr>
                                                                                 <tr>
                                                                                     <td class="right">
                                                                                         Grinding
@@ -2107,18 +2212,44 @@
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
                                                                                 </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        Blast Cleaning
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlBlastCleaning" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        Wire Brushing
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:RadioButtonList ID="MPI_rbtnlWireBrush" runat="server" RepeatDirection="Horizontal">
+                                                                                            <asp:ListItem Text="Yes" Value="Yes">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="No" Value="No">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:RadioButtonList>
+                                                                                    </td>
+                                                                                </tr>
                                                                             </table>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="4" class="hseparator">
+                                                                        <td colspan="5" class="hseparator">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="right">
                                                                             Inspection Result/Comments
                                                                         </td>
-                                                                        <td colspan="3">
+                                                                        <td colspan="4">
                                                                             <asp:TextBox ID="MPI_txtInspectionResult" runat="server" Width="100%" TextMode="MultiLine"
                                                                                 Height="50" Font-Names="Segoe UI, Arial, Verdana">
                                                                             </asp:TextBox>
@@ -2128,18 +2259,18 @@
                                                                         <td class="right">
                                                                             Notes
                                                                         </td>
-                                                                        <td colspan="3">
+                                                                        <td colspan="4">
                                                                             <asp:TextBox ID="MPI_txtNotes" runat="server" Width="100%" TextMode="MultiLine" Height="50"
                                                                                 Font-Names="Segoe UI, Arial, Verdana">
                                                                             </asp:TextBox>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="4" class="hseparator">
+                                                                        <td colspan="5" class="hseparator">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td colspan="4">
+                                                                        <td colspan="5">
                                                                             <asp:Panel ID="MPI_pnlMPIDt" runat="server">
                                                                                 <table cellpadding="2" cellspacing="1" width="100%">
                                                                                     <tr>
@@ -2666,6 +2797,8 @@
                                                                                         <asp:TextBox ID="DP_Class2_txtMinBevelDia" runat="server" Width="100%">
                                                                                         </asp:TextBox>
                                                                                     </td>
+                                                                                </tr>
+                                                                                <tr>
                                                                                     <td>
                                                                                         <asp:TextBox ID="DP_Class2_txtMaxBevelDia" runat="server" Width="100%">
                                                                                         </asp:TextBox>
@@ -5181,6 +5314,19 @@
                                                                 <table width="100%">
                                                                     <tr>
                                                                         <td style="width: 100px;" class="right">
+                                                                            Inspection Type
+                                                                        </td>
+                                                                        <td>
+                                                                            <asp:DropDownList ID="COI_ddlCOIType" runat="server" width="300" AutoPostBack="true">
+                                                                            </asp:DropDownList>
+                                                                        </td>
+                                                                        <td style="width: 100px;" class="right">
+                                                                        </td>
+                                                                        <td>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 100px;" class="right">
                                                                             Certificate No.
                                                                         </td>
                                                                         <td>
@@ -5244,9 +5390,27 @@
                                                                             </asp:TextBox>
                                                                         </td>
                                                                     </tr>
+                                                                    <asp:Panel id="COI_pnlPullTest" runat="server">
+                                                                        <tr>
+                                                                            <td style="width: 100px;" class="right">
+                                                                                Size
+                                                                            </td>
+                                                                            <td>
+                                                                                <asp:TextBox ID="COI_txtSize" runat="server" Width="300">
+                                                                                </asp:TextBox>
+                                                                            </td>
+                                                                            <td style="width: 100px;" class="right">
+                                                                                SWL
+                                                                            </td>
+                                                                            <td>
+                                                                                <asp:TextBox ID="COI_txtSWL" runat="server" Width="300">
+                                                                                </asp:TextBox>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </asp:Panel>
                                                                     <tr>
                                                                         <td style="width: 100px;" class="right">
-                                                                            Load Test
+                                                                            <asp:Label id="COI_lblLoadPullTestCaption" runat="server"></asp:Label>
                                                                         </td>
                                                                         <td>
                                                                             <asp:TextBox ID="COI_txtLoadTest" runat="server" Width="300">
@@ -5285,7 +5449,7 @@
                                                                             </asp:TextBox>
                                                                         </td>
                                                                         <td style="width: 100px;" class="right">
-                                                                            Actual Load Test
+                                                                            <asp:Label id="COI_lblActualTestCaption" runat="server"></asp:Label>
                                                                         </td>
                                                                         <td>
                                                                             <asp:TextBox ID="COI_txtActualLoadTest" runat="server" Width="148" CssClass="right">
@@ -5396,7 +5560,7 @@
                                                                                 <%# DataBinder.Eval(Container.DataItem, "serialNo") %>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Actual Load Test">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Actual Test">
                                                                             <ItemTemplate>
                                                                                 <%# DataBinder.Eval(Container.DataItem, "actualLoadTest") %>&nbsp;
                                                                                 <%# DataBinder.Eval(Container.DataItem, "actualLoadTestUOM") %>

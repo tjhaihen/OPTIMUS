@@ -144,6 +144,7 @@
     <Compile Include="BusinessRule\InspectionReportHd.vb" />
     <Compile Include="BusinessRule\OfficialReport.vb" />
     <Compile Include="BusinessRule\ProjectFile.vb" />
+    <Compile Include="BusinessRule\ReportImage.vb" />
     <Compile Include="BusinessRule\ResourceSignature.vb" />
     <Compile Include="BusinessRule\ServiceReportDt.vb" />
     <Compile Include="BusinessRule\Temp_InspectionReportDt.vb" />

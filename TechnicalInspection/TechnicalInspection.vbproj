@@ -303,6 +303,13 @@
       <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Secure\ReportImage.aspx.designer.vb">
+      <DependentUpon>ReportImage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Secure\ReportImage.aspx.vb">
+      <DependentUpon>ReportImage.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Secure\Reports\Dialog\Default.aspx.vb">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -523,6 +530,7 @@
     <Content Include="Secure\Main.aspx" />
     <Content Include="Secure\Product.aspx" />
     <Content Include="Secure\Profile.aspx" />
+    <Content Include="Secure\ReportImage.aspx" />
     <Content Include="Secure\Reports\Dialog\Default.aspx" />
     <Content Include="Secure\ReportType.aspx" />
     <Content Include="Secure\Resource.aspx" />
@@ -621,7 +629,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
