@@ -285,6 +285,24 @@ Namespace Raven.Web.Secure
         Protected WithEvents chkIsNoExpiredDate As Global.System.Web.UI.WebControls.CheckBox
 
         '''<summary>
+        '''txtWorkRequestReference control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtWorkRequestReference As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtProjectDtID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProjectDtID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''txtProductID control.
         '''</summary>
         '''<remarks>
@@ -312,15 +330,6 @@ Namespace Raven.Web.Secure
         Protected WithEvents btnSearchProduct As Global.System.Web.UI.WebControls.Button
 
         '''<summary>
-        '''rfvProductCode control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents rfvProductCode As Global.System.Web.UI.WebControls.RequiredFieldValidator
-
-        '''<summary>
         '''txtProductName control.
         '''</summary>
         '''<remarks>
@@ -328,24 +337,6 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents txtProductName As Global.System.Web.UI.WebControls.TextBox
-
-        '''<summary>
-        '''txtWorkRequestReference control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtWorkRequestReference As Global.System.Web.UI.WebControls.TextBox
-
-        '''<summary>
-        '''txtProjectDtID control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtProjectDtID As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''txtDescription control.

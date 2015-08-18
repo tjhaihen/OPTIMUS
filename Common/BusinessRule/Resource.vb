@@ -208,6 +208,39 @@ Namespace Raven.Common.BussinessRules
         End Function
 #End Region
 
+#Region " Custom Functions "
+        Public Function SelectResourcesByResourceType() As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "SELECT * FROM Resource WHERE resourceTypeSCode=@resourceTypeSCode ORDER BY resourceCode"
+            cmdToExecute.CommandType = CommandType.Text
+
+            Dim toReturn As DataTable = New DataTable("Resource")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@resourceTypeSCode", _resourceTypeSCode)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+#End Region
+
 #Region " Class Property Declarations "
         Public Property [resourceID]() As String
             Get

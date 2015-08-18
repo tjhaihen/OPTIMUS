@@ -647,6 +647,40 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Dispose()
             End Try
         End Function
+
+#Region " Project Monitoring Functions "
+        Public Function GetCurrentProjectByResourceID(ByVal strResourceID As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "sp_CurrentProjectByResourceID"
+            cmdToExecute.CommandType = CommandType.StoredProcedure
+
+            Dim toReturn As DataTable = New DataTable("sp_CurrentProjectByResourceID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@resourceID", strResourceID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+#End Region
+
 #End Region
 
 #Region " Class Property Declarations "

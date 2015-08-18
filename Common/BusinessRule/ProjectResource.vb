@@ -139,6 +139,48 @@ Namespace Raven.Common.BussinessRules
             End Try
         End Function
 
+        Public Function GetResourceByProjectIDExcludeResoureID(ByVal strResourceIDToExclude As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand()
+            cmdToExecute.CommandText = "SELECT pr.*, " + _
+                    "r.resourceCode, r.personID, p.firstName, p.middleName, p.lastName, " + _
+                    "RTRIM(RTRIM(p.firstName)+' '+RTRIM(p.middleName)+' '+RTRIM(p.lastName)) AS resourceName, " + _
+                    "(SELECT caption FROM CommonCode WHERE groupCode='" + Common.Constants.GroupCode.ResourceType_SCode + "' " + _
+                        "AND value=pr.resourceRoleSCode) AS resourceRoleName, r.resourceJobTitle, " + _
+                    "rs.signaturePic, rs.description AS signatureDescription " + _
+                    "FROM ProjectResource pr " + _
+                    "INNER JOIN [Resource] r ON pr.resourceID=r.resourceID " + _
+                    "INNER JOIN [Person] p ON r.personID=p.personID " + _
+                    "LEFT JOIN [ResourceSignature] rs ON pr.resourceSignatureID=rs.resourceSignatureID " + _
+                    "WHERE pr.projectID=@ProjectID AND pr.resourceID <> @ResourceIDToExclude"
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("GetResourceByProjectID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@ProjectID", _projectID)
+                cmdToExecute.Parameters.AddWithValue("@ResourceIDToExclude", strResourceIDToExclude)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                Return toReturn
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+        End Function
+
 #Region " Class Property Declarations "
 
         Public Property [ProjectResourceID]() As String

@@ -668,79 +668,79 @@ Namespace Raven.Web.Secure
                         txtProjectID.Text = .projectID.Trim
                         txtProjectCode.Text = .projectCode.Trim
 
-                        Dim oPrt As New Common.BussinessRules.ProductReportType
-                        Dim oPr As New Common.BussinessRules.ProjectReportType
-                        Dim strReportTypeID As String = String.Empty
-                        Dim dtPrtTemp As New DataTable
-                        Dim dtPrtMandatoryTemp As New DataTable
-                        oPrt.ProductID = txtProductID.Text.Trim
-                        dtPrtTemp = oPrt.SelectReportTypeByProductID
-                        dtPrtMandatoryTemp = oPrt.SelectReportTypeByIsMandatoryProductID
-                        Dim drPrtMandatoryTemp As DataRow() = dtPrtMandatoryTemp.Select()
-                        For i As Integer = 0 To drPrtMandatoryTemp.Length - 1
-                            Dim rowMandatory As DataRow = drPrtMandatoryTemp(i)
-                            strReportTypeID = ProcessNull.GetString(rowMandatory("ReportTypeID"))
-                            oPr.ProjectID = txtProjectID.Text.Trim
-                            oPr.ReportTypeID = strReportTypeID.Trim
-                            oPr.UserIDInsert = MyBase.LoggedOnUserID
-                            oPr.UserIDPrepare = MyBase.LoggedOnUserID
-                            oPr.Insert()
-                        Next
-                        Dim drPrtTemp As DataRow() = dtPrtTemp.Select()
-                        For i As Integer = 0 To drPrtTemp.Length - 1
-                            Dim row As DataRow = drPrtTemp(i)
-                            strReportTypeID = ProcessNull.GetString(row("ReportTypeID"))
-                            oPr.ProjectID = txtProjectID.Text.Trim
-                            oPr.ReportTypeID = strReportTypeID.Trim
-                            oPr.UserIDInsert = MyBase.LoggedOnUserID
-                            oPr.UserIDPrepare = MyBase.LoggedOnUserID
-                            oPr.Insert()
-                        Next                        
-                        oPrt.Dispose()
-                        oPrt = Nothing
-                        oPr.Dispose()
-                        oPr = Nothing
+                        'Dim oPrt As New Common.BussinessRules.ProductReportType
+                        'Dim oPr As New Common.BussinessRules.ProjectReportType
+                        'Dim strReportTypeID As String = String.Empty
+                        'Dim dtPrtTemp As New DataTable
+                        'Dim dtPrtMandatoryTemp As New DataTable
+                        'oPrt.ProductID = txtProductID.Text.Trim
+                        'dtPrtTemp = oPrt.SelectReportTypeByProductID
+                        'dtPrtMandatoryTemp = oPrt.SelectReportTypeByIsMandatoryProductID
+                        'Dim drPrtMandatoryTemp As DataRow() = dtPrtMandatoryTemp.Select()
+                        'For i As Integer = 0 To drPrtMandatoryTemp.Length - 1
+                        '    Dim rowMandatory As DataRow = drPrtMandatoryTemp(i)
+                        '    strReportTypeID = ProcessNull.GetString(rowMandatory("ReportTypeID"))
+                        '    oPr.ProjectID = txtProjectID.Text.Trim
+                        '    oPr.ReportTypeID = strReportTypeID.Trim
+                        '    oPr.UserIDInsert = MyBase.LoggedOnUserID
+                        '    oPr.UserIDPrepare = MyBase.LoggedOnUserID
+                        '    oPr.Insert()
+                        'Next
+                        'Dim drPrtTemp As DataRow() = dtPrtTemp.Select()
+                        'For i As Integer = 0 To drPrtTemp.Length - 1
+                        '    Dim row As DataRow = drPrtTemp(i)
+                        '    strReportTypeID = ProcessNull.GetString(row("ReportTypeID"))
+                        '    oPr.ProjectID = txtProjectID.Text.Trim
+                        '    oPr.ReportTypeID = strReportTypeID.Trim
+                        '    oPr.UserIDInsert = MyBase.LoggedOnUserID
+                        '    oPr.UserIDPrepare = MyBase.LoggedOnUserID
+                        '    oPr.Insert()
+                        'Next                        
+                        'oPrt.Dispose()
+                        'oPrt = Nothing
+                        'oPr.Dispose()
+                        'oPr = Nothing
 
-                        SetDataGridProjectReportType()
+                        'SetDataGridProjectReportType()
                     End If                    
                 Else
                     If .Update() Then
-                        Dim oPrt As New Common.BussinessRules.ProductReportType
-                        Dim oPr As New Common.BussinessRules.ProjectReportType
-                        Dim strReportTypeID As String = String.Empty
-                        Dim dtPrtTemp As New DataTable
-                        Dim dtPrtMandatoryTemp As New DataTable
-                        oPr.ProjectID = txtProjectID.Text.Trim
-                        oPr.DeleteByProjectID()
-                        oPrt.ProductID = txtProductID.Text.Trim
-                        dtPrtTemp = oPrt.SelectReportTypeByProductID
-                        dtPrtMandatoryTemp = oPrt.SelectReportTypeByIsMandatoryProductID
-                        Dim drPrtMandatoryTemp As DataRow() = dtPrtMandatoryTemp.Select()
-                        For i As Integer = 0 To drPrtMandatoryTemp.Length - 1
-                            Dim rowMandatory As DataRow = drPrtMandatoryTemp(i)
-                            strReportTypeID = ProcessNull.GetString(rowMandatory("ReportTypeID"))
-                            oPr.ProjectID = txtProjectID.Text.Trim
-                            oPr.ReportTypeID = strReportTypeID.Trim
-                            oPr.UserIDInsert = MyBase.LoggedOnUserID
-                            oPr.UserIDPrepare = MyBase.LoggedOnUserID
-                            oPr.Insert()
-                        Next
-                        Dim drPrtTemp As DataRow() = dtPrtTemp.Select()
-                        For i As Integer = 0 To drPrtTemp.Length - 1
-                            Dim row As DataRow = drPrtTemp(i)
-                            strReportTypeID = ProcessNull.GetString(row("ReportTypeID"))
-                            oPr.ProjectID = txtProjectID.Text.Trim
-                            oPr.ReportTypeID = strReportTypeID.Trim
-                            oPr.UserIDInsert = MyBase.LoggedOnUserID
-                            oPr.UserIDPrepare = MyBase.LoggedOnUserID
-                            oPr.Insert()
-                        Next
-                        oPrt.Dispose()
-                        oPrt = Nothing
-                        oPr.Dispose()
-                        oPr = Nothing
+                        'Dim oPrt As New Common.BussinessRules.ProductReportType
+                        'Dim oPr As New Common.BussinessRules.ProjectReportType
+                        'Dim strReportTypeID As String = String.Empty
+                        'Dim dtPrtTemp As New DataTable
+                        'Dim dtPrtMandatoryTemp As New DataTable
+                        'oPr.ProjectID = txtProjectID.Text.Trim
+                        'oPr.DeleteByProjectID()
+                        'oPrt.ProductID = txtProductID.Text.Trim
+                        'dtPrtTemp = oPrt.SelectReportTypeByProductID
+                        'dtPrtMandatoryTemp = oPrt.SelectReportTypeByIsMandatoryProductID
+                        'Dim drPrtMandatoryTemp As DataRow() = dtPrtMandatoryTemp.Select()
+                        'For i As Integer = 0 To drPrtMandatoryTemp.Length - 1
+                        '    Dim rowMandatory As DataRow = drPrtMandatoryTemp(i)
+                        '    strReportTypeID = ProcessNull.GetString(rowMandatory("ReportTypeID"))
+                        '    oPr.ProjectID = txtProjectID.Text.Trim
+                        '    oPr.ReportTypeID = strReportTypeID.Trim
+                        '    oPr.UserIDInsert = MyBase.LoggedOnUserID
+                        '    oPr.UserIDPrepare = MyBase.LoggedOnUserID
+                        '    oPr.Insert()
+                        'Next
+                        'Dim drPrtTemp As DataRow() = dtPrtTemp.Select()
+                        'For i As Integer = 0 To drPrtTemp.Length - 1
+                        '    Dim row As DataRow = drPrtTemp(i)
+                        '    strReportTypeID = ProcessNull.GetString(row("ReportTypeID"))
+                        '    oPr.ProjectID = txtProjectID.Text.Trim
+                        '    oPr.ReportTypeID = strReportTypeID.Trim
+                        '    oPr.UserIDInsert = MyBase.LoggedOnUserID
+                        '    oPr.UserIDPrepare = MyBase.LoggedOnUserID
+                        '    oPr.Insert()
+                        'Next
+                        'oPrt.Dispose()
+                        'oPrt = Nothing
+                        'oPr.Dispose()
+                        'oPr = Nothing
 
-                        SetDataGridProjectReportType()
+                        'SetDataGridProjectReportType()
                     End If
                 End If
             End With
@@ -828,10 +828,46 @@ Namespace Raven.Web.Secure
                 .referenceNo = txtReferenceNo.Text.Trim
                 .qty = CDec(txtQty.Text.Trim)
                 .unitOfMeasurement = txtUOM.Text.Trim
+                .productID = txtProductID.Text.Trim
                 .descriptionDetail = txtDescriptionDetail.Text.Trim
                 .userIDinsert = MyBase.LoggedOnUserID.Trim
                 .userIDupdate = MyBase.LoggedOnUserID.Trim
-                .Insert()
+                If .Insert() Then
+                    Dim oPrt As New Common.BussinessRules.ProductReportType
+                    Dim oPrty As New Common.BussinessRules.ProjectReportType
+                    Dim strReportTypeID As String = String.Empty
+                    Dim dtPrtTemp As New DataTable
+                    Dim dtPrtMandatoryTemp As New DataTable
+                    oPrt.ProductID = txtProductID.Text.Trim
+                    dtPrtTemp = oPrt.SelectReportTypeByProductIDNotInProjectReportType(txtProjectID.Text.Trim)
+                    dtPrtMandatoryTemp = oPrt.SelectReportTypeByIsMandatoryProductIDNotInProjectReportType(txtProjectID.Text.Trim)
+                    Dim drPrtMandatoryTemp As DataRow() = dtPrtMandatoryTemp.Select()
+                    For i As Integer = 0 To drPrtMandatoryTemp.Length - 1
+                        Dim rowMandatory As DataRow = drPrtMandatoryTemp(i)
+                        strReportTypeID = ProcessNull.GetString(rowMandatory("ReportTypeID"))
+                        oPrty.ProjectID = txtProjectID.Text.Trim
+                        oPrty.ReportTypeID = strReportTypeID.Trim
+                        oPrty.UserIDInsert = MyBase.LoggedOnUserID
+                        oPrty.UserIDPrepare = MyBase.LoggedOnUserID
+                        oPrty.Insert()
+                    Next
+                    Dim drPrtTemp As DataRow() = dtPrtTemp.Select()
+                    For i As Integer = 0 To drPrtTemp.Length - 1
+                        Dim row As DataRow = drPrtTemp(i)
+                        strReportTypeID = ProcessNull.GetString(row("ReportTypeID"))
+                        oPrty.ProjectID = txtProjectID.Text.Trim
+                        oPrty.ReportTypeID = strReportTypeID.Trim
+                        oPrty.UserIDInsert = MyBase.LoggedOnUserID
+                        oPrty.UserIDPrepare = MyBase.LoggedOnUserID
+                        oPrty.Insert()
+                    Next
+                    oPrt.Dispose()
+                    oPrt = Nothing
+                    oPrty.Dispose()
+                    oPrty = Nothing
+
+                    SetDataGridProjectReportType()
+                End If
             End With
             oPr.Dispose()
             oPr = Nothing

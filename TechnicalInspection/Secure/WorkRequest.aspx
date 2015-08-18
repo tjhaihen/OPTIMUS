@@ -237,28 +237,10 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 150px;" class="right">
-                                                        Product Code
+                                                        
                                                     </td>
                                                     <td style="width: 500px;">
-                                                        <asp:TextBox ID="txtProductID" Width="300" runat="server" AutoPostBack="True" Visible="false" />
-                                                        <asp:TextBox ID="txtProductCode" Width="266" MaxLength="15" runat="server" AutoPostBack="True" />
-                                                        <asp:Button ID="btnSearchProduct" runat="server" Text="..." Width="30" CausesValidation="false" />
-                                                        <asp:RequiredFieldValidator ID="rfvProductCode" runat="server" ControlToValidate="txtProductCode"
-                                                            ErrorMessage="Product Code" Display="dynamic" Text="*">
-                                                        </asp:RequiredFieldValidator>
-                                                    </td>
-                                                    <td style="width: 150px;" class="right">
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width: 150px;" class="right">
-                                                        Product Name
-                                                    </td>
-                                                    <td>
-                                                        <asp:TextBox ID="txtProductName" Width="300" MaxLength="500" runat="server" ReadOnly="true"
-                                                            CssClass="txtReadOnly" />
+                                                        
                                                     </td>
                                                     <td style="width: 150px;" class="right">
                                                     </td>
@@ -291,21 +273,32 @@
                                                 </tr>
                                                 <tr class="rbody">
                                                     <td colspan="4" valign="top">
-                                                        <table width="100%">
+                                                        <table width="100%" cellpadding="0">
                                                             <tr>
                                                                 <td style="width: 450px;" class="center">
-                                                                    Description
+                                                                    <table width="100%" cellpadding="2">
+                                                                        <tr>
+                                                                            <td class="gridHeaderStyle">
+                                                                                Product
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="gridHeaderStyle">
+                                                                                Description
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>                                                                    
                                                                 </td>
-                                                                <td style="width: 100px;" class="center">
+                                                                <td style="width: 100px;" class="gridHeaderStyle center">
                                                                     Reference No.
                                                                 </td>
-                                                                <td style="width: 80px;" class="center">
+                                                                <td style="width: 80px;" class="gridHeaderStyle center">
                                                                     Qty
                                                                 </td>
-                                                                <td style="width: 100px;" class="center">
+                                                                <td style="width: 100px;" class="gridHeaderStyle center">
                                                                     UOM
                                                                 </td>
-                                                                <td style="width: 350px;" class="center">
+                                                                <td style="width: 350px;" class="gridHeaderStyle center">
                                                                     Scope Of Work
                                                                 </td>
                                                                 <td>
@@ -313,10 +306,25 @@
                                                             </tr>
                                                             <tr>
                                                                 <td valign="top" class="center">
-                                                                    <asp:TextBox ID="txtProjectDtID" runat="server" Width="100%" Visible="false">
-                                                                    </asp:TextBox>
-                                                                    <asp:TextBox ID="txtDescription" runat="server" Width="100%">
-                                                                    </asp:TextBox>
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <asp:TextBox ID="txtProjectDtID" runat="server" Width="100%" Visible="false">
+                                                                                </asp:TextBox>
+                                                                                <asp:TextBox ID="txtProductID" Width="300" runat="server" AutoPostBack="True" Visible="false" />
+                                                                                <asp:TextBox ID="txtProductCode" Width="100" MaxLength="15" runat="server" AutoPostBack="True" />
+                                                                                <asp:Button ID="btnSearchProduct" runat="server" Text="..." Width="30" CausesValidation="false" />
+                                                                                <asp:TextBox ID="txtProductName" Width="300" MaxLength="500" runat="server" ReadOnly="true"
+                                                                                CssClass="txtReadOnly" />
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <asp:TextBox ID="txtDescription" runat="server" Width="436">
+                                                                                </asp:TextBox>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>                                                                                                                                    
                                                                 </td>
                                                                 <td valign="top" class="center">
                                                                     <asp:TextBox ID="txtReferenceNo" runat="server" Width="100%" MaxLength="50">
@@ -359,9 +367,14 @@
                                                                             ImageAlign="AbsMiddle" CommandName="Delete" CausesValidation="false" />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                                <asp:TemplateColumn runat="server" HeaderText="Description" ItemStyle-Width="450px">
+                                                                <asp:TemplateColumn runat="server" HeaderText="Product" ItemStyle-Width="450px">
                                                                     <ItemTemplate>
                                                                         <asp:Label runat="server" ID="_lblProjectDtID" Visible="false" Text='<%# DataBinder.Eval(Container.DataItem, "projectDtID") %>' />
+                                                                        <%# DataBinder.Eval(Container.DataItem, "productName")%>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateColumn>
+                                                                <asp:TemplateColumn runat="server" HeaderText="Description" ItemStyle-Width="450px">
+                                                                    <ItemTemplate>                                                                        
                                                                         <%# DataBinder.Eval(Container.DataItem, "description") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>

@@ -11,7 +11,7 @@ Namespace Raven.Common.BussinessRules
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _projectID, _projectDtID, _description, _descriptionDetail, _referenceNo, _unitOfMeasurement As String
+        Private _projectID, _projectDtID, _description, _descriptionDetail, _referenceNo, _unitOfMeasurement, _productID As String
         Private _qty, _qtyActual As Decimal
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate As DateTime
@@ -30,11 +30,11 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO ProjectDt " + _
                                         "(projectID, projectDtID, description, descriptionDetail, referenceNo, " + _
-                                        "qty, unitOfMeasurement, " + _
+                                        "qty, unitOfMeasurement, productID, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@projectID, @projectDtID, @description, @descriptionDetail, @referenceNo, " + _
-                                        "@qty, @unitOfMeasurement, " + _
+                                        "@qty, @unitOfMeasurement, @productID, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -49,6 +49,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@referenceNo", _referenceNo)
                 cmdToExecute.Parameters.AddWithValue("@qty", _qty)                
                 cmdToExecute.Parameters.AddWithValue("@unitOfMeasurement", _unitOfMeasurement)
+                cmdToExecute.Parameters.AddWithValue("@productID", _productID)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -72,7 +73,7 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "UPDATE ProjectHd " + _
                                         "SET description=@description, descriptionDetail=@descriptionDetail, referenceNo=@referenceNo, " + _
-                                        "qty=@qty, unitOfMeasurement=@unitOfMeasurement, " + _
+                                        "qty=@qty, unitOfMeasurement=@unitOfMeasurement, productID=@productID, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE projectDtID=@projectDtID"
             cmdToExecute.CommandType = CommandType.Text
@@ -85,7 +86,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@descriptionDetail", _descriptionDetail)
                 cmdToExecute.Parameters.AddWithValue("@referenceNo", _referenceNo)
                 cmdToExecute.Parameters.AddWithValue("@qty", _qty)
-                cmdToExecute.Parameters.AddWithValue("@unitOfMeasurement", _unitOfMeasurement)                
+                cmdToExecute.Parameters.AddWithValue("@unitOfMeasurement", _unitOfMeasurement)
+                cmdToExecute.Parameters.AddWithValue("@productID", _productID)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -160,6 +162,7 @@ Namespace Raven.Common.BussinessRules
                     _qty = CType(toReturn.Rows(0)("qty"), Decimal)
                     _qtyActual = CType(toReturn.Rows(0)("qtyActual"), Decimal)
                     _unitOfMeasurement = CType(toReturn.Rows(0)("unitOfMeasurement"), String)
+                    _productID = CType(toReturn.Rows(0)("productID"), String)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -208,7 +211,7 @@ Namespace Raven.Common.BussinessRules
 #Region " Custom Function "
         Public Function SelectByProjectID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM ProjectDt WHERE ProjectID=@ProjectID"
+            cmdToExecute.CommandText = "SELECT dt.*, (SELECT productName FROM product WHERE productID=dt.productID) AS productName FROM ProjectDt dt WHERE dt.ProjectID=@ProjectID"
             cmdToExecute.CommandType = CommandType.Text
 
             Dim toReturn As DataTable = New DataTable("ProjectDt")
@@ -338,6 +341,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _unitOfMeasurement = Value
+            End Set
+        End Property
+
+        Public Property [productID]() As String
+            Get
+                Return _productID
+            End Get
+            Set(ByVal Value As String)
+                _productID = Value
             End Set
         End Property
 

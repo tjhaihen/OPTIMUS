@@ -147,7 +147,7 @@ Namespace Raven.Web
                 Case "Process"
                     Dim _lblProjectID As Label = CType(e.Item.FindControl("_lblProjectID"), Label)
                     pnlAdministratorScreen.Visible = False
-                    pnlInspectorScreen.Visible = True                    
+                    pnlInspectorScreen.Visible = True
                     txtProjectID.Text = _lblProjectID.Text.Trim
                     txtProjectName.Text = Common.BussinessRules.ID.GetFieldValue("ProjectHd", "ProjectID", txtProjectID.Text.Trim, "ProjectName")
                     txtProjectCode.Text = Common.BussinessRules.ID.GetFieldValue("ProjectHd", "ProjectID", txtProjectID.Text.Trim, "ProjectCode")

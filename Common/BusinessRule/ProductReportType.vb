@@ -93,6 +93,7 @@ Namespace Raven.Common.BussinessRules
 
 #End Region
 
+#Region " Custom Functions "
         Public Function SelectReportTypeByProductID() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "SELECT pm.*, (SELECT ReportTypeName FROM ReportType WHERE ReportTypeID=pm.ReportTypeID) AS ReportTypeName FROM ProductReportType pm " + _
@@ -105,6 +106,39 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.Connection = _mainConnection
 
             Try
+                cmdToExecute.Parameters.AddWithValue("@ProductID", _productID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                Return toReturn
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                Throw New Exception(ex.Message)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+        End Function
+
+        Public Function SelectReportTypeByProductIDNotInProjectReportType(ByVal strProjectID As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "SELECT pm.*, (SELECT ReportTypeName FROM ReportType WHERE ReportTypeID=pm.ReportTypeID) AS ReportTypeName FROM ProductReportType pm " + _
+                                        "WHERE pm.ProductID=@ProductID AND pm.ReportTypeID NOT IN (SELECT ReportTypeID FROM ProjectReportType WHERE ProjectID=@ProjectID) ORDER BY pm.ReportTypeID"
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("ReportTypeByProductID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@ProjectID", strProjectID)
                 cmdToExecute.Parameters.AddWithValue("@ProductID", _productID)
 
                 ' // Open connection.
@@ -138,6 +172,41 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.Connection = _mainConnection
 
             Try
+                cmdToExecute.Parameters.AddWithValue("@ProductID", _productID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                Return toReturn
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                Throw New Exception(ex.Message)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+        End Function
+
+        Public Function SelectReportTypeByIsMandatoryProductIDNotInProjectReportType(ByVal strProjectID As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "SELECT pm.*, (SELECT ReportTypeName FROM ReportType WHERE ReportTypeID=pm.ReportTypeID) AS ReportTypeName FROM ProductReportType pm " + _
+                                        "INNER JOIN ReportType rt ON pm.ReportTypeID=rt.ReportTypeID " + _
+                                        "WHERE rt.isMandatory=1 AND pm.ReportTypeID NOT IN (SELECT ReportTypeID FROM ProductReportType WHERE ProductID=@productID) " + _
+                                        "AND pm.ReportTypeID NOT IN (SELECT ReportTypeID FROM ProjectReportType WHERE ProjectID=@projectID) ORDER BY pm.ReportTypeID"
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("ReportTypeByIsMandatoryProductID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@ProjectID", strProjectID)
                 cmdToExecute.Parameters.AddWithValue("@ProductID", _productID)
 
                 ' // Open connection.
@@ -295,6 +364,7 @@ Namespace Raven.Common.BussinessRules
                 adapter.Dispose()
             End Try
         End Function
+#End Region        
 
 #Region " Class Property Declarations "
 

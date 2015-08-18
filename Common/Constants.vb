@@ -48,8 +48,9 @@
             Public Const InspectionSpec_MenuID As String = "1006"
             Public Const Customer_MenuID As String = "1007"
             Public Const WorkRequest_MenuID As String = "3003"
-            Public Const WorkRequestApproval_MenuID As String = "3009"
+            Public Const WorkRequestApproval_MenuID As String = "3009"            
             Public Const CustomerInspectionInformation_MenuID As String = "8001"
+            Public Const ProjectMonitoring_MenuID As String = "8005"
             Public Const Site_MenuID As String = "9003"
             Public Const Profile_MenuID As String = "9005"
             Public Const User_MenuID As String = "9007"
@@ -188,6 +189,12 @@
             Public Const GetImage_PersonSignature As String = "PersonSignature"
             Public Const GetImage_ResourceSignature As String = "ResourceSignature"
             Public Const GetImage_CommonCodeFilePic As String = "CommonCodeFilePic"            
+        End Class
+
+        Public NotInheritable Class ResourceType
+            Public Const ResourceType_Inspector As String = "ISP"
+            Public Const ResourceType_AssistantInspector As String = "ASP"
+            Public Const ResourceType_Helper As String = "HLP"
         End Class
     End Class
 End Namespace
