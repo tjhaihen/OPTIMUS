@@ -229,10 +229,6 @@
       <DependentUpon>searchlist.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="search\srchlocc.aspx.vb">
-      <DependentUpon>srchlocc.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Secure\ChangePassword.aspx.designer.vb">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
     </Compile>
@@ -401,132 +397,6 @@
     <Content Include="Logout.aspx" />
     <Content Include="ReportViewer.aspx" />
     <Content Include="searchlist.aspx" />
-    <Content Include="search\SDokterPerPoli.htm" />
-    <Content Include="search\SLAYANPNJ.htm" />
-    <Content Include="search\SLAYANPOLI.htm" />
-    <Content Include="search\sPoliPerDokter.htm" />
-    <Content Include="search\SPTARIFLB.htm" />
-    <Content Include="search\SPTARIFMCU.htm" />
-    <Content Include="search\SPTARIFMCULB.htm" />
-    <Content Include="search\SPTARIFMCUPM.htm" />
-    <Content Include="search\SPTARIFMCURJ.htm" />
-    <Content Include="search\srchlocc.aspx" />
-    <Content Include="search\SREGByNormNType.htm" />
-    <Content Include="search\SREGISTBATAL.htm" />
-    <Content Include="search\sTrMedRecBYREGNORMTYPENSTATUS.htm" />
-    <Content Include="search\s_anggotainst.htm" />
-    <Content Include="search\s_anggotainstnomember.htm" />
-    <Content Include="search\s_bank.htm" />
-    <Content Include="search\s_bankaktif.htm" />
-    <Content Include="search\s_BukuTreasury.htm" />
-    <Content Include="search\s_byrjm.htm" />
-    <Content Include="search\s_byrpenjualanc.htm" />
-    <Content Include="search\s_byrpenjualanc_lg.htm" />
-    <Content Include="search\s_byrpiutangins.htm" />
-    <Content Include="search\s_byrpiutanginscust.htm" />
-    <Content Include="search\s_byrpiutanginscustnon.htm" />
-    <Content Include="search\s_byrpiutangnonoprbynotrans.htm" />
-    <Content Include="search\s_byrpiutangpbd.htm" />
-    <Content Include="search\s_byrpiutangpbdcust.htm" />
-    <Content Include="search\s_customer.htm" />
-    <Content Include="search\s_cuti.htm" />
-    <Content Include="search\s_diagnosa.htm" />
-    <Content Include="search\S_DOKTER.htm" />
-    <Content Include="search\s_dtd.htm" />
-    <Content Include="search\s_fakturcab.htm" />
-    <Content Include="search\s_FmItem_App_Ins.htm" />
-    <Content Include="search\s_gedung.htm" />
-    <Content Include="search\s_gudang.htm" />
-    <Content Include="search\s_gudanglog.htm" />
-    <Content Include="search\s_instansi.htm" />
-    <Content Include="search\s_invoicegabungan.htm" />
-    <Content Include="search\s_jasagroup.htm" />
-    <Content Include="search\s_jasamedik.htm" />
-    <Content Include="search\s_KdCOAByKdBuku.htm" />
-    <Content Include="search\s_kdtest.htm" />
-    <Content Include="search\s_kelas.htm" />
-    <Content Include="search\s_kelasaktif.htm" />
-    <Content Include="search\s_kelompokfa.htm" />
-    <Content Include="search\s_KodeCoa.htm" />
-    <Content Include="search\s_kodePos.htm" />
-    <Content Include="search\s_lantai.htm" />
-    <Content Include="search\s_medis.htm" />
-    <Content Include="search\s_medisjm.htm" />
-    <Content Include="search\s_medisrd.htm" />
-    <Content Include="search\s_medisri.htm" />
-    <Content Include="search\s_medisrj.htm" />
-    <Content Include="search\s_member.htm" />
-    <Content Include="search\s_menu.htm" />
-    <Content Include="search\s_module.htm" />
-    <Content Include="search\s_morfologi.htm" />
-    <Content Include="search\s_msrpoliklinik.htm" />
-    <Content Include="search\s_NoInvoice.htm" />
-    <Content Include="search\s_nopekdetail.htm" />
-    <Content Include="search\s_NoVoucherByKdBuku.htm" />
-    <Content Include="search\s_NoVoucherByKdBukuProses.htm" />
-    <Content Include="search\s_NoVoucherByKdBukuProsesApproved.htm" />
-    <Content Include="search\s_obat.htm" />
-    <Content Include="search\s_paketmember.htm" />
-    <Content Include="search\s_pasien.htm" />
-    <Content Include="search\s_pasieninst.htm" />
-    <Content Include="search\s_pelayananmd.htm" />
-    <Content Include="search\s_pelayananrd.htm" />
-    <Content Include="search\s_pelayananri.htm" />
-    <Content Include="search\s_pembayaranhutang.htm" />
-    <Content Include="search\S_PEMBJMMCU.htm" />
-    <Content Include="search\S_PEMBJMMD.htm" />
-    <Content Include="search\S_PEMBJMRD.htm" />
-    <Content Include="search\S_PEMBJMRI.htm" />
-    <Content Include="search\S_PEMBJMRJ.htm" />
-    <Content Include="search\s_pemeriksaanlb.htm" />
-    <Content Include="search\s_pemeriksaanmcu.htm" />
-    <Content Include="search\s_pengirim.htm" />
-    <Content Include="search\s_penjualanbycustomer.htm" />
-    <Content Include="search\s_penjualanbycustomer_lg.htm" />
-    <Content Include="search\s_piutangins.htm" />
-    <Content Include="search\s_piutanginscust.htm" />
-    <Content Include="search\s_piutanginscustnon.htm" />
-    <Content Include="search\s_piutangnonoperasional.htm" />
-    <Content Include="search\s_piutangnonoperasionalaktif.htm" />
-    <Content Include="search\s_piutangnonoprcust.htm" />
-    <Content Include="search\s_piutangnonopr_byinvoice.htm" />
-    <Content Include="search\s_piutangpbd.htm" />
-    <Content Include="search\s_piutangpbdcust.htm" />
-    <Content Include="search\s_plafon.htm" />
-    <Content Include="search\s_pnjmedis.htm" />
-    <Content Include="search\s_poliaktif.htm" />
-    <Content Include="search\s_poliklinik.htm" />
-    <Content Include="search\s_potjm.htm" />
-    <Content Include="search\s_regpernorm.htm" />
-    <Content Include="search\s_regpernormLB.htm" />
-    <Content Include="search\s_regpernormMCU.htm" />
-    <Content Include="search\s_regpernormMD.htm" />
-    <Content Include="search\s_regpernormRD.htm" />
-    <Content Include="search\s_regpernormRJ.htm" />
-    <Content Include="search\s_rekammedis.htm" />
-    <Content Include="search\s_ruang.htm" />
-    <Content Include="search\s_ruanggroup.htm" />
-    <Content Include="search\s_smf.htm" />
-    <Content Include="search\s_stdfieldHd.htm" />
-    <Content Include="search\s_stdreportHd.htm" />
-    <Content Include="search\s_subledger2.htm" />
-    <Content Include="search\s_supplier.htm" />
-    <Content Include="search\s_tarifgroup.htm" />
-    <Content Include="search\s_tariflynrj.htm" />
-    <Content Include="search\s_tarifpelayanan.htm" />
-    <Content Include="search\s_tarifpelayananaktif.htm" />
-    <Content Include="search\s_tempattidur.htm" />
-    <Content Include="search\s_Testgroup.htm" />
-    <Content Include="search\s_tfkonsinyasi.htm" />
-    <Content Include="search\s_tindakan.htm" />
-    <Content Include="search\s_TindakanGroup.htm" />
-    <Content Include="search\s_transPiutangNonOperasional.htm" />
-    <Content Include="search\s_user.htm" />
-    <Content Include="search\s_userAcc.htm" />
-    <Content Include="search\s_voucherfaktur.htm" />
-    <Content Include="search\s_writeoffpiutangins.htm" />
-    <Content Include="search\s_writeoffpiutangnonopr.htm" />
-    <Content Include="search\s_writeoffpiutangpbd.htm" />
     <Content Include="Secure\ChangePassword.aspx" />
     <Content Include="Secure\CommonCode.aspx" />
     <Content Include="Secure\Customer.aspx" />
@@ -564,9 +434,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Logout.aspx.resx">
       <DependentUpon>Logout.aspx.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="search\srchlocc.aspx.resx">
-      <DependentUpon>srchlocc.aspx.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Secure\licenses.licx" />
     <EmbeddedResource Include="Secure\Reports\Dialog\Default.aspx.resx">
@@ -637,7 +504,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
