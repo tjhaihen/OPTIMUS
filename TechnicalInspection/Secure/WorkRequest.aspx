@@ -127,11 +127,10 @@
                                                         <asp:Button ID="btnSearchProject" runat="server" Text="..." Width="30" CausesValidation="false" />
                                                     </td>
                                                     <td style="width: 150px;" class="right">
-                                                        Site
+                                                        Ref. Work Request No.
                                                     </td>
                                                     <td>
-                                                        <asp:DropDownList ID="ddlSite" runat="server" Width="300">
-                                                        </asp:DropDownList>
+                                                        <asp:TextBox ID="txtRefWorkRequestNo" Width="300" MaxLength="100" runat="server" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -142,12 +141,11 @@
                                                         <asp:TextBox ID="txtProjectName" Width="300" MaxLength="500" runat="server" />
                                                     </td>
                                                     <td style="width: 150px;" class="right">
-                                                        Work Period
+                                                        Site
                                                     </td>
                                                     <td>
-                                                        <Module:Calendar ID="calStartDate" runat="server" DontResetDate="true" />
-                                                        &nbsp;to&nbsp;
-                                                        <Module:Calendar ID="calEndDate" runat="server" DontResetDate="true" />
+                                                        <asp:DropDownList ID="ddlSite" runat="server" Width="300">
+                                                        </asp:DropDownList>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -158,8 +156,12 @@
                                                         <asp:TextBox ID="txtToDepartment" Width="300" MaxLength="500" runat="server" />
                                                     </td>
                                                     <td style="width: 150px;" class="right">
+                                                        Work Period
                                                     </td>
                                                     <td>
+                                                        <Module:Calendar ID="calStartDate" runat="server" DontResetDate="true" />
+                                                        &nbsp;to&nbsp;
+                                                        <Module:Calendar ID="calEndDate" runat="server" DontResetDate="true" />
                                                     </td>
                                                 </tr>
                                                 <tr>

@@ -114,6 +114,18 @@ Namespace Raven.Web.Secure
             End Select
         End Sub
 
+        Private Sub lbtnAccepted_Click(sender As Object, e As System.EventArgs) Handles lbtnAccepted.Click
+            GetSummaryOfInspectionByStatus(Common.Constants.SOIStatus.Status_Accept)
+        End Sub
+
+        Private Sub lbtnRepair_Click(sender As Object, e As System.EventArgs) Handles lbtnRepair.Click
+            GetSummaryOfInspectionByStatus(Common.Constants.SOIStatus.Status_Repair)
+        End Sub
+
+        Private Sub lbtnRejected_Click(sender As Object, e As System.EventArgs) Handles lbtnRejected.Click
+            GetSummaryOfInspectionByStatus(Common.Constants.SOIStatus.Status_Reject)
+        End Sub
+
         'Private Sub grdCustomerInspection_ItemCreated(sender As Object, e As System.Web.UI.WebControls.DataGridItemEventArgs) Handles grdCustomerInspection.ItemCreated
         '    If e.Item.ItemType = ListItemType.Item Or e.Item.ItemType = ListItemType.AlternatingItem Then
         '        Dim x As DataRowView = CType(e.Item.DataItem, DataRowView)
@@ -234,12 +246,24 @@ Namespace Raven.Web.Secure
                     lblTotalItemAccepted.Text = .totalItemAccepted.ToString.Trim
                     lblTotalItemNeedRepair.Text = .totalItemNeedRepair.ToString.Trim
                     lblTotalItemRejected.Text = .totalItemRejected.ToString.Trim
+                    If .totalItemInspected > 0 And .totalItemAccepted > 0 Then
+                        lblTotalItemAcceptedPct.Text = Format((.totalItemAccepted / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    End If
+                    If .totalItemInspected > 0 And .totalItemNeedRepair > 0 Then
+                        lblTotalItemNeedRepairPct.Text = Format((.totalItemNeedRepair / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    End If
+                    If .totalItemInspected > 0 And .totalItemRejected > 0 Then
+                        lblTotalItemRejectedPct.Text = Format((.totalItemRejected / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    End If
                 Else
                     lblTotalWorkOrder.Text = "0"
-                    lblTotalItemIspected.Text = "0"
+                    lblTotalItemIspected.Text = "0"                    
                     lblTotalItemAccepted.Text = "0"
+                    lblTotalItemAcceptedPct.Text = "0"
                     lblTotalItemNeedRepair.Text = "0"
+                    lblTotalItemNeedRepairPct.Text = "0"
                     lblTotalItemRejected.Text = "0"
+                    lblTotalItemRejectedPct.Text = "0"
                 End If
             End With            
 
@@ -249,6 +273,18 @@ Namespace Raven.Web.Secure
             grdInspectionBySerialIDNo.DataSource = dtInspectionSerialIDNo
             grdInspectionBySerialIDNo.DataBind()
 
+            oProject.Dispose()
+            oProject = Nothing
+        End Sub
+
+        Private Sub GetSummaryOfInspectionByStatus(ByVal strStatus As String)
+            Dim oProject As New Common.BussinessRules.ProjectHd
+            Dim dtItemDueToExpiredInspection As New DataTable
+            With oProject
+                dtItemDueToExpiredInspection = .GetListOfItemDueToExpiredInspectionByCustomerStatus(txtCustomerID.Text.Trim, ddlInformationTypeSOI.SelectedValue.Trim, CInt(txtItemDueToExpiredInspectionInDay.Text.Trim), calStartDate.selectedDate, calEndDate.selectedDate, strStatus.Trim)
+            End With
+            grdItemDueToExpiredInspection.DataSource = dtItemDueToExpiredInspection
+            grdItemDueToExpiredInspection.DataBind()
             oProject.Dispose()
             oProject = Nothing
         End Sub

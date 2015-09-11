@@ -573,67 +573,13 @@ Namespace Raven.Web
         Protected WithEvents SOI_txtReportNumber As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''SOI_chkIsV control.
+        '''SOI_txtTypeOfInspectionDescription control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents SOI_chkIsV As Global.System.Web.UI.WebControls.CheckBox
-
-        '''<summary>
-        '''SOI_chkIsDS1CAT3to5 control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents SOI_chkIsDS1CAT3to5 As Global.System.Web.UI.WebControls.CheckBox
-
-        '''<summary>
-        '''SOI_chkIsN control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents SOI_chkIsN As Global.System.Web.UI.WebControls.CheckBox
-
-        '''<summary>
-        '''SOI_chkIsDS1CAT4 control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents SOI_chkIsDS1CAT4 As Global.System.Web.UI.WebControls.CheckBox
-
-        '''<summary>
-        '''SOI_chkIsT control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents SOI_chkIsT As Global.System.Web.UI.WebControls.CheckBox
-
-        '''<summary>
-        '''SOI_chkIsAPISPEC7 control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents SOI_chkIsAPISPEC7 As Global.System.Web.UI.WebControls.CheckBox
-
-        '''<summary>
-        '''SOI_chkIsAPIRP7G control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents SOI_chkIsAPIRP7G As Global.System.Web.UI.WebControls.CheckBox
+        Protected WithEvents SOI_txtTypeOfInspectionDescription As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''SOI_chkIsHardbanding control.

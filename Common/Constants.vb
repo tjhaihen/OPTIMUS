@@ -107,6 +107,12 @@
             Public Const DailyProgressReportDefaultUOM As String = "Jts"
         End Class
 
+        Public NotInheritable Class SOIStatus
+            Public Const Status_Accept As String = "ACCEPT"
+            Public Const Status_Repair As String = "REPAIR"
+            Public Const Status_Reject As String = "REJECT"
+        End Class
+
         Public NotInheritable Class ReportTypeCode
             Public Const ServiceAcceptanceCertificate As String = "SAC"
             Public Const SummaryOfInspection As String = "SOI"

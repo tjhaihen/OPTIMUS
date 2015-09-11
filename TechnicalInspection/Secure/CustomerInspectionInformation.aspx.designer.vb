@@ -285,6 +285,15 @@ Namespace Raven.Web.Secure
         Protected WithEvents lblTotalItemIspected As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
+        '''lbtnAccepted control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lbtnAccepted As Global.System.Web.UI.WebControls.LinkButton
+
+        '''<summary>
         '''lblTotalItemAccepted control.
         '''</summary>
         '''<remarks>
@@ -292,6 +301,24 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents lblTotalItemAccepted As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblTotalItemAcceptedPct control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemAcceptedPct As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lbtnRepair control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lbtnRepair As Global.System.Web.UI.WebControls.LinkButton
 
         '''<summary>
         '''lblTotalItemNeedRepair control.
@@ -303,6 +330,24 @@ Namespace Raven.Web.Secure
         Protected WithEvents lblTotalItemNeedRepair As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
+        '''lblTotalItemNeedRepairPct control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemNeedRepairPct As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lbtnRejected control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lbtnRejected As Global.System.Web.UI.WebControls.LinkButton
+
+        '''<summary>
         '''lblTotalItemRejected control.
         '''</summary>
         '''<remarks>
@@ -310,6 +355,15 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents lblTotalItemRejected As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblTotalItemRejectedPct control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemRejectedPct As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
         '''pnlDueToExpired control.

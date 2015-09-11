@@ -132,13 +132,13 @@ Namespace Raven.Web.Secure
         Protected WithEvents btnSearchProject As Global.System.Web.UI.WebControls.Button
 
         '''<summary>
-        '''ddlSite control.
+        '''txtRefWorkRequestNo control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents ddlSite As Global.System.Web.UI.WebControls.DropDownList
+        Protected WithEvents txtRefWorkRequestNo As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''txtProjectName control.
@@ -148,6 +148,24 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents txtProjectName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''ddlSite control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ddlSite As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''txtToDepartment control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtToDepartment As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''calStartDate control.
@@ -166,15 +184,6 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents calEndDate As Global.Raven.Web.Calendar
-
-        '''<summary>
-        '''txtToDepartment control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtToDepartment As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''txtWorkOrderNo control.

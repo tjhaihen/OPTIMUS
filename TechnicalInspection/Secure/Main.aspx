@@ -779,7 +779,7 @@
                                                                 <td style="width: 150px;" class="gridAlternatingItemStyle center" rowspan="2">
                                                                     Report Number
                                                                 </td>
-                                                                <td style="width: 240px;" class="gridAlternatingItemStyle center" colspan="4">
+                                                                <td style="width: 240px;" class="gridAlternatingItemStyle center" rowspan="2">
                                                                     Type of Inspect
                                                                 </td>
                                                                 <td style="width: 240px;" class="gridAlternatingItemStyle center" colspan="3">
@@ -787,18 +787,6 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 60px;" class="gridAlternatingItemStyle center">
-                                                                    DS 1 CAT 3-5
-                                                                </td>
-                                                                <td style="width: 60px;" class="gridAlternatingItemStyle center">
-                                                                    DS 1 CAT 4
-                                                                </td>
-                                                                <td style="width: 60px;" class="gridAlternatingItemStyle center">
-                                                                    API SPEC 7
-                                                                </td>
-                                                                <td style="width: 60px;" class="gridAlternatingItemStyle center">
-                                                                    API RP 7G
-                                                                </td>
                                                                 <td style="width: 60px;" class="gridAlternatingItemStyle center">
                                                                     Hard Banding
                                                                 </td>
@@ -828,27 +816,9 @@
                                                                     <asp:TextBox ID="SOI_txtReportNumber" runat="server" Width="100%">
                                                                     </asp:TextBox>
                                                                 </td>
-                                                                <td class="center">
-                                                                    <asp:CheckBox ID="SOI_chkIsV" runat="server" visible="false">
-                                                                    </asp:CheckBox>
-                                                                    <asp:CheckBox ID="SOI_chkIsDS1CAT3to5" runat="server">
-                                                                    </asp:CheckBox>
-                                                                </td>
-                                                                <td class="center">
-                                                                    <asp:CheckBox ID="SOI_chkIsN" runat="server" visible="false">
-                                                                    </asp:CheckBox>
-                                                                    <asp:CheckBox ID="SOI_chkIsDS1CAT4" runat="server">
-                                                                    </asp:CheckBox>
-                                                                </td>
-                                                                <td class="center">
-                                                                    <asp:CheckBox ID="SOI_chkIsT" runat="server" visible="false">
-                                                                    </asp:CheckBox>
-                                                                    <asp:CheckBox ID="SOI_chkIsAPISPEC7" runat="server">
-                                                                    </asp:CheckBox>
-                                                                </td>
-                                                                <td class="center">
-                                                                    <asp:CheckBox ID="SOI_chkIsAPIRP7G" runat="server">
-                                                                    </asp:CheckBox>
+                                                                <td>
+                                                                    <asp:TextBox ID="SOI_txtTypeOfInspectionDescription" runat="server" Width="100%">
+                                                                    </asp:TextBox>
                                                                 </td>
                                                                 <td class="center">
                                                                     <asp:CheckBox ID="SOI_chkIsHardbanding" runat="server">

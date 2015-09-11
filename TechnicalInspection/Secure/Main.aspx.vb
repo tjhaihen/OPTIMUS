@@ -2288,10 +2288,8 @@ Namespace Raven.Web
                             SOI_txtResult.Text = .result.Trim
                             SOI_calExamDate.selectedDate = .examDate
                             SOI_calExpiredDate.selectedDate = .expireDate
+                            SOI_txtTypeOfInspectionDescription.Text = .typeOfInspectionDescription.Trim
                             SOI_txtReportNumber.Text = .reportNo.Trim
-                            SOI_chkIsV.Checked = .isToiV
-                            SOI_chkIsN.Checked = .isToiN
-                            SOI_chkIsT.Checked = .isToiT
                             SOI_txtInterval.Text = .interval.Trim
                             SOI_txtRemarks.Text = .remarks.Trim
                         Else
@@ -3064,9 +3062,10 @@ Namespace Raven.Web
                             .result = SOI_txtResult.Text.Trim
                             .reportNo = SOI_txtReportNumber.Text.Trim
                             .typeOfInspectionSCode = ""
-                            .isToiV = SOI_chkIsV.Checked
-                            .isToiN = SOI_chkIsN.Checked
-                            .isToiT = SOI_chkIsT.Checked
+                            .typeOfInspectionDescription = SOI_txtTypeOfInspectionDescription.Text.Trim
+                            .isToiV = False
+                            .isToiN = False
+                            .isToiT = False
                             .interval = SOI_txtInterval.Text.Trim
                             .remarks = SOI_txtRemarks.Text.Trim
                             .detailReportSection = ""
@@ -3074,10 +3073,10 @@ Namespace Raven.Web
                             .expireDate = SOI_calExpiredDate.selectedDate
                             .inspectorName = SOI_txtInspectorName.Text.Trim
                             .reportNo_1 = SOI_txtReportNo_1.Text.Trim
-                            .isDS1CAT3to5 = SOI_chkIsDS1CAT3to5.Checked
-                            .isDS1CAT4 = SOI_chkIsDS1CAT4.Checked
-                            .isAPISPEC7 = SOI_chkIsAPISPEC7.Checked
-                            .isAPIRP7G = SOI_chkIsAPIRP7G.Checked
+                            .isDS1CAT3to5 = False
+                            .isDS1CAT4 = False
+                            .isAPISPEC7 = False
+                            .isAPIRP7G = False
                             .isHardbanding = SOI_chkIsHardbanding.Checked
                             .isIntExtCleaning = SOI_chkIsIntExtCleaning.Checked
                             .isUTSlipUpsetArea = SOI_chkIsUTSlipUpsetArea.Checked
@@ -3284,6 +3283,7 @@ Namespace Raven.Web
                                     Else
                                         If CType(DtSet.Tables(0).Rows(iRecCount)(17), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(17), String) = "V" Then
                                             .isDS1CAT3to5 = True
+                                            .typeOfInspectionDescription = "DS 1 CAT 3-5"
                                         Else
                                             .isDS1CAT3to5 = False
                                         End If
@@ -3294,6 +3294,7 @@ Namespace Raven.Web
                                     Else
                                         If CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "V" Then
                                             .isDS1CAT4 = True
+                                            .typeOfInspectionDescription = "DS 1 CAT 4"
                                         Else
                                             .isDS1CAT4 = False
                                         End If
@@ -3304,6 +3305,7 @@ Namespace Raven.Web
                                     Else
                                         If CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "V" Then
                                             .isAPISPEC7 = True
+                                            .typeOfInspectionDescription = "API SPEC 7"
                                         Else
                                             .isAPISPEC7 = False
                                         End If
@@ -3314,6 +3316,7 @@ Namespace Raven.Web
                                     Else
                                         If CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "V" Then
                                             .isAPIRP7G = True
+                                            .typeOfInspectionDescription = "API RP 7G"
                                         Else
                                             .isAPIRP7G = False
                                         End If

@@ -12,7 +12,7 @@ Namespace Raven.Common.BussinessRules
 
 #Region " Class Member Declarations "
         Private _summaryOfInspectionID, _projectID, _sequenceNo, _descriptionOfEquipment, _serialIDNo, _location, _manufacture, _SWL_WWL_MGW, _
-            _dimensional, _defectFound, _result, _reportNo, _typeOfInspectionSCode, _interval, _remarks, _detailReportSection, _
+            _dimensional, _defectFound, _result, _reportNo, _typeOfInspectionSCode, _typeOfInspectionDescription, _interval, _remarks, _detailReportSection, _
             _userIDinsert, _userIDupdate, _approvalBy, _fileName, _fileExtension As String
         Private _inspectorName, _reportNo_1 As String
         Private _isToiV, _isToiN, _isToiT, _isApproval As Boolean
@@ -35,7 +35,7 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "INSERT INTO SummaryOfInspection " + _
                                         "(summaryOfInspectionID, projectID, sequenceNo, descriptionOfEquipment, serialIDNo, location, " + _
                                         "manufacture, SWL_WWL_MGW, dimensional, defectFound, result, reportNo,  " + _
-                                        "typeOfInspectionSCode, isToiV, isToiN, isToiT, interval, remarks, detailReportSection,  " + _
+                                        "typeOfInspectionSCode, typeOfInspectionDescription, isToiV, isToiN, isToiT, interval, remarks, detailReportSection,  " + _
                                         "examDate, expireDate, fileName, fileExtension, " + _
                                         "inspectorName, reportNo_1, " + _
                                         "isDS1CAT3to5, isDS1CAT4, isAPISPEC7, isAPIRP7G, isHardbanding, isIntExtCleaning, isUTSlipUpsetArea, " + _
@@ -43,7 +43,7 @@ Namespace Raven.Common.BussinessRules
                                         "VALUES " + _
                                         "(@summaryOfInspectionID, @projectID, @sequenceNo, @descriptionOfEquipment, @serialIDNo, @location, " + _
                                         "@manufacture, @SWL_WWL_MGW, @dimensional, @defectFound, @result, @reportNo,  " + _
-                                        "@typeOfInspectionSCode, @isToiV, @isToiN, @isToiT, @interval, @remarks, @detailReportSection,  " + _
+                                        "@typeOfInspectionSCode, @typeOfInspectionDescription, @isToiV, @isToiN, @isToiT, @interval, @remarks, @detailReportSection,  " + _
                                         "@examDate, @expireDate, @fileName, @fileExtension, " + _
                                         "@inspectorName, @reportNo_1, " + _
                                         "@isDS1CAT3to5, @isDS1CAT4, @isAPISPEC7, @isAPIRP7G, @isHardbanding, @isIntExtCleaning, @isUTSlipUpsetArea, " + _
@@ -67,6 +67,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@result", _result)
                 cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
                 cmdToExecute.Parameters.AddWithValue("@typeOfInspectionSCode", _typeOfInspectionSCode)
+                cmdToExecute.Parameters.AddWithValue("@typeOfInspectionDescription", _typeOfInspectionDescription)
                 cmdToExecute.Parameters.AddWithValue("@isToiV", _isToiV)
                 cmdToExecute.Parameters.AddWithValue("@isToiN", _isToiN)
                 cmdToExecute.Parameters.AddWithValue("@isToiT", _isToiT)
@@ -111,8 +112,8 @@ Namespace Raven.Common.BussinessRules
                                         "SET sequenceNo=@sequenceNo, descriptionOfEquipment=@descriptionOfEquipment, serialIDNo=@serialIDNo, " + _
                                         "location=@location, manufacture=@manufacture, SWL_WWL_MGW=@SWL_WWL_MGW, " + _
                                         "dimensional=@dimensional, defectFound=@defectFound, result=@result, reportNo=@reportNo, " + _
-                                        "typeOfInspectionSCode=@typeOfInspectionSCode, isToiV=@isToiV, isToiN=@isToiN, isToiT=@isToiT, " +
-                                        "interval=@interval, remarks=@remarks, detailReportSection=@detailReportSection, " + _
+                                        "typeOfInspectionSCode=@typeOfInspectionSCode, typeOfInspectionDescription=@typeOfInspectionDescription, isToiV=@isToiV, " +
+                                        "isToiN=@isToiN, isToiT=@isToiT, interval=@interval, remarks=@remarks, detailReportSection=@detailReportSection, " + _
                                         "examDate=@examDate, expireDate=@expireDate, " + _
                                         "fileName=@fileName, fileExtension=@fileExtension, " + _
                                         "inspectorName=@inspectorName, reportNo_1=@reportNo_1, isDS1CAT3to5=@isDS1CAT3to5, " + _
@@ -138,6 +139,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@result", _result)
                 cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
                 cmdToExecute.Parameters.AddWithValue("@typeOfInspectionSCode", _typeOfInspectionSCode)
+                cmdToExecute.Parameters.AddWithValue("@typeOfInspectionDescription", _typeOfInspectionDescription)
                 cmdToExecute.Parameters.AddWithValue("@isToiV", _isToiV)
                 cmdToExecute.Parameters.AddWithValue("@isToiN", _isToiN)
                 cmdToExecute.Parameters.AddWithValue("@isToiT", _isToiT)
@@ -236,6 +238,7 @@ Namespace Raven.Common.BussinessRules
                     _result = CType(toReturn.Rows(0)("result"), String)
                     _reportNo = CType(toReturn.Rows(0)("reportNo"), String)
                     _typeOfInspectionSCode = CType(toReturn.Rows(0)("typeOfInspectionSCode"), String)
+                    _typeOfInspectionDescription = CType(toReturn.Rows(0)("typeOfInspectionDescription"), String)
                     _isToiV = CType(toReturn.Rows(0)("isToiV"), Boolean)
                     _isToiN = CType(toReturn.Rows(0)("isToiN"), Boolean)
                     _isToiT = CType(toReturn.Rows(0)("isToiT"), Boolean)
@@ -492,6 +495,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _typeOfInspectionSCode = Value
+            End Set
+        End Property
+
+        Public Property [typeOfInspectionDescription]() As String
+            Get
+                Return _typeOfInspectionDescription
+            End Get
+            Set(ByVal Value As String)
+                _typeOfInspectionDescription = Value
             End Set
         End Property
 

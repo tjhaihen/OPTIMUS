@@ -187,6 +187,7 @@ Namespace Raven.Web.Secure
             Else
                 commonFunction.Focus(Me, txtProjectName.ClientID)
             End If
+            txtRefWorkRequestNo.Text = String.Empty
             txtProjectName.Text = String.Empty
             calStartDate.selectedDate = Date.Now
             calEndDate.selectedDate = Date.Now
@@ -397,6 +398,7 @@ Namespace Raven.Web.Secure
                 txtProjectID.Text = Common.BussinessRules.ID.GetFieldValue("ProjectHd", "ProjectCode", txtProjectCode.Text.Trim, "ProjectID")
                 .projectID = txtProjectID.Text.Trim
                 If .SelectOne.Rows.Count > 0 Then
+                    txtRefWorkRequestNo.Text = .refWorkRequestNo.Trim
                     txtProjectName.Text = .projectName.Trim
                     calStartDate.selectedDate = .startDate
                     calEndDate.selectedDate = .endDate
@@ -628,6 +630,7 @@ Namespace Raven.Web.Secure
                 Else
                     isNew = True
                 End If
+                .refWorkRequestNo = txtRefWorkRequestNo.Text.Trim
                 .projectName = txtProjectName.Text.Trim
                 .startDate = calStartDate.selectedDate
                 .endDate = calEndDate.selectedDate

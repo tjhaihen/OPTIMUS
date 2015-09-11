@@ -11,7 +11,7 @@ Namespace Raven.Common.BussinessRules
         Inherits BRInteractionBase
 
 #Region " Class Member Declarations "
-        Private _projectID, _customerID, _siteID, _projectCode, _projectName, _workOrderNo, _workLocation, _jobDescription As String
+        Private _projectID, _customerID, _siteID, _projectCode, _refWorkRequestNo, _projectName, _workOrderNo, _workLocation, _jobDescription As String
         Private _prioritySCode, _productID, _serviceName, _assetNo, _model, _serialNo, _manufacturer As String
         Private _userIDinsert, _userIDupdate As String
         Private _workOrderDate, _requiredDate, _startDate, _endDate, _expiredDate, _insertDate, _updateDate As DateTime
@@ -40,7 +40,7 @@ Namespace Raven.Common.BussinessRules
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO ProjectHd " + _
-                                        "(projectID, customerID, siteID, projectCode, projectName, workOrderNo, " + _
+                                        "(projectID, customerID, siteID, projectCode, refWorkRequestNo, projectName, workOrderNo, " + _
                                         "workOrderDate, workLocation, jobDescription, requiredDate, startDate, endDate, " + _
                                         "expiredDate, isNoExpiredDate, prioritySCode, productID, serviceName, assetNo, model, serialNo, manufacturer, " + _
                                         "workLocationDescription, termsAndConditions, " + _
@@ -49,7 +49,7 @@ Namespace Raven.Common.BussinessRules
                                         "requestedBy, ackBy, preparedBy, checkedBy, approvedBy, warehousePIC, " + _
                                         "isProposed, proposedBy, isApproval, approvalBy) " + _
                                         "VALUES " + _
-                                        "(@projectID, @customerID, @siteID, @projectCode, @projectName, @workOrderNo, " + _
+                                        "(@projectID, @customerID, @siteID, @projectCode, @refWorkRequestNo, @projectName, @workOrderNo, " + _
                                         "@workOrderDate, @workLocation, @jobDescription, @requiredDate, @startDate, @endDate, " + _
                                         "@expiredDate, @isNoExpiredDate, @prioritySCode, @productID, @serviceName, @assetNo, @model, @serialNo, @manufacturer, " + _
                                         "@workLocationDescription, @termsAndConditions, " + _
@@ -68,6 +68,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@customerID", _customerID)
                 cmdToExecute.Parameters.AddWithValue("@siteID", _siteID)
                 cmdToExecute.Parameters.AddWithValue("@projectCode", strProjectCode)
+                cmdToExecute.Parameters.AddWithValue("@refWorkRequestNo", _refWorkRequestNo)
                 cmdToExecute.Parameters.AddWithValue("@projectName", _projectName)
                 cmdToExecute.Parameters.AddWithValue("@workOrderNo", _workOrderNo)
                 cmdToExecute.Parameters.AddWithValue("@workOrderDate", _workOrderDate)
@@ -122,7 +123,7 @@ Namespace Raven.Common.BussinessRules
         Public Overrides Function Update() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "UPDATE ProjectHd " + _
-                                        "SET customerID=@customerID, siteID=@siteID, projectCode=@projectCode, " + _
+                                        "SET customerID=@customerID, siteID=@siteID, projectCode=@projectCode, refWorkRequestNo=@refWorkRequestNo, " + _
                                         "projectName=@projectName, workOrderNo=@workOrderNo, workOrderDate=@workOrderDate, " + _
                                         "workLocation=@workLocation, jobDescription=@jobDescription, requiredDate=@requiredDate, " + _
                                         "expiredDate=@expiredDate, isNoExpiredDate=@isNoExpiredDate, prioritySCode=@prioritySCode, productID=@productID, " + _
@@ -143,6 +144,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@customerID", _customerID)
                 cmdToExecute.Parameters.AddWithValue("@siteID", _siteID)
                 cmdToExecute.Parameters.AddWithValue("@projectCode", _projectCode)
+                cmdToExecute.Parameters.AddWithValue("@refWorkRequestNo", _refWorkRequestNo)
                 cmdToExecute.Parameters.AddWithValue("@projectName", _projectName)
                 cmdToExecute.Parameters.AddWithValue("@workOrderNo", _workOrderNo)
                 cmdToExecute.Parameters.AddWithValue("@workOrderDate", _workOrderDate)
@@ -244,6 +246,7 @@ Namespace Raven.Common.BussinessRules
                     _customerID = CType(toReturn.Rows(0)("customerID"), String)
                     _siteID = CType(toReturn.Rows(0)("siteID"), String)
                     _projectCode = CType(toReturn.Rows(0)("projectCode"), String)
+                    _refWorkRequestNo = CType(toReturn.Rows(0)("refWorkRequestNo"), String)
                     _projectName = CType(toReturn.Rows(0)("projectName"), String)
                     _workOrderNo = CType(toReturn.Rows(0)("workOrderNo"), String)
                     _workOrderDate = CType(toReturn.Rows(0)("workOrderDate"), DateTime)
@@ -495,6 +498,50 @@ Namespace Raven.Common.BussinessRules
             Return toReturn
         End Function
 
+        Public Function GetListOfItemDueToExpiredInspectionByCustomerStatus(ByVal strCustomerID As String, ByVal strInformationType As String, ByVal intValue As Integer, ByVal startDate As Date, ByVal endDate As Date, ByVal strStatus As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            Select Case strInformationType
+                Case "Due"
+                    cmdToExecute.CommandText = "sp_GetListOfItemDueToExpiredInspectionByCustomerIDStatus"
+                Case Else
+                    cmdToExecute.CommandText = "sp_GetListOfItemInspectionByCustomerIDStatus"
+            End Select
+            cmdToExecute.CommandType = CommandType.StoredProcedure
+
+            Dim toReturn As DataTable = New DataTable("sp_GetListOfItemInspectionByCustomerID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
+                cmdToExecute.Parameters.AddWithValue("@status", strStatus)
+                Select Case strInformationType
+                    Case "Due"
+                        cmdToExecute.Parameters.AddWithValue("@value", intValue)
+                    Case Else
+                        cmdToExecute.Parameters.AddWithValue("@startDate", startDate)
+                        cmdToExecute.Parameters.AddWithValue("@endDate", endDate)
+                End Select
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+
         Public Function GetListOfInspectionByCustomerIDSerialIDNo(ByVal strCustomerID As String, ByVal strSerialIDNo As String) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "sp_GetListOfInspectionByCustomerIDSerialIDNo"
@@ -717,6 +764,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _projectCode = Value
+            End Set
+        End Property
+
+        Public Property [refWorkRequestNo]() As String
+            Get
+                Return _refWorkRequestNo
+            End Get
+            Set(ByVal Value As String)
+                _refWorkRequestNo = Value
             End Set
         End Property
 
