@@ -24,6 +24,24 @@ Namespace Raven.Web.Secure
         Protected WithEvents frmkunjPoli As Global.System.Web.UI.HtmlControls.HtmlForm
 
         '''<summary>
+        '''ScriptManager control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ScriptManager As Global.Telerik.Web.UI.RadScriptManager
+
+        '''<summary>
+        '''lblWRNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblWRNo As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
         '''lblProjectCode control.
         '''</summary>
         '''<remarks>
@@ -42,6 +60,33 @@ Namespace Raven.Web.Secure
         Protected WithEvents lblProjectID As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
+        '''rtsDetailInformation control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents rtsDetailInformation As Global.Telerik.Web.UI.RadTabStrip
+
+        '''<summary>
+        '''rmpDetailInformation control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents rmpDetailInformation As Global.Telerik.Web.UI.RadMultiPage
+
+        '''<summary>
+        '''pvSOIByWorkRequest control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvSOIByWorkRequest As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
         '''grdSummaryOfInspection control.
         '''</summary>
         '''<remarks>
@@ -49,5 +94,23 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents grdSummaryOfInspection As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''pvProjectFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvProjectFile As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
+        '''grdProjectFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdProjectFile As Global.System.Web.UI.WebControls.DataGrid
     End Class
 End Namespace

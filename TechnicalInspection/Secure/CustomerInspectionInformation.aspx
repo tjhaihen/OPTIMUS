@@ -38,21 +38,19 @@
                             <td align="left">
                                 <table cellspacing="0" cellpadding="5" width="100%">
                                     <tr>
-                                        <td class="rheader">
+                                        <td class="rheader" colspan="2">
                                             Customer Inspection Information
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="hseparator" style="width: 100%;">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <Module:CSSToolbar ID="CSSToolbar" runat="server"></Module:CSSToolbar>
+                                        <td class="hseparator" style="width: 100%;" colspan="2">
                                         </td>
                                     </tr>
                                     <tr class="rbody">
-                                        <td valign="top">
+                                        <td valign="middle" style="width: 50;">
+                                            <Module:CSSToolbar ID="CSSToolbar" runat="server"></Module:CSSToolbar>
+                                        </td>
+                                        <td valign="middle">
                                             <table width="100%">
                                                 <tr>
                                                     <td colspan="2">
@@ -93,11 +91,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="hseparator" style="width: 100%;">
+                                        <td class="hseparator" style="width: 100%;" colspan="2">
                                         </td>
                                     </tr>
                                     <tr class="rbody">
-                                        <td valign="top" class="">
+                                        <td valign="top" colspan="2">
                                             <telerik:RadTabStrip ID="rtsInspectionInformation" runat="server" Skin="Windows7"
                                                 MultiPageID="rmpInspectionInformation" SelectedIndex="0" CssClass="tabStrip">
                                                 <Tabs>
@@ -106,7 +104,7 @@
                                                     <telerik:RadTab Text="Summary of Inspection">
                                                     </telerik:RadTab>
                                                     <telerik:RadTab Text="History of Inspection by Serial No.">
-                                                    </telerik:RadTab>                                                    
+                                                    </telerik:RadTab>
                                                 </Tabs>
                                             </telerik:RadTabStrip>
                                             <telerik:RadMultiPage ID="rmpInspectionInformation" runat="server" SelectedIndex="0"
@@ -118,7 +116,7 @@
                                                                 Information Type
                                                             </td>
                                                             <td style="width: 500px;">
-                                                                <asp:DropDownList ID="ddlInformationType" runat="server" Width="300" AutoPostBack="true">                                                                    
+                                                                <asp:DropDownList ID="ddlInformationType" runat="server" Width="300" AutoPostBack="true">
                                                                     <asp:ListItem Text="All Inspection" Value="History">
                                                                     </asp:ListItem>
                                                                     <asp:ListItem Text="Due to Expired Inspection" Value="Due">
@@ -131,7 +129,7 @@
                                                                 </asp:Panel>
                                                                 <asp:Panel ID="pnlDueCaption" runat="server">
                                                                     Due In
-                                                                </asp:Panel>                                                                
+                                                                </asp:Panel>
                                                             </td>
                                                             <td>
                                                                 <asp:Panel ID="pnlHistory" runat="server">
@@ -157,7 +155,7 @@
                                                                             </td>
                                                                         </tr>
                                                                     </table>
-                                                                </asp:Panel>                                                                
+                                                                </asp:Panel>
                                                             </td>
                                                         </tr>
                                                         <tr class="rbody">
@@ -282,127 +280,141 @@
                                                             <td valign="top">
                                                                 <table cellspacing="5" cellpadding="2" width="100%">
                                                                     <tr>
-                                                                        <td style="width: 150px;" class="right">
-                                                                            Information Type
-                                                                        </td>
-                                                                        <td style="width: 500px;">
-                                                                            <asp:DropDownList ID="ddlInformationTypeSOI" runat="server" Width="300" AutoPostBack="true">                                                                    
-                                                                                <asp:ListItem Text="All Inspection" Value="History">
-                                                                                </asp:ListItem>
-                                                                                <asp:ListItem Text="Due to Expired Inspection" Value="Due">
-                                                                                </asp:ListItem>
-                                                                            </asp:DropDownList>
-                                                                        </td>
-                                                                        <td colspan="2">
-                                                                            <asp:Panel id="pnlPeriod" runat="server">
-                                                                                <table width="100%">
+                                                                        <td style="width: 40%;" valign="top">
+                                                                            <table width="100%">
+                                                                                <tr>
+                                                                                    <td style="width: 100px;" class="right">
+                                                                                        Information Type
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:DropDownList ID="ddlInformationTypeSOI" runat="server" Width="300" AutoPostBack="true">
+                                                                                            <asp:ListItem Text="All Inspection" Value="History">
+                                                                                            </asp:ListItem>
+                                                                                            <asp:ListItem Text="Due to Expired Inspection" Value="Due">
+                                                                                            </asp:ListItem>
+                                                                                        </asp:DropDownList>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <asp:Panel id="pnlPeriod" runat="server">
                                                                                     <tr>
-                                                                                        <td style="width: 80;" class="right">
+                                                                                        <td style="width: 100px;" class="right">
                                                                                             Period
                                                                                         </td>
-                                                                                        <td style="width: 150;">
-                                                                                            <asp:DropDownList id="ddlPeriod" runat="server" width="100%" AutoPostBack="true"></asp:DropDownList>
-                                                                                        </td>
                                                                                         <td>
-                                                                                            <asp:Panel id="pnlCustomPeriod" runat="server">
+                                                                                            <asp:DropDownList id="ddlPeriod" runat="server" width="300" AutoPostBack="true">
+                                                                                            </asp:DropDownList>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <asp:Panel id="pnlCustomPeriod" runat="server">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                            </td>
+                                                                                            <td>
                                                                                                 <Module:Calendar ID="calStartDate" runat="server" DontResetDate="true" />
                                                                                                 &nbsp;to&nbsp;
                                                                                                 <Module:Calendar ID="calEndDate" runat="server" DontResetDate="true" />
-                                                                                            </asp:Panel>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </asp:Panel>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </asp:Panel>
+                                                                                </asp:Panel>
+                                                                            </table>
                                                                         </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="4">
-                                                                            <asp:Panel id="pnlInspectionTotalSummary" runat="server">
-                                                                                <table>
-                                                                                    <tr>
-                                                                                        <td>
-                                                                                            <table class="projectbanner" cellspacing="1" cellpadding="2" width="150">
+                                                                        <td style="width: 60%;" valign="top">
+                                                                            <table width="100%">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <asp:Panel id="pnlInspectionTotalSummary" runat="server">
+                                                                                            <table>
                                                                                                 <tr>
-                                                                                                    <td class="center">
-                                                                                                        TOTAL WORK ORDER
+                                                                                                    <td>
+                                                                                                        <table class="projectbanner" cellspacing="1" cellpadding="2" width="150">
+                                                                                                            <tr>
+                                                                                                                <td class="center">
+                                                                                                                    TOTAL WORK ORDER
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                            <tr>
+                                                                                                                <td class="gridItemStyle center" style="height: 50; font-size: 16pt;">
+                                                                                                                    <asp:Label ID="lblTotalWorkOrder" runat="server"></asp:Label>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </table>
                                                                                                     </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td class="gridItemStyle center" style="height: 50; font-size: 16pt;">
-                                                                                                        <asp:Label ID="lblTotalWorkOrder" runat="server"></asp:Label>
+                                                                                                    <td>
+                                                                                                        <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #058ACD;">
+                                                                                                            <tr>
+                                                                                                                <td class="center">
+                                                                                                                    TOTAL INSPECTED
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                            <tr>
+                                                                                                                <td class="gridItemStyle center" style="height: 50; font-size: 16pt;">
+                                                                                                                    <asp:Label ID="lblTotalItemIspected" runat="server"></asp:Label>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </table>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #66CC33;">
+                                                                                                            <tr>
+                                                                                                                <td class="center" colspan="2">
+                                                                                                                    <asp:LinkButton id="lbtnAccepted" runat="server" text="TOTAL ACCEPTED">
+                                                                                                                    </asp:LinkButton>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                            <tr>
+                                                                                                                <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
+                                                                                                                    <asp:Label ID="lblTotalItemAccepted" runat="server"></asp:Label>
+                                                                                                                </td>
+                                                                                                                <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
+                                                                                                                    <asp:Label ID="lblTotalItemAcceptedPct" runat="server"></asp:Label>%
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </table>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #EF8E19;">
+                                                                                                            <tr>
+                                                                                                                <td class="center" colspan="2">
+                                                                                                                    <asp:LinkButton id="lbtnRepair" runat="server" text="TOTAL NEED REPAIR">
+                                                                                                                    </asp:LinkButton>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                            <tr>
+                                                                                                                <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
+                                                                                                                    <asp:Label ID="lblTotalItemNeedRepair" runat="server"></asp:Label>
+                                                                                                                </td>
+                                                                                                                <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
+                                                                                                                    <asp:Label ID="lblTotalItemNeedRepairPct" runat="server"></asp:Label>%
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </table>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #FF6666;">
+                                                                                                            <tr>
+                                                                                                                <td class="center" colspan="2">
+                                                                                                                    <asp:LinkButton id="lbtnRejected" runat="server" text="TOTAL REJECTED">
+                                                                                                                    </asp:LinkButton>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                            <tr>
+                                                                                                                <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
+                                                                                                                    <asp:Label ID="lblTotalItemRejected" runat="server"></asp:Label>
+                                                                                                                </td>
+                                                                                                                <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
+                                                                                                                    <asp:Label ID="lblTotalItemRejectedPct" runat="server"></asp:Label>%
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </table>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </table>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #058ACD;">
-                                                                                                <tr>
-                                                                                                    <td class="center">
-                                                                                                        TOTAL INSPECTED
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td class="gridItemStyle center" style="height: 50; font-size: 16pt;">
-                                                                                                        <asp:Label ID="lblTotalItemIspected" runat="server"></asp:Label>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </table>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #66CC33;">
-                                                                                                <tr>
-                                                                                                    <td class="center" colspan="2">
-                                                                                                        <asp:LinkButton id="lbtnAccepted" runat="server" text="TOTAL ACCEPTED"></asp:LinkButton>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
-                                                                                                        <asp:Label ID="lblTotalItemAccepted" runat="server"></asp:Label>
-                                                                                                    </td>
-                                                                                                    <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
-                                                                                                        <asp:Label ID="lblTotalItemAcceptedPct" runat="server"></asp:Label>%
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </table>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #EF8E19;">
-                                                                                                <tr>
-                                                                                                    <td class="center" colspan="2">
-                                                                                                        <asp:LinkButton id="lbtnRepair" runat="server" text="TOTAL NEED REPAIR"></asp:LinkButton>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
-                                                                                                        <asp:Label ID="lblTotalItemNeedRepair" runat="server"></asp:Label>
-                                                                                                    </td>
-                                                                                                    <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
-                                                                                                        <asp:Label ID="lblTotalItemNeedRepairPct" runat="server"></asp:Label>%
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </table>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #FF6666;">
-                                                                                                <tr>
-                                                                                                    <td class="center" colspan="2">
-                                                                                                        <asp:LinkButton id="lbtnRejected" runat="server" text="TOTAL REJECTED"></asp:LinkButton>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
-                                                                                                        <asp:Label ID="lblTotalItemRejected" runat="server"></asp:Label>
-                                                                                                    </td>
-                                                                                                    <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
-                                                                                                        <asp:Label ID="lblTotalItemRejectedPct" runat="server"></asp:Label>%
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </table>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </asp:Panel>                                                                            
-                                                                        </td>                                                                        
+                                                                                        </asp:Panel>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
                                                                     </tr>
                                                                 </table>
                                                                 <table cellspacing="5" cellpadding="2" width="100%">
@@ -429,17 +441,46 @@
                                                                                 <columns>
                                                                                     <asp:TemplateColumn runat="server" HeaderText="FR/WO/JO No." ItemStyle-VerticalAlign="Top" ItemStyle-Width="100">
                                                                                         <ItemTemplate>
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "workOrderNo") %>
+											                                                <table>
+											    	                                            <tr>
+													                                                <td class="Heading1" style="font-weight: bold;">
+														                                                <%# DataBinder.Eval(Container.DataItem, "workOrderNo") %>
+													                                                </td>
+											    	                                            </tr>
+												                                                <tr>
+													                                                <td>
+														                                                WR#&nbsp;<%# DataBinder.Eval(Container.DataItem, "projectCode") %>
+													                                                </td>
+											    	                                            </tr>
+											                                                </table>											    
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
                                                                                     <asp:TemplateColumn runat="server" HeaderText="Description of Equipment" ItemStyle-VerticalAlign="Top" ItemStyle-Width="200">
                                                                                         <ItemTemplate>
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "descriptionOfEquipment") %>
+											                                                <table>
+											    	                                            <tr>
+													                                                <td>
+														                                                <%# DataBinder.Eval(Container.DataItem, "descriptionOfEquipment") %>
+													                                                </td>
+											    	                                            </tr>
+												                                                <tr>
+													                                                <td class="txtweak">
+														                                                Report#&nbsp;<%# DataBinder.Eval(Container.DataItem, "reportNo") %>
+													                                                </td>
+											    	                                            </tr>
+											                                                </table>                                                                                            
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Serial No." ItemStyle-VerticalAlign="Top" ItemStyle-Width="200">
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Serial No." ItemStyle-VerticalAlign="Top" ItemStyle-Width="140">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "serialIDNo") %>
+                                                                                        </ItemTemplate>
+                                                                                    </asp:TemplateColumn>
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Type of Inspection" ItemStyle-VerticalAlign="Top">
+                                                                                        <ItemTemplate>
+                                                                                            <div class="txtweak">
+                                                                                                <%# DataBinder.Eval(Container.DataItem, "typeOfInspectionDescription") %>
+                                                                                            </div>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
                                                                                     <asp:TemplateColumn runat="server" HeaderText="Exam Date" ItemStyle-Width="100" ItemStyle-HorizontalAlign="Center"
@@ -454,12 +495,12 @@
                                                                                             <%# IIf(DataBinder.Eval(Container.DataItem, "ExpireDate")=DataBinder.Eval(Container.DataItem, "examDate"),"No Exp. Date",Format(DataBinder.Eval(Container.DataItem, "ExpireDate"),"dd-MMM-yyyy")) %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Result" ItemStyle-VerticalAlign="Top" ItemStyle-Width="100">
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Result" ItemStyle-VerticalAlign="Top" ItemStyle-Width="80">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "result") %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Defect Found" ItemStyle-VerticalAlign="Top">
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Defect Found" ItemStyle-VerticalAlign="Top" ItemStyle-Width="200">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "defectFound") %>
                                                                                         </ItemTemplate>
@@ -469,10 +510,10 @@
                                                                                             <%# DataBinder.Eval(Container.DataItem, "remarks") %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Due In [day]" ItemStyle-Width="100"
+										                                            <asp:TemplateColumn runat="server" HeaderText="Due In [day]" ItemStyle-Width="100"
                                                                                         ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top">
                                                                                         <ItemTemplate>
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "DueInDay")%>
+                                                                                            <%# IIf(DataBinder.Eval(Container.DataItem, "ExpireDate") = DataBinder.Eval(Container.DataItem, "examDate"), "-", DataBinder.Eval(Container.DataItem, "DueInDay"))%>                                                                                            
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>                                                                                    
                                                                                 </columns>
@@ -490,7 +531,7 @@
                                                             <td style="width: 150px;" class="right">
                                                                 Serial No.
                                                             </td>
-                                                            <td style="width: 500px;">
+                                                            <td style="width: 80%;">
                                                                 <asp:TextBox ID="txtSerialNo" runat="server" Width="300">
                                                                 </asp:TextBox>
                                                             </td>
@@ -503,7 +544,8 @@
                                                                     <tr>
                                                                         <td>
                                                                             <asp:DataGrid ID="grdInspectionBySerialIDNo" runat="server" BorderWidth="0" GridLines="None"
-                                                                                CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false" AutoGenerateColumns="false" Width="100%">
+                                                                                CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false" AutoGenerateColumns="false"
+                                                                                Width="100%">
                                                                                 <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
                                                                                 <itemstyle cssclass="gridItemStyle" />
                                                                                 <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
@@ -560,11 +602,11 @@
                                                                             </asp:DataGrid>
                                                                         </td>
                                                                     </tr>
-                                                                </table>                                                                
+                                                                </table>
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                </telerik:RadPageView>                                                
+                                                </telerik:RadPageView>
                                             </telerik:RadMultiPage>
                                         </td>
                                     </tr>

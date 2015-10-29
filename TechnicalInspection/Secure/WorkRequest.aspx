@@ -817,10 +817,6 @@
                                                         </asp:TextBox>
                                                         <input id="txtFileUrl" type="file" name="txtFileUrl" runat="server" class="imguploader"
                                                             style="width: 300px;">
-                                                        <asp:RegularExpressionValidator ID="revFileUrl" runat="server" Enabled="false" Visible="false"
-                                                            ControlToValidate="txtFileUrl" ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))
-																+(.jpg|.JPG|.bmp|.BMP|.png|.PNG|.gif|.GIF|)$" ErrorMessage="File should be one of these types (.jpg|.jpeg|.jfif|.jpe|.tif|.tiff|.bmp|.dib|.png|.gif|)">
-                                                        </asp:RegularExpressionValidator>
                                                     </td>
                                                     <td style="width: 150px;" class="right">
                                                         Description

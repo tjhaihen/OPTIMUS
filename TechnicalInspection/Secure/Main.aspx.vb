@@ -59,6 +59,7 @@ Namespace Raven.Web
                     ElseIf MyBase.LoggedOnProfileID.Trim = Common.Methods.GetSettingParameter("CUSTProfileID") Then
                         pnlAdministratorScreen.Visible = False
                         pnlInspectorScreen.Visible = False
+                        Response.Redirect(PageBase.UrlBase + "/Secure/CustomerInspectionInformation.aspx")
                     Else
                         pnlAdministratorScreen.Visible = True
                         pnlInspectorScreen.Visible = False
@@ -3234,7 +3235,7 @@ Namespace Raven.Web
                                     End If
 
                                     If (DtSet.Tables(0).Rows(iRecCount)(14)) Is System.DBNull.Value Then
-                                        Throw New Exception("Kolom Exam_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: dd-MM-yyyy.")
+                                        Throw New Exception("Kolom Exam_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: MM/DD/YYYY.")
                                     Else
                                         Dim strDate As String
                                         strDate = CType(DtSet.Tables(0).Rows(iRecCount)(14), String)
@@ -3246,12 +3247,12 @@ Namespace Raven.Web
                                                 .examDate = DateSerial(Convert.ToInt32(strDate.Substring(6, 4)), Convert.ToInt32(strDate.Substring(3, 2)), Convert.ToInt32(strDate.Substring(0, 2)))
                                             End If                                            
                                         Catch
-                                            Throw New Exception("Kolom Exam_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: dd-MM-yyyy.")
+                                            Throw New Exception("Kolom Exam_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: MM/DD/YYYY.")
                                         End Try
                                     End If
 
                                     If (DtSet.Tables(0).Rows(iRecCount)(15)) Is System.DBNull.Value Then
-                                        Throw New Exception("Kolom Expire_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: dd-MM-yyyy.")
+                                        Throw New Exception("Kolom Expire_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: MM/DD/YYYY.")
                                     Else
                                         Dim strDate As String
                                         strDate = CType(DtSet.Tables(0).Rows(iRecCount)(15), String)
@@ -3263,7 +3264,7 @@ Namespace Raven.Web
                                                 .expireDate = DateSerial(Convert.ToInt32(strDate.Substring(6, 4)), Convert.ToInt32(strDate.Substring(3, 2)), Convert.ToInt32(strDate.Substring(0, 2)))
                                             End If                                            
                                         Catch
-                                            Throw New Exception("Kolom Expire_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: dd-MM-yyyy.")
+                                            Throw New Exception("Kolom Expire_Date untuk Description of Equipment " + .descriptionOfEquipment.Trim + " belum terisi dengan benar. Format yang digunakan adalah: MM/DD/YYYY.")
                                         End Try
                                     End If
 
@@ -3278,90 +3279,101 @@ Namespace Raven.Web
                                     .isToiN = False
                                     .isToiT = False
 
+                                    .isDS1CAT3to5 = False
+                                    .isDS1CAT4 = False
+                                    .isAPISPEC7 = False
+                                    .isAPIRP7G = False
+
                                     If (DtSet.Tables(0).Rows(iRecCount)(17)) Is System.DBNull.Value Then
-                                        .isDS1CAT3to5 = False
+                                        .typeOfInspectionDescription = String.Empty
                                     Else
-                                        If CType(DtSet.Tables(0).Rows(iRecCount)(17), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(17), String) = "V" Then
-                                            .isDS1CAT3to5 = True
-                                            .typeOfInspectionDescription = "DS 1 CAT 3-5"
-                                        Else
-                                            .isDS1CAT3to5 = False
-                                        End If
+                                        .typeOfInspectionDescription = CType(DtSet.Tables(0).Rows(iRecCount)(17), String)
                                     End If
+
+                                    'If (DtSet.Tables(0).Rows(iRecCount)(17)) Is System.DBNull.Value Then
+                                    '    .isDS1CAT3to5 = False
+                                    'Else
+                                    '    If CType(DtSet.Tables(0).Rows(iRecCount)(17), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(17), String) = "V" Then
+                                    '        .isDS1CAT3to5 = True
+                                    '        .typeOfInspectionDescription = "DS 1 CAT 3-5"
+                                    '    Else
+                                    '        .isDS1CAT3to5 = False
+                                    '    End If
+                                    'End If
+
+                                    'If (DtSet.Tables(0).Rows(iRecCount)(18)) Is System.DBNull.Value Then
+                                    '    .isDS1CAT4 = False
+                                    'Else
+                                    '    If CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "V" Then
+                                    '        .isDS1CAT4 = True
+                                    '        .typeOfInspectionDescription = "DS 1 CAT 4"
+                                    '    Else
+                                    '        .isDS1CAT4 = False
+                                    '    End If
+                                    'End If
+
+                                    'If (DtSet.Tables(0).Rows(iRecCount)(19)) Is System.DBNull.Value Then
+                                    '    .isAPISPEC7 = False
+                                    'Else
+                                    '    If CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "V" Then
+                                    '        .isAPISPEC7 = True
+                                    '        .typeOfInspectionDescription = "API SPEC 7"
+                                    '    Else
+                                    '        .isAPISPEC7 = False
+                                    '    End If
+                                    'End If
+
+                                    'If (DtSet.Tables(0).Rows(iRecCount)(20)) Is System.DBNull.Value Then
+                                    '    .isAPIRP7G = False
+                                    'Else
+                                    '    If CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "V" Then
+                                    '        .isAPIRP7G = True
+                                    '        .typeOfInspectionDescription = "API RP 7G"
+                                    '    Else
+                                    '        .isAPIRP7G = False
+                                    '    End If
+                                    'End If
 
                                     If (DtSet.Tables(0).Rows(iRecCount)(18)) Is System.DBNull.Value Then
-                                        .isDS1CAT4 = False
-                                    Else
-                                        If CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "V" Then
-                                            .isDS1CAT4 = True
-                                            .typeOfInspectionDescription = "DS 1 CAT 4"
-                                        Else
-                                            .isDS1CAT4 = False
-                                        End If
-                                    End If
-
-                                    If (DtSet.Tables(0).Rows(iRecCount)(19)) Is System.DBNull.Value Then
-                                        .isAPISPEC7 = False
-                                    Else
-                                        If CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "V" Then
-                                            .isAPISPEC7 = True
-                                            .typeOfInspectionDescription = "API SPEC 7"
-                                        Else
-                                            .isAPISPEC7 = False
-                                        End If
-                                    End If
-
-                                    If (DtSet.Tables(0).Rows(iRecCount)(20)) Is System.DBNull.Value Then
-                                        .isAPIRP7G = False
-                                    Else
-                                        If CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "V" Then
-                                            .isAPIRP7G = True
-                                            .typeOfInspectionDescription = "API RP 7G"
-                                        Else
-                                            .isAPIRP7G = False
-                                        End If
-                                    End If
-
-                                    If (DtSet.Tables(0).Rows(iRecCount)(21)) Is System.DBNull.Value Then
                                         .isHardbanding = False
                                     Else
-                                        If CType(DtSet.Tables(0).Rows(iRecCount)(21), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(21), String) = "V" Then
+                                        If CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "V" Then
                                             .isHardbanding = True
                                         Else
                                             .isHardbanding = False
                                         End If
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(22)) Is System.DBNull.Value Then
+                                    If (DtSet.Tables(0).Rows(iRecCount)(19)) Is System.DBNull.Value Then
                                         .isIntExtCleaning = False
                                     Else
-                                        If CType(DtSet.Tables(0).Rows(iRecCount)(22), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(22), String) = "V" Then
+                                        If CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "V" Then
                                             .isIntExtCleaning = True
                                         Else
                                             .isIntExtCleaning = False
                                         End If
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(23)) Is System.DBNull.Value Then
+                                    If (DtSet.Tables(0).Rows(iRecCount)(20)) Is System.DBNull.Value Then
                                         .isUTSlipUpsetArea = False
                                     Else
-                                        If CType(DtSet.Tables(0).Rows(iRecCount)(23), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(23), String) = "V" Then
+                                        If CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "V" Then
                                             .isUTSlipUpsetArea = True
                                         Else
                                             .isUTSlipUpsetArea = False
                                         End If
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(24)) Is System.DBNull.Value Then
+                                    If (DtSet.Tables(0).Rows(iRecCount)(21)) Is System.DBNull.Value Then
                                         .interval = String.Empty
                                     Else
-                                        .interval = CType(DtSet.Tables(0).Rows(iRecCount)(24), String)
+                                        .interval = CType(DtSet.Tables(0).Rows(iRecCount)(21), String)
                                     End If
 
-                                    If (DtSet.Tables(0).Rows(iRecCount)(25)) Is System.DBNull.Value Then
+                                    If (DtSet.Tables(0).Rows(iRecCount)(22)) Is System.DBNull.Value Then
                                         .remarks = String.Empty
                                     Else
-                                        .remarks = CType(DtSet.Tables(0).Rows(iRecCount)(25), String)
+                                        .remarks = CType(DtSet.Tables(0).Rows(iRecCount)(22), String)
                                     End If
 
                                     .detailReportSection = ""

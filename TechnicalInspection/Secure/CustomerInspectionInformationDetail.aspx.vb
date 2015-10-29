@@ -32,6 +32,7 @@ Namespace Raven.Web.Secure
                 If ReadQueryString() Then
                     _openProject(lblProjectID.Text.Trim)
                     SetDataGridCustomerInspectionInformation()
+                    SetDataGridProjectFile()
                 End If
                 DataBind()
             End If
@@ -59,13 +60,30 @@ Namespace Raven.Web.Secure
             oSOI = Nothing
         End Sub
 
+        Private Sub SetDataGridProjectFile()
+            Dim br As New Common.BussinessRules.ProjectFile
+            Dim dt As New DataTable
+            With br
+                .projectID = lblProjectID.Text.Trim
+                dt = .GetFileByProjectID(True)
+            End With
+
+            grdProjectFile.DataSource = dt.DefaultView
+            grdProjectFile.DataBind()
+
+            br.Dispose()
+            br = Nothing
+        End Sub
+
         Private Sub _openProject(ByVal _projectID As String)
             Dim oPr As New Common.BussinessRules.ProjectHd
             oPr.projectID = _projectID.Trim
             If oPr.SelectOne.Rows.Count > 0 Then
+                lblWRNo.Text = oPr.workOrderNo.Trim
                 lblProjectCode.Text = oPr.projectCode.Trim
                 lblProjectID.Text = oPr.projectID.Trim
             Else
+                lblWRNo.Text = String.Empty
                 lblProjectCode.Text = String.Empty
                 lblProjectID.Text = String.Empty
             End If

@@ -10,7 +10,7 @@ Namespace Raven.Common.BussinessRules
 
 #Region " Class Member Declarations "
 
-        Private _projectFileID, _projectID, _fileName, _fileExtension, _fileNo, _description As String
+        Private _projectFileID, _projectID, _dirName, _fileName, _fileExtension, _fileNo, _description As String
         Private _isShared As Boolean
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate As DateTime
@@ -31,9 +31,9 @@ Namespace Raven.Common.BussinessRules
         Public Overrides Function Insert() As Boolean
             Dim cmdToExecute As SqlCommand = New SqlCommand
 
-            cmdToExecute.CommandText = "INSERT INTO ProjectFile (projectFileID, projectID, fileName, fileExtension, fileNo, description, " & _
+            cmdToExecute.CommandText = "INSERT INTO ProjectFile (projectFileID, projectID, dirName, fileName, fileExtension, fileNo, description, " & _
                                         "isShared, userIDinsert, userIDupdate, insertDate, updateDate) " & _
-                                        "VALUES (@projectFileID, @projectID, @fileName, @fileExtension, @fileNo, @description, " & _
+                                        "VALUES (@projectFileID, @projectID, @dirName, @fileName, @fileExtension, @fileNo, @description, " & _
                                         "@isShared, @userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
 
@@ -45,6 +45,7 @@ Namespace Raven.Common.BussinessRules
             Try
                 cmdToExecute.Parameters.AddWithValue("@projectFileID", strID)
                 cmdToExecute.Parameters.AddWithValue("@ProjectID", _projectID)
+                cmdToExecute.Parameters.AddWithValue("@dirName", _dirName)
                 cmdToExecute.Parameters.AddWithValue("@fileName", _fileName)
                 cmdToExecute.Parameters.AddWithValue("@fileExtension", _fileExtension)
                 cmdToExecute.Parameters.AddWithValue("@fileNo", _fileNo)
@@ -92,6 +93,7 @@ Namespace Raven.Common.BussinessRules
                 If toReturn.Rows.Count > 0 Then
                     _projectFileID = CType(toReturn.Rows(0)("projectFileID"), String)
                     _projectID = CType(toReturn.Rows(0)("projectID"), String)
+                    _dirName = CType(toReturn.Rows(0)("dirName"), String)
                     _fileName = CType(toReturn.Rows(0)("fileName"), String)
                     _fileExtension = CType(toReturn.Rows(0)("fileExtension"), String)
                     _fileNo = CType(toReturn.Rows(0)("fileNo"), String)
@@ -150,7 +152,8 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "SELECT pf.*, " + _
                                         "fileUrl = " + _
                                         "CASE " + _
-                                        "WHEN(LEN(pf.fileName) > 0) THEN((SELECT [value] FROM SystemParameter WHERE code='FileAccessUrl') + pf.fileName) " + _
+                                        "WHEN(LEN(pf.dirName) > 0 AND LEN(pf.fileName) > 0) THEN((SELECT [value] FROM SystemParameter WHERE code='FileAccessUrl') + pf.dirName + pf.[fileName])" + _
+                                        "WHEN(LEN(pf.dirName) = 0 AND LEN(pf.fileName) > 0) THEN((SELECT [value] FROM SystemParameter WHERE code='FileAccessUrl') + pf.[fileName]) " + _
                                         "ELSE('#') " + _
                                         "END, " + _
                                         "userName = (SELECT userName FROM [User] WHERE userID=pf.userIDinsert)" + _
@@ -204,6 +207,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _projectID = Value
+            End Set
+        End Property
+
+        Public Property [dirName]() As String
+            Get
+                Return _dirName
+            End Get
+            Set(ByVal Value As String)
+                _dirName = Value
             End Set
         End Property
 

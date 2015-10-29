@@ -598,17 +598,23 @@ Namespace Raven.Web.Secure
 
         Private Sub _deleteProjectFile(ByVal _ProjectFileID As String)
             Dim br As New Common.BussinessRules.ProjectFile
+            Dim strDirName As String = String.Empty
             Dim strFileName As String = String.Empty
             Dim nmFile As String = String.Empty
             With br
                 .projectFileID = _ProjectFileID.Trim
                 If .SelectOne.Rows.Count > 0 Then
+                    strDirName = .dirName.Trim
                     strFileName = .fileName.Trim
 
-                    Dim Pathdb As New Common.SystemParameter                    
-                    nmFile = Pathdb.GetValue("AttachFileUrl").ToString + strFileName
+                    Dim Pathdb As New Common.SystemParameter
+                    nmFile = Pathdb.GetValue("AttachFileUrl").ToString + strDirName + strFileName
                     If File.Exists(nmFile) Then
-                        File.Delete(nmFile)
+                        File.Delete(nmFile)                        
+                        'Directory.Delete(Pathdb.GetValue("AttachFileUrl").ToString + strDirName)
+                        'If Directory.GetFiles(Pathdb.GetValue("AttachFileUrl").ToString + strDirName).Length - 1 <= 0 Then                            
+                        '    Directory.Delete(Pathdb.GetValue("AttachFileUrl").ToString + strDirName)
+                        'End If
                         If .Delete() Then
                             SetDataGridProjectFile()
                         End If
@@ -884,6 +890,7 @@ Namespace Raven.Web.Secure
 
             If txtFileUrl.Value.Trim.Length > 0 Then
                 Dim fileExt As String, fileName As String
+                Dim dirName As String
                 Dim br As New Common.BussinessRules.ProjectFile
                 With br
                     fileExt = Path.GetExtension(txtFileUrl.Value.Trim)
@@ -891,7 +898,7 @@ Namespace Raven.Web.Secure
                     .projectFileID = txtProjectFileID.Text.Trim
                     Dim Pathdb As New Common.SystemParameter
                     Dim fNotNew As Boolean = False
-                    Dim nmFile As String
+                    Dim nmFile As String, nmDir As String
                     Try
                         If .SelectOne.Rows.Count > 0 Then
                             fNotNew = True
@@ -899,6 +906,7 @@ Namespace Raven.Web.Secure
                             fNotNew = False
                         End If
                         .projectID = txtProjectID.Text.Trim
+                        .dirName = txtProjectCode.Text.Trim + "\"
                         .fileName = fileName.Trim
                         .fileNo = txtProjectFileNo.Text.Trim
                         .fileExtension = fileExt.Trim                        
@@ -907,11 +915,20 @@ Namespace Raven.Web.Secure
                         .UserIDInsert = MyBase.LoggedOnUserID.Trim
                         .UserIDUpdate = MyBase.LoggedOnUserID.Trim
 
+                        '// Create Directory
+                        dirName = txtProjectCode.Text.Trim
+                        nmDir = Pathdb.GetValue("AttachFileUrl").ToString + dirName
+                        If Not Directory.Exists(nmDir) Then
+                            Directory.CreateDirectory(nmDir)
+                        End If
+
                         '// validate if the file exist
-                        nmFile = Pathdb.GetValue("AttachFileUrl").ToString + fileName
+                        nmFile = Pathdb.GetValue("AttachFileUrl").ToString + dirName + "\" + fileName
                         If txtFileUrl.Value.Trim.Length > 0 Then
                             If File.Exists(nmFile) Then
-                                File.Delete(nmFile)
+                                'File.Delete(nmFile)
+                                commonFunction.MsgBox(Me, Common.Constants.MessageBoxText.Validate_FileNameAlreadyExist)
+                                Exit Sub
                             End If
                             txtFileUrl.PostedFile.SaveAs(nmFile)
                             If fNotNew Then
@@ -920,7 +937,7 @@ Namespace Raven.Web.Secure
                                     SetDataGridProjectFile()
                                 End If
                             Else
-                                If .Insert() Then                                    
+                                If .Insert() Then
                                     PrepareScreenProjectFile()
                                     SetDataGridProjectFile()
                                 End If

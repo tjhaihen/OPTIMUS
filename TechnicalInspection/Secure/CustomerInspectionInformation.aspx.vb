@@ -221,7 +221,7 @@ Namespace Raven.Web.Secure
                         dtInspectionInfo = .GetCustomerInspectionInformation(txtCustomerID.Text.Trim, ddlInformationType.SelectedValue.Trim, CInt(txtDueIn.Text.Trim))
                     Case "History"
                         dtInspectionInfo = .GetCustomerInspectionInformation(txtCustomerID.Text.Trim, ddlInformationType.SelectedValue.Trim, CInt(txtLast.Text.Trim))
-                End Select                
+                End Select
             End With
             oProject.Dispose()
             oProject = Nothing
@@ -248,12 +248,18 @@ Namespace Raven.Web.Secure
                     lblTotalItemRejected.Text = .totalItemRejected.ToString.Trim
                     If .totalItemInspected > 0 And .totalItemAccepted > 0 Then
                         lblTotalItemAcceptedPct.Text = Format((.totalItemAccepted / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    Else
+                        lblTotalItemAcceptedPct.Text = "0"
                     End If
                     If .totalItemInspected > 0 And .totalItemNeedRepair > 0 Then
                         lblTotalItemNeedRepairPct.Text = Format((.totalItemNeedRepair / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    Else
+                        lblTotalItemNeedRepairPct.Text = "0"
                     End If
                     If .totalItemInspected > 0 And .totalItemRejected > 0 Then
                         lblTotalItemRejectedPct.Text = Format((.totalItemRejected / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    Else
+                        lblTotalItemRejectedPct.Text = "0"
                     End If
                 Else
                     lblTotalWorkOrder.Text = "0"
