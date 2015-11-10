@@ -61,7 +61,7 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.Connection = _mainConnection
 
             Dim strProjectID As String = ID.GenerateIDNumber("ProjectHd", "ProjectID")
-            Dim strProjectCode As String = ID.GenerateIDNumber("ProjectHd", "ProjectCode", Common.Constants.IDPrefix.WorkRequestPrefix, "", "M")
+            Dim strProjectCode As String = ID.GenerateIDNumber("ProjectHd", "ProjectCode", Common.Constants.IDPrefix.WorkRequestPrefix, "", "M", "workOrderDate", Year(_workOrderDate).ToString.Trim + (Right("0" + Month(_workOrderDate).ToString.Trim, 2)) + (Right("0" + Day(_workOrderDate).ToString.Trim, 2)))
 
             Try
                 cmdToExecute.Parameters.AddWithValue("@projectID", strProjectID)

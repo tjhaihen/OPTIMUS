@@ -24,24 +24,27 @@ Namespace Raven.Common.BussinessRules
             ConnectionString = strConnectionString
         End Sub
 
-        Public Shared Function GenerateIDNumber(ByVal TableName As String, ByVal ColumnName As String, Optional ByVal Prefix As String = "", Optional ByVal TextFilterForIDMax As String = "", Optional ByVal IDType As String = "D") As String
+        Public Shared Function GenerateIDNumber(ByVal TableName As String, ByVal ColumnName As String, Optional ByVal Prefix As String = "", Optional ByVal TextFilterForIDMax As String = "", Optional ByVal IDType As String = "D", Optional ByVal DateField As String = "", Optional ByVal DateFieldValue As String = "") As String
             Dim cmdToExecute As SqlCommand = New SqlCommand
             Dim _mainConnection As SqlConnection = New SqlConnection(SysConfig.ConnectionString)
             Dim strNewID As String = String.Empty
             Dim strAutoDate As String = String.Empty
-            Dim strIDMax As String = String.Empty            
+            Dim strIDMax As String = String.Empty
 
             Select Case IDType
                 Case "D"
-                    strAutoDate = " convert(varchar(8),getdate(),112) "
+                    strAutoDate = IIf(DateField.Trim.Length = 0, " convert(varchar(8),getdate(),112) ", " convert(varchar(8),CAST('" + DateFieldValue.Trim + "' AS DATE),112) ")
                     strIDMax = " LEFT(@IDMax,8) "
+                    TextFilterForIDMax = IIf(DateField.Trim.Length = 0, "", " WHERE convert(varchar(8),workOrderDate,112) = convert(varchar(8),CAST('" + DateFieldValue.Trim + "' AS DATE),112) ")
                 Case "M"
-                    strAutoDate = " left((convert(varchar(8),getdate(),112)),6) "
-                    strIDMax = " LEFT(@IDMax,6) "                    
+                    strAutoDate = IIf(DateField.Trim.Length = 0, " convert(varchar(6),getdate(),112) ", " convert(varchar(6),CAST('" + DateFieldValue.Trim + "' AS DATE),112) ")
+                    strIDMax = " LEFT(@IDMax,6) "
+                    TextFilterForIDMax = IIf(DateField.Trim.Length = 0, "", " WHERE convert(varchar(6),workOrderDate,112) = convert(varchar(6),CAST('" + DateFieldValue.Trim + "' AS DATE),112) ")
                 Case Else
                     '// Means Yearly
-                    strAutoDate = " left((convert(varchar(8),getdate(),112)),4) "
-                    strIDMax = " LEFT(@IDMax,4) "                    
+                    strAutoDate = IIf(DateField.Trim.Length = 0, " left((convert(varchar(8),getdate(),112)),4) ", " left((convert(varchar(8),CAST('" + DateFieldValue.Trim + "' AS DATE),112)),4) ")
+                    strIDMax = " LEFT(@IDMax,4) "
+                    TextFilterForIDMax = IIf(DateField.Trim.Length = 0, "", " WHERE convert(varchar(4),workOrderDate,112) = convert(varchar(4),CAST('" + DateFieldValue.Trim + "' AS DATE),112) ")
             End Select
 
             cmdToExecute.CommandText = _
@@ -56,14 +59,14 @@ Namespace Raven.Common.BussinessRules
             "SET @PrefixLength = len(ltrim(rtrim(@prefix))) " & _
             "SET @ColumnMaxLength = (SELECT Character_Maximum_Length FROM INFORMATION_SCHEMA.Columns WHERE table_name = '" + Replace(Replace(TableName.Trim, "[", ""), "]", "") + "' AND column_name = '" + ColumnName.Trim + "') " & _
             "SET @IDLength = @ColumnMaxLength - @PrefixLength - 8 " & _
-            "WHILE len(@Zero) < @IDLength " & _
+            "WHILE LEN(@Zero) < @IDLength " & _
             "BEGIN " & _
              "SET @Zero = @Zero + '0' " & _
             "End " & _
-            "select @IDMax= isnull(max(" + ColumnName.Trim + "),0) FROM " + TableName.Trim + " " + IIf(TextFilterForIDMax.Trim = "", "", TextFilterForIDMax.Trim).ToString.Trim & _
-            " if @PrefixLength = 0 " & _
-            "begin " & _
-                "if isnumeric(left(@IDMax,@PrefixLength)) = 0 " & _
+            "SELECT @IDMax= ISNULL(MAX(" + ColumnName.Trim + "),'0') FROM " + TableName.Trim + " " + IIf(TextFilterForIDMax.Trim = "", "", TextFilterForIDMax.Trim).ToString.Trim & _
+            " IF @PrefixLength = 0 " & _
+            "BEGIN " & _
+                "IF ISNUMERIC(LEFT(@IDMax,@PrefixLength)) = 0 " & _
                     "set @IDMax = right(@IDMax,(@ColumnMaxLength - @PrefixLength)) " & _
                 "SELECT " & _
                 "(CASE " & _
@@ -72,9 +75,9 @@ Namespace Raven.Common.BussinessRules
                     "ELSE " & _
                         "(" + strAutoDate + " + right(@Zero+'1',@IDLength)) " & _
                 "END) as ID " & _
-            "End " & _
-            "else " & _
-            "begin " & _
+            "END " & _
+            "ELSE " & _
+            "BEGIN " & _
                 "if @IDMax <> '0' " & _
                 "begin " & _
                     "set @IDMax = right(@IDMax,((len(@IDMax)) - @PrefixLength)) " & _
@@ -86,7 +89,7 @@ Namespace Raven.Common.BussinessRules
                     "ELSE " & _
                         "@prefix + (" + strAutoDate + " + right(@Zero+'1',@IDLength)) " & _
                 "END) as ID " & _
-            "End "
+            "END "
             cmdToExecute.CommandType = CommandType.Text
             Dim toReturn As DataTable = New DataTable("GenerateIDNumber")
             Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
