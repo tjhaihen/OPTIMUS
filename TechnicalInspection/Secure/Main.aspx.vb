@@ -956,7 +956,11 @@ Namespace Raven.Web
                     End If
 
                     If pnlDrillPipeInspectionReport.Visible Then
-                        br.ReportCode = "1000000005"
+                        If DP_ddlCaptionTemplate.SelectedItem.Text Like "*DS*" Then
+                            br.ReportCode = "1000000005" '// DS-1
+                        Else
+                            br.ReportCode = "1000000006" '// API RP 7G
+                        End If
                         br.AddParameters(DP_txtDrillPipeReportHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))

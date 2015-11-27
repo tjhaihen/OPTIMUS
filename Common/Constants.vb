@@ -47,6 +47,7 @@
             Public Const Resource_MenuID As String = "1005"
             Public Const InspectionSpec_MenuID As String = "1006"
             Public Const Customer_MenuID As String = "1007"
+            Public Const Contract_MenuID As String = "3001"
             Public Const WorkRequest_MenuID As String = "3003"
             Public Const WorkRequestApproval_MenuID As String = "3009"            
             Public Const CustomerInspectionInformation_MenuID As String = "8001"

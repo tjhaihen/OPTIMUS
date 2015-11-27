@@ -132,6 +132,8 @@
     <Compile Include="BusinessRule\CheckListOfCompletionReport.vb" />
     <Compile Include="BusinessRule\CommonCode.vb" />
     <Compile Include="BusinessRule\Company.vb" />
+    <Compile Include="BusinessRule\ContractDt.vb" />
+    <Compile Include="BusinessRule\ContractHd.vb" />
     <Compile Include="BusinessRule\Customer.vb" />
     <Compile Include="BusinessRule\DailyReportDt.vb" />
     <Compile Include="BusinessRule\DailyReportHd.vb" />

@@ -303,6 +303,33 @@ Namespace Raven.Web.Secure
         Protected WithEvents txtWorkRequestReference As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''txtContractHdID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtContractHdID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''btnSearchContract control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnSearchContract As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''txtContractNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtContractNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''txtProjectDtID control.
         '''</summary>
         '''<remarks>

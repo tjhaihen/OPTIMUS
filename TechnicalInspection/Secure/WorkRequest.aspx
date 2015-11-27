@@ -238,18 +238,6 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width: 150px;" class="right">
-                                                        
-                                                    </td>
-                                                    <td style="width: 500px;">
-                                                        
-                                                    </td>
-                                                    <td style="width: 150px;" class="right">
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                                <tr>
                                                     <td class="heading1" colspan="4">
                                                         Work Request Reference
                                                     </td>
@@ -271,6 +259,31 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="4" class="hseparator" style="width: 100%;">
+                                                    </td>
+                                                </tr>
+                                                <tr class="rbody">
+                                                    <td style="width: 150px;" class="right">
+                                                        Refer to Contract
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtContractHdID" Width="266" runat="server" AutoPostBack="True" />
+                                                        <asp:Button ID="btnSearchContract" runat="server" Text="..." Width="30" CausesValidation="false" />
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr class="rbody">
+                                                    <td style="width: 150px;" class="right">
+                                                        Contract No.
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="txtContractNo" Width="300" runat="server" ReadOnly="True" CssClass="txtreadonly" />
+                                                    </td>
+                                                    <td style="width: 150px;" class="right">
+                                                    </td>
+                                                    <td>
                                                     </td>
                                                 </tr>
                                                 <tr class="rbody">

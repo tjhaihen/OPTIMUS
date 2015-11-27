@@ -39,6 +39,7 @@ Namespace Raven.Web.Secure
                 btnSearchCustomer.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Customer", txtCustomerCode.ClientID))
                 btnSearchResource.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Resource", txtResourceCode.ClientID))
                 btnSearchProduct.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Product", txtProductCode.ClientID))
+                btnSearchContract.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Contract", txtContractHdID.ClientID))
 
                 prepareDDL()
                 prepareScreen(True)
@@ -66,6 +67,11 @@ Namespace Raven.Web.Secure
         Private Sub txtResourceCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtResourceCode.TextChanged
             _openResource(Common.BussinessRules.ID.GetFieldValue("Resource", "ResourceCode", txtResourceCode.Text.Trim, "ResourceID"))
             commonFunction.Focus(Me, txtResourceName.ClientID)
+        End Sub
+
+        Private Sub txtContractHdID_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtContractHdID.TextChanged
+            _openContract(txtContractHdID.Text.Trim)
+            commonFunction.Focus(Me, txtContractNo.ClientID)
         End Sub
 
         Private Sub btnAddResource_Click(sender As Object, e As System.EventArgs) Handles btnAddResource.Click
@@ -534,6 +540,18 @@ Namespace Raven.Web.Secure
             End With
             oPerson.Dispose()
             oPerson = Nothing
+        End Sub
+
+        Private Sub _openContract(ByVal _contractHdID As String)
+            Dim oContract As New Common.BussinessRules.ContractHd
+            oContract.contractHdID = _contractHdID.Trim
+            If oContract.SelectOne.Rows.Count > 0 Then
+                txtContractNo.Text = oContract.contractNo.Trim
+            Else
+                txtContractNo.Text = String.Empty
+            End If
+            oContract.Dispose()
+            oContract = Nothing
         End Sub
 
         Private Sub _delete()
