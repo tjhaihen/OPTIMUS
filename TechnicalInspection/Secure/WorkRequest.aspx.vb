@@ -39,7 +39,7 @@ Namespace Raven.Web.Secure
                 btnSearchCustomer.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Customer", txtCustomerCode.ClientID))
                 btnSearchResource.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Resource", txtResourceCode.ClientID))
                 btnSearchProduct.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Product", txtProductCode.ClientID))
-                btnSearchContract.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("Contract", txtContractHdID.ClientID))
+                btnSearchContract.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("ContractByCust", txtContractHdID.ClientID, txtCustomerCode.Text.Trim))
 
                 prepareDDL()
                 prepareScreen(True)
@@ -243,6 +243,11 @@ Namespace Raven.Web.Secure
             txtApprovedBy.Text = Common.Methods.GetSettingParameter("OPSDIR").Trim
             txtWarehousePIC.Text = String.Empty
 
+            btnSearchContract.Enabled = False
+            txtContractHdID.Text = String.Empty
+            txtContractNo.Text = String.Empty
+            btnAddDetailByContract.Visible = False
+
             pnlProposed.Visible = False
             lblProposedBy.Text = String.Empty
             lblProposedDate.Text = String.Empty
@@ -256,6 +261,7 @@ Namespace Raven.Web.Secure
             SetDataGridProjectDetail()
             SetDataGridProjectResource()
             SetDataGridProjectFile()
+            SetDataGridContract()
             setToolbarVisibleButton()
         End Sub
 
@@ -308,6 +314,19 @@ Namespace Raven.Web.Secure
             grdProjectFile.DataSource = dt.DefaultView
             grdProjectFile.DataBind()
 
+            br.Dispose()
+            br = Nothing
+        End Sub
+
+        Private Sub SetDataGridContract()
+            Dim br As New Common.BussinessRules.ContractDt
+            Dim dt As New DataTable
+            With br
+                .contractHdID = txtContractHdID.Text.Trim
+                dt = .SelectByContractHdID
+            End With
+            grdContractDetail.DataSource = dt.DefaultView
+            grdContractDetail.DataBind()
             br.Dispose()
             br = Nothing
         End Sub
@@ -461,13 +480,19 @@ Namespace Raven.Web.Secure
                 txtCustomerID.Text = _customerID.Trim
                 txtCustomerCode.Text = oCustomer.CustomerCode.Trim
                 txtCustomerName.Text = oCustomer.CustomerName.Trim
+                btnSearchContract.Enabled = True
+                btnSearchContract.Attributes.Add("onClick", commonFunction.JSOpenSearchListWind("ContractByCust", txtContractHdID.ClientID, txtCustomerCode.Text.Trim))
             Else
                 txtCustomerID.Text = String.Empty
                 txtCustomerCode.Text = String.Empty
                 txtCustomerName.Text = String.Empty
+                btnSearchContract.Enabled = False
             End If
             oCustomer.Dispose()
             oCustomer = Nothing
+
+            txtContractHdID.Text = String.Empty
+            txtContractNo.Text = String.Empty
         End Sub
 
         Private Sub _openProduct(ByVal _productID As String)
@@ -547,11 +572,14 @@ Namespace Raven.Web.Secure
             oContract.contractHdID = _contractHdID.Trim
             If oContract.SelectOne.Rows.Count > 0 Then
                 txtContractNo.Text = oContract.contractNo.Trim
+                btnAddDetailByContract.Visible = True
             Else
                 txtContractNo.Text = String.Empty
+                btnAddDetailByContract.Visible = False
             End If
             oContract.Dispose()
             oContract = Nothing
+            SetDataGridContract()
         End Sub
 
         Private Sub _delete()

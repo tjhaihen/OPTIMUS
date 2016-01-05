@@ -290,7 +290,67 @@
                                                     <td colspan="4" valign="top">
                                                         <table width="100%" cellpadding="0">
                                                             <tr>
-                                                                <td style="width: 450px;" class="center">
+                                                                <td colspan="5">
+                                                                    <asp:DataGrid ID="grdContractDetail" runat="server" BorderWidth="0" GridLines="None"
+                                                                        Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                                        AutoGenerateColumns="false">
+                                                                        <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                                        <ItemStyle CssClass="gridItemStyle" />
+                                                                        <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                                        <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                                        <Columns>
+                                                                            <asp:TemplateColumn runat="server" ItemStyle-Width="50">
+                                                                                <ItemTemplate>
+                                                                                    <asp:CheckBox ID="chkSelect" runat="server" Checked="true" />
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="Product" ItemStyle-Width="450px">
+                                                                                <ItemTemplate>
+                                                                                    <asp:Label runat="server" ID="_lblContractDtID" Visible="false" Text='<%# DataBinder.Eval(Container.DataItem, "contractDtID") %>' />
+                                                                                    <%# DataBinder.Eval(Container.DataItem, "productName")%>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="Description" ItemStyle-Width="450px">
+                                                                                <ItemTemplate>
+                                                                                    <%# DataBinder.Eval(Container.DataItem, "description") %>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="Reference No." ItemStyle-Width="200px">
+                                                                                <ItemTemplate>
+                                                                                    <%# DataBinder.Eval(Container.DataItem, "referenceNo") %>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="Qty Contract" ItemStyle-Width="120px">
+                                                                                <ItemTemplate>
+                                                                                    <%# DataBinder.Eval(Container.DataItem, "Qty") %>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="Qty" ItemStyle-Width="120px">
+                                                                                <ItemTemplate>
+                                                                                    <asp:TextBox ID="_txtQtyDetail" runat="server" Width="100%" CssClass="right"></asp:TextBox>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="UOM" ItemStyle-Width="120px">
+                                                                                <ItemTemplate>
+                                                                                    <%# DataBinder.Eval(Container.DataItem, "unitOfMeasurement") %>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                            <asp:TemplateColumn runat="server" HeaderText="Detail Description" ItemStyle-Width="450px">
+                                                                                <ItemTemplate>
+                                                                                    <asp:TextBox ID="_txtdescriptionDetail" runat="server" BorderStyle="None" CssClass="txtweak"
+                                                                                        TextMode="MultiLine" Width="100%" Text='<%# DataBinder.Eval(Container.DataItem, "descriptionDetail") %>'></asp:TextBox>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateColumn>
+                                                                        </Columns>
+                                                                    </asp:DataGrid>
+                                                                </td>
+                                                                <td valign="top">
+                                                                    <asp:Button ID="btnAddDetailByContract" runat="server" Text="Add" CssClass="sbttn"
+                                                                        Width="100" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="center">
                                                                     <table width="100%" cellpadding="2">
                                                                         <tr>
                                                                             <td class="gridHeaderStyle">
@@ -302,7 +362,7 @@
                                                                                 Description
                                                                             </td>
                                                                         </tr>
-                                                                    </table>                                                                    
+                                                                    </table>
                                                                 </td>
                                                                 <td style="width: 100px;" class="gridHeaderStyle center">
                                                                     Reference No.
@@ -316,7 +376,7 @@
                                                                 <td style="width: 350px;" class="gridHeaderStyle center">
                                                                     Scope Of Work
                                                                 </td>
-                                                                <td>
+                                                                <td class="gridHeaderStyle center">
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -330,7 +390,7 @@
                                                                                 <asp:TextBox ID="txtProductCode" Width="100" MaxLength="15" runat="server" AutoPostBack="True" />
                                                                                 <asp:Button ID="btnSearchProduct" runat="server" Text="..." Width="30" CausesValidation="false" />
                                                                                 <asp:TextBox ID="txtProductName" Width="300" MaxLength="500" runat="server" ReadOnly="true"
-                                                                                CssClass="txtReadOnly" />
+                                                                                    CssClass="txtReadOnly" />
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -339,7 +399,7 @@
                                                                                 </asp:TextBox>
                                                                             </td>
                                                                         </tr>
-                                                                    </table>                                                                                                                                    
+                                                                    </table>
                                                                 </td>
                                                                 <td valign="top" class="center">
                                                                     <asp:TextBox ID="txtReferenceNo" runat="server" Width="100%" MaxLength="50">
@@ -369,11 +429,11 @@
                                                         <asp:DataGrid ID="grdProjectDetail" runat="server" BorderWidth="0" GridLines="None"
                                                             Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                             AutoGenerateColumns="false">
-                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
-                                                            <itemstyle cssclass="gridItemStyle" />
-                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
-                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
-                                                            <columns>
+                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                            <ItemStyle CssClass="gridItemStyle" />
+                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                            <Columns>
                                                                 <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                     <ItemTemplate>
                                                                         <asp:ImageButton ID="_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -389,7 +449,7 @@
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
                                                                 <asp:TemplateColumn runat="server" HeaderText="Description" ItemStyle-Width="450px">
-                                                                    <ItemTemplate>                                                                        
+                                                                    <ItemTemplate>
                                                                         <%# DataBinder.Eval(Container.DataItem, "description") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
@@ -414,7 +474,7 @@
                                                                             TextMode="MultiLine" Width="100%" Text='<%# DataBinder.Eval(Container.DataItem, "descriptionDetail") %>'></asp:TextBox>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </columns>
+                                                            </Columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                 </tr>
@@ -700,11 +760,11 @@
                                                         <asp:DataGrid ID="grdProjectResource" runat="server" BorderWidth="0" GridLines="None"
                                                             Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                             AutoGenerateColumns="false">
-                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
-                                                            <itemstyle cssclass="gridItemStyle" />
-                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
-                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
-                                                            <columns>
+                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                            <ItemStyle CssClass="gridItemStyle" />
+                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                            <Columns>
                                                                 <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                     <ItemTemplate>
                                                                         <asp:ImageButton ID="_ibtnDelete" runat="server" ImageUrl="/PureravensLib/images/delete.png"
@@ -732,7 +792,7 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "signatureDescription") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </columns>
+                                                            </Columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                 </tr>
@@ -753,11 +813,11 @@
                                                                     <asp:DataGrid ID="grdReportType" runat="server" BorderWidth="0" GridLines="None"
                                                                         Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                         AutoGenerateColumns="false">
-                                                                        <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
-                                                                        <itemstyle cssclass="gridItemStyle" />
-                                                                        <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
-                                                                        <pagerstyle mode="NumericPages" horizontalalign="right" />
-                                                                        <columns>
+                                                                        <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                                        <ItemStyle CssClass="gridItemStyle" />
+                                                                        <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                                        <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                                        <Columns>
                                                                             <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                                 <ItemTemplate>
                                                                                     <asp:CheckBox ID="chkSelect" runat="server" />
@@ -770,7 +830,7 @@
                                                                                     <%# DataBinder.Eval(Container.DataItem, "ReportTypeName") %>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateColumn>
-                                                                        </columns>
+                                                                        </Columns>
                                                                     </asp:DataGrid>
                                                                 </td>
                                                                 <td valign="top" class="center">
@@ -788,11 +848,11 @@
                                                                     <asp:DataGrid ID="grdProjectReportType" runat="server" BorderWidth="0" GridLines="None"
                                                                         Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                         AutoGenerateColumns="false">
-                                                                        <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
-                                                                        <itemstyle cssclass="gridItemStyle" />
-                                                                        <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
-                                                                        <pagerstyle mode="NumericPages" horizontalalign="right" />
-                                                                        <columns>
+                                                                        <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                                        <ItemStyle CssClass="gridItemStyle" />
+                                                                        <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                                        <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                                        <Columns>
                                                                             <asp:TemplateColumn runat="server" ItemStyle-Width="50">
                                                                                 <ItemTemplate>
                                                                                     <asp:CheckBox ID="chkSelect" runat="server" />
@@ -805,7 +865,7 @@
                                                                                     <%# DataBinder.Eval(Container.DataItem, "ReportTypeName") %>
                                                                                 </ItemTemplate>
                                                                             </asp:TemplateColumn>
-                                                                        </columns>
+                                                                        </Columns>
                                                                     </asp:DataGrid>
                                                                 </td>
                                                             </tr>
@@ -851,8 +911,7 @@
                                                         Is Shared?
                                                     </td>
                                                     <td>
-                                                        <asp:CheckBox ID="chkIsShared" runat="server">
-                                                        </asp:CheckBox>
+                                                        <asp:CheckBox ID="chkIsShared" runat="server"></asp:CheckBox>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -881,15 +940,15 @@
                                                         <asp:DataGrid ID="grdProjectFile" runat="server" BorderWidth="0" GridLines="None"
                                                             Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                             AutoGenerateColumns="false">
-                                                            <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
-                                                            <itemstyle cssclass="gridItemStyle" />
-                                                            <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
-                                                            <pagerstyle mode="NumericPages" horizontalalign="right" />
-                                                            <columns>
+                                                            <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                            <ItemStyle CssClass="gridItemStyle" />
+                                                            <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                            <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                            <Columns>
                                                                 <asp:TemplateColumn runat="server" HeaderText="" HeaderStyle-HorizontalAlign="Left"
                                                                     HeaderStyle-Width="26" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="26">
                                                                     <ItemTemplate>
-                                                                        <asp:Label ID="_lblProjectFileID" runat="server" visible="false" Text='<%# DataBinder.Eval(Container.DataItem, "projectFileID") %>' />                                                                                                                                                
+                                                                        <asp:Label ID="_lblProjectFileID" runat="server" Visible="false" Text='<%# DataBinder.Eval(Container.DataItem, "projectFileID") %>' />
                                                                         <a href='<%# DataBinder.Eval(Container.DataItem, "fileUrl") %>' target="_blank">
                                                                             <img src="/pureravensLib/images/look.png" border="0" align="middle" alt='<%# DataBinder.Eval(Container.DataItem, "fileName") %>' />
                                                                         </a>
@@ -931,7 +990,8 @@
                                                                             ID="_lblStatus" Enabled="false" />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                                <asp:TemplateColumn runat="server" HeaderText="Attached By" HeaderStyle-Width="100" FooterStyle-Width="100">
+                                                                <asp:TemplateColumn runat="server" HeaderText="Attached By" HeaderStyle-Width="100"
+                                                                    FooterStyle-Width="100">
                                                                     <ItemTemplate>
                                                                         <table>
                                                                             <tr>
@@ -950,10 +1010,11 @@
                                                                 <asp:TemplateColumn runat="server" HeaderText="" HeaderStyle-HorizontalAlign="Left"
                                                                     HeaderStyle-Width="30" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="30">
                                                                     <ItemTemplate>
-                                                                        <asp:ImageButton ID="_ibtnDelete" runat="server" CommandName="Delete" ImageUrl="/pureravensLib/images/delete.png"></asp:ImageButton>
+                                                                        <asp:ImageButton ID="_ibtnDelete" runat="server" CommandName="Delete" ImageUrl="/pureravensLib/images/delete.png">
+                                                                        </asp:ImageButton>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateColumn>
-                                                            </columns>
+                                                            </Columns>
                                                         </asp:DataGrid>
                                                     </td>
                                                 </tr>
