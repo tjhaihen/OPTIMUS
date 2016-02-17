@@ -137,12 +137,6 @@ Namespace Raven.Common.BussinessRules
         End Function
 
         Public Shared Sub ExportToExcel(ByVal dt As DataTable, ByRef response As System.Web.HttpResponse)
-
-            'Get the data from database into datatable
-            'string strQuery = "select CustomerID, ContactName, City, PostalCode" +" from customers";
-            'SqlCommand cmd = new SqlCommand(strQuery);
-            'DataTable dt = GetData(cmd);
-            'Create a dummy GridViewcmdToExecute.Parameters.AddWithValue("@tglAnalisa", _tglregistrasi)
             Dim GridView1 As New GridView()
             GridView1.AllowPaging = False
             GridView1.DataSource = dt

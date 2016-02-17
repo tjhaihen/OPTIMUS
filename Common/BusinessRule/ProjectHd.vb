@@ -342,7 +342,90 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Custom Function "
-        Public Function GetCustomerInspectionInformation(ByVal strCustomerID As String, ByVal strInformationType As String, ByVal intValue As Integer) As DataTable
+        Public Function SelectOneByWorkOrderNo() As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "SELECT TOP 1 * FROM ProjectHd WHERE workOrderNo=@workOrderNo"
+            cmdToExecute.CommandType = CommandType.Text
+
+            Dim toReturn As DataTable = New DataTable("ProjectHd_SelectOneByWorkOrderNo")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@workOrderNo", _workOrderNo)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                If toReturn.Rows.Count > 0 Then
+                    _projectID = CType(toReturn.Rows(0)("projectID"), String)
+                    _customerID = CType(toReturn.Rows(0)("customerID"), String)
+                    _siteID = CType(toReturn.Rows(0)("siteID"), String)
+                    _projectCode = CType(toReturn.Rows(0)("projectCode"), String)
+                    _refWorkRequestNo = CType(toReturn.Rows(0)("refWorkRequestNo"), String)
+                    _projectName = CType(toReturn.Rows(0)("projectName"), String)
+                    _workOrderNo = CType(toReturn.Rows(0)("workOrderNo"), String)
+                    _workOrderDate = CType(toReturn.Rows(0)("workOrderDate"), DateTime)
+                    _workLocation = CType(toReturn.Rows(0)("workLocation"), String)
+                    _jobDescription = CType(toReturn.Rows(0)("jobDescription"), String)
+                    _requiredDate = CType(toReturn.Rows(0)("requiredDate"), DateTime)
+                    _startDate = CType(toReturn.Rows(0)("startDate"), DateTime)
+                    _endDate = CType(toReturn.Rows(0)("endDate"), DateTime)
+                    _expiredDate = CType(toReturn.Rows(0)("expiredDate"), DateTime)
+                    _isNoExpiredDate = CType(toReturn.Rows(0)("isNoExpiredDate"), Boolean)
+                    _prioritySCode = CType(toReturn.Rows(0)("prioritySCode"), String)
+                    _productID = CType(toReturn.Rows(0)("productID"), String)
+                    _serviceName = CType(toReturn.Rows(0)("serviceName"), String)
+                    _assetNo = CType(toReturn.Rows(0)("assetNo"), String)
+                    _model = CType(toReturn.Rows(0)("model"), String)
+                    _serialNo = CType(toReturn.Rows(0)("serialNo"), String)
+                    _manufacturer = CType(toReturn.Rows(0)("manufacturer"), String)
+                    _workLocationDescription = CType(toReturn.Rows(0)("workLocationDescription"), String)
+                    _termsAndConditions = CType(toReturn.Rows(0)("termsAndConditions"), String)
+                    _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
+                    _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
+                    _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
+                    _updateDate = CType(toReturn.Rows(0)("updateDate"), DateTime)
+                    _toDepartment = CType(toReturn.Rows(0)("toDepartment"), String)
+                    _reference = CType(toReturn.Rows(0)("reference"), String)
+                    _note = CType(toReturn.Rows(0)("note"), String)
+                    _customerPIC = CType(toReturn.Rows(0)("customerPIC"), String)
+                    _companyToProvide = CType(toReturn.Rows(0)("companyToProvide"), String)
+                    _customerToProvide = CType(toReturn.Rows(0)("customerToProvide"), String)
+                    _requestedBy = CType(toReturn.Rows(0)("requestedBy"), String)
+                    _ackBy = CType(toReturn.Rows(0)("ackBy"), String)
+                    _preparedBy = CType(toReturn.Rows(0)("preparedBy"), String)
+                    _checkedBy = CType(toReturn.Rows(0)("checkedBy"), String)
+                    _approvedBy = CType(toReturn.Rows(0)("approvedBy"), String)
+                    _warehousePIC = CType(toReturn.Rows(0)("warehousePIC"), String)
+                    _isProposed = CType(toReturn.Rows(0)("isProposed"), Boolean)
+                    _proposedBy = CType(toReturn.Rows(0)("proposedBy"), String)
+                    _proposedDate = CType(ProcessNull.GetDateTime(toReturn.Rows(0)("proposedDate")), DateTime)
+                    _isApproval = CType(toReturn.Rows(0)("isApproval"), Boolean)
+                    _approvalBy = CType(toReturn.Rows(0)("approvalBy"), String)
+                    _approvalDate = CType(ProcessNull.GetDateTime(toReturn.Rows(0)("approvalDate")), DateTime)
+                    _isDone = CType(toReturn.Rows(0)("isDone"), Boolean)
+                    _doneBy = CType(toReturn.Rows(0)("doneBy"), String)
+                    _doneDate = CType(ProcessNull.GetDateTime(toReturn.Rows(0)("doneDate")), DateTime)
+                End If
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+
+        Public Function GetCustomerInspectionInformation(ByVal strCustomerID As String, ByVal strProductID As String, ByVal strInformationType As String, ByVal intValue As Integer) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "sp_CustomerInspectionInformation"
             cmdToExecute.CommandType = CommandType.StoredProcedure
@@ -354,6 +437,7 @@ Namespace Raven.Common.BussinessRules
 
             Try
                 cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
+                cmdToExecute.Parameters.AddWithValue("@productID", strProductID)
                 cmdToExecute.Parameters.AddWithValue("@informationType", strInformationType)
                 cmdToExecute.Parameters.AddWithValue("@value", intValue)
 
@@ -408,7 +492,7 @@ Namespace Raven.Common.BussinessRules
             Return toReturn
         End Function
 
-        Public Function GetTotalInspectionByCustomer(ByVal strCustomerID As String, ByVal startDate As Date, ByVal endDate As Date) As DataTable
+        Public Function GetTotalInspectionByCustomer(ByVal strCustomerID As String, ByVal startDate As Date, ByVal endDate As Date, ByVal strProductID As String) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "sp_GetTotalInspectionByCustomerID"
             cmdToExecute.CommandType = CommandType.StoredProcedure
@@ -420,6 +504,7 @@ Namespace Raven.Common.BussinessRules
 
             Try
                 cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
+                cmdToExecute.Parameters.AddWithValue("@productID", strProductID)
                 cmdToExecute.Parameters.AddWithValue("@startDate", startDate)
                 cmdToExecute.Parameters.AddWithValue("@endDate", endDate)
 
@@ -455,7 +540,52 @@ Namespace Raven.Common.BussinessRules
             Return toReturn
         End Function
 
-        Public Function GetListOfItemDueToExpiredInspectionByCustomer(ByVal strCustomerID As String, ByVal strInformationType As String, ByVal intValue As Integer, ByVal startDate As Date, ByVal endDate As Date) As DataTable
+        Public Function GetTotalInspectionByProjectID(ByVal strProjectID As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "sp_GetTotalInspectionByProjectID"
+            cmdToExecute.CommandType = CommandType.StoredProcedure
+
+            Dim toReturn As DataTable = New DataTable("sp_GetTotalInspectionByProjectID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@projectID", strProjectID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                If toReturn.Rows.Count > 0 Then
+                    _totalWorkOrder = CType(toReturn.Rows(0)("TotalWorkOrder"), Decimal)
+                    _totalItemInspected = CType(toReturn.Rows(0)("TotalItemInspected"), Decimal)
+                    _totalItemAccepted = CType(toReturn.Rows(0)("TotalItemAccepted"), Decimal)
+                    _totalItemNeedRepair = CType(toReturn.Rows(0)("totalItemNeedRepair"), Decimal)
+                    _totalItemRejected = CType(toReturn.Rows(0)("TotalItemRejected"), Decimal)
+                Else
+                    _totalWorkOrder = 0
+                    _totalItemInspected = 0
+                    _totalItemAccepted = 0
+                    _totalItemNeedRepair = 0
+                    _totalItemRejected = 0
+                End If
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+
+        Public Function GetListOfItemDueToExpiredInspectionByCustomer(ByVal strCustomerID As String, ByVal strInformationType As String, ByVal intValue As Integer, ByVal startDate As Date, ByVal endDate As Date, ByVal strProductID As String) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             Select Case strInformationType
                 Case "Due"
@@ -472,13 +602,14 @@ Namespace Raven.Common.BussinessRules
 
             Try
                 cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
+                cmdToExecute.Parameters.AddWithValue("@productID", strProductID)
                 Select Case strInformationType
                     Case "Due"
                         cmdToExecute.Parameters.AddWithValue("@value", intValue)
                     Case Else
                         cmdToExecute.Parameters.AddWithValue("@startDate", startDate)
                         cmdToExecute.Parameters.AddWithValue("@endDate", endDate)
-                End Select                
+                End Select
 
                 ' // Open connection.
                 _mainConnection.Open()
@@ -542,7 +673,48 @@ Namespace Raven.Common.BussinessRules
             Return toReturn
         End Function
 
-        Public Function GetListOfInspectionByCustomerIDSerialIDNo(ByVal strCustomerID As String, ByVal strSerialIDNo As String) As DataTable
+        Public Function GetListOfItemDueToExpiredInspectionByProjectIDStatus(ByVal strProjectID As String, ByVal strInformationType As String, ByVal intValue As Integer, ByVal strStatus As String) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            Select Case strInformationType
+                Case "Due"
+                    cmdToExecute.CommandText = "sp_GetListOfItemDueToExpiredInspectionByProjectID"
+                Case Else
+                    cmdToExecute.CommandText = "sp_GetListOfItemInspectionByProjectID"
+            End Select
+            cmdToExecute.CommandType = CommandType.StoredProcedure
+
+            Dim toReturn As DataTable = New DataTable("sp_GetListOfItemInspectionByProjectID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@projectID", strProjectID)
+                cmdToExecute.Parameters.AddWithValue("@status", strStatus)
+                Select Case strInformationType
+                    Case "Due"
+                        cmdToExecute.Parameters.AddWithValue("@value", intValue)
+                End Select
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+
+        Public Function GetListOfInspectionByCustomerIDSerialIDNo(ByVal strCustomerID As String, ByVal strSerialIDNo As String, ByVal strProductID As String) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "sp_GetListOfInspectionByCustomerIDSerialIDNo"
             cmdToExecute.CommandType = CommandType.StoredProcedure
@@ -554,6 +726,7 @@ Namespace Raven.Common.BussinessRules
 
             Try
                 cmdToExecute.Parameters.AddWithValue("@customerID", strCustomerID)
+                cmdToExecute.Parameters.AddWithValue("@productID", strProductID)
                 cmdToExecute.Parameters.AddWithValue("@serialIDNo", strSerialIDNo)
 
                 ' // Open connection.

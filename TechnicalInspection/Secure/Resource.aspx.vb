@@ -53,8 +53,17 @@ Namespace Raven.Web.Secure
         End Sub
 
         Private Sub btnUploadPicSignature_Click(sender As Object, e As System.EventArgs) Handles btnUploadPicSignature.Click
-            UploadPic()
-            SetDataGridResourceSignature()
+            If txtResourceSignatureDescription.Text.Trim.Length > 0 Then
+                UploadPic()
+                SetDataGridResourceSignature()
+            Else
+                commonFunction.MsgBox(Me, "Description for Resource Signature cannot empty.")
+                Exit Sub
+            End If            
+        End Sub
+
+        Private Sub btnAttachResourceFile_Click(sender As Object, e As System.EventArgs) Handles btnAttachResourceFile.Click
+            _attachFile()
         End Sub
 
         Private Sub grdResource_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdResource.ItemCommand
@@ -145,12 +154,21 @@ Namespace Raven.Web.Secure
             prepareScreenPerson()
             prepareScreenResourceSinature()
             SetDataGridResourceSignature()
+            SetDataGridResourceFile()
         End Sub
 
         Private Sub prepareScreenResourceSinature()
             txtResourceSignatureID.Text = String.Empty
             txtResourceSignatureDescription.Text = String.Empty
             imgPicSignature.ImageUrl = GetPic(txtResourceSignatureID.Text.Trim)
+        End Sub
+
+        Private Sub PrepareScreenResourceFile()
+            txtResourceFileName.Text = String.Empty
+            txtResourceFileNo.Text = String.Empty
+            txtResourceFileDescription.Text = String.Empty
+            chkIsShared.Checked = False
+            commonFunction.Focus(Me, txtResourceFileName.ClientID)
         End Sub
 
         Private Sub prepareScreenPerson()
@@ -192,6 +210,21 @@ Namespace Raven.Web.Secure
             oRsrc.Dispose()
             oRsrc = Nothing
         End Sub
+
+        Private Sub SetDataGridResourceFile()
+            Dim br As New Common.BussinessRules.ResourceFile
+            Dim dt As New DataTable
+            With br
+                .resourceID = txtResourceID.Text.Trim
+                dt = .GetFileByResourceID(False)
+            End With
+
+            grdResourceFile.DataSource = dt.DefaultView
+            grdResourceFile.DataBind()
+
+            br.Dispose()
+            br = Nothing
+        End Sub
 #End Region
 
 #Region " C,R,U,D "
@@ -212,6 +245,7 @@ Namespace Raven.Web.Secure
                     calWorkingEDate.selectedDate = .workingEDate
                     chkIsActive.Checked = .isActive
                     SetDataGridResourceSignature()
+                    SetDataGridResourceFile()
                 Else
                     prepareScreen(False)
                 End If
@@ -391,6 +425,75 @@ Namespace Raven.Web.Secure
             End With
             oPerson.Dispose()
             oPerson = Nothing
+        End Sub
+
+        Private Sub _attachFile()
+            If txtResourceID.Text.Trim.Length = 0 Then Exit Sub
+
+            If txtFileUrl.Value.Trim.Length > 0 Then
+                Dim fileExt As String, fileName As String
+                Dim dirName As String
+                Dim br As New Common.BussinessRules.ResourceFile
+                With br
+                    fileExt = Path.GetExtension(txtFileUrl.Value.Trim)
+                    fileName = txtResourceFileName.Text.Trim + fileExt.Trim
+                    .resourceFileID = txtResourceFileID.Text.Trim
+                    Dim Pathdb As New Common.SystemParameter
+                    Dim fNotNew As Boolean = False
+                    Dim nmFile As String, nmDir As String
+                    Try
+                        If .SelectOne.Rows.Count > 0 Then
+                            fNotNew = True
+                        Else
+                            fNotNew = False
+                        End If
+                        .resourceID = txtResourceID.Text.Trim
+                        .dirName = txtResourceCode.Text.Trim + "\"
+                        .fileName = fileName.Trim
+                        .fileNo = txtResourceFileNo.Text.Trim
+                        .fileExtension = fileExt.Trim
+                        .isShared = chkIsShared.Checked
+                        .description = txtResourceFileDescription.Text.Trim
+                        .UserIDInsert = MyBase.LoggedOnUserID.Trim
+                        .UserIDUpdate = MyBase.LoggedOnUserID.Trim
+
+                        '// Create Directory
+                        dirName = txtResourceCode.Text.Trim
+                        nmDir = Pathdb.GetValue("AttachFileUrl").ToString + dirName
+                        If Not Directory.Exists(nmDir) Then
+                            Directory.CreateDirectory(nmDir)
+                        End If
+
+                        '// validate if the file exist
+                        nmFile = Pathdb.GetValue("AttachFileUrl").ToString + dirName + "\" + fileName
+                        If txtFileUrl.Value.Trim.Length > 0 Then
+                            If File.Exists(nmFile) Then
+                                'File.Delete(nmFile)
+                                commonFunction.MsgBox(Me, Common.Constants.MessageBoxText.Validate_FileNameAlreadyExist)
+                                Exit Sub
+                            End If
+                            txtFileUrl.PostedFile.SaveAs(nmFile)
+                            If fNotNew Then
+                                If .Update() Then
+                                    PrepareScreenResourceFile()
+                                    SetDataGridResourceFile()
+                                End If
+                            Else
+                                If .Insert() Then
+                                    PrepareScreenResourceFile()
+                                    SetDataGridResourceFile()
+                                End If
+                            End If
+                        End If
+                    Catch ex As Exception
+                        commonFunction.MsgBox(Me, "Upload file failed.")
+                        Exit Sub
+                    End Try
+                End With
+            Else
+                commonFunction.MsgBox(Me, "No file choosen.")
+                Exit Sub
+            End If
         End Sub
 
         Private Sub UploadPic()

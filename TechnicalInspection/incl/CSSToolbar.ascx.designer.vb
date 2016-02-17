@@ -231,6 +231,24 @@ Namespace Raven
         Protected WithEvents lbtnAttach As Global.System.Web.UI.WebControls.LinkButton
 
         '''<summary>
+        '''TMpnlDownload control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TMpnlDownload As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''lbtnDownload control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lbtnDownload As Global.System.Web.UI.WebControls.LinkButton
+
+        '''<summary>
         '''TMPnlPrevious control.
         '''</summary>
         '''<remarks>

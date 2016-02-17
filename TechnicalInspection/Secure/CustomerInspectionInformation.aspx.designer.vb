@@ -87,6 +87,33 @@ Namespace Raven.Web.Secure
         Protected WithEvents rfvCustomerCode As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
         '''<summary>
+        '''txtProductID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProductID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtProductCode control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProductCode As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''btnSearchProduct control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnSearchProduct As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
         '''txtCustomerName control.
         '''</summary>
         '''<remarks>
@@ -94,6 +121,15 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents txtCustomerName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtProductName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProductName As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''rtsInspectionInformation control.
@@ -222,6 +258,15 @@ Namespace Raven.Web.Secure
         Protected WithEvents pnlPeriod As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
+        '''chkPeriod control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents chkPeriod As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
         '''ddlPeriod control.
         '''</summary>
         '''<remarks>
@@ -256,6 +301,33 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents calEndDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''txtWorkOrderNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtWorkOrderNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtProjectCode control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProjectCode As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtProjectID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtProjectID As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''pnlInspectionTotalSummary control.

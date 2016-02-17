@@ -375,15 +375,6 @@ Namespace Raven.Web.Secure
         Protected WithEvents txtResourceSignatureDescription As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
-        '''rfvResourceSignatureDescription control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents rfvResourceSignatureDescription As Global.System.Web.UI.WebControls.RequiredFieldValidator
-
-        '''<summary>
         '''imgPicSignature control.
         '''</summary>
         '''<remarks>
@@ -400,6 +391,78 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents grdResourceSignature As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''txtResourceFileID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtResourceFileID As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtFileUrl control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtFileUrl As Global.System.Web.UI.HtmlControls.HtmlInputFile
+
+        '''<summary>
+        '''txtResourceFileDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtResourceFileDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtResourceFileName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtResourceFileName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''chkIsShared control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents chkIsShared As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''txtResourceFileNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtResourceFileNo As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''btnAttachResourceFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnAttachResourceFile As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''grdResourceFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdResourceFile As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
         '''grdResource control.

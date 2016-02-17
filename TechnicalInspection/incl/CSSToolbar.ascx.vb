@@ -29,6 +29,7 @@ Namespace Raven
         tidRefresh = 8
         tidPropose = 9
         tidAttach = 10
+        tidDownload = 11
     End Enum
 
     Public MustInherit Class CSSToolbar
@@ -130,6 +131,8 @@ Namespace Raven
                         Return TMpnlPropose.Visible
                     Case CSSToolbarItem.tidAttach
                         Return TMpnlAttach.Visible
+                    Case CSSToolbarItem.tidDownload
+                        Return TMpnlDownload.Visible
                 End Select
             End Get
             Set(ByVal Value As Boolean)
@@ -163,13 +166,15 @@ Namespace Raven
                         TMpnlPropose.Visible = Value
                     Case CSSToolbarItem.tidAttach
                         TMpnlAttach.Visible = Value
+                    Case CSSToolbarItem.tidDownload
+                        TMpnlDownload.Visible = Value
                 End Select
             End Set
         End Property
         Private Sub lbtn_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lbtnNew.Click, lbtnSave.Click, lbtnDelete.Click, _
                 lbtnApprove.Click, lbtnVoid.Click, lbtnPrint.Click, _
                     lbtnPrevious.Click, lbtnNext.Click, lbtnRefresh.Click, _
-                        lbtnPropose.Click, lbtnAttach.Click
+                        lbtnPropose.Click, lbtnAttach.Click, lbtnDownload.Click
             Select Case CType(sender, LinkButton).ClientID
                 Case lbtnNew.ClientID
                     RaiseEvent CSSToolbarItemClick(sender, CSSToolbarItem.tidNew)
@@ -193,6 +198,8 @@ Namespace Raven
                     RaiseEvent CSSToolbarItemClick(sender, CSSToolbarItem.tidPropose)
                 Case lbtnAttach.ClientID
                     RaiseEvent CSSToolbarItemClick(sender, CSSToolbarItem.tidAttach)
+                Case lbtnDownload.ClientID
+                    RaiseEvent CSSToolbarItemClick(sender, CSSToolbarItem.tidDownload)
             End Select
         End Sub
 

@@ -70,8 +70,12 @@
                                                         </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td style="width: 150px;" class="right">
+                                                        Product Code
                                                     </td>
                                                     <td>
+                                                        <asp:TextBox ID="txtProductID" runat="server" AutoPostBack="True" Visible="false" />
+                                                        <asp:TextBox ID="txtProductCode" Width="266" MaxLength="15" runat="server" AutoPostBack="True" />
+                                                        <asp:Button ID="btnSearchProduct" runat="server" Text="..." Width="30" CausesValidation="false" />                                                        
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -83,8 +87,11 @@
                                                             CssClass="txtReadOnly" />
                                                     </td>
                                                     <td style="width: 150px;" class="right">
+                                                        Product Name
                                                     </td>
                                                     <td>
+                                                        <asp:TextBox ID="txtProductName" Width="300" MaxLength="500" runat="server" ReadOnly="true"
+                                                            CssClass="txtReadOnly" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -99,7 +106,7 @@
                                             <telerik:RadTabStrip ID="rtsInspectionInformation" runat="server" Skin="Windows7"
                                                 MultiPageID="rmpInspectionInformation" SelectedIndex="0" CssClass="tabStrip">
                                                 <Tabs>
-                                                    <telerik:RadTab Text="Work Request">
+                                                    <telerik:RadTab Text="Work Order">
                                                     </telerik:RadTab>
                                                     <telerik:RadTab Text="Summary of Inspection">
                                                     </telerik:RadTab>
@@ -163,11 +170,11 @@
                                                                 <asp:DataGrid ID="grdCustomerInspection" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
-                                                                    <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
-                                                                    <itemstyle cssclass="gridItemStyle" />
-                                                                    <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
-                                                                    <pagerstyle mode="NumericPages" horizontalalign="right" />
-                                                                    <columns>
+                                                                    <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                                    <ItemStyle CssClass="gridItemStyle" />
+                                                                    <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                                    <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                                    <Columns>
                                                                         <asp:TemplateColumn runat="server" HeaderText="Location" ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <table>
@@ -186,17 +193,18 @@
                                                                                 </table>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Work Order" ItemStyle-VerticalAlign="Top">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="FR/WO/JO No." ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <table>
                                                                                     <tr>
-                                                                                        <td class="Heading1" style="font-weight: bold;">
-                                                                                            <%# DataBinder.Eval(Container.DataItem, "WorkOrderNo") %>
+                                                                                        <td class="Heading1" style="font-weight: bold;">                                                                                            
+                                                                                            <asp:Label ID="_lblWorkOrderNo" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "WorkOrderNo") %>'></asp:Label>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <td>                                                                                            
-                                                                                            WR No.: <asp:Label ID="_lblProjectCode" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "projectCode") %>'></asp:Label>
+                                                                                        <td>
+                                                                                            WR#:
+                                                                                            <asp:Label ID="_lblProjectCode" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "projectCode") %>'></asp:Label>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
@@ -207,7 +215,8 @@
                                                                                 </table>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Product Name" ItemStyle-Width="120" ItemStyle-VerticalAlign="Top">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Product Name" ItemStyle-Width="120"
+                                                                            ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <%# DataBinder.Eval(Container.DataItem, "productName")%>
                                                                             </ItemTemplate>
@@ -229,10 +238,10 @@
                                                                         <asp:TemplateColumn runat="server" HeaderText="Overdue?" ItemStyle-Width="120" ItemStyle-HorizontalAlign="Center"
                                                                             HeaderStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
-                                                                                <table>                                                                                    
+                                                                                <table>
                                                                                     <tr>
                                                                                         <td>
-                                                                                            <%# IIf(DataBinder.Eval(Container.DataItem, "isNoExpiredDate") = True, "", "Due in: " + Format(DataBinder.Eval(Container.DataItem, "DueInDay"),"#,##0") + " day(s)")%>                                                                                           
+                                                                                            <%# IIf(DataBinder.Eval(Container.DataItem, "isNoExpiredDate") = True, "", "Due in: " + Format(DataBinder.Eval(Container.DataItem, "DueInDay"),"#,##0") + " day(s)")%>
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
@@ -240,10 +249,11 @@
                                                                                             <%# IIf(DataBinder.Eval(Container.DataItem, "isNoExpiredDate")=true,"",DataBinder.Eval(Container.DataItem, "IsOverDue")) %>
                                                                                         </td>
                                                                                     </tr>
-                                                                                </table>                                                                                
+                                                                                </table>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                        <asp:TemplateColumn runat="server" HeaderText="Inspector Name" ItemStyle-Width="120" ItemStyle-VerticalAlign="Top">
+                                                                        <asp:TemplateColumn runat="server" HeaderText="Inspector Name" ItemStyle-Width="120"
+                                                                            ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <%# DataBinder.Eval(Container.DataItem, "inspectorName")%>
                                                                             </ItemTemplate>
@@ -252,8 +262,8 @@
                                                                             ItemStyle-CssClass="txtweak" ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <asp:TextBox ID="_txtJobDescription" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "jobDescription") %>'
-                                                                                    TextMode="MultiLine" Height="50" Style="font-family: Segoe UI, Verdana, Arial" Width="100%"
-                                                                                    BorderStyle="None" CssClass="txtweak"></asp:TextBox>
+                                                                                    TextMode="MultiLine" Height="50" Style="font-family: Segoe UI, Verdana, Arial"
+                                                                                    Width="100%" BorderStyle="None" CssClass="txtweak"></asp:TextBox>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
                                                                         <asp:TemplateColumn runat="server" HeaderText="Status" ItemStyle-Width="80" ItemStyle-VerticalAlign="Top">
@@ -265,10 +275,17 @@
                                                                             ItemStyle-VerticalAlign="Top">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="ibtnWorkRequestDetail" runat="server" ImageUrl="/pureravensLib/images/tbother1.png"
-                                                                                    ToolTip="View Summary of Inspection" CommandName="Preview" />
+                                                                                    ToolTip="View Work Request Detail" CommandName="Preview" />
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
-                                                                    </columns>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="" ItemStyle-HorizontalAlign="Center"
+                                                                            ItemStyle-VerticalAlign="Top">
+                                                                            <ItemTemplate>
+                                                                                <asp:ImageButton ID="ibtnSOIDetail" runat="server" ImageUrl="/pureravensLib/images/right_green.png"
+                                                                                    ToolTip="View Summary of Inspection for this Work Request" CommandName="PreviewByWR" />
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                    </Columns>
                                                                 </asp:DataGrid>
                                                             </td>
                                                         </tr>
@@ -295,17 +312,17 @@
                                                                                         </asp:DropDownList>
                                                                                     </td>
                                                                                 </tr>
-                                                                                <asp:Panel id="pnlPeriod" runat="server">
+                                                                                <asp:Panel ID="pnlPeriod" runat="server">
                                                                                     <tr>
                                                                                         <td style="width: 100px;" class="right">
-                                                                                            Period
+                                                                                            <asp:CheckBox ID="chkPeriod" runat="server" Text="Period" AutoPostBack="true" />
                                                                                         </td>
                                                                                         <td>
-                                                                                            <asp:DropDownList id="ddlPeriod" runat="server" width="300" AutoPostBack="true">
+                                                                                            <asp:DropDownList ID="ddlPeriod" runat="server" Width="300" AutoPostBack="true">
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                     </tr>
-                                                                                    <asp:Panel id="pnlCustomPeriod" runat="server">
+                                                                                    <asp:Panel ID="pnlCustomPeriod" runat="server">
                                                                                         <tr>
                                                                                             <td>
                                                                                             </td>
@@ -317,13 +334,23 @@
                                                                                         </tr>
                                                                                     </asp:Panel>
                                                                                 </asp:Panel>
+                                                                                <tr>
+                                                                                    <td class="right">
+                                                                                        FR/WO/JO No.
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <asp:TextBox ID="txtWorkOrderNo" runat="server" Width="150" AutoPostBack="true"></asp:TextBox>
+                                                                                        <asp:TextBox ID="txtProjectCode" runat="server" Width="150" ReadOnly="true" CssClass="txtReadOnly"></asp:TextBox>
+                                                                                        <asp:TextBox ID="txtProjectID" runat="server" Width="150" Visible="false"></asp:TextBox>
+                                                                                    </td>
+                                                                                </tr>
                                                                             </table>
                                                                         </td>
                                                                         <td style="width: 60%;" valign="top">
                                                                             <table width="100%">
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <asp:Panel id="pnlInspectionTotalSummary" runat="server">
+                                                                                        <asp:Panel ID="pnlInspectionTotalSummary" runat="server">
                                                                                             <table>
                                                                                                 <tr>
                                                                                                     <td>
@@ -358,7 +385,7 @@
                                                                                                         <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #66CC33;">
                                                                                                             <tr>
                                                                                                                 <td class="center" colspan="2">
-                                                                                                                    <asp:LinkButton id="lbtnAccepted" runat="server" text="TOTAL ACCEPTED">
+                                                                                                                    <asp:LinkButton ID="lbtnAccepted" runat="server" Text="TOTAL ACCEPTED">
                                                                                                                     </asp:LinkButton>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -376,7 +403,7 @@
                                                                                                         <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #EF8E19;">
                                                                                                             <tr>
                                                                                                                 <td class="center" colspan="2">
-                                                                                                                    <asp:LinkButton id="lbtnRepair" runat="server" text="TOTAL NEED REPAIR">
+                                                                                                                    <asp:LinkButton ID="lbtnRepair" runat="server" Text="TOTAL NEED REPAIR">
                                                                                                                     </asp:LinkButton>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -394,7 +421,7 @@
                                                                                                         <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #FF6666;">
                                                                                                             <tr>
                                                                                                                 <td class="center" colspan="2">
-                                                                                                                    <asp:LinkButton id="lbtnRejected" runat="server" text="TOTAL REJECTED">
+                                                                                                                    <asp:LinkButton ID="lbtnRejected" runat="server" Text="TOTAL REJECTED">
                                                                                                                     </asp:LinkButton>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -418,7 +445,7 @@
                                                                     </tr>
                                                                 </table>
                                                                 <table cellspacing="5" cellpadding="2" width="100%">
-                                                                    <asp:Panel id="pnlDueToExpired" runat="server">
+                                                                    <asp:Panel ID="pnlDueToExpired" runat="server">
                                                                         <tr>
                                                                             <td class="projectBanner">
                                                                                 List of Item Due to Expired Inspection in &nbsp;
@@ -434,44 +461,54 @@
                                                                             <asp:DataGrid ID="grdItemDueToExpiredInspection" runat="server" BorderWidth="0" GridLines="None"
                                                                                 Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                                 AutoGenerateColumns="false">
-                                                                                <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
-                                                                                <itemstyle cssclass="gridItemStyle" />
-                                                                                <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
-                                                                                <pagerstyle mode="NumericPages" horizontalalign="right" />
-                                                                                <columns>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="FR/WO/JO No." ItemStyle-VerticalAlign="Top" ItemStyle-Width="100">
+                                                                                <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                                                <ItemStyle CssClass="gridItemStyle" />
+                                                                                <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                                                <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                                                <Columns>
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="FR/WO/JO No." ItemStyle-VerticalAlign="Top"
+                                                                                        ItemStyle-Width="100">
                                                                                         <ItemTemplate>
-											                                                <table>
-											    	                                            <tr>
-													                                                <td class="Heading1" style="font-weight: bold;">
-														                                                <%# DataBinder.Eval(Container.DataItem, "workOrderNo") %>
-													                                                </td>
-											    	                                            </tr>
-												                                                <tr>
-													                                                <td>
-														                                                WR#&nbsp;<%# DataBinder.Eval(Container.DataItem, "projectCode") %>
-													                                                </td>
-											    	                                            </tr>
-											                                                </table>											    
+                                                                                            <table>
+                                                                                                <tr>
+                                                                                                    <td class="Heading1" style="font-weight: bold;">
+                                                                                                        <%# DataBinder.Eval(Container.DataItem, "workOrderNo") %>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        WR#&nbsp;<%# DataBinder.Eval(Container.DataItem, "projectCode") %>
+                                                                                                        <asp:Label ID="_lblProjectID" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "projectID") %>'
+                                                                                                            Visible="false"></asp:Label>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <%# Format(DataBinder.Eval(Container.DataItem, "WorkOrderDate"),"dd-MMM-yyyy") %>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Description of Equipment" ItemStyle-VerticalAlign="Top" ItemStyle-Width="200">
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Description of Equipment" ItemStyle-VerticalAlign="Top"
+                                                                                        ItemStyle-Width="200">
                                                                                         <ItemTemplate>
-											                                                <table>
-											    	                                            <tr>
-													                                                <td>
-														                                                <%# DataBinder.Eval(Container.DataItem, "descriptionOfEquipment") %>
-													                                                </td>
-											    	                                            </tr>
-												                                                <tr>
-													                                                <td class="txtweak">
-														                                                Report#&nbsp;<%# DataBinder.Eval(Container.DataItem, "reportNo") %>
-													                                                </td>
-											    	                                            </tr>
-											                                                </table>                                                                                            
+                                                                                            <table>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <%# DataBinder.Eval(Container.DataItem, "descriptionOfEquipment") %>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td class="txtweak">
+                                                                                                        Report#&nbsp;<%# DataBinder.Eval(Container.DataItem, "reportNo") %>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Serial No." ItemStyle-VerticalAlign="Top" ItemStyle-Width="140">
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Serial No." ItemStyle-VerticalAlign="Top"
+                                                                                        ItemStyle-Width="140">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "serialIDNo") %>
                                                                                         </ItemTemplate>
@@ -495,28 +532,38 @@
                                                                                             <%# IIf(DataBinder.Eval(Container.DataItem, "ExpireDate")=DataBinder.Eval(Container.DataItem, "examDate"),"No Exp. Date",Format(DataBinder.Eval(Container.DataItem, "ExpireDate"),"dd-MMM-yyyy")) %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Result" ItemStyle-VerticalAlign="Top" ItemStyle-Width="80">
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Result" ItemStyle-VerticalAlign="Top"
+                                                                                        ItemStyle-Width="80">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "result") %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Defect Found" ItemStyle-VerticalAlign="Top" ItemStyle-Width="200">
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Defect Found" ItemStyle-VerticalAlign="Top"
+                                                                                        ItemStyle-Width="200">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "defectFound") %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Remarks" ItemStyle-VerticalAlign="Top" ItemStyle-Width="250">
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Remarks" ItemStyle-VerticalAlign="Top"
+                                                                                        ItemStyle-Width="250">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "remarks") %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-										                                            <asp:TemplateColumn runat="server" HeaderText="Due In [day]" ItemStyle-Width="100"
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Due In [day]" ItemStyle-Width="100"
                                                                                         ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top">
                                                                                         <ItemTemplate>
-                                                                                            <%# IIf(DataBinder.Eval(Container.DataItem, "ExpireDate") = DataBinder.Eval(Container.DataItem, "examDate"), "-", DataBinder.Eval(Container.DataItem, "DueInDay"))%>                                                                                            
+                                                                                            <%# IIf(DataBinder.Eval(Container.DataItem, "ExpireDate") = DataBinder.Eval(Container.DataItem, "examDate"), "-", DataBinder.Eval(Container.DataItem, "DueInDay"))%>
                                                                                         </ItemTemplate>
-                                                                                    </asp:TemplateColumn>                                                                                    
-                                                                                </columns>
+                                                                                    </asp:TemplateColumn>
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="" ItemStyle-HorizontalAlign="Center"
+                                                                                        ItemStyle-VerticalAlign="Top">
+                                                                                        <ItemTemplate>
+                                                                                            <asp:ImageButton ID="ibtnWorkRequestDetail" runat="server" ImageUrl="/pureravensLib/images/tbother1.png"
+                                                                                                ToolTip="View Summary of Inspection Detail" CommandName="Preview" />
+                                                                                        </ItemTemplate>
+                                                                                    </asp:TemplateColumn>
+                                                                                </Columns>
                                                                             </asp:DataGrid>
                                                                         </td>
                                                                     </tr>
@@ -546,11 +593,11 @@
                                                                             <asp:DataGrid ID="grdInspectionBySerialIDNo" runat="server" BorderWidth="0" GridLines="None"
                                                                                 CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false" AutoGenerateColumns="false"
                                                                                 Width="100%">
-                                                                                <headerstyle horizontalalign="Left" cssclass="gridHeaderStyle" />
-                                                                                <itemstyle cssclass="gridItemStyle" />
-                                                                                <alternatingitemstyle cssclass="gridAlternatingItemStyle" />
-                                                                                <pagerstyle mode="NumericPages" horizontalalign="right" />
-                                                                                <columns>
+                                                                                <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                                                <ItemStyle CssClass="gridItemStyle" />
+                                                                                <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                                                <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                                                <Columns>
                                                                                     <asp:TemplateColumn runat="server" HeaderText="Work Order No." ItemStyle-VerticalAlign="Top">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "projectCode") %>
@@ -593,12 +640,13 @@
                                                                                             <%# DataBinder.Eval(Container.DataItem, "defectFound") %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Remarks" ItemStyle-VerticalAlign="Top" ItemStyle-Width="200">
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Remarks" ItemStyle-VerticalAlign="Top"
+                                                                                        ItemStyle-Width="200">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "remarks") %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                </columns>
+                                                                                </Columns>
                                                                             </asp:DataGrid>
                                                                         </td>
                                                                     </tr>

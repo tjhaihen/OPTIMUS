@@ -60,6 +60,10 @@
             Public Const ChangePassword_MenuID As String = "9010"
         End Class
 
+        Public NotInheritable Class ReportID
+            Public Const DownloadSummaryOfInspection_ReportID As String = "1100000000"
+        End Class
+
         Public NotInheritable Class MaskFormat
             Public Const TIME_MASK As String = "99:99"
         End Class
