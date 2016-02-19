@@ -87,6 +87,96 @@ Namespace Raven.Web.Secure
         Protected WithEvents pvSOIByWorkRequest As Global.Telerik.Web.UI.RadPageView
 
         '''<summary>
+        '''lblTotalItemIspected control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemIspected As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lbtnAccepted control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lbtnAccepted As Global.System.Web.UI.WebControls.LinkButton
+
+        '''<summary>
+        '''lblTotalItemAccepted control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemAccepted As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblTotalItemAcceptedPct control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemAcceptedPct As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lbtnRepair control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lbtnRepair As Global.System.Web.UI.WebControls.LinkButton
+
+        '''<summary>
+        '''lblTotalItemNeedRepair control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemNeedRepair As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblTotalItemNeedRepairPct control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemNeedRepairPct As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lbtnRejected control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lbtnRejected As Global.System.Web.UI.WebControls.LinkButton
+
+        '''<summary>
+        '''lblTotalItemRejected control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemRejected As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblTotalItemRejectedPct control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblTotalItemRejectedPct As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
         '''grdSummaryOfInspection control.
         '''</summary>
         '''<remarks>
@@ -112,5 +202,59 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents grdProjectFile As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''pvDailyReport control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvDailyReport As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
+        '''grdDailyReportHd control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdDailyReportHd As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''lblDailyReportHdID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblDailyReportHdID As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''grdDailyReportDt control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdDailyReportDt As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''pvResourceFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvResourceFile As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
+        '''grdResourceFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdResourceFile As Global.System.Web.UI.WebControls.DataGrid
     End Class
 End Namespace

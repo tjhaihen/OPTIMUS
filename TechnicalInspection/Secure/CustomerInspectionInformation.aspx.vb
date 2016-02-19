@@ -121,10 +121,12 @@ Namespace Raven.Web.Secure
                 txtProjectID.Text = String.Empty
                 txtProjectCode.Text = String.Empty
                 txtWorkOrderNo.Text = String.Empty
+                CSSToolbar.VisibleButton(CSSToolbarItem.tidDownload) = True
             Else
                 ddlInformationTypeSOI.SelectedIndex = 0
                 ddlPeriod.SelectedIndex = 0
                 ddlPeriod_SelectedIndexChanged(Nothing, Nothing)
+                CSSToolbar.VisibleButton(CSSToolbarItem.tidDownload) = True
             End If
         End Sub
 
@@ -204,6 +206,8 @@ Namespace Raven.Web.Secure
             Select Case e
                 Case CSSToolbarItem.tidRefresh
                     SetDataGridCustomerInspectionInformation()
+                    SetDataGridSummaryOfInspection()
+                    SetDataGridHistoryOfInspectionBySerialNo()
                     If chkPeriod.Checked Then
                         GetDashboardInformation()
                     Else
@@ -297,15 +301,38 @@ Namespace Raven.Web.Secure
             grdCustomerInspection.DataBind()
         End Sub
 
+        Private Sub SetDataGridSummaryOfInspection()
+            Dim oProject As New Common.BussinessRules.ProjectHd
+            Dim dtItemDueToExpiredInspection As New DataTable
+            With oProject
+                dtItemDueToExpiredInspection = .GetListOfItemDueToExpiredInspectionByCustomer(txtCustomerID.Text.Trim, ddlInformationTypeSOI.SelectedValue.Trim, CInt(txtItemDueToExpiredInspectionInDay.Text.Trim), calStartDate.selectedDate, calEndDate.selectedDate, txtProductID.Text.Trim)
+            End With
+            oProject.Dispose()
+            oProject = Nothing
+
+            grdItemDueToExpiredInspection.DataSource = dtItemDueToExpiredInspection
+            grdItemDueToExpiredInspection.DataBind()
+        End Sub
+
+        Private Sub SetDataGridHistoryOfInspectionBySerialNo()
+            Dim oProject As New Common.BussinessRules.ProjectHd
+            Dim dtInspectionSerialIDNo As New DataTable
+            With oProject
+                dtInspectionSerialIDNo = .GetListOfInspectionByCustomerIDSerialIDNo(txtCustomerID.Text.Trim, txtSerialNo.Text.Trim, txtProductID.Text.Trim)
+            End With
+            oProject.Dispose()
+            oProject = Nothing
+
+            grdInspectionBySerialIDNo.DataSource = dtInspectionSerialIDNo
+            grdInspectionBySerialIDNo.DataBind()
+        End Sub
+
         Private Sub GetDashboardInformation()
             Dim oProject As New Common.BussinessRules.ProjectHd
             Dim dtTotalInspectionByCustomer As New DataTable
-            Dim dtItemDueToExpiredInspection As New DataTable
-            Dim dtInspectionSerialIDNo As New DataTable
+
             With oProject
                 dtTotalInspectionByCustomer = .GetTotalInspectionByCustomer(txtCustomerID.Text.Trim, calStartDate.selectedDate, calEndDate.selectedDate, txtProductID.Text.Trim)
-                dtItemDueToExpiredInspection = .GetListOfItemDueToExpiredInspectionByCustomer(txtCustomerID.Text.Trim, ddlInformationTypeSOI.SelectedValue.Trim, CInt(txtItemDueToExpiredInspectionInDay.Text.Trim), calStartDate.selectedDate, calEndDate.selectedDate, txtProductID.Text.Trim)
-                dtInspectionSerialIDNo = .GetListOfInspectionByCustomerIDSerialIDNo(txtCustomerID.Text.Trim, txtSerialNo.Text.Trim, txtProductID.Text.Trim)
 
                 If dtTotalInspectionByCustomer.Rows.Count > 0 Then
                     lblTotalWorkOrder.Text = .totalWorkOrder.ToString.Trim
@@ -339,12 +366,6 @@ Namespace Raven.Web.Secure
                     lblTotalItemRejectedPct.Text = "0"
                 End If
             End With            
-
-            grdItemDueToExpiredInspection.DataSource = dtItemDueToExpiredInspection
-            grdItemDueToExpiredInspection.DataBind()
-
-            grdInspectionBySerialIDNo.DataSource = dtInspectionSerialIDNo
-            grdInspectionBySerialIDNo.DataBind()
 
             oProject.Dispose()
             oProject = Nothing
@@ -433,6 +454,17 @@ Namespace Raven.Web.Secure
             End If
             oCustomer.Dispose()
             oCustomer = Nothing
+
+            ddlInformationTypeSOI.Enabled = True            
+            ddlPeriod.Enabled = True
+            chkPeriod.Checked = True
+            txtWorkOrderNo.Text = String.Empty
+            txtProjectCode.Text = String.Empty
+            txtProjectID.Text = String.Empty
+            txtSerialNo.Text = String.Empty
+            SetDataGridCustomerInspectionInformation()
+            SetDataGridSummaryOfInspection()
+            SetDataGridHistoryOfInspectionBySerialNo()
         End Sub
 
         Private Sub _openProduct(ByVal _productID As String)

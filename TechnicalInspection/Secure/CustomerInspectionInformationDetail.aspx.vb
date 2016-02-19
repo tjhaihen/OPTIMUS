@@ -32,10 +32,30 @@ Namespace Raven.Web.Secure
                 If ReadQueryString() Then
                     _openProject(lblProjectID.Text.Trim)
                     SetDataGridCustomerInspectionInformation()
+                    SetDataGridDailyReportHd()
                     SetDataGridProjectFile()
+                    SetDataGridResourceFile()
                 End If
                 DataBind()
             End If
+        End Sub
+
+        Private Sub grdDailyReportHd_ItemCreated(sender As Object, e As System.Web.UI.WebControls.DataGridItemEventArgs) Handles grdDailyReportHd.ItemCreated
+            Select Case e.Item.ItemType
+                Case ListItemType.Item, ListItemType.AlternatingItem
+                    e.Item.Attributes.Add("onmouseover", "javascript:this.style.backgroundColor='#00bcf2';this.style.color='#ffffff';this.focus;this.style.cursor='pointer';")
+                    e.Item.Attributes.Add("onmouseout", "javascript:this.style.backgroundColor='#ffffff';this.style.color='#000000'")
+            End Select
+        End Sub
+
+        Private Sub grdDailyReportHd_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataGridCommandEventArgs) Handles grdDailyReportHd.ItemCommand
+            Select Case e.CommandName
+                Case "SelectReportDate"
+                    Dim _lbtnReportDate As LinkButton = CType(e.Item.FindControl("_lbtnReportDate"), LinkButton)
+                    lblDailyReportHdID.ToolTip = _lbtnReportDate.ToolTip.Trim
+                    lblDailyReportHdID.Text = _lbtnReportDate.Text.Trim
+                    SetDataGridDailyReportDt()
+            End Select
         End Sub
 #End Region
 
@@ -58,6 +78,36 @@ Namespace Raven.Web.Secure
             grdSummaryOfInspection.DataBind()
             oSOI.Dispose()
             oSOI = Nothing
+
+            GetDashboardInformationByProjectID()
+        End Sub
+
+        Private Sub SetDataGridDailyReportHd()
+            Dim br As New Common.BussinessRules.DailyReportHd
+            Dim dt As New DataTable
+            With br
+                .projectID = lblProjectID.Text.Trim
+                dt = .SelectByProjectID()
+            End With
+            grdDailyReportHd.DataSource = dt.DefaultView
+            grdDailyReportHd.DataBind()
+
+            br.Dispose()
+            br = Nothing
+        End Sub
+
+        Private Sub SetDataGridDailyReportDt()
+            Dim br As New Common.BussinessRules.DailyReportDt
+            Dim dt As New DataTable
+            With br
+                .dailyReportHdID = lblDailyReportHdID.ToolTip.Trim
+                dt = .SelectByDailyReportHdID()
+            End With
+            grdDailyReportDt.DataSource = dt.DefaultView
+            grdDailyReportDt.DataBind()
+
+            br.Dispose()
+            br = Nothing
         End Sub
 
         Private Sub SetDataGridProjectFile()
@@ -73,6 +123,60 @@ Namespace Raven.Web.Secure
 
             br.Dispose()
             br = Nothing
+        End Sub
+
+        Private Sub SetDataGridResourceFile()
+            Dim br As New Common.BussinessRules.ResourceFile
+            Dim dt As New DataTable
+            With br
+                dt = .GetFileByProjectID(lblProjectID.Text.Trim, True)
+            End With
+            grdResourceFile.DataSource = dt.DefaultView
+            grdResourceFile.DataBind()
+
+            br.Dispose()
+            br = Nothing
+        End Sub
+
+        Private Sub GetDashboardInformationByProjectID()
+            Dim oProject As New Common.BussinessRules.ProjectHd
+            Dim dtTotalInspectionByProjectID As New DataTable
+            With oProject
+                dtTotalInspectionByProjectID = .GetTotalInspectionByProjectID(lblProjectID.Text.Trim)
+
+                If dtTotalInspectionByProjectID.Rows.Count > 0 Then
+                    lblTotalItemIspected.Text = .totalItemInspected.ToString.Trim
+                    lblTotalItemAccepted.Text = .totalItemAccepted.ToString.Trim
+                    lblTotalItemNeedRepair.Text = .totalItemNeedRepair.ToString.Trim
+                    lblTotalItemRejected.Text = .totalItemRejected.ToString.Trim
+                    If .totalItemInspected > 0 And .totalItemAccepted > 0 Then
+                        lblTotalItemAcceptedPct.Text = Format((.totalItemAccepted / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    Else
+                        lblTotalItemAcceptedPct.Text = "0"
+                    End If
+                    If .totalItemInspected > 0 And .totalItemNeedRepair > 0 Then
+                        lblTotalItemNeedRepairPct.Text = Format((.totalItemNeedRepair / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    Else
+                        lblTotalItemNeedRepairPct.Text = "0"
+                    End If
+                    If .totalItemInspected > 0 And .totalItemRejected > 0 Then
+                        lblTotalItemRejectedPct.Text = Format((.totalItemRejected / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    Else
+                        lblTotalItemRejectedPct.Text = "0"
+                    End If
+                Else
+                    lblTotalItemIspected.Text = "0"
+                    lblTotalItemAccepted.Text = "0"
+                    lblTotalItemAcceptedPct.Text = "0"
+                    lblTotalItemNeedRepair.Text = "0"
+                    lblTotalItemNeedRepairPct.Text = "0"
+                    lblTotalItemRejected.Text = "0"
+                    lblTotalItemRejectedPct.Text = "0"
+                End If
+            End With
+
+            oProject.Dispose()
+            oProject = Nothing
         End Sub
 
         Private Sub _openProject(ByVal _projectID As String)

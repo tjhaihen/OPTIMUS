@@ -188,6 +188,56 @@ Namespace Raven.Common.BussinessRules
                 adapter.Dispose()
             End Try
         End Function
+
+        Public Function GetFileByProjectID(ByVal strProjectID As String, ByVal isSharedOnly As Boolean) As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand()
+            cmdToExecute.CommandText = "select	rf.resourceFileID, pr.resourceID, pr.resourceRoleSCode, " + _
+                                          "rf.[description], rf.dirName, rf.fileExtension, " + _
+                                          "rf.[fileName], rf.fileNo, rf.userIDupdate, rf.updateDate, " + _
+                                          "RTRIM(RTRIM(p.firstName) + ' ' + RTRIM(p.middleName) + ' ' + RTRIM(p.lastName)) AS resourceName, " + _
+                                          "fileUrl = " + _
+                                                "CASE " + _
+                                                "WHEN(LEN(rf.dirName) > 0 AND LEN(rf.[fileName]) > 0) THEN((SELECT [value] FROM SystemParameter WHERE code='FileAccessUrl') + rf.dirName + rf.[fileName]) " + _
+                                                "WHEN(LEN(rf.dirName) = 0 AND LEN(rf.[fileName]) > 0) THEN((SELECT [value] FROM SystemParameter WHERE code='FileAccessUrl') + rf.[fileName]) " + _
+                                                "ELSE('#') " + _
+                                                "END, " + _
+                                                "userName = (SELECT userName FROM [User] WHERE userID=rf.userIDinsert) " + _
+                                        "from	projectResource pr " + _
+                                          "inner join resourceFile rf on pr.resourceID = rf.resourceID " + _
+                                          "inner join [resource] r on pr.resourceID = r.resourceID " + _
+                                          "inner join [person] p on r.personID = p.personID " + _
+                                        "where	pr.resourceRoleSCode = 'ISP' " + _
+                                          "and pr.projectID = @projectID "
+            If isSharedOnly = True Then
+                cmdToExecute.CommandText += " AND rf.isShared=1"
+            End If
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("GetFileByProjectID")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@projectID", strProjectID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+
+                Return toReturn
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+        End Function
 #End Region
 
 #Region " Class Property Declarations "
