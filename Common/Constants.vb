@@ -72,6 +72,7 @@
             Public Const Validate_IsSystem As String = "This record is used by system and cannot be modified or deleted."
             Public Const Validate_EffeciveDateCannotEmpty As String = "Effective Date cannot empty. If the record use No Effective Date, please mark this option and try to save the record again."
             Public Const Validate_FileNameAlreadyExist As String = "Upload failed. File Name already exist."
+            Public Const Validate_ResourceNameCannotEmpty As String = "Resource Name cannot empty."
         End Class
 
         Public NotInheritable Class Parameter

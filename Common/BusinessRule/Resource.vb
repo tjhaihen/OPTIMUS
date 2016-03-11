@@ -14,7 +14,7 @@ Namespace Raven.Common.BussinessRules
         Private _resourceID, _resourceCode, _personID, _userID, _resourceTypeSCode, _resourceJobTitle As String
         Private _userIDinsert, _userIDupdate As String
         Private _workingSDate, _workingEDate, _insertDate, _updateDate As DateTime
-        Private _isActive As Boolean
+        Private _isActive, _isAdditional As Boolean
 #End Region
 
         Public Sub New()
@@ -30,14 +30,15 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO Resource " + _
                                         "(resourceID, resourceCode, personID, userID, resourceTypeSCode, resourceJobTitle, " + _
-                                        "workingSDate, workingEDate, isActive, userIDinsert, userIDupdate, insertDate, updateDate) " + _
+                                        "workingSDate, workingEDate, isActive, isAdditional, userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@resourceID, @resourceCode, @personID, @userID, @resourceTypeSCode, @resourceJobTitle, " + _
-                                        "@workingSDate, @workingEDate, @isActive, @userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
+                                        "@workingSDate, @workingEDate, @isActive, @isAdditional, @userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
 
-            Dim strResourceID As String = ID.GenerateIDNumber("Resource", "ResourceID")
+            Dim strResourceID As String = ID.GenerateIDNumber("Resource", "ResourceID")            
+            If _resourceCode = String.Empty Then _resourceCode = strResourceID
 
             Try
                 cmdToExecute.Parameters.AddWithValue("@resourceID", strResourceID)
@@ -49,6 +50,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@workingSDate", _workingSDate)
                 cmdToExecute.Parameters.AddWithValue("@workingEDate", _workingEDate)
                 cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)
+                cmdToExecute.Parameters.AddWithValue("@isAdditional", _isAdditional)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -72,7 +74,7 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "UPDATE Resource " + _
                                         "SET resourceCode=@resourceCode, userID=@userID, resourceTypeSCode=@resourceTypeSCode, resourceJobTitle=@resourceJobTitle, " + _
-                                        "workingSDate=@workingSDate, workingEDate=@workingEDate, isActive=@isActive, userIDupdate=@userIDupdate, " + _
+                                        "workingSDate=@workingSDate, workingEDate=@workingEDate, isActive=@isActive, isAdditional=@isAdditional, userIDupdate=@userIDupdate, " + _
                                         "updateDate=GETDATE() " + _
                                         "WHERE resourceID=@resourceID"
             cmdToExecute.CommandType = CommandType.Text
@@ -87,7 +89,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@resourceJobTitle", _resourceJobTitle)
                 cmdToExecute.Parameters.AddWithValue("@workingSDate", _workingSDate)
                 cmdToExecute.Parameters.AddWithValue("@workingEDate", _workingEDate)
-                cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)                
+                cmdToExecute.Parameters.AddWithValue("@isActive", _isActive)
+                cmdToExecute.Parameters.AddWithValue("@isAdditional", _isAdditional)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -107,7 +110,7 @@ Namespace Raven.Common.BussinessRules
 
         Public Overrides Function SelectAll() As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT * FROM Resource"
+            cmdToExecute.CommandText = "SELECT * FROM Resource WHERE isAdditional=0"
             cmdToExecute.CommandType = CommandType.Text
 
             Dim toReturn As DataTable = New DataTable("Resource")
@@ -163,6 +166,7 @@ Namespace Raven.Common.BussinessRules
                     _workingSDate = CType(toReturn.Rows(0)("workingSDate"), DateTime)
                     _workingEDate = CType(ProcessNull.GetDateTime(toReturn.Rows(0)("workingEDate")), DateTime)
                     _isActive = CType(toReturn.Rows(0)("isActive"), Boolean)
+                    _isAdditional = CType(toReturn.Rows(0)("isAdditional"), Boolean)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -320,6 +324,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As Boolean)
                 _isActive = Value
+            End Set
+        End Property
+
+        Public Property [isAdditional]() As Boolean
+            Get
+                Return _isAdditional
+            End Get
+            Set(ByVal Value As Boolean)
+                _isAdditional = Value
             End Set
         End Property
 

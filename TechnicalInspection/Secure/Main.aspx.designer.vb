@@ -708,6 +708,33 @@ Namespace Raven.Web
         Protected WithEvents TS_ddlYear As Global.System.Web.UI.WebControls.DropDownList
 
         '''<summary>
+        '''TS_calReportDate control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TS_calReportDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''TS_txtCustomerPICName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TS_txtCustomerPICName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TS_txtCustomerPICTitle control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TS_txtCustomerPICTitle As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''TS_chkIsAll control.
         '''</summary>
         '''<remarks>
@@ -733,6 +760,42 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents lvwTimeSheet As Global.System.Web.UI.WebControls.ListView
+
+        '''<summary>
+        '''TS_ddlResourceRole control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TS_ddlResourceRole As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''TS_btnAddAdditionalResource control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TS_btnAddAdditionalResource As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''TS_txtResourceName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TS_txtResourceName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''TS_txtPersonID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents TS_txtPersonID As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''pnlDailyProgressReport control.
@@ -769,6 +832,24 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents DPR_calReportDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''DPR_txtCustomerPICName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DPR_txtCustomerPICName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DPR_txtCustomerPICTitle control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DPR_txtCustomerPICTitle As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''DPR_txtMaterialDetail control.
@@ -915,6 +996,24 @@ Namespace Raven.Web
         Protected WithEvents DIR_calReportDate As Global.Raven.Web.Calendar
 
         '''<summary>
+        '''DIR_txtCustomerPICName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DIR_txtCustomerPICName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DIR_txtCustomerPICTitle control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DIR_txtCustomerPICTitle As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''DIR_txtDailyReportDtID control.
         '''</summary>
         '''<remarks>
@@ -1021,6 +1120,24 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents SR_calServiceReportDate As Global.Raven.Web.Calendar
+
+        '''<summary>
+        '''SR_txtCustomerPICName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents SR_txtCustomerPICName As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''SR_txtCustomerPICTitle control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents SR_txtCustomerPICTitle As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''SR_txtTypeOfInspectionCol1 control.
@@ -2544,6 +2661,15 @@ Namespace Raven.Web
         Protected WithEvents DP_txtBod009Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''DP_chkIsBodBent control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_chkIsBodBent As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
         '''DP_lblPin001Caption control.
         '''</summary>
         '''<remarks>
@@ -2778,6 +2904,15 @@ Namespace Raven.Web
         Protected WithEvents DP_txtPin013Value As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
+        '''DP_chkIsPinReface control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_chkIsPinReface As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
         '''DP_chkIsPinHB control.
         '''</summary>
         '''<remarks>
@@ -2983,6 +3118,15 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents DP_txtBox011Value As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_chkIsBoxReface control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_chkIsBoxReface As Global.System.Web.UI.WebControls.CheckBox
 
         '''<summary>
         '''DP_chkIsBoxHB control.

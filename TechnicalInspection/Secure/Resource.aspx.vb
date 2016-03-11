@@ -363,6 +363,7 @@ Namespace Raven.Web.Secure
                 .workingSDate = calWorkingSDate.selectedDate
                 .workingEDate = calWorkingEDate.selectedDate
                 .isActive = chkIsActive.Checked
+                .isAdditional = False
                 .userIDinsert = MyBase.LoggedOnUserID
                 .userIDupdate = MyBase.LoggedOnUserID
                 If isNew Then

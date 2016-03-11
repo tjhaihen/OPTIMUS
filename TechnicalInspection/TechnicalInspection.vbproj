@@ -320,10 +320,6 @@
       <DependentUpon>ReportImage.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Secure\Reports\Dialog\Default.aspx.vb">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Secure\ReportType.aspx.designer.vb">
       <DependentUpon>ReportType.aspx</DependentUpon>
     </Compile>
@@ -417,7 +413,6 @@
     <Content Include="Secure\Profile.aspx" />
     <Content Include="Secure\ProjectMonitoring.aspx" />
     <Content Include="Secure\ReportImage.aspx" />
-    <Content Include="Secure\Reports\Dialog\Default.aspx" />
     <Content Include="Secure\ReportType.aspx" />
     <Content Include="Secure\Resource.aspx" />
     <Content Include="Secure\Site.aspx" />
@@ -444,9 +439,6 @@
       <DependentUpon>Logout.aspx.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Secure\licenses.licx" />
-    <EmbeddedResource Include="Secure\Reports\Dialog\Default.aspx.resx">
-      <DependentUpon>Default.aspx.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Secure\Utilities\TransactionNumbering\Default.aspx.resx">
       <DependentUpon>Default.aspx.vb</DependentUpon>
     </EmbeddedResource>
@@ -512,7 +504,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

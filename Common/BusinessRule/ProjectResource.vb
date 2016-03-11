@@ -105,7 +105,7 @@ Namespace Raven.Common.BussinessRules
                     "RTRIM(RTRIM(p.firstName)+' '+RTRIM(p.middleName)+' '+RTRIM(p.lastName)) AS resourceName, " + _
                     "(SELECT caption FROM CommonCode WHERE groupCode='" + Common.Constants.GroupCode.ResourceType_SCode + "' " + _
                         "AND value=pr.resourceRoleSCode) AS resourceRoleName, r.resourceJobTitle, " + _
-                    "rs.signaturePic, rs.description AS signatureDescription " + _
+                    "rs.signaturePic, rs.description AS signatureDescription, r.isAdditional " + _
                     "FROM ProjectResource pr " + _
                     "INNER JOIN [Resource] r ON pr.resourceID=r.resourceID " + _
                     "INNER JOIN [Person] p ON r.personID=p.personID " + _

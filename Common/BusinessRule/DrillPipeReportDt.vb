@@ -25,7 +25,7 @@ Namespace Raven.Common.BussinessRules
                     _box007CaptionID, _box008CaptionID, _box009CaptionID, _box010CaptionID, _box011CaptionID As String
         Private _box001Value, _box002Value, _box003Value, _box004Value, _box005Value, _box006Value, _box007Value, _box008Value, _
                     _box009Value, _box010Value, _box011Value As String
-        Private _isPinHB, _isBoxHB As Boolean
+        Private _isBodBent, _isPinHB, _isBoxHB, _isPinReface, _isBoxReface As Boolean
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate As DateTime
 #End Region
@@ -55,7 +55,7 @@ Namespace Raven.Common.BussinessRules
                                         "box007CaptionID, box008CaptionID, box009CaptionID, box010CaptionID, box011CaptionID, " + _
                                         "box001Value, box002Value, box003Value, box004Value, box005Value, box006Value, " + _
                                         "box007Value, box008Value, box009Value, box010Value, box011Value, " + _
-                                        "isPinHB, isBoxHB, " + _
+                                        "isBodBent, isPinHB, isBoxHB, isPinReface, isBoxReface, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@drillPipeReportHdID, @drillPipeReportDtID, @sequenceNo, @serialNo, @remarks, " + _
@@ -71,7 +71,7 @@ Namespace Raven.Common.BussinessRules
                                         "@box007CaptionID, @box008CaptionID, @box009CaptionID, @box010CaptionID, @box011CaptionID, " + _
                                         "@box001Value, @box002Value, @box003Value, @box004Value, @box005Value, @box006Value, " + _
                                         "@box007Value, @box008Value, @box009Value, @box010Value, @box011Value, " + _
-                                        "@isPinHB, @isBoxHB, " + _
+                                        "@isBodBent, @isPinHB, @isBoxHB, @isPinReface, @isBoxReface, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -150,8 +150,11 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@box009Value", _box009Value)
                 cmdToExecute.Parameters.AddWithValue("@box010Value", _box010Value)
                 cmdToExecute.Parameters.AddWithValue("@box011Value", _box011Value)
+                cmdToExecute.Parameters.AddWithValue("@isBodBent", _isBodBent)
                 cmdToExecute.Parameters.AddWithValue("@isPinHB", _isPinHB)
                 cmdToExecute.Parameters.AddWithValue("@isBoxHB", _isBoxHB)
+                cmdToExecute.Parameters.AddWithValue("@isPinReface", _isPinReface)
+                cmdToExecute.Parameters.AddWithValue("@isBoxReface", _isBoxReface)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -199,7 +202,7 @@ Namespace Raven.Common.BussinessRules
                                         "box004Value=@box004Value, box005Value=@box005Value, box006Value=@box006Value, " + _
                                         "box007Value=@box007Value, box008Value=@box008Value, box009Value=@box009Value, " + _
                                         "box010Value=@box010Value, box011Value=@box011Value, " + _
-                                        "isPinHB=@isPinHB, isBoxHB=@isBoxHB, " + _
+                                        "isBodBent=@isBodBent, isPinHB=@isPinHB, isBoxHB=@isBoxHB, isPinReface=@isPinReface, isBoxReface=@isBoxReface, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE drillPipeReportDtID=@drillPipeReportDtID"
             cmdToExecute.CommandType = CommandType.Text
@@ -277,8 +280,11 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@box009Value", _box009Value)
                 cmdToExecute.Parameters.AddWithValue("@box010Value", _box010Value)
                 cmdToExecute.Parameters.AddWithValue("@box011Value", _box011Value)
+                cmdToExecute.Parameters.AddWithValue("@isBodBent", _isBodBent)
                 cmdToExecute.Parameters.AddWithValue("@isPinHB", _isPinHB)
                 cmdToExecute.Parameters.AddWithValue("@isBoxHB", _isBoxHB)
+                cmdToExecute.Parameters.AddWithValue("@isPinReface", _isPinReface)
+                cmdToExecute.Parameters.AddWithValue("@isBoxReface", _isBoxReface)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -416,8 +422,11 @@ Namespace Raven.Common.BussinessRules
                     _box009Value = CType(toReturn.Rows(0)("box009Value"), String)
                     _box010Value = CType(toReturn.Rows(0)("box010Value"), String)
                     _box011Value = CType(toReturn.Rows(0)("box011Value"), String)
+                    _isBodBent = CType(toReturn.Rows(0)("isBodBent"), Boolean)
                     _isPinHB = CType(toReturn.Rows(0)("isPinHB"), Boolean)
                     _isBoxHB = CType(toReturn.Rows(0)("isBoxHB"), Boolean)
+                    _isPinReface = CType(toReturn.Rows(0)("isPinReface"), Boolean)
+                    _isBoxReface = CType(toReturn.Rows(0)("isBoxReface"), Boolean)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -1136,6 +1145,15 @@ Namespace Raven.Common.BussinessRules
             End Set
         End Property
 
+        Public Property [isBodBent]() As Boolean
+            Get
+                Return _isBodBent
+            End Get
+            Set(ByVal Value As Boolean)
+                _isBodBent = Value
+            End Set
+        End Property
+
         Public Property [isPinHB]() As Boolean
             Get
                 Return _isPinHB
@@ -1151,6 +1169,24 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As Boolean)
                 _isBoxHB = Value
+            End Set
+        End Property
+
+        Public Property [isPinReface]() As Boolean
+            Get
+                Return _isPinReface
+            End Get
+            Set(ByVal Value As Boolean)
+                _isPinReface = Value
+            End Set
+        End Property
+
+        Public Property [isBoxReface]() As Boolean
+            Get
+                Return _isBoxReface
+            End Get
+            Set(ByVal Value As Boolean)
+                _isBoxReface = Value
             End Set
         End Property
 

@@ -274,11 +274,13 @@ Namespace Raven.Web
         Private Sub TS_ddlMonth_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles TS_ddlMonth.SelectedIndexChanged
             PopulateDateInMonth(repDateInMonthHd, CInt(TS_ddlYear.SelectedValue), CInt(TS_ddlMonth.SelectedValue))
             SetDataGrid(Common.Constants.ReportTypePanelID.TimeSheet_PanelID)
+            _openCustomerTimesheet()
         End Sub
 
         Private Sub TS_ddlYear_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles TS_ddlYear.SelectedIndexChanged
             PopulateDateInMonth(repDateInMonthHd, CInt(TS_ddlYear.SelectedValue), CInt(TS_ddlMonth.SelectedValue))
             SetDataGrid(Common.Constants.ReportTypePanelID.TimeSheet_PanelID)
+            _openCustomerTimesheet()
         End Sub
 
         Protected Sub lvwTimeSheet_ItemDataBound(sender As Object, e As System.Web.UI.WebControls.ListViewItemEventArgs)
@@ -288,6 +290,20 @@ Namespace Raven.Web
                 Dim _projectResourceID As String = CType(row("projectResourceID"), String)
                 PopulateDateInMonth(_repDateInMonthDt, CInt(TS_ddlYear.SelectedValue), CInt(TS_ddlMonth.SelectedValue), _projectResourceID)
             End If
+        End Sub
+
+        Protected Sub lvwTimeSheet_ItemCommand(sender As Object, e As System.Web.UI.WebControls.ListViewCommandEventArgs)
+            Select Case e.CommandName
+                Case "DeleteAdditionalResource"
+                    Dim lvwTimeSheet_lblProjectResourceID As Label = CType(e.Item.FindControl("lvwTimeSheet_lblProjectResourceID"), Label)
+                    Dim oTS As New Common.BussinessRules.TimeSheet
+                    oTS.projectResourceID = lvwTimeSheet_lblProjectResourceID.Text.Trim
+                    If oTS.DeleteAdditionalResource() Then
+                        TS_ddlMonth_SelectedIndexChanged(Nothing, Nothing)
+                    End If
+                    oTS.Dispose()
+                    oTS = Nothing
+            End Select
         End Sub
 
         Protected Sub repDateInMonthHd_ItemDataBound(sender As Object, e As System.Web.UI.WebControls.RepeaterItemEventArgs)
@@ -321,12 +337,16 @@ Namespace Raven.Web
                     Else
                         TS_lblTimeSheetID.Text = String.Empty
                         TS_ddlWorkingType.SelectedIndex = 0
-                        TS_chkIsNew.Checked = True
+                        TS_chkIsNew.Checked = True                        
                     End If
                 End With
                 oBR.Dispose()
                 oBR = Nothing
             End If
+        End Sub
+
+        Private Sub TS_btnAddAdditionalResource_Click(sender As Object, e As System.EventArgs) Handles TS_btnAddAdditionalResource.Click
+            _insertResource()
         End Sub
 #End Region
 
@@ -1403,6 +1423,7 @@ Namespace Raven.Web
             commonFunction.SetDDL_Table(IT_ddlVTIBox, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
             commonFunction.SetDDL_Table(IT_ddlFLD, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
             commonFunction.SetDDL_Table(COI_ddlCOIType, "CommonCode", Common.Constants.GroupCode.COIType_SCode)
+            commonFunction.SetDDL_Table(TS_ddlResourceRole, "CommonCode", Common.Constants.GroupCode.ResourceType_SCode)
         End Sub
 
         Private Sub SetRadioButtonListItems()
@@ -1478,6 +1499,8 @@ Namespace Raven.Web
                     CCR_txtRemarks.Text = String.Empty
 
                 Case Common.Constants.ReportTypePanelID.TimeSheet_PanelID
+                    TS_ddlResourceRole.SelectedIndex = 0
+                    TS_txtResourceName.Text = String.Empty
                     Dim oBR As New Common.BussinessRules.ProjectHd
                     oBR.projectID = txtProjectID.Text.Trim
                     oBR.SelectOne()
@@ -1488,6 +1511,7 @@ Namespace Raven.Web
                     PopulateDateInMonth(repDateInMonthHd, CInt(TS_ddlYear.SelectedValue), CInt(TS_ddlMonth.SelectedValue))
                     oBR.Dispose()
                     oBR = Nothing
+                    _openCustomerTimesheet()
 
                 Case Common.Constants.ReportTypePanelID.DailyProgressReport_PanelID
                     DPR_btnSearchDailyReportHd.Attributes.Remove("onclick")
@@ -1497,6 +1521,8 @@ Namespace Raven.Web
                         DPR_txtDailyReportHdID.Text = String.Empty
                         DPR_calReportDate.selectedDate = Date.Today
                         DPR_txtMaterialDetail.Text = String.Empty
+                        DPR_txtCustomerPICName.Text = String.Empty
+                        DPR_txtCustomerPICTitle.Text = String.Empty
                     End If
 
                     If _isAfterInsert Then
@@ -1540,6 +1566,8 @@ Namespace Raven.Web
                     If _isNew = True Then
                         DIR_txtDailyReportHdID.Text = String.Empty
                         DIR_calReportDate.selectedDate = Date.Today
+                        DIR_txtCustomerPICName.Text = String.Empty
+                        DIR_txtCustomerPICTitle.Text = String.Empty
                     End If
 
                     If _isAfterInsert Then
@@ -1567,11 +1595,6 @@ Namespace Raven.Web
                     End If
 
                     DIR_txtDailyReportDtID.Text = String.Empty
-                    'DIR_txtDescription.Text = String.Empty
-                    'DIR_ddlWeatherCondition.SelectedIndex = 0
-                    'DIR_txtQty.Text = "0"
-                    'DIR_txtUOM.Text = String.Empty
-                    'DIR_txtResult.Text = String.Empty
 
                 Case Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID
                     DP_btnSearchDrillPipeReport.Attributes.Remove("onclick")
@@ -1680,8 +1703,11 @@ Namespace Raven.Web
                         DP_txtBox010Value.Text = String.Empty
                         DP_txtBox011Value.Text = String.Empty
                         DP_txtRemarks.Text = String.Empty
+                        DP_chkIsBodBent.Checked = False
                         DP_chkIsPinHB.Checked = False
                         DP_chkIsBoxHB.Checked = False
+                        DP_chkIsPinReface.Checked = False
+                        DP_chkIsBoxReface.Checked = False
                         commonFunction.Focus(Me, DP_txtReportNo.ClientID)
                     End If
 
@@ -1814,22 +1840,20 @@ Namespace Raven.Web
                     SR_txtNTDimension.Text = String.Empty
                     SR_txtNTResult.Text = String.Empty
 
+                    SR_txtCustomerPICName.Text = String.Empty
+                    SR_txtCustomerPICTitle.Text = String.Empty
+
                     commonFunction.SetDDL_Table(SR_ddlServiceReportFor, "CommonCode", Common.Constants.GroupCode.ServiceReportFor_SCode)
 
                     Select Case lblReportTypeCode.Text.Trim
                         Case Common.Constants.ReportTypeCode.ServiceReportMPIDPI
-                            'SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
-                            'SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterLoadTest).Enabled = False
-                            'SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforePullTest).Enabled = False
-                            'SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIAfterPullTest).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Tubular).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.HWDP).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.DrillCollar).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.RotaryShoulder).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI
-                            SR_pnlTubular.Visible = False
-                            'SR_pnlNotTubular.Visible = True
+                            SR_pnlTubular.Visible = False                            
                         Case Common.Constants.ReportTypeCode.ServiceReportMPILoadPullTest
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Tubular).Enabled = False
@@ -1839,7 +1863,6 @@ Namespace Raven.Web
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest
                             SR_pnlTubular.Visible = False
-                            'SR_pnlNotTubular.Visible = True
                         Case Common.Constants.ReportTypeCode.ServiceReportTubular1
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
@@ -1852,7 +1875,6 @@ Namespace Raven.Web
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.Tubular
                             SR_pnlTubular.Visible = True
-                            'SR_pnlNotTubular.Visible = False
                         Case Common.Constants.ReportTypeCode.ServiceReportTubular2
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
@@ -1863,7 +1885,6 @@ Namespace Raven.Web
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.HWDP
                             SR_pnlTubular.Visible = False
-                            'SR_pnlNotTubular.Visible = True
                         Case Common.Constants.ReportTypeCode.ServiceReportHardbanding
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIDPI).Enabled = False
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.MPIBeforeLoadTest).Enabled = False
@@ -1876,7 +1897,6 @@ Namespace Raven.Web
                             SR_ddlServiceReportFor.Items.FindByValue(Common.Constants.ReportTypeCodeServiceReportFor.RotaryShoulder).Enabled = False
                             SR_ddlServiceReportFor.SelectedValue = Common.Constants.ReportTypeCodeServiceReportFor.Hardbanding
                             SR_pnlTubular.Visible = False
-                            'SR_pnlNotTubular.Visible = True
                     End Select
 
                     commonFunction.Focus(Me, SR_ddlServiceReportFor.ClientID)
@@ -2329,6 +2349,8 @@ Namespace Raven.Web
                         .dailyReportHdID = DPR_txtDailyReportHdID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
                             DPR_calReportDate.selectedDate = .reportDate
+                            DPR_txtCustomerPICName.Text = .customerPICName.Trim
+                            DPR_txtCustomerPICTitle.Text = .customerPICTitle.Trim
                             isNew = False
                         Else
                             PrepareScreen(_VisiblePanelID.Trim, False)
@@ -2366,6 +2388,8 @@ Namespace Raven.Web
                         .dailyReportHdID = DIR_txtDailyReportHdID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
                             DIR_calReportDate.selectedDate = .reportDate
+                            DIR_txtCustomerPICName.Text = .customerPICName.Trim
+                            DIR_txtCustomerPICTitle.Text = .customerPICTitle.Trim
                             isNew = False
                         Else
                             PrepareScreen(_VisiblePanelID.Trim, False)
@@ -2466,8 +2490,11 @@ Namespace Raven.Web
                             DP_txtBox009Value.Text = .box009Value.Trim
                             DP_txtBox010Value.Text = .box010Value.Trim
                             DP_txtBox011Value.Text = .box011Value.Trim
+                            DP_chkIsBodBent.Checked = .isBodBent
                             DP_chkIsPinHB.Checked = .isPinHB
                             DP_chkIsBoxHB.Checked = .isBoxHB
+                            DP_chkIsPinReface.Checked = .isPinReface
+                            DP_chkIsBoxReface.Checked = .isBoxReface
                         Else
                             PrepareScreen(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID, False, isNew)
                         End If
@@ -2574,6 +2601,8 @@ Namespace Raven.Web
                             SR_txtTotalAccepted.Text = .mdTotalAccepted.Trim
                             SR_txtMaterialDescription.Text = .mdNotes.Trim
                             SR_txtResult.Text = .result.Trim
+                            SR_txtCustomerPICName.Text = .customerPICName.Trim
+                            SR_txtCustomerPICTitle.Text = .customerPICTitle.Trim
                             commonFunction.Focus(Me, SR_ddlServiceReportFor.ClientID)
                         Else
                             PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, False)
@@ -3294,50 +3323,6 @@ Namespace Raven.Web
                                         .typeOfInspectionDescription = CType(DtSet.Tables(0).Rows(iRecCount)(17), String)
                                     End If
 
-                                    'If (DtSet.Tables(0).Rows(iRecCount)(17)) Is System.DBNull.Value Then
-                                    '    .isDS1CAT3to5 = False
-                                    'Else
-                                    '    If CType(DtSet.Tables(0).Rows(iRecCount)(17), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(17), String) = "V" Then
-                                    '        .isDS1CAT3to5 = True
-                                    '        .typeOfInspectionDescription = "DS 1 CAT 3-5"
-                                    '    Else
-                                    '        .isDS1CAT3to5 = False
-                                    '    End If
-                                    'End If
-
-                                    'If (DtSet.Tables(0).Rows(iRecCount)(18)) Is System.DBNull.Value Then
-                                    '    .isDS1CAT4 = False
-                                    'Else
-                                    '    If CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(18), String) = "V" Then
-                                    '        .isDS1CAT4 = True
-                                    '        .typeOfInspectionDescription = "DS 1 CAT 4"
-                                    '    Else
-                                    '        .isDS1CAT4 = False
-                                    '    End If
-                                    'End If
-
-                                    'If (DtSet.Tables(0).Rows(iRecCount)(19)) Is System.DBNull.Value Then
-                                    '    .isAPISPEC7 = False
-                                    'Else
-                                    '    If CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(19), String) = "V" Then
-                                    '        .isAPISPEC7 = True
-                                    '        .typeOfInspectionDescription = "API SPEC 7"
-                                    '    Else
-                                    '        .isAPISPEC7 = False
-                                    '    End If
-                                    'End If
-
-                                    'If (DtSet.Tables(0).Rows(iRecCount)(20)) Is System.DBNull.Value Then
-                                    '    .isAPIRP7G = False
-                                    'Else
-                                    '    If CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "Yes" Or CType(DtSet.Tables(0).Rows(iRecCount)(20), String) = "V" Then
-                                    '        .isAPIRP7G = True
-                                    '        .typeOfInspectionDescription = "API RP 7G"
-                                    '    Else
-                                    '        .isAPIRP7G = False
-                                    '    End If
-                                    'End If
-
                                     If (DtSet.Tables(0).Rows(iRecCount)(18)) Is System.DBNull.Value Then
                                         .isHardbanding = False
                                     Else
@@ -3386,41 +3371,6 @@ Namespace Raven.Web
 
                                     .fileName = String.Empty
                                     .fileExtension = String.Empty
-
-                                    'If (DtSet.Tables(0).Rows(iRecCount)(26)) Is System.DBNull.Value Then
-                                    '    .fileName = String.Empty
-                                    '    .fileExtension = String.Empty
-                                    'Else
-                                    '    Dim strFileURL As String = (DtSet.Tables(0).Rows(iRecCount)(17)).ToString.Trim
-                                    '    If strFileURL.Trim.Length > 0 Then
-                                    '        Dim fileExt As String, fileName As String
-                                    '        SOI_FileDetail.Value = strFileURL.Trim
-                                    '        fileExt = Path.GetExtension(SOI_FileDetail.Value.Trim)
-                                    '        fileName = Common.BussinessRules.ID.GenerateIDNumber("SummaryOfInspection", "summaryOfInspectionID") + fileExt.Trim
-                                    '        Dim Pathdb As String = Common.Methods.GetCommonCode("SOIDIR", "FILEDIR").Trim
-                                    '        Dim fNotNew As Boolean = False
-                                    '        Dim nmFile As String
-                                    '        Try
-                                    '            .fileName = fileName.Trim
-                                    '            .fileExtension = fileExt.Trim
-
-                                    '            '// validate if the file exist
-                                    '            nmFile = Pathdb + fileName
-                                    '            If txtFileUrl.Value.Trim.Length > 0 Then
-                                    '                If File.Exists(nmFile) Then
-                                    '                    File.Delete(nmFile)
-                                    '                End If
-                                    '                SOI_FileDetail.PostedFile.SaveAs(nmFile)
-                                    '            End If
-                                    '        Catch ex As Exception
-                                    '            commonFunction.MsgBox(Me, "Upload File tidak berhasil.")
-                                    '            Exit Sub
-                                    '        End Try
-                                    '    Else
-                                    '        .fileName = String.Empty
-                                    '        .fileExtension = String.Empty
-                                    '    End If
-                                    'End If
 
                                     .Insert()
                                     iRecCount = iRecCount + 1
@@ -3488,9 +3438,12 @@ Namespace Raven.Web
                                         If TS_lblDateInMonthDt.Text.Trim = TS_lblDateInMonthHd.Text.Trim Then
                                             .timeSheetID = TS_lblTimeSheetID.Text.Trim
                                             .projectResourceID = TS_lblProjectResourceID.Text.Trim
+                                            .reportDate = TS_calReportDate.selectedDate
                                             .workingDate = DateSerial(CInt(TS_ddlYear.SelectedValue), CInt(TS_ddlMonth.SelectedValue), CInt(TS_lblDateInMonthDt.Text))
                                             .workingTypeSCode = TS_ddlWorkingTypeAll.SelectedValue
                                             .remarks = ""
+                                            .customerPICName = TS_txtCustomerPICName.Text.Trim
+                                            .customerPICTitle = TS_txtCustomerPICTitle.Text.Trim
                                             .userIDinsert = MyBase.LoggedOnUserID.Trim
                                             .userIDupdate = MyBase.LoggedOnUserID.Trim
 
@@ -3520,9 +3473,12 @@ Namespace Raven.Web
 
                                     .timeSheetID = TS_lblTimeSheetID.Text.Trim
                                     .projectResourceID = TS_lblProjectResourceID.Text.Trim
+                                    .reportDate = TS_calReportDate.selectedDate
                                     .workingDate = DateSerial(CInt(TS_ddlYear.SelectedValue), CInt(TS_ddlMonth.SelectedValue), CInt(TS_lblDateInMonthDt.Text))
                                     .workingTypeSCode = TS_ddlWorkingType.SelectedValue
                                     .remarks = ""
+                                    .customerPICName = TS_txtCustomerPICName.Text.Trim
+                                    .customerPICTitle = TS_txtCustomerPICTitle.Text.Trim
                                     .userIDinsert = MyBase.LoggedOnUserID.Trim
                                     .userIDupdate = MyBase.LoggedOnUserID.Trim
 
@@ -3554,6 +3510,8 @@ Namespace Raven.Web
                         .reportNo = ""
                         .remarks = DPR_txtDescription.Text.Trim
                         .reportDate = DPR_calReportDate.selectedDate
+                        .customerPICName = DPR_txtCustomerPICName.Text.Trim
+                        .customerPICTitle = DPR_txtCustomerPICTitle.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
                         If isNew Then
@@ -3612,6 +3570,8 @@ Namespace Raven.Web
                         .reportNo = ""
                         .remarks = DIR_txtDescription.Text.Trim
                         .reportDate = DIR_calReportDate.selectedDate
+                        .customerPICName = DIR_txtCustomerPICName.Text.Trim
+                        .customerPICTitle = DIR_txtCustomerPICTitle.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
                         If isNew Then
@@ -3767,8 +3727,11 @@ Namespace Raven.Web
                         .box009Value = DP_txtBox009Value.Text.Trim
                         .box010Value = DP_txtBox010Value.Text.Trim
                         .box011Value = DP_txtBox011Value.Text.Trim
+                        .isBodBent = DP_chkIsBodBent.Checked
                         .isPinHB = DP_chkIsPinHB.Checked
                         .isBoxHB = DP_chkIsBoxHB.Checked
+                        .isPinReface = DP_chkIsPinReface.Checked
+                        .isBoxReface = DP_chkIsBoxReface.Checked
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
                         If isNew Then
@@ -3912,6 +3875,8 @@ Namespace Raven.Web
                         .mdTotalAccepted = SR_txtTotalAccepted.Text.Trim
                         .mdNotes = SR_txtMaterialDescription.Text.Trim
                         .result = SR_txtResult.Text.Trim
+                        .customerPICName = SR_txtCustomerPICName.Text.Trim
+                        .customerPICTitle = SR_txtCustomerPICTitle.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
 
@@ -3920,13 +3885,11 @@ Namespace Raven.Web
                                 isSucceed = True
                                 SR_txtServiceReportID.Text = .serviceReportID.Trim
                                 PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, True)
-                                'If SR_pnlNotTubular.Visible = False Then PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, True)
                             End If
                         Else
                             If .Update() Then
                                 isSucceed = True
                                 PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, True)
-                                'If SR_pnlNotTubular.Visible = False Then PrepareScreen(Common.Constants.ReportTypePanelID.ServiceReport_PanelID, False)
                             End If
                         End If
 
@@ -4869,6 +4832,7 @@ Namespace Raven.Web
                     DP_lblPin001Caption.Text = String.Empty
                     DP_lblPin001Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin001Value.Enabled = DP_lblPin001Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "002"
@@ -4879,6 +4843,7 @@ Namespace Raven.Web
                     DP_lblPin002Caption.Text = String.Empty
                     DP_lblPin002Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin002Value.Enabled = DP_lblPin002Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "003"
@@ -4889,6 +4854,7 @@ Namespace Raven.Web
                     DP_lblPin003Caption.Text = String.Empty
                     DP_lblPin003Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin003Value.Enabled = DP_lblPin003Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "004"
@@ -4899,6 +4865,7 @@ Namespace Raven.Web
                     DP_lblPin004Caption.Text = String.Empty
                     DP_lblPin004Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin004Value.Enabled = DP_lblPin004Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "005"
@@ -4909,6 +4876,7 @@ Namespace Raven.Web
                     DP_lblPin005Caption.Text = String.Empty
                     DP_lblPin005Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin005Value.Enabled = DP_lblPin005Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "006"
@@ -4919,6 +4887,7 @@ Namespace Raven.Web
                     DP_lblPin006Caption.Text = String.Empty
                     DP_lblPin006Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin006Value.Enabled = DP_lblPin006Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "007"
@@ -4929,6 +4898,7 @@ Namespace Raven.Web
                     DP_lblPin007Caption.Text = String.Empty
                     DP_lblPin007Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin007Value.Enabled = DP_lblPin007Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "008"
@@ -4939,6 +4909,7 @@ Namespace Raven.Web
                     DP_lblPin008Caption.Text = String.Empty
                     DP_lblPin008Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin008Value.Enabled = DP_lblPin008Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "009"
@@ -4949,6 +4920,7 @@ Namespace Raven.Web
                     DP_lblPin009Caption.Text = String.Empty
                     DP_lblPin009Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin009Value.Enabled = DP_lblPin009Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "010"
@@ -4959,6 +4931,7 @@ Namespace Raven.Web
                     DP_lblPin010Caption.Text = String.Empty
                     DP_lblPin010Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin010Value.Enabled = DP_lblPin010Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "011"
@@ -4969,6 +4942,7 @@ Namespace Raven.Web
                     DP_lblPin011Caption.Text = String.Empty
                     DP_lblPin011Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin011Value.Enabled = DP_lblPin011Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "012"
@@ -4979,6 +4953,7 @@ Namespace Raven.Web
                     DP_lblPin012Caption.Text = String.Empty
                     DP_lblPin012Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin012Value.Enabled = DP_lblPin012Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_PinConn
                 .sequenceNo = "013"
@@ -4989,6 +4964,7 @@ Namespace Raven.Web
                     DP_lblPin013Caption.Text = String.Empty
                     DP_lblPin013Caption.ToolTip = String.Empty
                 End If
+                DP_txtPin013Value.Enabled = DP_lblPin013Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "001"
@@ -4999,6 +4975,7 @@ Namespace Raven.Web
                     DP_lblBox001Caption.Text = String.Empty
                     DP_lblBox001Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox001Value.Enabled = DP_lblBox001Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "002"
@@ -5009,6 +4986,7 @@ Namespace Raven.Web
                     DP_lblBox002Caption.Text = String.Empty
                     DP_lblBox002Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox002Value.Enabled = DP_lblBox002Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "003"
@@ -5019,6 +4997,7 @@ Namespace Raven.Web
                     DP_lblBox003Caption.Text = String.Empty
                     DP_lblBox003Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox003Value.Enabled = DP_lblBox003Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "004"
@@ -5029,6 +5008,7 @@ Namespace Raven.Web
                     DP_lblBox004Caption.Text = String.Empty
                     DP_lblBox004Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox004Value.Enabled = DP_lblBox004Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "005"
@@ -5039,6 +5019,7 @@ Namespace Raven.Web
                     DP_lblBox005Caption.Text = String.Empty
                     DP_lblBox005Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox005Value.Enabled = DP_lblBox005Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "006"
@@ -5049,6 +5030,7 @@ Namespace Raven.Web
                     DP_lblBox006Caption.Text = String.Empty
                     DP_lblBox006Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox006Value.Enabled = DP_lblBox006Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "007"
@@ -5059,6 +5041,7 @@ Namespace Raven.Web
                     DP_lblBox007Caption.Text = String.Empty
                     DP_lblBox007Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox007Value.Enabled = DP_lblBox007Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "008"
@@ -5069,6 +5052,7 @@ Namespace Raven.Web
                     DP_lblBox008Caption.Text = String.Empty
                     DP_lblBox008Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox008Value.Enabled = DP_lblBox008Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "009"
@@ -5079,6 +5063,7 @@ Namespace Raven.Web
                     DP_lblBox009Caption.Text = String.Empty
                     DP_lblBox009Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox009Value.Enabled = DP_lblBox009Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "010"
@@ -5089,6 +5074,7 @@ Namespace Raven.Web
                     DP_lblBox010Caption.Text = String.Empty
                     DP_lblBox010Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox010Value.Enabled = DP_lblBox010Caption.Text.Trim.Length > 0
 
                 .captionGroupSCode = Common.Constants.CaptionTemplateGroup.DP_BoxConn
                 .sequenceNo = "011"
@@ -5099,6 +5085,7 @@ Namespace Raven.Web
                     DP_lblBox011Caption.Text = String.Empty
                     DP_lblBox011Caption.ToolTip = String.Empty
                 End If
+                DP_txtBox011Value.Enabled = DP_lblBox011Caption.Text.Trim.Length > 0
             End With
             oCap.Dispose()
             oCap = Nothing
@@ -5270,6 +5257,99 @@ Namespace Raven.Web
             End With
             oSRDt.Dispose()
             oSRDt = Nothing
+        End Sub
+#End Region
+
+#Region " C,R,U,D for Timesheet "
+        Private Sub _openCustomerTimesheet()
+            Dim oBR As New Common.BussinessRules.TimeSheet
+            With oBR
+                If .SelectCustomerPICByMonthYear(CInt(TS_ddlYear.SelectedValue), CInt(TS_ddlMonth.SelectedValue)).Rows.Count > 0 Then
+                    TS_txtCustomerPICName.Text = .customerPICName.Trim
+                    TS_txtCustomerPICTitle.Text = .customerPICTitle.Trim
+                    TS_calReportDate.selectedDate = .reportDate
+                Else
+                    TS_txtCustomerPICName.Text = String.Empty
+                    TS_txtCustomerPICTitle.Text = String.Empty
+                    TS_calReportDate.selectedDate = Date.Today
+                End If
+            End With
+            oBR.Dispose()
+            oBR = Nothing
+        End Sub
+
+        Private Sub _insertPerson()
+            If TS_txtResourceName.Text.Trim.Length = 0 Then
+                commonFunction.MsgBox(Me, Common.Constants.MessageBoxText.Validate_ResourceNameCannotEmpty)
+                commonFunction.Focus(Me, TS_txtResourceName.ClientID)
+                Exit Sub
+            End If
+            Dim oPerson As New Common.BussinessRules.Person
+            With oPerson
+                .Salutation = String.Empty
+                .FirstName = TS_txtResourceName.Text.Trim
+                .MiddleName = String.Empty
+                .LastName = String.Empty
+                .AcademicTitle = String.Empty
+                .SexSCode = String.Empty
+                .GenderSCode = String.Empty
+                .ReligionSCode = String.Empty
+                .NationalitySCode = String.Empty
+                .Address1 = String.Empty
+                .Address2 = String.Empty
+                .Address3 = String.Empty
+                .City = String.Empty
+                .PostalCode = String.Empty
+                .Phone = String.Empty
+                .Mobile = String.Empty
+                .Fax = String.Empty
+                .Email = String.Empty
+                .Url = String.Empty
+                .userIDinsert = MyBase.LoggedOnUserID
+                .userIDupdate = MyBase.LoggedOnUserID
+                If .Insert() Then TS_txtPersonID.Text = .PersonID.Trim
+            End With
+            oPerson.Dispose()
+            oPerson = Nothing
+        End Sub
+
+        Private Sub _insertResource()
+            _insertPerson()
+            If TS_txtPersonID.Text.Trim.Length > 0 Then
+                Dim oRsrc As New Common.BussinessRules.Resource
+                With oRsrc
+                    .resourceCode = String.Empty
+                    .resourceTypeSCode = TS_ddlResourceRole.SelectedValue
+                    .resourceJobTitle = String.Empty
+                    .personID = TS_txtPersonID.Text.Trim
+                    .userID = String.Empty
+                    .workingSDate = Date.Today
+                    .workingEDate = Date.Today
+                    .isActive = False
+                    .isAdditional = True
+                    .userIDinsert = MyBase.LoggedOnUserID
+                    .userIDupdate = MyBase.LoggedOnUserID
+                    If .Insert() Then
+                        Dim oPr As New Common.BussinessRules.ProjectResource
+                        oPr.ProjectID = txtProjectID.Text.Trim
+                        oPr.ResourceID = .resourceID.Trim
+                        oPr.ResourceRoleSCode = TS_ddlResourceRole.SelectedValue.Trim
+                        oPr.ResourceSignatureID = String.Empty
+                        oPr.UserIDInsert = MyBase.LoggedOnUserID.Trim
+                        oPr.UserIDUpdate = MyBase.LoggedOnUserID.Trim
+                        oPr.Insert()
+                        oPr.Dispose()
+                        oPr = Nothing
+
+                        TS_txtResourceName.Text = String.Empty
+                        TS_txtPersonID.Text = String.Empty
+                        
+                        TS_ddlMonth_SelectedIndexChanged(Nothing, Nothing)
+                    End If
+                End With
+                oRsrc.Dispose()
+                oRsrc = Nothing
+            End If            
         End Sub
 #End Region
 #End Region

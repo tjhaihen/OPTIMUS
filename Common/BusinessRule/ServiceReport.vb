@@ -14,6 +14,7 @@ Namespace Raven.Common.BussinessRules
         Private _serviceReportID, _projectID, _serviceReportForSCode, _typeOfInspection, _typeOfInspectionCol2, _result, _mdManufacturer As String
         Private _mdTypeOfPipe, _mdPipeOD, _mdPipeGrade, _mdPipeWeight, _mdThreadConnection, _mdRange, _mdTotalInspected, _mdTotalAccepted As String
         Private _mdNotes, _userIDinsert, _userIDupdate As String
+        Private _customerPICName, _customerPICTitle As String
         Private _serviceReportDate, _insertDate, _updateDate As DateTime
 #End Region
 
@@ -32,11 +33,13 @@ Namespace Raven.Common.BussinessRules
                                         "(serviceReportID, projectID, serviceReportForSCode, serviceReportDate, typeOfInspection, typeOfInspectionCol2, " + _
                                         "mdManufacturer, mdTypeOfPipe, mdPipeOD, mdPipeGrade, mdPipeWeight, mdThreadConnection,  " + _
                                         "mdRange, mdTotalInspected, mdTotalAccepted, mdNotes, result,  " + _
+                                        "customerPICName, customerPICTitle, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@serviceReportID, @projectID, @serviceReportForSCode, @serviceReportDate, @typeOfInspection, @typeOfInspectionCol2, " + _
                                         "@mdManufacturer, @mdTypeOfPipe, @mdPipeOD, @mdPipeGrade, @mdPipeWeight, @mdThreadConnection,  " + _
                                         "@mdRange, @mdTotalInspected, @mdTotalAccepted, @mdNotes, @result,  " + _
+                                        "@customerPICName, @customerPICTitle, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -61,6 +64,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@mdTotalAccepted", _mdTotalAccepted)
                 cmdToExecute.Parameters.AddWithValue("@mdNotes", _mdNotes)
                 cmdToExecute.Parameters.AddWithValue("@result", _result)
+                cmdToExecute.Parameters.AddWithValue("@customerPICName", _customerPICName)
+                cmdToExecute.Parameters.AddWithValue("@customerPICTitle", _customerPICTitle)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -87,6 +92,7 @@ Namespace Raven.Common.BussinessRules
                                         "typeOfInspection=@typeOfInspection, typeOfInspectionCol2=@typeOfInspectionCol2, mdManufacturer=@mdManufacturer, mdTypeOfPipe=@mdTypeOfPipe, " + _
                                         "mdPipeOD=@mdPipeOD, mdPipeGrade=@mdPipeGrade, mdPipeWeight=@mdPipeWeight, mdThreadConnection=@mdThreadConnection, " + _
                                         "mdRange=@mdRange, mdTotalInspected=@mdTotalInspected, mdTotalAccepted=@mdTotalAccepted, mdNotes=@mdNotes, result=@result, " + _
+                                        "customerPICName=@customerPICName, customerPICTitle=@customerPICTitle, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE serviceReportID=@serviceReportID"
             cmdToExecute.CommandType = CommandType.Text
@@ -110,7 +116,9 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@mdTotalInspected", _mdTotalInspected)
                 cmdToExecute.Parameters.AddWithValue("@mdTotalAccepted", _mdTotalAccepted)
                 cmdToExecute.Parameters.AddWithValue("@mdNotes", _mdNotes)
-                cmdToExecute.Parameters.AddWithValue("@result", _result)                
+                cmdToExecute.Parameters.AddWithValue("@result", _result)
+                cmdToExecute.Parameters.AddWithValue("@customerPICName", _customerPICName)
+                cmdToExecute.Parameters.AddWithValue("@customerPICTitle", _customerPICTitle)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -194,6 +202,8 @@ Namespace Raven.Common.BussinessRules
                     _mdTotalAccepted = CType(toReturn.Rows(0)("mdTotalAccepted"), String)
                     _mdNotes = CType(toReturn.Rows(0)("mdNotes"), String)
                     _result = CType(toReturn.Rows(0)("result"), String)
+                    _customerPICName = CType(toReturn.Rows(0)("customerPICName"), String)
+                    _customerPICTitle = CType(toReturn.Rows(0)("customerPICTitle"), String)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -460,6 +470,24 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _result = Value
+            End Set
+        End Property
+
+        Public Property [customerPICName]() As String
+            Get
+                Return _customerPICName
+            End Get
+            Set(ByVal Value As String)
+                _customerPICName = Value
+            End Set
+        End Property
+
+        Public Property [customerPICTitle]() As String
+            Get
+                Return _customerPICTitle
+            End Get
+            Set(ByVal Value As String)
+                _customerPICTitle = Value
             End Set
         End Property
 

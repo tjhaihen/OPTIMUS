@@ -13,6 +13,7 @@ Namespace Raven.Common.BussinessRules
 #Region " Class Member Declarations "
         Private _dailyReportHdID, _projectID, _reportNo, _remarks As String
         Private _userIDinsert, _userIDupdate As String
+        Private _customerPICName, _customerPICTitle As String
         Private _reportDate, _insertDate, _updateDate As DateTime
 #End Region
 
@@ -29,9 +30,11 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO DailyReportHd " + _
                                         "(dailyReportHdID, projectID, reportNo, remarks, reportDate, " + _
+                                        "customerPICName, customerPICTitle, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@dailyReportHdID, @projectID, @reportNo, @remarks, @reportDate, " + _
+                                        "@customerPICName, @customerPICTitle, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -44,6 +47,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
                 cmdToExecute.Parameters.AddWithValue("@remarks", _remarks)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
+                cmdToExecute.Parameters.AddWithValue("@customerPICName", _customerPICName)
+                cmdToExecute.Parameters.AddWithValue("@customerPICTitle", _customerPICTitle)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -67,6 +72,7 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "UPDATE DailyReportHd " + _
                                         "SET reportNo=@reportNo, remarks=@remarks, reportDate=@reportDate, " + _
+                                        "customerPICName=@customerPICName, customerPICTitle=@customerPICTitle, " + _
                                         "userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE dailyReportHdID=@dailyReportHdID"
             cmdToExecute.CommandType = CommandType.Text
@@ -78,7 +84,9 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@projectID", _projectID)
                 cmdToExecute.Parameters.AddWithValue("@reportNo", _reportNo)
                 cmdToExecute.Parameters.AddWithValue("@remarks", _remarks)
-                cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)                
+                cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
+                cmdToExecute.Parameters.AddWithValue("@customerPICName", _customerPICName)
+                cmdToExecute.Parameters.AddWithValue("@customerPICTitle", _customerPICTitle)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -150,6 +158,8 @@ Namespace Raven.Common.BussinessRules
                     _reportNo = CType(toReturn.Rows(0)("reportNo"), String)
                     _remarks = CType(toReturn.Rows(0)("remarks"), String)
                     _reportDate = CType(toReturn.Rows(0)("reportDate"), DateTime)
+                    _customerPICName = CType(toReturn.Rows(0)("customerPICName"), String)
+                    _customerPICTitle = CType(toReturn.Rows(0)("customerPICTitle"), String)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -173,7 +183,6 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "DELETE FROM DailyReportHd " + _
                                         "WHERE dailyReportHdID=@dailyReportHdID"
             cmdToExecute.CommandType = CommandType.Text
-
             cmdToExecute.Connection = _mainConnection
 
             Try
@@ -272,6 +281,24 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As DateTime)
                 _reportDate = Value
+            End Set
+        End Property
+
+        Public Property [customerPICName]() As String
+            Get
+                Return _customerPICName
+            End Get
+            Set(ByVal Value As String)
+                _customerPICName = Value
+            End Set
+        End Property
+
+        Public Property [customerPICTitle]() As String
+            Get
+                Return _customerPICTitle
+            End Get
+            Set(ByVal Value As String)
+                _customerPICTitle = Value
             End Set
         End Property
 
