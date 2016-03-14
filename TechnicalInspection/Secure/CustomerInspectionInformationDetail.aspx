@@ -43,147 +43,18 @@
                                             <telerik:RadTabStrip ID="rtsDetailInformation" runat="server" Skin="Windows7" MultiPageID="rmpDetailInformation"
                                                 SelectedIndex="0" CssClass="tabStrip">
                                                 <Tabs>
-                                                    <telerik:RadTab Text="Summary of Inspection by Work Request">
-                                                    </telerik:RadTab>
                                                     <telerik:RadTab Text="Project File">
                                                     </telerik:RadTab>
                                                     <telerik:RadTab Text="Daily Progress Report">
                                                     </telerik:RadTab>
                                                     <telerik:RadTab Text="Inspector File">
                                                     </telerik:RadTab>
+                                                    <telerik:RadTab Text="Summary of Inspection by Work Request">
+                                                    </telerik:RadTab>
                                                 </Tabs>
                                             </telerik:RadTabStrip>
                                             <telerik:RadMultiPage ID="rmpDetailInformation" runat="server" SelectedIndex="0"
-                                                CssClass="multiPage">
-                                                <telerik:RadPageView ID="pvSOIByWorkRequest" runat="server">
-                                                    <table>
-                                                        <tr>
-                                                            <td>
-                                                                <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #058ACD;">
-                                                                    <tr>
-                                                                        <td class="center">
-                                                                            TOTAL INSPECTED
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt;">
-                                                                            <asp:Label ID="lblTotalItemIspected" runat="server"></asp:Label>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                            <td>
-                                                                <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #66CC33;">
-                                                                    <tr>
-                                                                        <td class="center" colspan="2">
-                                                                            <asp:LinkButton ID="lbtnAccepted" runat="server" Text="TOTAL ACCEPTED">
-                                                                            </asp:LinkButton>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
-                                                                            <asp:Label ID="lblTotalItemAccepted" runat="server"></asp:Label>
-                                                                        </td>
-                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
-                                                                            <asp:Label ID="lblTotalItemAcceptedPct" runat="server"></asp:Label>%
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                            <td>
-                                                                <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #EF8E19;">
-                                                                    <tr>
-                                                                        <td class="center" colspan="2">
-                                                                            <asp:LinkButton ID="lbtnRepair" runat="server" Text="TOTAL NEED REPAIR">
-                                                                            </asp:LinkButton>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
-                                                                            <asp:Label ID="lblTotalItemNeedRepair" runat="server"></asp:Label>
-                                                                        </td>
-                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
-                                                                            <asp:Label ID="lblTotalItemNeedRepairPct" runat="server"></asp:Label>%
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                            <td>
-                                                                <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #FF6666;">
-                                                                    <tr>
-                                                                        <td class="center" colspan="2">
-                                                                            <asp:LinkButton ID="lbtnRejected" runat="server" Text="TOTAL REJECTED">
-                                                                            </asp:LinkButton>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
-                                                                            <asp:Label ID="lblTotalItemRejected" runat="server"></asp:Label>
-                                                                        </td>
-                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
-                                                                            <asp:Label ID="lblTotalItemRejectedPct" runat="server"></asp:Label>%
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    <asp:DataGrid ID="grdSummaryOfInspection" runat="server" BorderWidth="0" GridLines="None"
-                                                        Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
-                                                        AutoGenerateColumns="false">
-                                                        <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
-                                                        <ItemStyle CssClass="gridItemStyle" />
-                                                        <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
-                                                        <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
-                                                        <Columns>
-                                                            <asp:TemplateColumn runat="server" HeaderText="Description of Equipment" ItemStyle-VerticalAlign="Top"
-                                                                ItemStyle-Width="120">
-                                                                <ItemTemplate>
-                                                                    <%# DataBinder.Eval(Container.DataItem, "descriptionOfEquipment") %>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateColumn>
-                                                            <asp:TemplateColumn runat="server" HeaderText="Serial No." ItemStyle-VerticalAlign="Top"
-                                                                ItemStyle-Width="120">
-                                                                <ItemTemplate>
-                                                                    <%# DataBinder.Eval(Container.DataItem, "serialIDNo") %>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateColumn>
-                                                            <asp:TemplateColumn runat="server" HeaderText="Exam Date" ItemStyle-Width="100" ItemStyle-HorizontalAlign="Center"
-                                                                HeaderStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top">
-                                                                <ItemTemplate>
-                                                                    <%# Format(DataBinder.Eval(Container.DataItem, "examDate"),"dd-MMM-yyyy") %>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateColumn>
-                                                            <asp:TemplateColumn runat="server" HeaderText="Expired Date" ItemStyle-Width="100"
-                                                                ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top">
-                                                                <ItemTemplate>
-                                                                    <%# IIf(DataBinder.Eval(Container.DataItem, "ExpireDate")=DataBinder.Eval(Container.DataItem, "examDate"),"No Exp. Date",Format(DataBinder.Eval(Container.DataItem, "ExpireDate"),"dd-MMM-yyyy")) %>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateColumn>
-                                                            <asp:TemplateColumn runat="server" HeaderText="Result" ItemStyle-VerticalAlign="Top"
-                                                                ItemStyle-Width="50">
-                                                                <ItemTemplate>
-                                                                    <%# DataBinder.Eval(Container.DataItem, "result") %>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateColumn>
-                                                            <asp:TemplateColumn runat="server" HeaderText="Defect Found" ItemStyle-VerticalAlign="Top"
-                                                                ItemStyle-Width="200">
-                                                                <ItemTemplate>
-                                                                    <%# DataBinder.Eval(Container.DataItem, "defectFound") %>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateColumn>
-                                                            <asp:TemplateColumn runat="server" HeaderText="Remarks" ItemStyle-VerticalAlign="Top">
-                                                                <ItemTemplate>
-                                                                    <%# DataBinder.Eval(Container.DataItem, "remarks") %>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateColumn>
-                                                        </Columns>
-                                                    </asp:DataGrid>
-                                                </telerik:RadPageView>
+                                                CssClass="multiPage">                                                
                                                 <telerik:RadPageView ID="pvProjectFile" runat="server">
                                                     <asp:DataGrid ID="grdProjectFile" runat="server" BorderWidth="0" GridLines="None"
                                                         Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
@@ -381,6 +252,135 @@
                                                                 HeaderStyle-Width="150" ItemStyle-HorizontalAlign="Left" ItemStyle-Width="150">
                                                                 <ItemTemplate>
                                                                     <%# DataBinder.Eval(Container.DataItem, "fileExtension") %>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateColumn>
+                                                        </Columns>
+                                                    </asp:DataGrid>
+                                                </telerik:RadPageView>
+                                                <telerik:RadPageView ID="pvSOIByWorkRequest" runat="server">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #058ACD;">
+                                                                    <tr>
+                                                                        <td class="center">
+                                                                            TOTAL INSPECTED
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt;">
+                                                                            <asp:Label ID="lblTotalItemIspected" runat="server"></asp:Label>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                            <td>
+                                                                <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #66CC33;">
+                                                                    <tr>
+                                                                        <td class="center" colspan="2">
+                                                                            <asp:LinkButton ID="lbtnAccepted" runat="server" Text="TOTAL ACCEPTED">
+                                                                            </asp:LinkButton>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
+                                                                            <asp:Label ID="lblTotalItemAccepted" runat="server"></asp:Label>
+                                                                        </td>
+                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
+                                                                            <asp:Label ID="lblTotalItemAcceptedPct" runat="server"></asp:Label>%
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                            <td>
+                                                                <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #EF8E19;">
+                                                                    <tr>
+                                                                        <td class="center" colspan="2">
+                                                                            <asp:LinkButton ID="lbtnRepair" runat="server" Text="TOTAL NEED REPAIR">
+                                                                            </asp:LinkButton>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
+                                                                            <asp:Label ID="lblTotalItemNeedRepair" runat="server"></asp:Label>
+                                                                        </td>
+                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
+                                                                            <asp:Label ID="lblTotalItemNeedRepairPct" runat="server"></asp:Label>%
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                            <td>
+                                                                <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #FF6666;">
+                                                                    <tr>
+                                                                        <td class="center" colspan="2">
+                                                                            <asp:LinkButton ID="lbtnRejected" runat="server" Text="TOTAL REJECTED">
+                                                                            </asp:LinkButton>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
+                                                                            <asp:Label ID="lblTotalItemRejected" runat="server"></asp:Label>
+                                                                        </td>
+                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
+                                                                            <asp:Label ID="lblTotalItemRejectedPct" runat="server"></asp:Label>%
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <asp:DataGrid ID="grdSummaryOfInspection" runat="server" BorderWidth="0" GridLines="None"
+                                                        Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
+                                                        AutoGenerateColumns="false">
+                                                        <HeaderStyle HorizontalAlign="Left" CssClass="gridHeaderStyle" />
+                                                        <ItemStyle CssClass="gridItemStyle" />
+                                                        <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
+                                                        <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
+                                                        <Columns>
+                                                            <asp:TemplateColumn runat="server" HeaderText="Description of Equipment" ItemStyle-VerticalAlign="Top"
+                                                                ItemStyle-Width="120">
+                                                                <ItemTemplate>
+                                                                    <%# DataBinder.Eval(Container.DataItem, "descriptionOfEquipment") %>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateColumn>
+                                                            <asp:TemplateColumn runat="server" HeaderText="Serial No." ItemStyle-VerticalAlign="Top"
+                                                                ItemStyle-Width="120">
+                                                                <ItemTemplate>
+                                                                    <%# DataBinder.Eval(Container.DataItem, "serialIDNo") %>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateColumn>
+                                                            <asp:TemplateColumn runat="server" HeaderText="Exam Date" ItemStyle-Width="100" ItemStyle-HorizontalAlign="Center"
+                                                                HeaderStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top">
+                                                                <ItemTemplate>
+                                                                    <%# Format(DataBinder.Eval(Container.DataItem, "examDate"),"dd-MMM-yyyy") %>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateColumn>
+                                                            <asp:TemplateColumn runat="server" HeaderText="Expired Date" ItemStyle-Width="100"
+                                                                ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top">
+                                                                <ItemTemplate>
+                                                                    <%# IIf(DataBinder.Eval(Container.DataItem, "ExpireDate")=DataBinder.Eval(Container.DataItem, "examDate"),"No Exp. Date",Format(DataBinder.Eval(Container.DataItem, "ExpireDate"),"dd-MMM-yyyy")) %>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateColumn>
+                                                            <asp:TemplateColumn runat="server" HeaderText="Result" ItemStyle-VerticalAlign="Top"
+                                                                ItemStyle-Width="50">
+                                                                <ItemTemplate>
+                                                                    <%# DataBinder.Eval(Container.DataItem, "result") %>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateColumn>
+                                                            <asp:TemplateColumn runat="server" HeaderText="Defect Found" ItemStyle-VerticalAlign="Top"
+                                                                ItemStyle-Width="200">
+                                                                <ItemTemplate>
+                                                                    <%# DataBinder.Eval(Container.DataItem, "defectFound") %>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateColumn>
+                                                            <asp:TemplateColumn runat="server" HeaderText="Remarks" ItemStyle-VerticalAlign="Top">
+                                                                <ItemTemplate>
+                                                                    <%# DataBinder.Eval(Container.DataItem, "remarks") %>
                                                                 </ItemTemplate>
                                                             </asp:TemplateColumn>
                                                         </Columns>

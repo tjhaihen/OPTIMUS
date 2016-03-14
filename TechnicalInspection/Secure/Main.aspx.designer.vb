@@ -888,13 +888,13 @@ Namespace Raven.Web
         Protected WithEvents DPR_ddlWeatherCondition As Global.System.Web.UI.WebControls.DropDownList
 
         '''<summary>
-        '''DPR_txtDescription control.
+        '''DPR_ddlDescription control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DPR_txtDescription As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DPR_ddlDescription As Global.System.Web.UI.WebControls.DropDownList
 
         '''<summary>
         '''DPR_txtQtyCurrent control.
@@ -1041,13 +1041,13 @@ Namespace Raven.Web
         Protected WithEvents DIR_ddlWeatherCondition As Global.System.Web.UI.WebControls.DropDownList
 
         '''<summary>
-        '''DIR_txtDescription control.
+        '''DIR_ddlDescription control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents DIR_txtDescription As Global.System.Web.UI.WebControls.TextBox
+        Protected WithEvents DIR_ddlDescription As Global.System.Web.UI.WebControls.DropDownList
 
         '''<summary>
         '''DIR_txtQty control.
@@ -1507,6 +1507,24 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents MPI_txtACOtherDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''MPI_ddlMPIMGWSWLWLLCaption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_ddlMPIMGWSWLWLLCaption As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''MPI_txtMGWSWLWLL control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents MPI_txtMGWSWLWLL As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''MPI_txtQty control.
@@ -2254,6 +2272,15 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents DP_txtNominalWT As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''DP_chkIsUpdateToMasterInspectionSpec control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DP_chkIsUpdateToMasterInspectionSpec As Global.System.Web.UI.WebControls.CheckBox
 
         '''<summary>
         '''DP_Premium_txtMinOD control.

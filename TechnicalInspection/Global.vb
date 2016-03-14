@@ -244,6 +244,9 @@ Namespace Raven.Web
                     Dim oTbl As New Common.BussinessRules.ResourceSignature
                     oTbl.resourceID = keyField.Trim
                     tblToApply = oTbl.SelectByResourceID()
+                Case "CategoryInspection"
+                    Dim oTbl As New Common.BussinessRules.CategoryInspection
+                    tblToApply = oTbl.SelectAll()
                 Case Else
                     Dim oTbl As New Common.BussinessRules.CommonCode
                     oTbl.GroupCode = keyField.Trim
@@ -296,6 +299,9 @@ Namespace Raven.Web
                             Case "ResourceSignature"
                                 _strText = Common.ProcessNull.GetString(rgRows(i - 1)("Description"))
                                 _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("ResourceSignatureID"))
+                            Case "CategoryInspection"
+                                _strText = Common.ProcessNull.GetString(rgRows(i - 1)("CategoryInspectionName"))
+                                _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("CategoryInspectionID"))
                             Case Else
                                 _strText = Common.ProcessNull.GetString(rgRows(i - 1)("Caption"))
                                 _strValue = Common.ProcessNull.GetString(rgRows(i - 1)("Value"))

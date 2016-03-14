@@ -12,6 +12,7 @@
             Public Const ServiceReportFor_SCode As String = "SVCRPTFOR"
             Public Const MPIType_SCode As String = "MPITYPE"
             Public Const MPIPicGroup_SCode As String = "MPIPICGROUP"
+            Public Const MPICaptionType_SCode As String = "MPICAPTYPE"
             Public Const MPIYoke_SCode As String = "MPIYOKE"
             Public Const MPICoil_SCode As String = "MPICOIL"
             Public Const MPIFluorescent_SCode As String = "MPIFLUOR"

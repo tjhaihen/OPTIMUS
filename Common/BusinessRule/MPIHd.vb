@@ -21,6 +21,7 @@ Namespace Raven.Common.BussinessRules
         Private _isSysWet, _isSysDry, _isSysDye, _isSysFluorescent, _isSysContrastBW, _isSysDyePenetrant As Boolean
         Private _ACASMEDescription, _ACAPISpecDescription, _ACDS1Description As String
         Private _yokeSerialNo, _coilSerialNo, _rodsSerialNo, _blacklightSerialNo As String
+        Private _MGWSWLWLLcaptionSCode, _MGWSWLWLLvalue As String
         Private _reportDate, _expiredDate As DateTime
         Private _insertDate, _updateDate As DateTime
         Private _userIDInsert, _userIDUpdate As String
@@ -48,6 +49,7 @@ Namespace Raven.Common.BussinessRules
                                         "isBlastCleaning, isGrinding, isMachining, " + _
                                         "isEqpYoke, isEqpCoil, isEqpRods, isEqpBlacklight, isMagPermanent, isMagActive, " + _
                                         "isSysWet, isSysDry, isSysDye, isSysFluorescent, isSysContrastBW, isSysDyePenetrant, " + _
+                                        "MGWSWLWLLcaptionSCode, MGWSWLWLLvalue, " + _
                                         "reportDate, expiredDate, insertDate, updateDate, " + _
                                         "userIDInsert, userIDUpdate) " + _
                                         "VALUES " + _
@@ -61,6 +63,7 @@ Namespace Raven.Common.BussinessRules
                                         "@isBlastCleaning, @isGrinding, @isMachining, " + _
                                         "@isEqpYoke, @isEqpCoil, @isEqpRods, @isEqpBlacklight, @isMagPermanent, @isMagActive, " + _
                                         "@isSysWet, @isSysDry, @isSysDye, @isSysFluorescent, @isSysContrastBW, @isSysDyePenetrant, " + _
+                                        "@MGWSWLWLLcaptionSCode, @MGWSWLWLLvalue, " + _
                                         "@reportDate, @expiredDate, GETDATE(), GETDATE(), " + _
                                         "@userIDInsert, @userIDUpdate) "
             cmdToExecute.CommandType = CommandType.Text
@@ -127,6 +130,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@isSysFluorescent", _isSysFluorescent)
                 cmdToExecute.Parameters.AddWithValue("@isSysContrastBW", _isSysContrastBW)
                 cmdToExecute.Parameters.AddWithValue("@isSysDyePenetrant", _isSysDyePenetrant)
+                cmdToExecute.Parameters.AddWithValue("@MGWSWLWLLcaptionSCode", _MGWSWLWLLcaptionSCode)
+                cmdToExecute.Parameters.AddWithValue("@MGWSWLWLLvalue", _MGWSWLWLLvalue)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
                 cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
@@ -162,6 +167,7 @@ Namespace Raven.Common.BussinessRules
                                         "isBlastCleaning=@isBlastCleaning, isGrinding=@isGrinding, isMachining=@isMachining, " + _
                                         "isEqpYoke=@isEqpYoke, isEqpCoil=@isEqpCoil, isEqpRods=@isEqpRods, isEqpBlacklight=@isEqpBlacklight, isMagPermanent=@isMagPermanent, isMagActive=@isMagActive, " + _
                                         "isSysWet=@isSysWet, isSysDry=@isSysDry, isSysDye=@isSysDye, isSysFluorescent=@isSysFluorescent, isSysContrastBW=@isSysContrastBW, isSysDyePenetrant=@isSysDyePenetrant, " + _
+                                        "MGWSWLWLLcaptionSCode=@MGWSWLWLLcaptionSCode, MGWSWLWLLvalue=@MGWSWLWLLvalue, " + _
                                         "reportDate=@reportDate, expiredDate=@expiredDate, updateDate=GETDATE(), userIDUpdate=@userIDUpdate " + _
                                         "WHERE MPIHdID=@MPIHdID"
             cmdToExecute.CommandType = CommandType.Text
@@ -225,6 +231,8 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@isSysFluorescent", _isSysFluorescent)
                 cmdToExecute.Parameters.AddWithValue("@isSysContrastBW", _isSysContrastBW)
                 cmdToExecute.Parameters.AddWithValue("@isSysDyePenetrant", _isSysDyePenetrant)
+                cmdToExecute.Parameters.AddWithValue("@MGWSWLWLLcaptionSCode", _MGWSWLWLLcaptionSCode)
+                cmdToExecute.Parameters.AddWithValue("@MGWSWLWLLvalue", _MGWSWLWLLvalue)
                 cmdToExecute.Parameters.AddWithValue("@reportDate", _reportDate)
                 cmdToExecute.Parameters.AddWithValue("@expiredDate", _expiredDate)                
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDUpdate)
@@ -352,6 +360,8 @@ Namespace Raven.Common.BussinessRules
                     _isSysFluorescent = CType(toReturn.Rows(0)("isSysFluorescent"), Boolean)
                     _isSysContrastBW = CType(toReturn.Rows(0)("isSysContrastBW"), Boolean)
                     _isSysDyePenetrant = CType(toReturn.Rows(0)("isSysDyePenetrant"), Boolean)
+                    _MGWSWLWLLcaptionSCode = CType(toReturn.Rows(0)("MGWSWLWLLcaptionSCode"), String)
+                    _MGWSWLWLLvalue = CType(toReturn.Rows(0)("MGWSWLWLLvalue"), String)
                     _userIDInsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDUpdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -951,6 +961,24 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As Boolean)
                 _isSysDyePenetrant = Value
+            End Set
+        End Property
+
+        Public Property [MGWSWLWLLcaptionSCode]() As String
+            Get
+                Return _MGWSWLWLLcaptionSCode
+            End Get
+            Set(ByVal Value As String)
+                _MGWSWLWLLcaptionSCode = Value
+            End Set
+        End Property
+
+        Public Property [MGWSWLWLLvalue]() As String
+            Get
+                Return _MGWSWLWLLvalue
+            End Get
+            Set(ByVal Value As String)
+                _MGWSWLWLLvalue = Value
             End Set
         End Property
 

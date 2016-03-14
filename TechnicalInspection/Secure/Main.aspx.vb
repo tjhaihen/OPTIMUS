@@ -832,9 +832,9 @@ Namespace Raven.Web
                         _update(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID)
                     End If
                     If pnlDrillPipeInspectionReport.Visible Then
-                        If DP_txtSpecificationID.Text = String.Empty Then
-                            If _insertInspectionSpec() Then
-                                commonFunction.MsgBox(Me, "Inspection Specification inserted to database.")
+                        If DP_chkIsUpdateToMasterInspectionSpec.Checked Then
+                            If _updateInspectionSpec() Then
+                                commonFunction.MsgBox(Me, "Inspection Specification inserted/updated to database.")
                             End If
                         End If
                         _update(Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID)
@@ -1400,11 +1400,14 @@ Namespace Raven.Web
             commonFunction.SetDDL_Table(CCR_ddlTypeOfReport, "CommonCode", Common.Constants.GroupCode.TypeOfReport_SCode)
             commonFunction.SetDDL_Table(DP_ddlCaptionTemplate, "CaptionTemplate", String.Empty)
             commonFunction.SetDDL_Table(DPR_ddlWeatherCondition, "CommonCode", Common.Constants.GroupCode.Weather_SCode)
+            commonFunction.SetDDL_Table(DPR_ddlDescription, "CategoryInspection", String.Empty)
             commonFunction.SetDDL_Table(DIR_ddlWeatherCondition, "CommonCode", Common.Constants.GroupCode.Weather_SCode)
+            commonFunction.SetDDL_Table(DIR_ddlDescription, "CategoryInspection", String.Empty)
             commonFunction.SetDDL_Table(SR_ddlServiceReportFor, "CommonCode", Common.Constants.GroupCode.ServiceReportFor_SCode)
             commonFunction.SetDDL_Table(DP_ddlRemarks, "CommonCode", Common.Constants.GroupCode.DrillPipeRemarks_SCode)
             commonFunction.SetDDL_Table(MPI_ddlMPIType, "CommonCode", Common.Constants.GroupCode.MPIType_SCode)
             commonFunction.SetDDL_Table(MPI_ddlPicGroup, "CommonCode", Common.Constants.GroupCode.MPIPicGroup_SCode)
+            commonFunction.SetDDL_Table(MPI_ddlMPIMGWSWLWLLCaption, "CommonCode", Common.Constants.GroupCode.MPICaptionType_SCode)
             commonFunction.SetDDL_Table(HT_ddlLocation, "CommonCode", Common.Constants.GroupCode.HardnessTestLocation_SCode)
             commonFunction.SetDDL_Table(UTSC_ddlUTSpotType, "CommonCode", Common.Constants.GroupCode.UTSpotType_SCode)
             commonFunction.SetDDL_Table(UTSA_ddlUTSpotType, "CommonCode", Common.Constants.GroupCode.UTSpotAreaType_SCode)
@@ -1423,7 +1426,7 @@ Namespace Raven.Web
             commonFunction.SetDDL_Table(IT_ddlVTIBox, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
             commonFunction.SetDDL_Table(IT_ddlFLD, "CommonCode", Common.Constants.GroupCode.InspectionTallyRemark_SCode)
             commonFunction.SetDDL_Table(COI_ddlCOIType, "CommonCode", Common.Constants.GroupCode.COIType_SCode)
-            commonFunction.SetDDL_Table(TS_ddlResourceRole, "CommonCode", Common.Constants.GroupCode.ResourceType_SCode)
+            commonFunction.SetDDL_Table(TS_ddlResourceRole, "CommonCode", Common.Constants.GroupCode.ResourceType_SCode)            
         End Sub
 
         Private Sub SetRadioButtonListItems()
@@ -1550,7 +1553,7 @@ Namespace Raven.Web
                     End If
 
                     DPR_txtDailyReportDtID.Text = String.Empty
-                    DPR_txtDescription.Text = String.Empty
+                    DPR_ddlDescription.SelectedIndex = 0
                     DPR_ddlWeatherCondition.SelectedIndex = 0
                     DPR_txtQtyCurrent.Text = "0"
                     DPR_txtQtyPrevious.Text = "0"
@@ -1998,6 +2001,8 @@ Namespace Raven.Web
                         MPI_txtCoilSerialNo.Text = String.Empty
                         MPI_txtRodsSerialNo.Text = String.Empty
                         MPI_txtBlacklightSerialNo.Text = String.Empty
+                        MPI_ddlMPIMGWSWLWLLCaption.SelectedIndex = 0
+                        MPI_txtMGWSWLWLL.Text = String.Empty
 
                         commonFunction.Focus(Me, MPI_ddlMPIType.ClientID)
                     Else
@@ -2156,7 +2161,7 @@ Namespace Raven.Web
                                     TVI_lblDimensionDiameterCaption.Text = "Diameter"
                                     TVI_pnlLength.Visible = False
                                     commonFunction.SetRBTNL_Table(TVI_rbtnlImage, "CommonCode", Common.Constants.GroupCode.TVIShacklePic_SCode)
-                                    TVI_imgFilePic.ImageUrl = GetPic(Common.Constants.GetImageType.GetImage_CommonCodeFilePic.Trim, Common.Constants.GroupCode.TVISlingPic_SCode.Trim + "|" + TVI_rbtnlImage.SelectedValue.Trim)
+                                    TVI_imgFilePic.ImageUrl = GetPic(Common.Constants.GetImageType.GetImage_CommonCodeFilePic.Trim, Common.Constants.GroupCode.TVIShacklePic_SCode.Trim + "|" + TVI_rbtnlImage.SelectedValue.Trim)
                             End Select
                         End If
                     End If
@@ -2365,7 +2370,7 @@ Namespace Raven.Web
                         .dailyReportDtID = DPR_txtDailyReportDtID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
                             DPR_txtSequenceNo.Text = .sequenceNo.Trim
-                            DPR_txtDescription.Text = .description.Trim
+                            commonFunction.SelectListItem(DPR_ddlDescription, .categoryInspectionID.Trim)
                             commonFunction.SelectListItem(DPR_ddlWeatherCondition, .weatherConditionSCode.Trim)
                             DPR_txtQtyCurrent.Text = CStr(.currentQty)
                             DPR_txtQtyPrevious.Text = CStr(.beginningQty)
@@ -2404,7 +2409,7 @@ Namespace Raven.Web
                         .dailyReportDtID = DIR_txtDailyReportDtID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
                             DIR_txtSequenceNo.Text = .sequenceNo.Trim
-                            DIR_txtDescription.Text = .description.Trim
+                            commonFunction.SelectListItem(DIR_ddlDescription, .categoryInspectionID.Trim)
                             commonFunction.SelectListItem(DIR_ddlWeatherCondition, .weatherConditionSCode.Trim)
                             DIR_txtQty.Text = CStr(.currentQty)
                             DIR_txtUOM.Text = .currentUOM.Trim
@@ -2774,6 +2779,8 @@ Namespace Raven.Web
                             MPI_txtBlacklightSerialNo.Text = .blacklightSerialNo.Trim
                             MPI_txtInspectionResult.Text = .inspectionResult.Trim
                             MPI_txtNotes.Text = .notes.Trim
+                            MPI_ddlMPIMGWSWLWLLCaption.SelectedValue = .MGWSWLWLLcaptionSCode.Trim
+                            MPI_txtMGWSWLWLL.Text = .MGWSWLWLLvalue.Trim
                             MPI_btnUploadImage.Enabled = True
                         Else
                             PrepareScreen(_VisiblePanelID, False, False)
@@ -3508,7 +3515,7 @@ Namespace Raven.Web
                         End If
                         .projectID = txtProjectID.Text.Trim
                         .reportNo = ""
-                        .remarks = DPR_txtDescription.Text.Trim
+                        .remarks = DPR_txtMaterialDetail.Text.Trim
                         .reportDate = DPR_calReportDate.selectedDate
                         .customerPICName = DPR_txtCustomerPICName.Text.Trim
                         .customerPICTitle = DPR_txtCustomerPICTitle.Text.Trim
@@ -3534,7 +3541,8 @@ Namespace Raven.Web
                         .dailyReportHdID = DPR_txtDailyReportHdID.Text.Trim
                         .sequenceNo = DPR_txtSequenceNo.Text.Trim
                         .weatherConditionSCode = DPR_ddlWeatherCondition.SelectedValue
-                        .description = DPR_txtDescription.Text.Trim
+                        .description = DPR_ddlDescription.SelectedItem.Text.Trim
+                        .categoryInspectionID = DPR_ddlDescription.SelectedValue.Trim
                         .currentQty = CDec(DPR_txtQtyCurrent.Text.Trim)
                         .beginningQty = CDec(DPR_txtQtyPrevious.Text.Trim)
                         .endingQty = .beginningQty + .currentQty
@@ -3568,7 +3576,7 @@ Namespace Raven.Web
                         End If
                         .projectID = txtProjectID.Text.Trim
                         .reportNo = ""
-                        .remarks = DIR_txtDescription.Text.Trim
+                        .remarks = DIR_ddlDescription.SelectedItem.Text.Trim
                         .reportDate = DIR_calReportDate.selectedDate
                         .customerPICName = DIR_txtCustomerPICName.Text.Trim
                         .customerPICTitle = DIR_txtCustomerPICTitle.Text.Trim
@@ -3594,7 +3602,8 @@ Namespace Raven.Web
                         .dailyReportHdID = DIR_txtDailyReportHdID.Text.Trim
                         .sequenceNo = DIR_txtSequenceNo.Text.Trim
                         .weatherConditionSCode = DIR_ddlWeatherCondition.SelectedValue
-                        .description = DIR_txtDescription.Text.Trim
+                        .description = DIR_ddlDescription.SelectedItem.Text.Trim
+                        .categoryInspectionID = DIR_ddlDescription.SelectedValue.Trim
                         .currentQty = CDec(DIR_txtQty.Text.Trim)
                         .beginningQty = 0D
                         .endingQty = 0D + .currentQty
@@ -4049,6 +4058,8 @@ Namespace Raven.Web
                         .coilSerialNo = MPI_txtCoilSerialNo.Text.Trim
                         .rodsSerialNo = MPI_txtRodsSerialNo.Text.Trim
                         .blacklightSerialNo = MPI_txtBlacklightSerialNo.Text.Trim
+                        .MGWSWLWLLcaptionSCode = MPI_ddlMPIMGWSWLWLLCaption.SelectedValue.Trim
+                        .MGWSWLWLLvalue = MPI_txtMGWSWLWLL.Text.Trim
                         .userIDinsert = MyBase.LoggedOnUserID
                         .userIDupdate = MyBase.LoggedOnUserID
                         If isNew Then
@@ -4663,7 +4674,7 @@ Namespace Raven.Web
             oIS = Nothing
         End Sub
 
-        Private Function _insertInspectionSpec() As Boolean
+        Private Function _updateInspectionSpec() As Boolean
             Dim b As Boolean = False
             Dim isNew As Boolean = True
 
@@ -4705,7 +4716,7 @@ Namespace Raven.Web
                 .minBevelDiaclass2 = DP_Class2_txtMinBevelDia.Text.Trim
                 .maxBevelDiaclass2 = DP_Class2_txtMaxBevelDia.Text.Trim
                 .pinConnectionLengthclass2 = DP_Class2_txtPinConnLength.Text.Trim
-                .maxCBoreclass2 = DP_Class2_txtMaxCBoreDia.Text.Trim                
+                .maxCBoreclass2 = DP_Class2_txtMaxCBoreDia.Text.Trim
                 .minPinCylDiaclass2 = DP_Class2_txtMinPinCylDia.Text.Trim
                 .maxPinCylDiaclass2 = DP_Class2_txtMaxPinCylDia.Text.Trim
                 .minPinNoseDiaclass2 = DP_Class2_txtMinPinNoseDia.Text.Trim
@@ -4721,6 +4732,10 @@ Namespace Raven.Web
                         b = True
                     Else
                         b = False
+                    End If
+                Else
+                    If .Update() Then
+                        b = True
                     End If
                 End If
             End With

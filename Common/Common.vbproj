@@ -128,6 +128,7 @@
     <Compile Include="BusinessRule\Caption.vb" />
     <Compile Include="BusinessRule\CaptionTemplateDt.vb" />
     <Compile Include="BusinessRule\CaptionTemplateHd.vb" />
+    <Compile Include="BusinessRule\CategoryInspection.vb" />
     <Compile Include="BusinessRule\CertificateInspection.vb" />
     <Compile Include="BusinessRule\CheckListOfCompletionReport.vb" />
     <Compile Include="BusinessRule\CommonCode.vb" />

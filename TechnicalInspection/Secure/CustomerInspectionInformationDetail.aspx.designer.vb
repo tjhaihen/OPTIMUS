@@ -78,6 +78,78 @@ Namespace Raven.Web.Secure
         Protected WithEvents rmpDetailInformation As Global.Telerik.Web.UI.RadMultiPage
 
         '''<summary>
+        '''pvProjectFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvProjectFile As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
+        '''grdProjectFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdProjectFile As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''pvDailyReport control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvDailyReport As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
+        '''grdDailyReportHd control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdDailyReportHd As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''lblDailyReportHdID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblDailyReportHdID As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''grdDailyReportDt control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdDailyReportDt As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''pvResourceFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pvResourceFile As Global.Telerik.Web.UI.RadPageView
+
+        '''<summary>
+        '''grdResourceFile control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdResourceFile As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
         '''pvSOIByWorkRequest control.
         '''</summary>
         '''<remarks>
@@ -184,77 +256,5 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents grdSummaryOfInspection As Global.System.Web.UI.WebControls.DataGrid
-
-        '''<summary>
-        '''pvProjectFile control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents pvProjectFile As Global.Telerik.Web.UI.RadPageView
-
-        '''<summary>
-        '''grdProjectFile control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents grdProjectFile As Global.System.Web.UI.WebControls.DataGrid
-
-        '''<summary>
-        '''pvDailyReport control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents pvDailyReport As Global.Telerik.Web.UI.RadPageView
-
-        '''<summary>
-        '''grdDailyReportHd control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents grdDailyReportHd As Global.System.Web.UI.WebControls.DataGrid
-
-        '''<summary>
-        '''lblDailyReportHdID control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents lblDailyReportHdID As Global.System.Web.UI.WebControls.Label
-
-        '''<summary>
-        '''grdDailyReportDt control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents grdDailyReportDt As Global.System.Web.UI.WebControls.DataGrid
-
-        '''<summary>
-        '''pvResourceFile control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents pvResourceFile As Global.Telerik.Web.UI.RadPageView
-
-        '''<summary>
-        '''grdResourceFile control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents grdResourceFile As Global.System.Web.UI.WebControls.DataGrid
     End Class
 End Namespace
