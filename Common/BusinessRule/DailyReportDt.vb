@@ -15,6 +15,7 @@ Namespace Raven.Common.BussinessRules
         Private _beginningQty, _currentQty, _endingQty As Decimal
         Private _beginningUOM, _currentUOM, _endingUOM, _materialDetail, _categoryInspectionID As String
         Private _userIDinsert, _userIDupdate As String
+        Private _isDescriptionOther As Boolean
         Private _insertDate, _updateDate As DateTime
 #End Region
 
@@ -32,12 +33,12 @@ Namespace Raven.Common.BussinessRules
             cmdToExecute.CommandText = "INSERT INTO DailyReportDt " + _
                                         "(dailyReportHdID, dailyReportDtID, sequenceNo, weatherConditionSCode, description, result, " + _
                                         "beginningQty, currentQty, endingQty, " + _
-                                        "beginningUOM, currentUOM, endingUOM, materialDetail, categoryInspectionID, " + _
+                                        "beginningUOM, currentUOM, endingUOM, materialDetail, categoryInspectionID, isDescriptionOther, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@dailyReportHdID, @dailyReportDtID, @sequenceNo, @weatherConditionSCode, @description, @result, " + _
                                         "@beginningQty, @currentQty, @endingQty, " + _
-                                        "@beginningUOM, @currentUOM, @endingUOM, @materialDetail, @categoryInspectionID, " + _
+                                        "@beginningUOM, @currentUOM, @endingUOM, @materialDetail, @categoryInspectionID, @isDescriptionOther, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -59,6 +60,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@endingUOM", _endingUOM)
                 cmdToExecute.Parameters.AddWithValue("@materialDetail", _materialDetail)
                 cmdToExecute.Parameters.AddWithValue("@categoryInspectionID", _categoryInspectionID)
+                cmdToExecute.Parameters.AddWithValue("@isDescriptionOther", _isDescriptionOther)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -84,7 +86,7 @@ Namespace Raven.Common.BussinessRules
                                         "SET sequenceNo=@sequenceNo, weatherConditionSCode=@weatherConditionSCode, description=@description, " + _
                                         "result=@result, beginningQty=@beginningQty, currentQty=@currentQty, endingQty=@endingQty, " + _
                                         "beginningUOM=@beginningUOM, currentUOM=@currentUOM, endingUOM=@endingUOM, materialDetail=@materialDetail, " + _
-                                        "categoryInspectionID=@categoryInspectionID, userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
+                                        "categoryInspectionID=@categoryInspectionID, isDescriptionOther=@isDescriptionOther, userIDupdate=@userIDupdate, updateDate=GETDATE() " + _
                                         "WHERE dailyReportDtID=@dailyReportDtID"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -103,6 +105,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@endingUOM", _endingUOM)
                 cmdToExecute.Parameters.AddWithValue("@materialDetail", _materialDetail)
                 cmdToExecute.Parameters.AddWithValue("@categoryInspectionID", _categoryInspectionID)
+                cmdToExecute.Parameters.AddWithValue("@isDescriptionOther", _isDescriptionOther)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
                 ' // Open Connection
@@ -183,6 +186,7 @@ Namespace Raven.Common.BussinessRules
                     _endingUOM = CType(toReturn.Rows(0)("endingUOM"), String)
                     _materialDetail = CType(toReturn.Rows(0)("materialDetail"), String)
                     _categoryInspectionID = CType(toReturn.Rows(0)("categoryInspectionID"), String)
+                    _isDescriptionOther = CType(toReturn.Rows(0)("isDescriptionOther"), String)
                     _userIDinsert = CType(toReturn.Rows(0)("userIDinsert"), String)
                     _userIDupdate = CType(toReturn.Rows(0)("userIDupdate"), String)
                     _insertDate = CType(toReturn.Rows(0)("insertDate"), DateTime)
@@ -387,6 +391,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _categoryInspectionID = Value
+            End Set
+        End Property
+
+        Public Property [isDescriptionOther]() As Boolean
+            Get
+                Return _isDescriptionOther
+            End Get
+            Set(ByVal Value As Boolean)
+                _isDescriptionOther = Value
             End Set
         End Property
 

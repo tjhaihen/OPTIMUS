@@ -438,6 +438,60 @@ Namespace Raven.Web.Secure
         Protected WithEvents lblTotalItemRejectedPct As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
+        '''LinkButton1 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents LinkButton1 As Global.System.Web.UI.WebControls.LinkButton
+
+        '''<summary>
+        '''lblItemRejected control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblItemRejected As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblItemRejectedPct control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblItemRejectedPct As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''LinkButton2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents LinkButton2 As Global.System.Web.UI.WebControls.LinkButton
+
+        '''<summary>
+        '''lblItemClass2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblItemClass2 As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblItemClass2Pct control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblItemClass2Pct As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
         '''pnlDueToExpired control.
         '''</summary>
         '''<remarks>

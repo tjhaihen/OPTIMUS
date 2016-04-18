@@ -885,6 +885,7 @@ Namespace Raven.Web.Secure
                 .unitOfMeasurement = txtUOM.Text.Trim
                 .productID = txtProductID.Text.Trim
                 .descriptionDetail = txtDescriptionDetail.Text.Trim
+                .isOther = False
                 .userIDinsert = MyBase.LoggedOnUserID.Trim
                 .userIDupdate = MyBase.LoggedOnUserID.Trim
                 If .Insert() Then

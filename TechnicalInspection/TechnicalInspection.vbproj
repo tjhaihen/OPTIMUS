@@ -121,7 +121,8 @@
       <Name>System.XML</Name>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Telerik.Web.UI">
+    <Reference Include="Telerik.Web.UI, Version=2010.1.415.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\_src\_dll\Telerik.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -504,7 +505,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

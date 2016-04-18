@@ -304,7 +304,7 @@
                                                                                         Information Type
                                                                                     </td>
                                                                                     <td>
-                                                                                        <asp:DropDownList ID="ddlInformationTypeSOI" runat="server" Width="300" AutoPostBack="true">
+                                                                                        <asp:DropDownList ID="ddlInformationTypeSOI" runat="server" Width="250" AutoPostBack="true">
                                                                                             <asp:ListItem Text="All Inspection" Value="History">
                                                                                             </asp:ListItem>
                                                                                             <asp:ListItem Text="Due to Expired Inspection" Value="Due">
@@ -318,7 +318,7 @@
                                                                                             <asp:CheckBox ID="chkPeriod" runat="server" Text="Period" AutoPostBack="true" />
                                                                                         </td>
                                                                                         <td>
-                                                                                            <asp:DropDownList ID="ddlPeriod" runat="server" Width="300" AutoPostBack="true">
+                                                                                            <asp:DropDownList ID="ddlPeriod" runat="server" Width="250" AutoPostBack="true">
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                     </tr>
@@ -339,8 +339,8 @@
                                                                                         FR/WO/JO No.
                                                                                     </td>
                                                                                     <td>
-                                                                                        <asp:TextBox ID="txtWorkOrderNo" runat="server" Width="150" AutoPostBack="true"></asp:TextBox>
-                                                                                        <asp:TextBox ID="txtProjectCode" runat="server" Width="150" ReadOnly="true" CssClass="txtReadOnly"></asp:TextBox>
+                                                                                        <asp:TextBox ID="txtWorkOrderNo" runat="server" Width="124" AutoPostBack="true"></asp:TextBox>
+                                                                                        <asp:TextBox ID="txtProjectCode" runat="server" Width="124" ReadOnly="true" CssClass="txtReadOnly"></asp:TextBox>
                                                                                         <asp:TextBox ID="txtProjectID" runat="server" Width="150" Visible="false"></asp:TextBox>
                                                                                     </td>
                                                                                 </tr>
@@ -418,19 +418,41 @@
                                                                                                         </table>
                                                                                                     </td>
                                                                                                     <td>
-                                                                                                        <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #FF6666;">
+                                                                                                        <table class="projectbanner" cellspacing="1" cellpadding="2" width="250" style="background: #FF6666;">
                                                                                                             <tr>
                                                                                                                 <td class="center" colspan="2">
                                                                                                                     <asp:LinkButton ID="lbtnRejected" runat="server" Text="TOTAL REJECTED">
                                                                                                                     </asp:LinkButton>
                                                                                                                 </td>
-                                                                                                            </tr>
-                                                                                                            <tr>
-                                                                                                                <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
+                                                                                                                <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
                                                                                                                     <asp:Label ID="lblTotalItemRejected" runat="server"></asp:Label>
                                                                                                                 </td>
-                                                                                                                <td class="gridItemStyle center" style="height: 50; font-size: 16pt; width: 50%;">
+                                                                                                                <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
                                                                                                                     <asp:Label ID="lblTotalItemRejectedPct" runat="server"></asp:Label>%
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                            <tr>
+                                                                                                                <td class="center" colspan="2">
+                                                                                                                    <asp:LinkButton ID="LinkButton1" runat="server" Text="REJECTED/DEFECT">
+                                                                                                                    </asp:LinkButton>
+                                                                                                                </td>
+                                                                                                                <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
+                                                                                                                    <asp:Label ID="lblItemRejected" runat="server"></asp:Label>
+                                                                                                                </td>
+                                                                                                                <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
+                                                                                                                    <asp:Label ID="lblItemRejectedPct" runat="server"></asp:Label>%
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                            <tr>
+                                                                                                                <td class="center" colspan="2">
+                                                                                                                    <asp:LinkButton ID="LinkButton2" runat="server" Text="CLASS 2">
+                                                                                                                    </asp:LinkButton>
+                                                                                                                </td>
+                                                                                                                <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
+                                                                                                                    <asp:Label ID="lblItemClass2" runat="server"></asp:Label>
+                                                                                                                </td>
+                                                                                                                <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
+                                                                                                                    <asp:Label ID="lblItemClass2Pct" runat="server"></asp:Label>%
                                                                                                                 </td>
                                                                                                             </tr>
                                                                                                         </table>
@@ -532,13 +554,13 @@
                                                                                             <%# IIf(DataBinder.Eval(Container.DataItem, "ExpireDate")=DataBinder.Eval(Container.DataItem, "examDate"),"No Exp. Date",Format(DataBinder.Eval(Container.DataItem, "ExpireDate"),"dd-MMM-yyyy")) %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Result" ItemStyle-VerticalAlign="Top"
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Defect Found" ItemStyle-VerticalAlign="Top"
                                                                                         ItemStyle-Width="80">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "result") %>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateColumn>
-                                                                                    <asp:TemplateColumn runat="server" HeaderText="Defect Found" ItemStyle-VerticalAlign="Top"
+                                                                                    <asp:TemplateColumn runat="server" HeaderText="Result" ItemStyle-VerticalAlign="Top"
                                                                                         ItemStyle-Width="200">
                                                                                         <ItemTemplate>
                                                                                             <%# DataBinder.Eval(Container.DataItem, "defectFound") %>

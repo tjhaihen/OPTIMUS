@@ -18,6 +18,7 @@
     <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
     <link href="/PureravensLib/css/styles_blue.css" type="text/css" rel="Stylesheet" />
     <script language="javascript" type="text/javascript" src="/PureravensLib/scripts/JScript.js"></script>
+    <script language="javascript" type="text/javascript" src="/PureravensLib/scripts/common/util.js"></script>
     <style type="text/css">
         #ulRepDate
         {
@@ -613,6 +614,12 @@
                                                     <table cellpadding="2" cellspacing="1" width="100%">
                                                         <tr>
                                                             <td>
+                                                                <asp:TextBox ID="SA_txtDescription" runat="server" TextMode="MultiLine" Height="50"
+                                                                    Width="100%"></asp:TextBox>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
                                                                 <asp:DataGrid ID="SA_grdProjectDt" runat="server" BorderWidth="0" GridLines="None"
                                                                     Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
                                                                     AutoGenerateColumns="false">
@@ -621,7 +628,7 @@
                                                                     <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
                                                                     <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
                                                                     <Columns>
-                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="50">
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="30">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="SA_ibtnPrint" runat="server" ImageUrl="/PureravensLib/images/print.png"
                                                                                     ImageAlign="AbsMiddle" CommandName="Print" CausesValidation="false" />
@@ -630,7 +637,8 @@
                                                                         <asp:TemplateColumn runat="server" HeaderText="Description" ItemStyle-Width="450px">
                                                                             <ItemTemplate>
                                                                                 <asp:Label runat="server" ID="SA_lblProjectDtID" Visible="false" Text='<%# DataBinder.Eval(Container.DataItem, "projectDtID") %>' />
-                                                                                <%# DataBinder.Eval(Container.DataItem, "description") %>
+                                                                                <asp:TextBox ID="SA_txtdescription" runat="server" BorderStyle="None" ReadOnly="true"
+                                                                                    TextMode="MultiLine" Width="100%" Height="100%" Text='<%# DataBinder.Eval(Container.DataItem, "description") %>'></asp:TextBox>                                                                                
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
                                                                         <asp:TemplateColumn runat="server" HeaderText="Reference No." ItemStyle-Width="100px">
@@ -650,8 +658,14 @@
                                                                         </asp:TemplateColumn>
                                                                         <asp:TemplateColumn runat="server" HeaderText="Detail Description" ItemStyle-Width="450px">
                                                                             <ItemTemplate>
-                                                                                <asp:TextBox ID="SA_txtdescriptionDetail" runat="server" BorderStyle="None" CssClass="txtweak"
+                                                                                <asp:TextBox ID="SA_txtdescriptionDetail" runat="server" BorderStyle="None" CssClass="txtweak" ReadOnly="true"
                                                                                     TextMode="MultiLine" Width="100%" Text='<%# DataBinder.Eval(Container.DataItem, "descriptionDetail") %>'></asp:TextBox>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="30">
+                                                                            <ItemTemplate>
+                                                                                <asp:ImageButton ID="SA_ibtnDelete" runat="server" ImageUrl="/PureravensLib/images/delete.png"
+                                                                                    ImageAlign="AbsMiddle" CommandName="Delete" CausesValidation="false" Visible='<%#Eval("isOther")%>' />
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
                                                                     </Columns>
@@ -893,6 +907,15 @@
                                                                     <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
                                                                     <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
                                                                     <Columns>
+                                                                        <asp:TemplateColumn runat="server" HeaderText="" HeaderStyle-HorizontalAlign="Center"
+                                                                            ItemStyle-HorizontalAlign="Center">
+                                                                            <ItemTemplate>
+                                                                                <asp:CheckBox runat="server" Checked="False" ID="SOI_chkSelect" Enabled='<%# Not (DataBinder.Eval(Container.DataItem, "isApproval")) %>' />
+                                                                            </ItemTemplate>
+                                                                            <HeaderTemplate>
+                                                                                <input name="SOI_cbxSelectAll" id="SOI_cbxSelectAll" type="checkbox" onclick="javascript:checkAllv2(this.form,'SOI_chkSelect', 'SOI_cbxSelectAll');" />
+                                                                            </HeaderTemplate>
+                                                                        </asp:TemplateColumn>
                                                                         <asp:TemplateColumn runat="server" ItemStyle-Width="30">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="SOI_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
@@ -1223,33 +1246,49 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="width: 50px;">
+                                                            <td style="width: 50px;" valign="top">
                                                                 <asp:TextBox ID="DPR_txtDailyReportDtID" runat="server" Width="50" Visible="false">
                                                                 </asp:TextBox>
                                                                 <asp:TextBox ID="DPR_txtSequenceNo" runat="server" Width="50">
                                                                 </asp:TextBox>
                                                             </td>
-                                                            <td style="width: 100px;">
+                                                            <td style="width: 100px;" valign="top">
                                                                 <asp:DropDownList ID="DPR_ddlWeatherCondition" runat="server" Width="100%">
                                                                 </asp:DropDownList>
                                                             </td>
-                                                            <td style="width: 480px;">
-                                                                <asp:DropDownList ID="DPR_ddlDescription" runat="server" Width="100%">
-                                                                </asp:DropDownList>
+                                                            <td style="width: 480px;" valign="top">
+                                                                <table width="100%" cellpadding="0" cellspacing="0">
+                                                                    <tr>
+                                                                        <td valign="top">
+                                                                            <asp:DropDownList ID="DPR_ddlDescription" runat="server" Width="350">
+                                                                            </asp:DropDownList>
+                                                                        </td>
+                                                                        <td valign="top">
+                                                                            <asp:CheckBox ID="DPR_chkDescriptionOther" runat="server" Text="Other" AutoPostBack="true" />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <asp:Panel ID="DPR_pnlDescriptionOther" runat="server">
+                                                                        <tr>
+                                                                            <td colspan="2" valign="top">
+                                                                                <asp:TextBox ID="DPR_txtDescriptionOther" runat="server" Width="350"></asp:TextBox>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </asp:Panel>
+                                                                </table>
                                                             </td>
-                                                            <td>
+                                                            <td valign="top">
                                                                 <asp:TextBox ID="DPR_txtQtyCurrent" runat="server" Width="50" CssClass="right">
                                                                 </asp:TextBox>
                                                                 <asp:TextBox ID="DPR_txtUOMCurrent" runat="server" Width="50">
                                                                 </asp:TextBox>
                                                             </td>
-                                                            <td>
+                                                            <td valign="top">
                                                                 <asp:TextBox ID="DPR_txtQtyPrevious" runat="server" Width="50" CssClass="right">
                                                                 </asp:TextBox>
                                                                 <asp:TextBox ID="DPR_txtUOMPrevious" runat="server" Width="50">
                                                                 </asp:TextBox>
                                                             </td>
-                                                            <td>
+                                                            <td valign="top">
                                                                 <asp:TextBox ID="DPR_txtQtyCumulative" runat="server" Width="50" CssClass="right">
                                                                 </asp:TextBox>
                                                                 <asp:TextBox ID="DPR_txtUOMCumulative" runat="server" Width="50">
@@ -1380,27 +1419,43 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
+                                                            <td valign="top">
                                                                 <asp:TextBox ID="DIR_txtDailyReportDtID" runat="server" Visible="false">
                                                                 </asp:TextBox>
                                                                 <asp:TextBox ID="DIR_txtSequenceNo" runat="server" Width="100%">
                                                                 </asp:TextBox>
                                                             </td>
-                                                            <td>
+                                                            <td valign="top">
                                                                 <asp:DropDownList ID="DIR_ddlWeatherCondition" runat="server" Width="100%">
                                                                 </asp:DropDownList>
                                                             </td>
-                                                            <td>
-                                                                <asp:DropDownList ID="DIR_ddlDescription" runat="server" Width="100%">
-                                                                </asp:DropDownList>
+                                                            <td style="width: 480px;" valign="top">
+                                                                <table width="100%" cellpadding="0" cellspacing="0">
+                                                                    <tr>
+                                                                        <td valign="top">
+                                                                            <asp:DropDownList ID="DIR_ddlDescription" runat="server" Width="350">
+                                                                            </asp:DropDownList>
+                                                                        </td>
+                                                                        <td valign="top">
+                                                                            <asp:CheckBox ID="DIR_chkDescriptionOther" runat="server" Text="Other" AutoPostBack="true" />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="2" valign="top">
+                                                                            <asp:Panel ID="DIR_pnlDescriptionOther" runat="server">
+                                                                                <asp:TextBox ID="DIR_txtDescriptionOther" runat="server" Width="350"></asp:TextBox>
+                                                                            </asp:Panel>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
                                                             </td>
-                                                            <td>
+                                                            <td valign="top">
                                                                 <asp:TextBox ID="DIR_txtQty" runat="server" Width="60" CssClass="right">
                                                                 </asp:TextBox>
                                                                 <asp:TextBox ID="DIR_txtUOM" runat="server" Width="50">
                                                                 </asp:TextBox>
                                                             </td>
-                                                            <td>
+                                                            <td valign="top">
                                                                 <asp:TextBox ID="DIR_txtResult" runat="server" Width="100%">
                                                                 </asp:TextBox>
                                                             </td>
@@ -1415,10 +1470,16 @@
                                                                     <AlternatingItemStyle CssClass="gridAlternatingItemStyle" />
                                                                     <PagerStyle Mode="NumericPages" HorizontalAlign="right" />
                                                                     <Columns>
-                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="50">
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="30">
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="DIR_ibtnEdit" runat="server" ImageUrl="/PureravensLib/images/edit.png"
                                                                                     ImageAlign="AbsMiddle" CommandName="Edit" CausesValidation="false" />
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateColumn>
+                                                                        <asp:TemplateColumn runat="server" ItemStyle-Width="30">
+                                                                            <ItemTemplate>
+                                                                                <asp:ImageButton ID="DIR_ibtnDelete" runat="server" ImageUrl="/PureravensLib/images/delete.png"
+                                                                                    ImageAlign="AbsMiddle" CommandName="Delete" CausesValidation="false" />
                                                                             </ItemTemplate>
                                                                         </asp:TemplateColumn>
                                                                         <asp:TemplateColumn runat="server" HeaderText="Sequence No.">
@@ -1892,7 +1953,8 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="right">
-                                                                            <asp:DropDownList ID="MPI_ddlMPIMGWSWLWLLCaption" runat="server" Width="100"></asp:DropDownList>
+                                                                            <asp:DropDownList ID="MPI_ddlMPIMGWSWLWLLCaption" runat="server" Width="100">
+                                                                            </asp:DropDownList>
                                                                         </td>
                                                                         <td colspan="2">
                                                                             <asp:TextBox ID="MPI_txtMGWSWLWLL" runat="server" Width="200">
@@ -2659,7 +2721,8 @@
                                                                             Report ID - Report No.
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="DP_txtDrillPipeReportHdID" runat="server" Width="166" AutoPostBack="true" CssClass="txtautogenerate">
+                                                                            <asp:TextBox ID="DP_txtDrillPipeReportHdID" runat="server" Width="166" AutoPostBack="true"
+                                                                                CssClass="txtautogenerate">
                                                                             </asp:TextBox>
                                                                             <asp:Button ID="DP_btnSearchDrillPipeReport" runat="server" Text="..." Width="30" />
                                                                             <asp:TextBox ID="DP_txtReportNo" runat="server" Width="200">
@@ -2740,7 +2803,8 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td colspan="6" class="rheaderexpable center">
-                                                                            <asp:CheckBox ID="DP_chkIsUpdateToMasterInspectionSpec" runat="server" Text="Is Update/Insert to Inspection Spec?" Checked="true" />
+                                                                            <asp:CheckBox ID="DP_chkIsUpdateToMasterInspectionSpec" runat="server" Text="Is Update/Insert to Inspection Spec?"
+                                                                                Checked="true" />
                                                                         </td>
                                                                         <td colspan="9" class="rheaderexpable center bold">
                                                                             Criteria
@@ -3207,7 +3271,7 @@
                                                                             Box Connection
                                                                         </td>
                                                                         <td colspan="3">
-                                                                            <table cellpadding="2" cellspacing="1"  style="background-color: #dddddd;">
+                                                                            <table cellpadding="2" cellspacing="1" style="background-color: #dddddd;">
                                                                                 <tr>
                                                                                     <td class="rheaderSmallText center" style="width: 80px;">
                                                                                         <asp:Label ID="DP_lblBox001Caption" runat="server"></asp:Label>

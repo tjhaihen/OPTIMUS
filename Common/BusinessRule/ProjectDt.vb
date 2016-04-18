@@ -13,6 +13,7 @@ Namespace Raven.Common.BussinessRules
 #Region " Class Member Declarations "
         Private _projectID, _projectDtID, _description, _descriptionDetail, _referenceNo, _unitOfMeasurement, _productID As String
         Private _qty, _qtyActual As Decimal
+        Private _isOther As Boolean
         Private _userIDinsert, _userIDupdate As String
         Private _insertDate, _updateDate As DateTime
 #End Region
@@ -30,11 +31,11 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "INSERT INTO ProjectDt " + _
                                         "(projectID, projectDtID, description, descriptionDetail, referenceNo, " + _
-                                        "qty, unitOfMeasurement, productID, " + _
+                                        "qty, unitOfMeasurement, productID, isOther, " + _
                                         "userIDinsert, userIDupdate, insertDate, updateDate) " + _
                                         "VALUES " + _
                                         "(@projectID, @projectDtID, @description, @descriptionDetail, @referenceNo, " + _
-                                        "@qty, @unitOfMeasurement, @productID, " + _
+                                        "@qty, @unitOfMeasurement, @productID, @isOther, " + _
                                         "@userIDinsert, @userIDupdate, GETDATE(), GETDATE())"
             cmdToExecute.CommandType = CommandType.Text
             cmdToExecute.Connection = _mainConnection
@@ -50,6 +51,7 @@ Namespace Raven.Common.BussinessRules
                 cmdToExecute.Parameters.AddWithValue("@qty", _qty)                
                 cmdToExecute.Parameters.AddWithValue("@unitOfMeasurement", _unitOfMeasurement)
                 cmdToExecute.Parameters.AddWithValue("@productID", _productID)
+                cmdToExecute.Parameters.AddWithValue("@isOther", _isOther)
                 cmdToExecute.Parameters.AddWithValue("@userIDinsert", _userIDinsert)
                 cmdToExecute.Parameters.AddWithValue("@userIDupdate", _userIDupdate)
 
@@ -209,9 +211,12 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Custom Function "
-        Public Function SelectByProjectID() As DataTable
+        Public Function SelectByProjectID(Optional ByVal _isIncludeOther As Boolean = False) As DataTable
             Dim cmdToExecute As SqlCommand = New SqlCommand
-            cmdToExecute.CommandText = "SELECT dt.*, (SELECT productName FROM product WHERE productID=dt.productID) AS productName FROM ProjectDt dt WHERE dt.ProjectID=@ProjectID"
+            cmdToExecute.CommandText = "SELECT dt.*, ISNULL((SELECT productName FROM product WHERE productID=dt.productID),'') AS productName FROM ProjectDt dt WHERE dt.ProjectID=@ProjectID"
+            If _isIncludeOther = False Then
+                cmdToExecute.CommandText += " AND dt.isOther=0"
+            End If
             cmdToExecute.CommandType = CommandType.Text
 
             Dim toReturn As DataTable = New DataTable("ProjectDt")
@@ -350,6 +355,15 @@ Namespace Raven.Common.BussinessRules
             End Get
             Set(ByVal Value As String)
                 _productID = Value
+            End Set
+        End Property
+
+        Public Property [isOther]() As Boolean
+            Get
+                Return _isOther
+            End Get
+            Set(ByVal Value As Boolean)
+                _isOther = Value
             End Set
         End Property
 

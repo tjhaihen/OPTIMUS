@@ -375,6 +375,15 @@ Namespace Raven.Web
         Protected WithEvents pnlServiceAcceptance As Global.System.Web.UI.WebControls.Panel
 
         '''<summary>
+        '''SA_txtDescription control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents SA_txtDescription As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''SA_grdProjectDt control.
         '''</summary>
         '''<remarks>
@@ -897,6 +906,33 @@ Namespace Raven.Web
         Protected WithEvents DPR_ddlDescription As Global.System.Web.UI.WebControls.DropDownList
 
         '''<summary>
+        '''DPR_chkDescriptionOther control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DPR_chkDescriptionOther As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''DPR_pnlDescriptionOther control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DPR_pnlDescriptionOther As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''DPR_txtDescriptionOther control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DPR_txtDescriptionOther As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
         '''DPR_txtQtyCurrent control.
         '''</summary>
         '''<remarks>
@@ -1048,6 +1084,33 @@ Namespace Raven.Web
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents DIR_ddlDescription As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''DIR_chkDescriptionOther control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DIR_chkDescriptionOther As Global.System.Web.UI.WebControls.CheckBox
+
+        '''<summary>
+        '''DIR_pnlDescriptionOther control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DIR_pnlDescriptionOther As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''DIR_txtDescriptionOther control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents DIR_txtDescriptionOther As Global.System.Web.UI.WebControls.TextBox
 
         '''<summary>
         '''DIR_txtQty control.

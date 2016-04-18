@@ -148,7 +148,9 @@ Namespace Raven.Web.Secure
                     lblTotalItemIspected.Text = .totalItemInspected.ToString.Trim
                     lblTotalItemAccepted.Text = .totalItemAccepted.ToString.Trim
                     lblTotalItemNeedRepair.Text = .totalItemNeedRepair.ToString.Trim
-                    lblTotalItemRejected.Text = .totalItemRejected.ToString.Trim
+                    lblItemClass2.Text = .totalItemClass2.ToString.Trim
+                    lblItemRejected.Text = .totalItemRejected.ToString.Trim
+                    lblTotalItemRejected.Text = (.totalItemClass2 + .totalItemRejected).ToString.Trim
                     If .totalItemInspected > 0 And .totalItemAccepted > 0 Then
                         lblTotalItemAcceptedPct.Text = Format((.totalItemAccepted / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
                     Else
@@ -159,8 +161,18 @@ Namespace Raven.Web.Secure
                     Else
                         lblTotalItemNeedRepairPct.Text = "0"
                     End If
+                    If .totalItemInspected > 0 And .totalItemClass2 > 0 Then
+                        lblItemClass2Pct.Text = Format((.totalItemClass2 / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    Else
+                        lblItemClass2Pct.Text = "0"
+                    End If
                     If .totalItemInspected > 0 And .totalItemRejected > 0 Then
-                        lblTotalItemRejectedPct.Text = Format((.totalItemRejected / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                        lblItemRejectedPct.Text = Format((.totalItemRejected / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
+                    Else
+                        lblItemRejectedPct.Text = "0"
+                    End If
+                    If .totalItemInspected > 0 And (.totalItemClass2 + .totalItemRejected) > 0 Then
+                        lblTotalItemRejectedPct.Text = Format(((.totalItemClass2 + .totalItemRejected) / .totalItemInspected) * 100, commonFunction.FORMAT_PERCENTAGE)
                     Else
                         lblTotalItemRejectedPct.Text = "0"
                     End If
@@ -170,6 +182,10 @@ Namespace Raven.Web.Secure
                     lblTotalItemAcceptedPct.Text = "0"
                     lblTotalItemNeedRepair.Text = "0"
                     lblTotalItemNeedRepairPct.Text = "0"
+                    lblItemClass2.Text = "0"
+                    lblItemClass2Pct.Text = "0"
+                    lblItemRejected.Text = "0"
+                    lblItemRejectedPct.Text = "0"
                     lblTotalItemRejected.Text = "0"
                     lblTotalItemRejectedPct.Text = "0"
                 End If

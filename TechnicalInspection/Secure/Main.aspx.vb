@@ -128,10 +128,10 @@ Namespace Raven.Web
                     lblReportTypePanelID.Text = _lbtnReportTypeID.ToolTip.Trim
                     lblReportTypeID.Text = _lblReportTypeID.Text.Trim
                     chkIsHasAttachment.Checked = _chkIsHasAttachment.Checked
+                    SetToolbarVisibleButton()
                     SetPanelVisibility(lblReportTypePanelID.Text.Trim)
                     PrepareScreen(lblReportTypePanelID.Text.Trim, False, True)
-                    SetDataGrid(lblReportTypePanelID.Text.Trim)
-                    SetToolbarVisibleButton()
+                    SetDataGrid(lblReportTypePanelID.Text.Trim)                    
             End Select
         End Sub
 
@@ -252,6 +252,11 @@ Namespace Raven.Web
                     SetDataGrid(Common.Constants.ReportTypePanelID.DailyProgressReport_PanelID)
             End Select
         End Sub
+
+        Private Sub DPR_chkDescriptionOther_CheckedChanged(sender As Object, e As System.EventArgs) Handles DPR_chkDescriptionOther.CheckedChanged
+            DPR_pnlDescriptionOther.Visible = DPR_chkDescriptionOther.Checked
+            DPR_ddlDescription.Enabled = Not DPR_chkDescriptionOther.Checked
+        End Sub
 #End Region
 
 #Region " Daily Inspection Report "
@@ -266,7 +271,17 @@ Namespace Raven.Web
                     Dim _DIR_lblDailyReportDtID As Label = CType(e.Item.FindControl("DIR_lblDailyReportDtID"), Label)
                     DIR_txtDailyReportDtID.Text = _DIR_lblDailyReportDtID.Text.Trim
                     _open(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID)
+                Case "Delete"
+                    Dim _DIR_lblDailyReportDtID As Label = CType(e.Item.FindControl("DIR_lblDailyReportDtID"), Label)
+                    _delete(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID, _DIR_lblDailyReportDtID.Text.Trim)
+                    PrepareScreen(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID, False, False)
+                    SetDataGrid(Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID)
             End Select
+        End Sub
+
+        Private Sub DIR_chkDescriptionOther_CheckedChanged(sender As Object, e As System.EventArgs) Handles DIR_chkDescriptionOther.CheckedChanged
+            DIR_pnlDescriptionOther.Visible = DIR_chkDescriptionOther.Checked
+            DIR_ddlDescription.Enabled = Not DIR_chkDescriptionOther.Checked
         End Sub
 #End Region
 
@@ -692,7 +707,7 @@ Namespace Raven.Web
 
             Select _VisiblePanelID
                 Case Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID
-                    SA_grdProjectDt.DataSource = oProjectDt.SelectByProjectID
+                    SA_grdProjectDt.DataSource = oProjectDt.SelectByProjectID(True)
                     SA_grdProjectDt.DataBind()
                 Case Common.Constants.ReportTypePanelID.OfficialReport_PanelID
                     BA_grdBeritaAcaraAkhir.DataSource = oProjectDt.SelectByProjectID
@@ -714,6 +729,14 @@ Namespace Raven.Web
                     br.AddParameters(SA_lblProjectDtID.Text.Trim)
                     br.AddParameters(strUserID)
                     Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
+
+                Case "Delete"
+                    Dim br As New Common.BussinessRules.ProjectDt
+                    Dim SA_lblProjectDtID As Label = CType(e.Item.FindControl("SA_lblProjectDtID"), Label)
+                    br.projectDetailID = SA_lblProjectDtID.Text.Trim
+                    If br.Delete() Then
+                        SetDataGridProjectDetail(Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID)
+                    End If
             End Select
         End Sub
 #End Region
@@ -801,15 +824,35 @@ Namespace Raven.Web
 #End Region
 
 #Region " Support functions for navigation bar (Controls) "
-        Private Sub SetToolbarVisibleButton()
+        Private Sub SetToolbarVisibleButton(Optional ByVal _VisiblePanelID As String = "", Optional ByVal _IsApproved As Boolean = False)
             With CSSToolbar
-                .VisibleButton(CSSToolbarItem.tidNew) = True
-                .VisibleButton(CSSToolbarItem.tidDelete) = False
-                .VisibleButton(CSSToolbarItem.tidVoid) = False
-                .VisibleButton(CSSToolbarItem.tidPrint) = True
-                .VisibleButton(CSSToolbarItem.tidPrevious) = False
-                .VisibleButton(CSSToolbarItem.tidNext) = False
-                .VisibleButton(CSSToolbarItem.tidAttach) = chkIsHasAttachment.Checked
+                Select Case _VisiblePanelID
+                    Case Common.Constants.ReportTypePanelID.SummaryOfInspection_PanelID
+                        .VisibleButton(CSSToolbarItem.tidNew) = True
+                        .VisibleButton(CSSToolbarItem.tidDelete) = True
+                        .VisibleButton(CSSToolbarItem.tidVoid) = False
+                        .VisibleButton(CSSToolbarItem.tidPrint) = True
+                        .VisibleButton(CSSToolbarItem.tidPrevious) = False
+                        .VisibleButton(CSSToolbarItem.tidNext) = False
+                        .VisibleButton(CSSToolbarItem.tidAttach) = chkIsHasAttachment.Checked
+                    Case Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID
+                        .VisibleButton(CSSToolbarItem.tidNew) = True
+                        .VisibleButton(CSSToolbarItem.tidDelete) = False
+                        .VisibleButton(CSSToolbarItem.tidVoid) = False
+                        .VisibleButton(CSSToolbarItem.tidPrint) = False
+                        .VisibleButton(CSSToolbarItem.tidPrevious) = False
+                        .VisibleButton(CSSToolbarItem.tidNext) = False
+                        .VisibleButton(CSSToolbarItem.tidApprove) = False
+                        .VisibleButton(CSSToolbarItem.tidAttach) = chkIsHasAttachment.Checked
+                    Case Else
+                        .VisibleButton(CSSToolbarItem.tidNew) = True
+                        .VisibleButton(CSSToolbarItem.tidDelete) = False
+                        .VisibleButton(CSSToolbarItem.tidVoid) = False
+                        .VisibleButton(CSSToolbarItem.tidPrint) = True
+                        .VisibleButton(CSSToolbarItem.tidPrevious) = False
+                        .VisibleButton(CSSToolbarItem.tidNext) = False
+                        .VisibleButton(CSSToolbarItem.tidAttach) = chkIsHasAttachment.Checked
+                End Select
             End With
         End Sub
 
@@ -868,6 +911,9 @@ Namespace Raven.Web
                     End If
                     If pnlBeritaAcara.Visible Then
                         _update(Common.Constants.ReportTypePanelID.OfficialReport_PanelID)
+                    End If
+                    If pnlServiceAcceptance.Visible Then
+                        _update(Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID)
                     End If
 
                 Case CSSToolbarItem.tidNew
@@ -928,6 +974,10 @@ Namespace Raven.Web
                     If pnlInspectionTallyReport.Visible Then
                         PrepareScreen(Common.Constants.ReportTypePanelID.InspectionTallyReport_PanelID, False, True)
                         SetDataGrid(Common.Constants.ReportTypePanelID.InspectionTallyReport_PanelID)
+                    End If
+                    If pnlServiceAcceptance.Visible Then
+                        PrepareScreen(Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID, False, True)
+                        SetDataGridProjectDetail(Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID)
                     End If
                     If pnlBeritaAcara.Visible Then
                         PrepareScreen(Common.Constants.ReportTypePanelID.OfficialReport_PanelID, False, True)
@@ -1080,6 +1130,19 @@ Namespace Raven.Web
                     If pnlSummaryOfInspection.Visible Then
                         UpdateApproval(Common.Constants.ReportTypePanelID.SummaryOfInspection_PanelID, False)
                         PrepareScreen(Common.Constants.ReportTypePanelID.SummaryOfInspection_PanelID, False, True)
+                        SetDataGrid(Common.Constants.ReportTypePanelID.SummaryOfInspection_PanelID)
+                    End If
+
+                Case CSSToolbarItem.tidDelete
+                    If pnlSummaryOfInspection.Visible Then
+                        Dim _item As DataGridItem
+                        For Each _item In SOI_grdSummaryOfInspection.Items
+                            Dim SOI_chkSelect As CheckBox = CType(_item.FindControl("SOI_chkSelect"), CheckBox)
+                            Dim SOI_lblSummaryOfInspectionID As Label = CType(_item.FindControl("SOI_lblSummaryOfInspectionID"), Label)
+                            If SOI_chkSelect.Checked = True Then
+                                _delete(Common.Constants.ReportTypePanelID.SummaryOfInspection_PanelID, SOI_lblSummaryOfInspectionID.Text.Trim)
+                            End If
+                        Next
                         SetDataGrid(Common.Constants.ReportTypePanelID.SummaryOfInspection_PanelID)
                     End If
 
@@ -1553,6 +1616,10 @@ Namespace Raven.Web
                     End If
 
                     DPR_txtDailyReportDtID.Text = String.Empty
+                    DPR_chkDescriptionOther.Checked = False
+                    DPR_ddlDescription.Enabled = True
+                    DPR_pnlDescriptionOther.Visible = False
+                    DPR_txtDescriptionOther.Text = String.Empty
                     DPR_ddlDescription.SelectedIndex = 0
                     DPR_ddlWeatherCondition.SelectedIndex = 0
                     DPR_txtQtyCurrent.Text = "0"
@@ -1598,6 +1665,10 @@ Namespace Raven.Web
                     End If
 
                     DIR_txtDailyReportDtID.Text = String.Empty
+                    DIR_chkDescriptionOther.Checked = False
+                    DIR_ddlDescription.Enabled = True
+                    DIR_pnlDescriptionOther.Visible = False
+                    DIR_txtDescriptionOther.Text = String.Empty
 
                 Case Common.Constants.ReportTypePanelID.DrillPipeInspectionReport_PanelID
                     DP_btnSearchDrillPipeReport.Attributes.Remove("onclick")
@@ -1905,6 +1976,8 @@ Namespace Raven.Web
                     commonFunction.Focus(Me, SR_ddlServiceReportFor.ClientID)
 
                 Case Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID
+                    SA_txtDescription.Text = String.Empty
+                    commonFunction.Focus(Me, SA_txtDescription.ClientID)
                     SetDataGridProjectDetail(Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID)
 
                 Case Common.Constants.ReportTypePanelID.CertificateOfInspection_PanelID
@@ -2268,6 +2341,7 @@ Namespace Raven.Web
                             End If
 
                             CSSToolbar.VisibleButton(CSSToolbarItem.tidSave) = Not .isApproval And Not chkIsCustomer.Checked
+                            CSSToolbar.VisibleButton(CSSToolbarItem.tidDelete) = Not .isApproval And Not chkIsCustomer.Checked
                             CSSToolbar.VisibleButton(CSSToolbarItem.tidApprove) = Not .isApproval And Not chkIsCustomer.Checked
                             CSSToolbar.VisibleButton(CSSToolbarItem.tidVoid) = .isApproval And Not chkIsCustomer.Checked
                             CSSToolbar.VisibleButton(CSSToolbarItem.tidPrint) = .isApproval 'And Not chkIsCustomer.Checked
@@ -2277,6 +2351,7 @@ Namespace Raven.Web
                             SOI_lblApprovalDate.Text = String.Empty
 
                             CSSToolbar.VisibleButton(CSSToolbarItem.tidSave) = True
+                            CSSToolbar.VisibleButton(CSSToolbarItem.tidDelete) = True
                             CSSToolbar.VisibleButton(CSSToolbarItem.tidApprove) = True
                             CSSToolbar.VisibleButton(CSSToolbarItem.tidVoid) = False
                             CSSToolbar.VisibleButton(CSSToolbarItem.tidPrint) = False
@@ -2370,7 +2445,17 @@ Namespace Raven.Web
                         .dailyReportDtID = DPR_txtDailyReportDtID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
                             DPR_txtSequenceNo.Text = .sequenceNo.Trim
-                            commonFunction.SelectListItem(DPR_ddlDescription, .categoryInspectionID.Trim)
+                            DPR_chkDescriptionOther.Checked = .isDescriptionOther
+                            If DPR_chkDescriptionOther.Checked Then
+                                DPR_pnlDescriptionOther.Visible = True
+                                DPR_ddlDescription.Enabled = False
+                                DPR_txtDescriptionOther.Text = .description.Trim                                
+                            Else
+                                DPR_pnlDescriptionOther.Visible = False
+                                DPR_ddlDescription.Enabled = True
+                                commonFunction.SelectListItem(DPR_ddlDescription, .categoryInspectionID.Trim)
+                                DPR_txtDescriptionOther.Text = String.Empty
+                            End If
                             commonFunction.SelectListItem(DPR_ddlWeatherCondition, .weatherConditionSCode.Trim)
                             DPR_txtQtyCurrent.Text = CStr(.currentQty)
                             DPR_txtQtyPrevious.Text = CStr(.beginningQty)
@@ -2409,7 +2494,17 @@ Namespace Raven.Web
                         .dailyReportDtID = DIR_txtDailyReportDtID.Text.Trim
                         If .SelectOne.Rows.Count > 0 Then
                             DIR_txtSequenceNo.Text = .sequenceNo.Trim
-                            commonFunction.SelectListItem(DIR_ddlDescription, .categoryInspectionID.Trim)
+                            DIR_chkDescriptionOther.Checked = .isDescriptionOther
+                            If DIR_chkDescriptionOther.Checked Then
+                                DIR_pnlDescriptionOther.Visible = True
+                                DIR_ddlDescription.Enabled = False
+                                DIR_txtDescriptionOther.Text = .description.Trim
+                            Else
+                                DIR_pnlDescriptionOther.Visible = False
+                                DIR_ddlDescription.Enabled = True
+                                commonFunction.SelectListItem(DIR_ddlDescription, .categoryInspectionID.Trim)
+                                DIR_txtDescriptionOther.Text = String.Empty
+                            End If
                             commonFunction.SelectListItem(DIR_ddlWeatherCondition, .weatherConditionSCode.Trim)
                             DIR_txtQty.Text = CStr(.currentQty)
                             DIR_txtUOM.Text = .currentUOM.Trim
@@ -3541,7 +3636,12 @@ Namespace Raven.Web
                         .dailyReportHdID = DPR_txtDailyReportHdID.Text.Trim
                         .sequenceNo = DPR_txtSequenceNo.Text.Trim
                         .weatherConditionSCode = DPR_ddlWeatherCondition.SelectedValue
-                        .description = DPR_ddlDescription.SelectedItem.Text.Trim
+                        .isDescriptionOther = DPR_chkDescriptionOther.Checked
+                        If DPR_chkDescriptionOther.Checked Then
+                            .description = DPR_txtDescriptionOther.Text.Trim
+                        Else
+                            .description = DPR_ddlDescription.SelectedItem.Text.Trim
+                        End If                        
                         .categoryInspectionID = DPR_ddlDescription.SelectedValue.Trim
                         .currentQty = CDec(DPR_txtQtyCurrent.Text.Trim)
                         .beginningQty = CDec(DPR_txtQtyPrevious.Text.Trim)
@@ -3602,7 +3702,12 @@ Namespace Raven.Web
                         .dailyReportHdID = DIR_txtDailyReportHdID.Text.Trim
                         .sequenceNo = DIR_txtSequenceNo.Text.Trim
                         .weatherConditionSCode = DIR_ddlWeatherCondition.SelectedValue
-                        .description = DIR_ddlDescription.SelectedItem.Text.Trim
+                        .isDescriptionOther = DIR_chkDescriptionOther.Checked
+                        If DIR_chkDescriptionOther.Checked Then
+                            .description = DIR_txtDescriptionOther.Text.Trim
+                        Else
+                            .description = DIR_ddlDescription.SelectedItem.Text.Trim
+                        End If
                         .categoryInspectionID = DIR_ddlDescription.SelectedValue.Trim
                         .currentQty = CDec(DIR_txtQty.Text.Trim)
                         .beginningQty = 0D
@@ -4442,8 +4547,28 @@ Namespace Raven.Web
                         oPDT.Dispose()
                         oPDT = Nothing
                     End If
-
                     SetDataGrid(_VisiblePanelID.Trim)
+
+                Case Common.Constants.ReportTypePanelID.ServiceAcceptance_PanelID
+                    Dim oBr As New Common.BussinessRules.ProjectDt
+                    With oBr
+                        .projectID = txtProjectID.Text.Trim
+                        .description = SA_txtDescription.Text.Trim
+                        .referenceNo = String.Empty
+                        .qty = 1
+                        .unitOfMeasurement = "X"
+                        .productID = String.Empty
+                        .descriptionDetail = String.Empty
+                        .isOther = True
+                        .userIDinsert = MyBase.LoggedOnUserID.Trim
+                        .userIDupdate = MyBase.LoggedOnUserID.Trim
+                        If .Insert() Then
+                            SA_txtDescription.Text = String.Empty
+                        End If
+                    End With
+                    oBr.Dispose()
+                    oBr = Nothing
+                    SetDataGridProjectDetail(_VisiblePanelID.Trim)
             End Select
         End Sub
 
@@ -4459,6 +4584,15 @@ Namespace Raven.Web
                     oBr = Nothing
 
                 Case Common.Constants.ReportTypePanelID.DailyProgressReport_PanelID
+                    Dim oBr As New Common.BussinessRules.DailyReportDt
+                    With oBr
+                        .dailyReportDtID = _IDtoDelete.Trim
+                        .Delete()
+                    End With
+                    oBr.Dispose()
+                    oBr = Nothing
+
+                Case Common.Constants.ReportTypePanelID.DailyProgressReportMPI_PanelID
                     Dim oBr As New Common.BussinessRules.DailyReportDt
                     With oBr
                         .dailyReportDtID = _IDtoDelete.Trim

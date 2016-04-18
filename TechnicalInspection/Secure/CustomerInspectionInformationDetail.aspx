@@ -54,7 +54,7 @@
                                                 </Tabs>
                                             </telerik:RadTabStrip>
                                             <telerik:RadMultiPage ID="rmpDetailInformation" runat="server" SelectedIndex="0"
-                                                CssClass="multiPage">                                                
+                                                CssClass="multiPage">
                                                 <telerik:RadPageView ID="pvProjectFile" runat="server">
                                                     <asp:DataGrid ID="grdProjectFile" runat="server" BorderWidth="0" GridLines="None"
                                                         Width="100%" CellPadding="2" CellSpacing="1" ShowHeader="true" ShowFooter="false"
@@ -311,19 +311,41 @@
                                                                 </table>
                                                             </td>
                                                             <td>
-                                                                <table class="projectbanner" cellspacing="1" cellpadding="2" width="150" style="background: #FF6666;">
+                                                                <table class="projectbanner" cellspacing="1" cellpadding="2" width="250" style="background: #FF6666;">
                                                                     <tr>
                                                                         <td class="center" colspan="2">
                                                                             <asp:LinkButton ID="lbtnRejected" runat="server" Text="TOTAL REJECTED">
                                                                             </asp:LinkButton>
                                                                         </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
+                                                                        <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
                                                                             <asp:Label ID="lblTotalItemRejected" runat="server"></asp:Label>
                                                                         </td>
-                                                                        <td class="gridItemStyle center" style="height: 25; font-size: 12pt; width: 50%;">
+                                                                        <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
                                                                             <asp:Label ID="lblTotalItemRejectedPct" runat="server"></asp:Label>%
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="center" colspan="2">
+                                                                            <asp:LinkButton ID="LinkButton1" runat="server" Text="REJECTED/DEFECT">
+                                                                            </asp:LinkButton>
+                                                                        </td>
+                                                                        <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
+                                                                            <asp:Label ID="lblItemRejected" runat="server"></asp:Label>
+                                                                        </td>
+                                                                        <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
+                                                                            <asp:Label ID="lblItemRejectedPct" runat="server"></asp:Label>%
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="center" colspan="2">
+                                                                            <asp:LinkButton ID="LinkButton2" runat="server" Text="CLASS 2">
+                                                                            </asp:LinkButton>
+                                                                        </td>
+                                                                        <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
+                                                                            <asp:Label ID="lblItemClass2" runat="server"></asp:Label>
+                                                                        </td>
+                                                                        <td class="gridItemStyle center" style="font-size: 12pt; width: 50%;">
+                                                                            <asp:Label ID="lblItemClass2Pct" runat="server"></asp:Label>%
                                                                         </td>
                                                                     </tr>
                                                                 </table>
