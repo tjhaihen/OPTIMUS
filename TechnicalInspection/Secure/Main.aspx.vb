@@ -725,7 +725,7 @@ Namespace Raven.Web
                     Dim strUserID As String = MyBase.LoggedOnUserID.Trim
                     Dim SA_lblProjectDtID As Label = CType(e.Item.FindControl("SA_lblProjectDtID"), Label)
 
-                    br.ReportCode = "1000000099"
+                    br.ReportID = "1000000099"
                     br.AddParameters(SA_lblProjectDtID.Text.Trim)
                     br.AddParameters(strUserID)
                     Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
@@ -803,7 +803,7 @@ Namespace Raven.Web
                     Dim strUserID As String = MyBase.LoggedOnUserID.Trim
                     Dim _BA_lblOfficialReportID As Label = CType(e.Item.FindControl("BA_lblOfficialReportID"), Label)
 
-                    br.ReportCode = "1000000098"
+                    br.ReportID = "1000000098"
                     br.AddParameters(_BA_lblOfficialReportID.Text.Trim)
                     br.AddParameters(strUserID)
                     Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
@@ -954,7 +954,7 @@ Namespace Raven.Web
                         SetDataGrid(Common.Constants.ReportTypePanelID.CertificateOfInspection_PanelID)
                     End If
                     If pnlMPIReport.Visible Then
-                        PrepareScreen(Common.Constants.ReportTypePanelID.MPIReport_PanelID, False, True)                        
+                        PrepareScreen(Common.Constants.ReportTypePanelID.MPIReport_PanelID, False, True)
                     End If
                     If pnlUTSpotCheck.Visible Then
                         PrepareScreen(Common.Constants.ReportTypePanelID.UTSpotCheck_PanelID, False, True)
@@ -989,21 +989,21 @@ Namespace Raven.Web
                     Dim strUserID As String = MyBase.LoggedOnUserID.Trim
 
                     If pnlSummaryOfInspection.Visible Then
-                        br.ReportCode = "1000000071"
+                        br.ReportID = "1000000071"
                         br.AddParameters(txtProjectID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlCheckListCompletionReport.Visible Then
-                        br.ReportCode = "1000000001"
+                        br.ReportID = "1000000001"
                         br.AddParameters(txtProjectID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlTimeSheet.Visible Then
-                        br.ReportCode = "1000000002"
+                        br.ReportID = "1000000002"
                         br.AddParameters(txtProjectID.Text.Trim)
                         br.AddParameters(TS_ddlMonth.SelectedValue.Trim)
                         br.AddParameters(TS_ddlYear.SelectedValue.Trim)
@@ -1012,14 +1012,14 @@ Namespace Raven.Web
                     End If
 
                     If pnlDailyProgressReport.Visible Then
-                        br.ReportCode = "1000000003"
+                        br.ReportID = "1000000003"
                         br.AddParameters(DPR_txtDailyReportHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlDailyProgressReportMPI.Visible Then
-                        br.ReportCode = "1000000004"
+                        br.ReportID = "1000000004"
                         br.AddParameters(DIR_txtDailyReportHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
@@ -1027,9 +1027,9 @@ Namespace Raven.Web
 
                     If pnlDrillPipeInspectionReport.Visible Then
                         If DP_ddlCaptionTemplate.SelectedItem.Text Like "*DS*" Then
-                            br.ReportCode = "1000000005" '// DS-1
+                            br.ReportID = "1000000005" '// DS-1
                         Else
-                            br.ReportCode = "1000000006" '// API RP 7G
+                            br.ReportID = "1000000006" '// API RP 7G
                         End If
                         br.AddParameters(DP_txtDrillPipeReportHdID.Text.Trim)
                         br.AddParameters(strUserID)
@@ -1039,13 +1039,13 @@ Namespace Raven.Web
                     If pnlInspectionReport.Visible Then
                         Select Case lblReportTypeCode.Text.Trim
                             Case Common.Constants.ReportTypeCode.SlickDrillCollarInspectionReport
-                                br.ReportCode = "1000000030"
+                                br.ReportID = "1000000030"
                             Case Common.Constants.ReportTypeCode.SpiralDrillCollarInspectionReport
-                                br.ReportCode = "1000000031"
+                                br.ReportID = "1000000031"
                             Case Common.Constants.ReportTypeCode.HeavyWeightDrillPipeInspectionReport
-                                br.ReportCode = "1000000032"
+                                br.ReportID = "1000000032"
                             Case Common.Constants.ReportTypeCode.RotaryShoulderConnectionReport
-                                br.ReportCode = "1000000033"
+                                br.ReportID = "1000000033"
                         End Select
                         br.AddParameters(INS_txtInspectionReportHdID.Text.Trim)
                         br.AddParameters(INS_ddlInspectionReportType.SelectedValue.Trim)
@@ -1054,63 +1054,63 @@ Namespace Raven.Web
                     End If
 
                     If pnlServiceReport.Visible Then
-                        br.ReportCode = "1000000025"
+                        br.ReportID = "1000000025"
                         br.AddParameters(SR_txtServiceReportID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlCertificateInspection.Visible Then
-                        br.ReportCode = "1000000100"
+                        br.ReportID = "1000000100"
                         br.AddParameters(COI_txtCertificateInspectionID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlMPIReport.Visible Then
-                        br.ReportCode = "1000000008"
+                        br.ReportID = "1000000008"
                         br.AddParameters(MPI_txtMPIHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlUTSpotCheck.Visible Then
-                        br.ReportCode = "1000000009"
+                        br.ReportID = "1000000009"
                         br.AddParameters(UTSC_txtUTSpotCheckHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlUTSpotArea.Visible Then
-                        br.ReportCode = "1000000015"
+                        br.ReportID = "1000000015"
                         br.AddParameters(UTSA_txtUTSpotCheckHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlHardnessTestReport.Visible Then
-                        br.ReportCode = "1000000011"
+                        br.ReportID = "1000000011"
                         br.AddParameters(HT_txtHardnessTestHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlThoroughVisualInspectionReport.Visible Then
-                        br.ReportCode = "1000000013"
+                        br.ReportID = "1000000013"
                         br.AddParameters(TVI_txtTVIHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlInspectionTallyReport.Visible Then
-                        br.ReportCode = "1000000017"
+                        br.ReportID = "1000000017"
                         br.AddParameters(IT_txtInspectionTallyHdID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))
                     End If
 
                     If pnlBeritaAcara.Visible Then
-                        br.ReportCode = "1000000098"
+                        br.ReportID = "1000000098"
                         br.AddParameters(BA_txtOfficialReportID.Text.Trim)
                         br.AddParameters(strUserID)
                         Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))

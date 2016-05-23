@@ -45,7 +45,7 @@
                                                 <Tabs>
                                                     <telerik:RadTab Text="Project File">
                                                     </telerik:RadTab>
-                                                    <telerik:RadTab Text="Daily Progress Report">
+                                                    <telerik:RadTab Text="Daily Progress Report" Visible="false">
                                                     </telerik:RadTab>
                                                     <telerik:RadTab Text="Inspector File">
                                                     </telerik:RadTab>
@@ -105,7 +105,7 @@
                                                         </Columns>
                                                     </asp:DataGrid>
                                                 </telerik:RadPageView>
-                                                <telerik:RadPageView ID="pvDailyReport" runat="server">
+                                                <telerik:RadPageView ID="pvDailyReport" runat="server" Visible="false">
                                                     <table width="100%">
                                                         <tr>
                                                             <td valign="top" width="100">

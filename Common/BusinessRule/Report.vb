@@ -87,7 +87,7 @@ Namespace Raven.Common.BussinessRules
             Dim cmdToExecute As SqlCommand = New SqlCommand
             cmdToExecute.CommandText = "SELECT ugr.UserGroupID, " & _
                                         "r.* " & _
-                                        "FROM UserGroupReport ugr " & _
+                                        "FROM ProfileReport ugr " & _
                                         "INNER JOIN Report r on r.ReportID = ugr.ReportID " & _
                                         "WHERE ugr.UserGroupID = @UserGroupID AND r.isActive = 1 " & _
                                         "AND CONVERT(varchar(8),r.PublishDate,112) <= CONVERT(varchar(8),GETDATE(),112) " & _
@@ -201,7 +201,115 @@ Namespace Raven.Common.BussinessRules
 
             Return toReturn
         End Function
+#End Region
 
+#Region " Report Explorer Functions "
+        Public Function SelectAllActiveReports() As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "SELECT * " & _
+                                        "FROM Report r " & _
+                                        "WHERE r.isActive=1 AND r.isReport=1 " & _
+                                        "AND r.AppID = @AppID"
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("SelectAllActiveReports")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@AppID", _AppID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+
+        Public Function SelectRootActiveReports() As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "SELECT r.*, " & _
+                                        "(SELECT COUNT(*) FROM Report WHERE ParentReportID = r.ReportID) AS ChildCount " & _
+                                        "FROM Report r " & _
+                                        "WHERE r.isActive=1 AND r.isReport=1 " & _
+                                        "AND r.AppID = @AppID " & _
+                                        "AND r.ParentReportID IS NULL"
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("SelectRootActiveReports")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@AppID", _AppID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
+
+        Public Function SelectChildActiveReports() As DataTable
+            Dim cmdToExecute As SqlCommand = New SqlCommand
+            cmdToExecute.CommandText = "SELECT r.*, " & _
+                                        "(SELECT COUNT(*) FROM Report WHERE ParentReportID = r.ReportID) AS ChildCount " & _
+                                        "FROM Report r " & _
+                                        "WHERE r.isActive=1 AND r.isReport=1 " & _
+                                        "AND r.AppID = @AppID " & _
+                                        "AND r.ParentReportID = @ParentReportID"
+            cmdToExecute.CommandType = CommandType.Text
+            Dim toReturn As DataTable = New DataTable("SelectChildActiveReports")
+            Dim adapter As SqlDataAdapter = New SqlDataAdapter(cmdToExecute)
+
+            ' // Use base class' connection object
+            cmdToExecute.Connection = _mainConnection
+
+            Try
+                cmdToExecute.Parameters.AddWithValue("@ParentReportID", _ParentReportID)
+                cmdToExecute.Parameters.AddWithValue("@AppID", _AppID)
+
+                ' // Open connection.
+                _mainConnection.Open()
+
+                ' // Execute query.
+                adapter.Fill(toReturn)
+            Catch ex As Exception
+                ' // some error occured. Bubble it to caller and encapsulate Exception object
+                ExceptionManager.Publish(ex)
+            Finally
+                ' // Close connection.
+                _mainConnection.Close()
+                cmdToExecute.Dispose()
+                adapter.Dispose()
+            End Try
+
+            Return toReturn
+        End Function
 #End Region
 
 #Region " Class Property Declarations "

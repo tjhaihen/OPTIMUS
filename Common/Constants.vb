@@ -1,5 +1,9 @@
 ﻿Namespace Raven.Common
     Public NotInheritable Class Constants
+        Public NotInheritable Class AppID
+            Public Const TechnicalInspection_AppID As String = "TIMS"
+        End Class
+
         Public NotInheritable Class GroupCode
             Public Const ResourceType_SCode As String = "RSRCPOS"
             Public Const Sex_SCode As String = "SEX"
@@ -33,7 +37,7 @@
         End Class
 
         Public NotInheritable Class ArrSeparator
-            Public Const DefaultArrSeparator As String = "|"            
+            Public Const DefaultArrSeparator As String = "|"
         End Class
 
         Public NotInheritable Class FormatString
@@ -50,7 +54,7 @@
             Public Const Customer_MenuID As String = "1007"
             Public Const Contract_MenuID As String = "3001"
             Public Const WorkRequest_MenuID As String = "3003"
-            Public Const WorkRequestApproval_MenuID As String = "3009"            
+            Public Const WorkRequestApproval_MenuID As String = "3009"
             Public Const CustomerInspectionInformation_MenuID As String = "8001"
             Public Const ProjectMonitoring_MenuID As String = "8005"
             Public Const Site_MenuID As String = "9003"
@@ -59,6 +63,7 @@
             Public Const CommonCode_MenuID As String = "9008"
             Public Const SystemParameter_MenuID As String = "9009"
             Public Const ChangePassword_MenuID As String = "9010"
+            Public Const Reports_MenuID As String = "7000"
         End Class
 
         Public NotInheritable Class ReportID
@@ -108,7 +113,7 @@
         End Class
 
         Public NotInheritable Class IDPrefix
-            Public Const WorkRequestPrefix As String = "WR"            
+            Public Const WorkRequestPrefix As String = "WR"
         End Class
 
         Public NotInheritable Class UOM
@@ -119,17 +124,19 @@
             Public Const Status_Accept As String = "ACCEPT"
             Public Const Status_Repair As String = "REPAIR"
             Public Const Status_Reject As String = "REJECT"
+            Public Const Status_Class2 As String = "CLASS2"
+            Public Const Status_TotalReject As String = "TOTALREJECT"
         End Class
 
         Public NotInheritable Class ReportTypeCode
             Public Const ServiceAcceptanceCertificate As String = "SAC"
             Public Const SummaryOfInspection As String = "SOI"
             Public Const TimeSheet As String = "TS"
-            Public Const DailyProgressReport As String = "DPR"            
+            Public Const DailyProgressReport As String = "DPR"
             Public Const DrillPipeInspectionReport As String = "DPI"
             Public Const ThroughVisualInspectionReport As String = "TVI"
             Public Const ServiceReportMPIDPI As String = "SRMPIDPI"
-            Public Const ServiceReportMPILoadPullTest As String = "SRMPILPT"            
+            Public Const ServiceReportMPILoadPullTest As String = "SRMPILPT"
             Public Const ServiceReportTubular1 As String = "SRT"
             Public Const ServiceReportTubular2 As String = "SRT2"
             Public Const ServiceReportHardbanding As String = "SRHB"
@@ -182,7 +189,7 @@
 
         Public NotInheritable Class ReportTypeCodeThoroughVisualType
             Public Const Sling As String = "TVISL"
-            Public Const Shackle As String = "TVISH"            
+            Public Const Shackle As String = "TVISH"
         End Class
 
         Public NotInheritable Class OfficialReportType
@@ -202,7 +209,7 @@
             Public Const GetImage_COI3 As String = "COI-3"
             Public Const GetImage_PersonSignature As String = "PersonSignature"
             Public Const GetImage_ResourceSignature As String = "ResourceSignature"
-            Public Const GetImage_CommonCodeFilePic As String = "CommonCodeFilePic"            
+            Public Const GetImage_CommonCodeFilePic As String = "CommonCodeFilePic"
         End Class
 
         Public NotInheritable Class ResourceType

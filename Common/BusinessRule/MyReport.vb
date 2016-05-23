@@ -94,11 +94,7 @@ Namespace Raven.Common.BussinessRules
                 Exit Function
             End If
             
-            If (_reportFormat <> "DX") Then
-                Return "<script language=javascript>window.open('http://" + ContextRequestUrlHost + SysConfig.ReportsFolder.Trim + _reportAsp.Trim + ".asp?RptName=" + _reportFileName.Trim + "&SP=" + _reportSPName.Trim + "&parm=" + _Parameters.Trim + "&moduleName=" + ModuleName.Trim + "','','status=no,resizable=yes,toolbar=no,menubar=no,location=no;')</script>"
-            Else                
-                Return String.Format("<script language=javascript>window.open('http://{0}/{1}/Libs/XReportViewer.aspx?id={2}&RptName={3}&parm={4}&showCriteria={5}','','status=no,resizable=yes,toolbar=no,menubar=no,location=no;')</script>", ContextRequestUrlHost, SysConfig.ModuleAppl, _reportID.Trim, _reportFileName.Trim, _Parameters.Trim, SysConfig.IsDisplayReportCriteria)
-            End If
+            Return "<script language=javascript>window.open('http://" + ContextRequestUrlHost + SysConfig.ReportsFolder.Trim + _reportAsp.Trim + ".asp?RptName=" + _reportFileName.Trim + "&SP=" + _reportSPName.Trim + "&parm=" + _Parameters.Trim + "&moduleName=" + ModuleName.Trim + "','','status=no,resizable=yes,toolbar=no,menubar=no,location=no;')</script>"
         End Function
 
         Public Function generateReportDataTable() As DataTable
@@ -165,7 +161,7 @@ Namespace Raven.Common.BussinessRules
 #End Region
 
 #Region " Class Property Declaration"
-        Public Property [ReportCode]() As String
+        Public Property [ReportID]() As String
             Get
                 Return _reportID
             End Get

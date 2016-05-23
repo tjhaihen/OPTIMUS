@@ -165,7 +165,7 @@ Namespace Raven.Web.Secure
                 Case CSSToolbarItem.tidPrint
                     Dim br As New Common.BussinessRules.MyReport
                     Dim strUserID As String = MyBase.LoggedOnUserID.Trim
-                    br.ReportCode = "1000000070"
+                    br.ReportID = "1000000070"
                     br.AddParameters(txtProjectID.Text.Trim)
                     br.AddParameters(strUserID)
                     Response.Write(br.UrlPrintPreview(Context.Request.Url.Host))

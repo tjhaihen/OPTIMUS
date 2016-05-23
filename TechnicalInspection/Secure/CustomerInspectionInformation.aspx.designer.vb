@@ -33,6 +33,78 @@ Namespace Raven.Web.Secure
         Protected WithEvents RadMenu As Global.Raven.RadMenu
 
         '''<summary>
+        '''lblMenuCaption control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblMenuCaption As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''ibtnDashboard control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ibtnDashboard As Global.System.Web.UI.WebControls.ImageButton
+
+        '''<summary>
+        '''ibtnList control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ibtnList As Global.System.Web.UI.WebControls.ImageButton
+
+        '''<summary>
+        '''pnlDashboardView control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlDashboardView As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''chtDisplay1 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents chtDisplay1 As Global.System.Web.UI.DataVisualization.Charting.Chart
+
+        '''<summary>
+        '''chtDisplay2 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents chtDisplay2 As Global.System.Web.UI.DataVisualization.Charting.Chart
+
+        '''<summary>
+        '''grdNeedRepairItem control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdNeedRepairItem As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''pnlListView control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlListView As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
         '''CSSToolbar control.
         '''</summary>
         '''<remarks>
@@ -411,13 +483,13 @@ Namespace Raven.Web.Secure
         Protected WithEvents lblTotalItemNeedRepairPct As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''lbtnRejected control.
+        '''lbtnTotalRejected control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents lbtnRejected As Global.System.Web.UI.WebControls.LinkButton
+        Protected WithEvents lbtnTotalRejected As Global.System.Web.UI.WebControls.LinkButton
 
         '''<summary>
         '''lblTotalItemRejected control.
@@ -438,13 +510,13 @@ Namespace Raven.Web.Secure
         Protected WithEvents lblTotalItemRejectedPct As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''LinkButton1 control.
+        '''lbtnRejected control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents LinkButton1 As Global.System.Web.UI.WebControls.LinkButton
+        Protected WithEvents lbtnRejected As Global.System.Web.UI.WebControls.LinkButton
 
         '''<summary>
         '''lblItemRejected control.
@@ -465,13 +537,13 @@ Namespace Raven.Web.Secure
         Protected WithEvents lblItemRejectedPct As Global.System.Web.UI.WebControls.Label
 
         '''<summary>
-        '''LinkButton2 control.
+        '''lbtnClass2 control.
         '''</summary>
         '''<remarks>
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents LinkButton2 As Global.System.Web.UI.WebControls.LinkButton
+        Protected WithEvents lbtnClass2 As Global.System.Web.UI.WebControls.LinkButton
 
         '''<summary>
         '''lblItemClass2 control.

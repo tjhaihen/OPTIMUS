@@ -14,6 +14,7 @@ Imports Microsoft.VisualBasic
 Imports System.Data.SqlTypes
 
 Imports Raven.Common
+Imports System.Web.UI.DataVisualization.Charting
 
 Namespace Raven.Web.Secure
 
@@ -40,8 +41,23 @@ Namespace Raven.Web.Secure
                 prepareDDL()
                 prepareScreen(True)
                 SetDataGridCustomerInspectionInformation()
+                SetChartInformation()
                 DataBind()
             End If
+        End Sub
+
+        Private Sub ibtnDashboard_Click(sender As Object, e As System.Web.UI.ImageClickEventArgs) Handles ibtnDashboard.Click
+            lblMenuCaption.Text = ibtnDashboard.ToolTip.Trim
+            pnlDashboardView.Visible = True
+            pnlListView.Visible = False
+
+            SetChartInformation()
+        End Sub
+
+        Private Sub ibtnList_Click(sender As Object, e As System.Web.UI.ImageClickEventArgs) Handles ibtnList.Click
+            lblMenuCaption.Text = ibtnList.ToolTip.Trim
+            pnlDashboardView.Visible = False
+            pnlListView.Visible = True
         End Sub
 
         Private Sub txtCustomerCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtCustomerCode.TextChanged
@@ -183,6 +199,21 @@ Namespace Raven.Web.Secure
             End If
         End Sub
 
+        Private Sub lbtnClass2_Click(sender As Object, e As System.EventArgs) Handles lbtnClass2.Click
+            If txtProjectID.Text.Trim.Length = 0 Then
+                GetSummaryOfInspectionByStatus(Common.Constants.SOIStatus.Status_Class2)
+            Else
+                GetSummaryOfInspectionByProjectIDStatus(txtProjectID.Text.Trim, Common.Constants.SOIStatus.Status_Class2)
+            End If
+        End Sub
+
+        Private Sub lbtnTotalRejected_Click(sender As Object, e As System.EventArgs) Handles lbtnTotalRejected.Click
+            If txtProjectID.Text.Trim.Length = 0 Then
+                GetSummaryOfInspectionByStatus(Common.Constants.SOIStatus.Status_TotalReject)
+            Else
+                GetSummaryOfInspectionByProjectIDStatus(txtProjectID.Text.Trim, Common.Constants.SOIStatus.Status_TotalReject)
+            End If
+        End Sub
 #End Region
 
 
@@ -217,7 +248,7 @@ Namespace Raven.Web.Secure
                 Case CSSToolbarItem.tidDownload
                     Dim oRPT As New Common.BussinessRules.MyReport
                     oRPT.AddParameters(txtProjectID.Text.Trim)
-                    oRPT.ReportCode = Common.Constants.ReportID.DownloadSummaryOfInspection_ReportID
+                    oRPT.ReportID = Common.Constants.ReportID.DownloadSummaryOfInspection_ReportID
                     oRPT.GetReportDataByReportCode()
                     If oRPT.ReportFormat = "XLS" Then
                         oRPT.ExportToExcel(oRPT.generateReportDataTable, Response)
@@ -238,6 +269,8 @@ Namespace Raven.Web.Secure
         End Sub
 
         Private Sub prepareScreen(ByVal isNew As Boolean)
+            pnlDashboardView.Visible = True
+            pnlListView.Visible = False
             txtCustomerID.Text = String.Empty
             txtCustomerCode.Text = String.Empty
             txtCustomerName.Text = String.Empty
@@ -248,7 +281,7 @@ Namespace Raven.Web.Secure
 
             Dim oUC As New Common.BussinessRules.UserCustomer
             With oUC
-                If .SelectCustomerByUserID(MyBase.LoggedOnUserID.Trim).Rows.Count = 1 Then                    
+                If .SelectCustomerByUserID(MyBase.LoggedOnUserID.Trim).Rows.Count = 1 Then
                     txtCustomerID.Text = .CustomerID.Trim
                     Dim oC As New Common.BussinessRules.Customer
                     oC.CustomerID = txtCustomerID.Text.Trim
@@ -280,7 +313,7 @@ Namespace Raven.Web.Secure
             ddlPeriod.Enabled = True
             txtWorkOrderNo.Text = String.Empty
             txtProjectCode.Text = String.Empty
-            txtProjectID.Text = String.Empty            
+            txtProjectID.Text = String.Empty
         End Sub
 
         Private Sub SetDataGridCustomerInspectionInformation()
@@ -327,6 +360,41 @@ Namespace Raven.Web.Secure
             grdInspectionBySerialIDNo.DataBind()
         End Sub
 
+        Private Sub SetChartInformation()
+            Dim dtCurrentYear As New DataTable
+            Dim dtResultSummary As New DataTable
+            Dim dtSummaryOfInspectionByResult_NeedRepair As New DataTable
+            Dim oBR As New Common.BussinessRules.Dashboard
+            With oBR
+                .userID = MyBase.LoggedOnUserID.Trim
+                .year = Date.Today.Year
+                dtCurrentYear = .GetWorkOrderSummary
+                dtResultSummary = .GetResultSummary
+                dtSummaryOfInspectionByResult_NeedRepair = .GetSummaryOfInspectionByResult(Common.Constants.SOIStatus.Status_Repair)
+            End With
+            oBR.Dispose()
+            oBR = Nothing
+
+            chtDisplay1.DataBindCrossTable(dtCurrentYear.Rows(), "YearGroup", "customerName", "WRCount", "Label=WRCount")
+
+            '// chtDisplay2
+            Dim x As String() = New String(dtResultSummary.Rows.Count - 1) {}
+            Dim y As Integer() = New Integer(dtResultSummary.Rows.Count - 1) {}
+            For i As Integer = 0 To dtResultSummary.Rows.Count - 1
+                x(i) = dtResultSummary.Rows(i)(0).ToString()
+                y(i) = Convert.ToInt32(dtResultSummary.Rows(i)(1))
+            Next
+            chtDisplay2.Series("Series1").Points.DataBindXY(x, y)
+            chtDisplay2.Series(0).ChartType = SeriesChartType.Pie
+            For Each p As DataPoint In chtDisplay2.Series(0).Points
+                p.Label = "#VAL (#PERCENT) - #VALX"
+            Next
+
+            '// grdNeedRepairItem
+            grdNeedRepairItem.DataSource = dtSummaryOfInspectionByResult_NeedRepair
+            grdNeedRepairItem.DataBind()
+        End Sub
+
         Private Sub GetDashboardInformation()
             Dim oProject As New Common.BussinessRules.ProjectHd
             Dim dtTotalInspectionByCustomer As New DataTable
@@ -369,7 +437,7 @@ Namespace Raven.Web.Secure
                     End If
                 Else
                     lblTotalWorkOrder.Text = "0"
-                    lblTotalItemIspected.Text = "0"                    
+                    lblTotalItemIspected.Text = "0"
                     lblTotalItemAccepted.Text = "0"
                     lblTotalItemAcceptedPct.Text = "0"
                     lblTotalItemNeedRepair.Text = "0"
@@ -381,7 +449,7 @@ Namespace Raven.Web.Secure
                     lblTotalItemRejected.Text = "0"
                     lblTotalItemRejectedPct.Text = "0"
                 End If
-            End With            
+            End With
 
             oProject.Dispose()
             oProject = Nothing
@@ -392,7 +460,7 @@ Namespace Raven.Web.Secure
             Dim dtTotalInspectionByProjectID As New DataTable
             With oProject
                 dtTotalInspectionByProjectID = .GetTotalInspectionByProjectID(txtProjectID.Text.Trim)
-                
+
                 If dtTotalInspectionByProjectID.Rows.Count > 0 Then
                     lblTotalWorkOrder.Text = .totalWorkOrder.ToString.Trim
                     lblTotalItemIspected.Text = .totalItemInspected.ToString.Trim
@@ -487,7 +555,7 @@ Namespace Raven.Web.Secure
             oCustomer.Dispose()
             oCustomer = Nothing
 
-            ddlInformationTypeSOI.Enabled = True            
+            ddlInformationTypeSOI.Enabled = True
             ddlPeriod.Enabled = True
             chkPeriod.Checked = True
             txtWorkOrderNo.Text = String.Empty
@@ -539,7 +607,7 @@ Namespace Raven.Web.Secure
 
 
 #Region " C,R,U,D "
-        
+
 #End Region
 
     End Class

@@ -138,6 +138,7 @@
     <Compile Include="BusinessRule\Customer.vb" />
     <Compile Include="BusinessRule\DailyReportDt.vb" />
     <Compile Include="BusinessRule\DailyReportHd.vb" />
+    <Compile Include="BusinessRule\Dashboard.vb" />
     <Compile Include="BusinessRule\DrillPipeReportDt.vb" />
     <Compile Include="BusinessRule\DrillPipeReportHd.vb" />
     <Compile Include="BusinessRule\HardnessTestDt.vb" />

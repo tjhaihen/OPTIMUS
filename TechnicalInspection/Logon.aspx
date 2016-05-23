@@ -169,8 +169,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" class="txtweak center">
-                            Pureravens Indonesia. Cluster Imperium Design No. 33. Lippo Karawaci. Tangerang
-                            15810. Indonesia. Mobile: +62 878 8214 7959 | Email: support@pureravens.com
+                            www.eka-sejati.com
                         </td>
                     </tr>
                 </table>
