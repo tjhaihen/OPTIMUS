@@ -50,6 +50,7 @@ Namespace Raven.Web.Secure
             lblMenuCaption.Text = ibtnDashboard.ToolTip.Trim
             pnlDashboardView.Visible = True
             pnlListView.Visible = False
+            pnlSerialNoView.Visible = False
 
             SetChartInformation()
         End Sub
@@ -58,6 +59,15 @@ Namespace Raven.Web.Secure
             lblMenuCaption.Text = ibtnList.ToolTip.Trim
             pnlDashboardView.Visible = False
             pnlListView.Visible = True
+            pnlSerialNoView.Visible = False
+        End Sub
+
+        Private Sub btnSerialNoMain_Click(sender As Object, e As System.EventArgs) Handles btnSerialNoMain.Click
+            txtSerialNoView.Text = txtSerialNoMain.Text.Trim
+            pnlDashboardView.Visible = False
+            pnlListView.Visible = False
+            pnlSerialNoView.Visible = True
+            SetDataGridSerialNoViewInspectionHistory()
         End Sub
 
         Private Sub txtCustomerCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtCustomerCode.TextChanged
@@ -231,9 +241,22 @@ Namespace Raven.Web.Secure
                 .VisibleButton(CSSToolbarItem.tidNext) = False
                 .VisibleButton(CSSToolbarItem.tidDownload) = False
             End With
+
+            With CSSToolbarSerialNo
+                .VisibleButton(CSSToolbarItem.tidNew) = False
+                .VisibleButton(CSSToolbarItem.tidRefresh) = True
+                .VisibleButton(CSSToolbarItem.tidSave) = False
+                .VisibleButton(CSSToolbarItem.tidDelete) = False
+                .VisibleButton(CSSToolbarItem.tidApprove) = False
+                .VisibleButton(CSSToolbarItem.tidVoid) = False
+                .VisibleButton(CSSToolbarItem.tidPrint) = False
+                .VisibleButton(CSSToolbarItem.tidPrevious) = False
+                .VisibleButton(CSSToolbarItem.tidNext) = False
+                .VisibleButton(CSSToolbarItem.tidDownload) = False
+            End With
         End Sub
 
-        Private Sub mdlToolbar_commandBarClick(ByVal sender As Object, ByVal e As CSSToolbarItem) Handles CSSToolbar.CSSToolbarItemClick
+        Private Sub CSSToolbar_ItemClick(ByVal sender As Object, ByVal e As CSSToolbarItem) Handles CSSToolbar.CSSToolbarItemClick
             Select Case e
                 Case CSSToolbarItem.tidRefresh
                     SetDataGridCustomerInspectionInformation()
@@ -257,6 +280,13 @@ Namespace Raven.Web.Secure
                     oRPT = Nothing
             End Select
         End Sub
+
+        Private Sub CSSToolbarSerialNo_ItemClick(ByVal sender As Object, ByVal e As CSSToolbarItem) Handles CSSToolbarSerialNo.CSSToolbarItemClick
+            Select Case e
+                Case CSSToolbarItem.tidRefresh
+                    SetDataGridSerialNoViewInspectionHistory()
+            End Select
+        End Sub
 #End Region
 
 
@@ -271,6 +301,7 @@ Namespace Raven.Web.Secure
         Private Sub prepareScreen(ByVal isNew As Boolean)
             pnlDashboardView.Visible = True
             pnlListView.Visible = False
+            pnlSerialNoView.Visible = False
             txtCustomerID.Text = String.Empty
             txtCustomerCode.Text = String.Empty
             txtCustomerName.Text = String.Empty
@@ -314,6 +345,9 @@ Namespace Raven.Web.Secure
             txtWorkOrderNo.Text = String.Empty
             txtProjectCode.Text = String.Empty
             txtProjectID.Text = String.Empty
+
+            txtSerialNoMain.Text = String.Empty
+            txtSerialNoView.Text = String.Empty
         End Sub
 
         Private Sub SetDataGridCustomerInspectionInformation()
@@ -358,6 +392,19 @@ Namespace Raven.Web.Secure
 
             grdInspectionBySerialIDNo.DataSource = dtInspectionSerialIDNo
             grdInspectionBySerialIDNo.DataBind()
+        End Sub
+
+        Private Sub SetDataGridSerialNoViewInspectionHistory()
+            Dim oProject As New Common.BussinessRules.ProjectHd
+            Dim dtInspectionSerialIDNo As New DataTable
+            With oProject
+                dtInspectionSerialIDNo = .GetListOfInspectionByCustomerIDSerialIDNo(String.Empty, txtSerialNoView.Text.Trim, String.Empty)
+            End With
+            oProject.Dispose()
+            oProject = Nothing
+
+            grdSerialNoViewInspectionHistory.DataSource = dtInspectionSerialIDNo
+            grdSerialNoViewInspectionHistory.DataBind()
         End Sub
 
         Private Sub SetChartInformation()

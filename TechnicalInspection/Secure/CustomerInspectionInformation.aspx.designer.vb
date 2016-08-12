@@ -78,6 +78,24 @@ Namespace Raven.Web.Secure
         Protected WithEvents chtDisplay1 As Global.System.Web.UI.DataVisualization.Charting.Chart
 
         '''<summary>
+        '''txtSerialNoMain control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtSerialNoMain As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''btnSerialNoMain control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnSerialNoMain As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
         '''chtDisplay2 control.
         '''</summary>
         '''<remarks>
@@ -616,6 +634,87 @@ Namespace Raven.Web.Secure
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents grdInspectionBySerialIDNo As Global.System.Web.UI.WebControls.DataGrid
+
+        '''<summary>
+        '''pnlSerialNoView control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlSerialNoView As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''CSSToolbarSerialNo control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents CSSToolbarSerialNo As Global.Raven.CSSToolbar
+
+        '''<summary>
+        '''ValidationSummary1 control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ValidationSummary1 As Global.System.Web.UI.WebControls.ValidationSummary
+
+        '''<summary>
+        '''ddlSerialNoViewInfoType control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents ddlSerialNoViewInfoType As Global.System.Web.UI.WebControls.DropDownList
+
+        '''<summary>
+        '''pnlSerialNoViewDueExp control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents pnlSerialNoViewDueExp As Global.System.Web.UI.WebControls.Panel
+
+        '''<summary>
+        '''txtSerialNoViewDueInDay control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtSerialNoViewDueInDay As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''txtSerialNoView control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents txtSerialNoView As Global.System.Web.UI.WebControls.TextBox
+
+        '''<summary>
+        '''rfvSerialNoView control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents rfvSerialNoView As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+        '''<summary>
+        '''grdSerialNoViewInspectionHistory control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents grdSerialNoViewInspectionHistory As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
         '''mdlCopyRight control.
