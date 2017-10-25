@@ -125,6 +125,12 @@
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BusinessRule\Accounting\accBook.vb" />
+    <Compile Include="BusinessRule\Accounting\accJournalDt.vb" />
+    <Compile Include="BusinessRule\Accounting\accJournalHd.vb" />
+    <Compile Include="BusinessRule\Accounting\Account.vb" />
+    <Compile Include="BusinessRule\Accounting\AccountCategory.vb" />
+    <Compile Include="BusinessRule\Application.vb" />
     <Compile Include="BusinessRule\Caption.vb" />
     <Compile Include="BusinessRule\CaptionTemplateDt.vb" />
     <Compile Include="BusinessRule\CaptionTemplateHd.vb" />

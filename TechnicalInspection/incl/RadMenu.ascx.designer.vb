@@ -24,6 +24,24 @@ Namespace Raven
         Protected WithEvents ScriptManager As Global.Telerik.Web.UI.RadScriptManager
 
         '''<summary>
+        '''lblApplicationID control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblApplicationID As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''lblApplicationName control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents lblApplicationName As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
         '''lblUserFullName control.
         '''</summary>
         '''<remarks>
@@ -58,6 +76,15 @@ Namespace Raven
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents lblCompanyName As Global.System.Web.UI.WebControls.Label
+
+        '''<summary>
+        '''repApplication control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents repApplication As Global.System.Web.UI.WebControls.Repeater
 
         '''<summary>
         '''Menu control.

@@ -48,15 +48,41 @@ Namespace Raven
             initUserInfo()
         End Sub
 
+        Protected Sub repApplication_ItemCommand(source As Object, e As System.Web.UI.WebControls.RepeaterCommandEventArgs) Handles repApplication.ItemCommand
+            Select Case e.CommandName
+                Case "SelectApplication"
+                    Dim _lblAppID As Label = CType(e.Item.FindControl("_lblAppID"), Label)
+                    Dim _lbtnApplication As LinkButton = CType(e.Item.FindControl("_lbtnApplication"), LinkButton)
+                    lblApplicationID.Text = _lblAppID.Text.Trim
+                    lblApplicationName.Text = _lbtnApplication.Text.Trim
+                    CreateMenu(_lblAppID.Text.Trim)
+            End Select
+        End Sub
+
         Private Sub btnLogout_Click(sender As Object, e As System.Web.UI.ImageClickEventArgs) Handles btnLogout.Click
             Response.Redirect(PageBase.UrlBase + "/Logout.aspx")
         End Sub
 #End Region
 
 #Region "  Private Functions  "
-        Private Sub CreateMenu()
+        Private Sub CreateMenu(ByVal strAppID As String)
             Menu.ProfileID = MyBase.LoggedOnProfileID
-            Menu.AppID = App.App_TechnicalInspection.Trim
+            Menu.AppID = strAppID
+            Menu.DataBind()
+        End Sub
+
+        Private Sub CreateApplicationSelector()
+            Dim br As New Common.BussinessRules.Application
+            Dim dt As New DataTable
+            dt = br.SelectApplicationAuthorizationByProfileID(MyBase.LoggedOnProfileID)
+            repApplication.DataSource = dt
+            repApplication.DataBind()
+            br.Dispose()
+            br = Nothing
+
+            Dim rows() As DataRow = dt.Select("appID <> ''")
+            lblApplicationID.Text = rows(0).Item("appID").ToString.Trim
+            lblApplicationName.Text = rows(0).Item("appName").ToString.Trim
         End Sub
 
         Private Sub initCompanyInfo()
@@ -64,10 +90,8 @@ Namespace Raven
             With br
                 If .SelectOne.Rows.Count > 0 Then
                     lblCompanyName.Text = .companyName.Trim
-                    'lblSiteName.Text = MyBase.LoggedOnSiteName
                 Else
                     lblCompanyName.Text = "[Company]"
-                    'lblSiteName.Text = "[Site]"
                 End If
             End With
             br.Dispose()
@@ -82,7 +106,8 @@ Namespace Raven
             Else
                 lblUserFullName.Text = MyBase.MB_UserFullName
                 lblProfileName.Text = MyBase.LoggedOnProfileName
-                CreateMenu()
+                CreateApplicationSelector()
+                CreateMenu(lblApplicationID.Text.Trim)
             End If
         End Sub
 #End Region

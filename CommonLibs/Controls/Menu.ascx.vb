@@ -25,17 +25,28 @@ Namespace CommonLibs
         Private _ProfileID As String = String.Empty
         Private _AppID As String = String.Empty
 
+        Private Sub Page_DataBinding(sender As Object, e As System.EventArgs) Handles Me.DataBinding
+            Dim dtMenu As DataTable
+            Dim oUGM As New ProfileMenu
+            oUGM.ProfileID = _ProfileID.Trim
+            dtMenu = oUGM.SelectMenuByAppIDandParentID(_AppID.Trim, "NULL")
+            rptMenu.DataSource = dtMenu
+            rptMenu.DataBind()
+            oUGM.Dispose()
+            oUGM = Nothing
+        End Sub
+
         Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
             If Not Me.IsPostBack Then
-                Dim dtMenu As DataTable
-                Dim oUGM As New ProfileMenu
-                oUGM.ProfileID = _ProfileID.Trim
-                dtMenu = oUGM.SelectMenuByAppIDandParentID(_AppID.Trim, "NULL")
-                rptMenu.DataSource = dtMenu
-                rptMenu.DataBind()
-                oUGM.Dispose()
-                oUGM = Nothing
-            End If
+                'Dim dtMenu As DataTable
+                'Dim oUGM As New ProfileMenu
+                'oUGM.ProfileID = _ProfileID.Trim
+                'dtMenu = oUGM.SelectMenuByAppIDandParentID(_AppID.Trim, "NULL")
+                'rptMenu.DataSource = dtMenu
+                'rptMenu.DataBind()
+                'oUGM.Dispose()
+                'oUGM = Nothing
+            End If            
         End Sub
 
         Protected Sub rptMenu_ItemDataBound(sender As Object, e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles rptMenu.ItemDataBound
